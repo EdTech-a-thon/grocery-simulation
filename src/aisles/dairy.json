@@ -1,0 +1,12 @@
+{
+  "title": "Aisle 2: Dairy",
+  "items": [
+    {
+      "id": "milk",
+      "price": 3.49
+    },
+    {
+      "id": "soymilk"
+    }
+  ]
+}

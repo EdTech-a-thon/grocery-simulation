@@ -1,0 +1,14 @@
+{
+  "title": "Aisle 1: Dry Goods",
+  "items": [
+    {
+      "id": "apple"
+    },
+    {
+      "id": "banana"
+    },
+    {
+      "id": "bread"
+    }
+  ]
+}
