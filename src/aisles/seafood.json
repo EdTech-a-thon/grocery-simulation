@@ -1,0 +1,14 @@
+{
+  "title": "Seafood",
+  "items": [
+    { "id": "catfish" },
+    { "id": "salmon" },
+    { "id": "rainbow-trout" },
+    { "id": "cod" },
+    { "id": "tuna-steaks" },
+    { "id": "canned-tuna" },
+    { "id": "tilapia" },
+    { "id": "lobster-tail" },
+    { "id": "shrimp" }
+  ]
+}

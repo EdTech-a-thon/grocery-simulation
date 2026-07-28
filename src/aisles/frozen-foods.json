@@ -1,0 +1,19 @@
+{
+  "title": "Frozen foods",
+  "items": [
+    { "id": "thin-crust-pizza" },
+    { "id": "deluxe-pizza" },
+    { "id": "frozen-lasagna" },
+    { "id": "ravioli" },
+    { "id": "frozen-dinner" },
+    { "id": "pizza-rolls" },
+    { "id": "chicken-nuggets" },
+    { "id": "waffles" },
+    { "id": "breakfast-sandwich" },
+    { "id": "frozen-fries" },
+    { "id": "frozen-dinner-rolls" },
+    { "id": "ice-cream" },
+    { "id": "popsicles" },
+    { "id": "frozen-vegetables" }
+  ]
+}

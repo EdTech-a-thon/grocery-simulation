@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <path d="M27 45h106v132H27z" fill="#dd662f"/>
+  <path d="M27 45h106v33H27z" fill="#f6cb43"/>
+  <text x="80" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#833222">TACO SHELLS</text>
+  <g fill="#f4c545" stroke="#c78424" stroke-width="3"><path d="M43 145c0-36 27-51 38-51s36 15 36 51z"/><path d="M56 151c0-27 20-39 28-39s27 12 27 39z"/></g>
+  <path d="M47 126c17-11 35-12 63 0" fill="none" stroke="#4c9d48" stroke-width="8"/>
+  <path d="M50 135c17-9 33-9 58 0" fill="none" stroke="#d3422e" stroke-width="7"/>
+</svg>

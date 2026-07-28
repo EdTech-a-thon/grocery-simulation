@@ -1,0 +1,23 @@
+{
+  "title": "Meat",
+  "items": [
+    { "id": "ground-beef" },
+    { "id": "steak" },
+    { "id": "roast" },
+    { "id": "pork-chops" },
+    { "id": "bacon" },
+    { "id": "sausage-patties" },
+    { "id": "chicken" },
+    { "id": "chicken-tenders" },
+    { "id": "chicken-wings" },
+    { "id": "sausage-links" },
+    { "id": "hot-dogs" },
+    { "id": "pepperoni" },
+    { "id": "deli-meat" },
+    { "id": "ham" },
+    { "id": "turkey" },
+    { "id": "meatballs" },
+    { "id": "lamb-chops" },
+    { "id": "bison" }
+  ]
+}

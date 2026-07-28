@@ -1,14 +1,53 @@
 {
-  "title": "Aisle 1: Dry Goods",
+  "title": "Dried Goods",
   "items": [
     {
-      "id": "apple"
+      "id": "cereal"
     },
     {
-      "id": "banana"
+      "id": "granola"
     },
     {
-      "id": "bread"
+      "id": "oatmeal"
+    },
+    {
+      "id": "breakfast-bars"
+    },
+    {
+      "id": "protein-bars"
+    },
+    {
+      "id": "pancake-mix"
+    },
+    {
+      "id": "macaroni-and-cheese"
+    },
+    {
+      "id": "pasta"
+    },
+    {
+      "id": "ramen-noodles"
+    },
+    {
+      "id": "rice"
+    },
+    {
+      "id": "boxed-mashed-potatoes"
+    },
+    {
+      "id": "bread-crumbs"
+    },
+    {
+      "id": "raisins"
+    },
+    {
+      "id": "seeds"
+    },
+    {
+      "id": "tree-nuts-peanuts"
+    },
+    {
+      "id": "beans"
     }
   ]
 }

@@ -1,12 +1,35 @@
 {
-  "title": "Aisle 2: Dairy",
+  "title": "Dairy and Eggs",
   "items": [
+    { "id": "whipped-cream" }, { "id": "refrigerated-biscuits" }, { "id": "cheese-sticks" },
+    { "id": "cottage-cheese" }, { "id": "margarine" }, { "id": "almond-milk" },
     {
       "id": "milk",
       "price": 3.49
     },
     {
       "id": "soymilk"
+    },
+    {
+      "id": "cheddar-cheese-slices"
+    },
+    {
+      "id": "mozzarella-cheese"
+    },
+    {
+      "id": "yogurt"
+    },
+    {
+      "id": "eggs"
+    },
+    {
+      "id": "sour-cream"
+    },
+    {
+      "id": "cream-cheese"
+    },
+    {
+      "id": "butter"
     }
   ]
 }

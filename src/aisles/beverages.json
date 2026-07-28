@@ -1,0 +1,20 @@
+{
+  "title": "Beverages",
+  "items": [
+    { "id": "orangejuice" },
+    { "id": "soda-can" },
+    { "id": "soda-2l-bottle" },
+    { "id": "water" },
+    { "id": "flavored-water" },
+    { "id": "sparkling-water" },
+    { "id": "apple-juice" },
+    { "id": "lemonade" },
+    { "id": "cranberry-juice" },
+    { "id": "energy-drink" },
+    { "id": "coffee" },
+    { "id": "tea" },
+    { "id": "sports-drink" },
+    { "id": "drink-mix-powder" },
+    { "id": "protein-shakes" }
+  ]
+}

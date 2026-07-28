@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <path d="M18 55h124v113H18z" fill="#e3b735" opacity=".85"/>
+  <path d="M18 55h124v26H18z" fill="#fff4c7" opacity=".86"/>
+  <text x="80" y="74" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#80541d">CLASSIC BUNS</text>
+  <g fill="#dda95b" stroke="#b97631" stroke-width="3"><path d="M37 113c0-24 36-31 45-6v12H37z"/><path d="M79 113c0-24 36-31 45-6v12H79z"/><path d="M37 150c0-24 36-31 45-6v12H37z"/><path d="M79 150c0-24 36-31 45-6v12H79z"/></g>
+  <g fill="#fff1bd"><circle cx="57" cy="103" r="2"/><circle cx="68" cy="98" r="2"/><circle cx="98" cy="102" r="2"/><circle cx="109" cy="98" r="2"/></g>
+</svg>

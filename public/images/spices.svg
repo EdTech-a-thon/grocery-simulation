@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220">
+  <rect x="55" y="47" width="70" height="139" rx="12" fill="#e8792d"/>
+  <rect x="50" y="29" width="80" height="29" rx="8" fill="#35634a"/>
+  <rect x="59" y="64" width="62" height="107" rx="8" fill="#fff7ed"/>
+  <path d="M59 64h62v38H59z" fill="#15803d"/>
+  <text x="90" y="87" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="bold" fill="white">FRESH</text>
+  <path d="M74 121c7-22 26-22 33 0-8 11-24 11-33 0z" fill="#9a3412"/>
+  <path d="M77 119c6-9 19-9 26 0" fill="none" stroke="#fed7aa" stroke-width="4" stroke-linecap="round"/>
+  <text x="90" y="151" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#9a3412">SPICES</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220">
+  <path d="M44 30h92l8 163H36z" fill="#16a34a"/>
+  <path d="M51 38h78l7 147H44z" fill="#ecfdf5"/>
+  <path d="M51 56h78v37H51z" fill="#15803d"/>
+  <text x="90" y="79" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="bold" fill="white">MIXED</text>
+  <ellipse cx="72" cy="126" rx="7" ry="12" fill="#334155"/><ellipse cx="92" cy="118" rx="7" ry="12" fill="#fbbf24"/><ellipse cx="110" cy="132" rx="7" ry="12" fill="#78350f"/><ellipse cx="89" cy="145" rx="7" ry="12" fill="#475569"/>
+  <text x="90" y="170" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="#166534">SEEDS</text>
+</svg>

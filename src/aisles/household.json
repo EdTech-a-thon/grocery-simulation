@@ -1,0 +1,11 @@
+{
+  "title": "Baking Essentials",
+  "items": [
+    { "id": "flour" }, { "id": "sugar" }, { "id": "brown-sugar" },
+    { "id": "powdered-sugar" }, { "id": "cake-mix" }, { "id": "icing" },
+    { "id": "chocolate-chips" }, { "id": "baking-soda" },
+    { "id": "baking-powder" }, { "id": "yeast" }, { "id": "oil" }, { "id": "marshmallows" },
+    { "id": "pie-filling" }, { "id": "vanilla-extract" }, { "id": "spices" },
+    { "id": "brownie-mix" }, { "id": "jello" }, { "id": "pudding-mix" }
+  ]
+}

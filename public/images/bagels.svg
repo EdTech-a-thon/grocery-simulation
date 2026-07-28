@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <path d="M19 57h122v112H19z" fill="#699b5b" opacity=".7"/>
+  <path d="M19 57h122v28H19z" fill="#eff5da" opacity=".88"/>
+  <text x="80" y="77" text-anchor="middle" font-family="Georgia, serif" font-size="16" font-weight="700" fill="#315d38">BAKERY BAGELS</text>
+  <g fill="#c89148" stroke="#9f6528" stroke-width="3"><circle cx="57" cy="112" r="25"/><circle cx="101" cy="112" r="25"/><circle cx="57" cy="148" r="25"/><circle cx="101" cy="148" r="25"/></g>
+  <g fill="#f2d583"><circle cx="57" cy="112" r="9"/><circle cx="101" cy="112" r="9"/><circle cx="57" cy="148" r="9"/><circle cx="101" cy="148" r="9"/></g>
+</svg>

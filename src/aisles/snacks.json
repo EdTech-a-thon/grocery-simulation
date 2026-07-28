@@ -1,0 +1,14 @@
+{
+  "title": "Snacks",
+  "items": [
+    { "id": "potato-chips" },
+    { "id": "tortilla-chips" },
+    { "id": "crackers" },
+    { "id": "popcorn" },
+    { "id": "pretzels" },
+    { "id": "graham-crackers" },
+    { "id": "cookies" },
+    { "id": "snack-cakes" },
+    { "id": "cheese-crackers" }
+  ]
+}

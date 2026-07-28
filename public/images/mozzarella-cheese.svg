@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <path d="M24 43h112v133H24z" fill="#4e9a59"/>
+  <path d="M24 43h112v34H24z" fill="#efcf53"/>
+  <text x="80" y="66" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#315f3e">MOZZARELLA</text>
+  <text x="80" y="94" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#fff">SHREDDED CHEESE</text>
+  <path d="M39 145c10-31 72-31 82 0z" fill="#fff3b1"/>
+  <g stroke="#e7d078" stroke-width="5" stroke-linecap="round"><path d="M51 137l21-17"/><path d="M63 148l28-26"/><path d="M84 148l21-19"/><path d="M93 137l14-13"/></g>
+  <text x="80" y="166" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#fff">LOW MOISTURE</text>
+</svg>

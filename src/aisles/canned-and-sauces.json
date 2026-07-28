@@ -1,0 +1,13 @@
+{
+  "title": "Canned Goods",
+  "items": [
+    { "id": "soup" },
+    { "id": "beans" },
+    { "id": "canned-vegetables" },
+    { "id": "baked-beans" },
+    { "id": "chili" },
+    { "id": "canned-spaghettios" },
+    { "id": "apple-sauce" },
+    { "id": "canned-fruit" }
+  ]
+}

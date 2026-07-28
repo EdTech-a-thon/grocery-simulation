@@ -1,0 +1,36 @@
+{
+  "title": "Bakery",
+  "items": [
+    { "id": "donut" }, { "id": "cupcake" }, { "id": "bakery-pie" },
+    { "id": "bakery-cake" }, { "id": "english-muffins" }, { "id": "pita-bread" },
+    { "id": "bakery-cookies" },
+    { "id": "banana-bread" }, { "id": "cinnamon-rolls" },
+    {
+      "id": "bread"
+    },
+    {
+      "id": "hotdog-buns"
+    },
+    {
+      "id": "hamburger-buns"
+    },
+    {
+      "id": "dinner-rolls"
+    },
+    {
+      "id": "tortillas"
+    },
+    {
+      "id": "taco-shells"
+    },
+    {
+      "id": "bagels"
+    },
+    {
+      "id": "muffins"
+    },
+    {
+      "id": "pizza-crust"
+    }
+  ]
+}
