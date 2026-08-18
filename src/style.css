@@ -1259,6 +1259,80 @@ p {
   margin: 0;
 }
 
+/* ---------------------------------------------------------------- stores */
+
+.store-workspace { max-width: 1400px; margin: auto; display: grid; grid-template-columns: minmax(280px,.4fr) minmax(0,.6fr); gap: 16px; }
+.store-form, .store-list { border: 1px solid #dbe7dc; border-radius: 24px; background: #fff; box-shadow: 0 12px 35px rgba(36,72,45,.07); }
+.store-form { padding: 26px; display: grid; gap: 16px; align-content: start; }
+.store-form label { display: grid; gap: 7px; color: #475569; font-size: .8rem; font-weight: 800; }
+.store-form input, .store-form select { width: 100%; border: 1px solid #cbd5e1; border-radius: 11px; padding: 11px 12px; background: #fff; color: #172033; }
+.store-form .eyebrow { color: #15803d; }
+.store-form h2 { margin: 4px 0; }
+.store-list { padding: clamp(18px,3vw,32px); }
+.store-summary { margin-top: 12px; padding: 15px; border: 1px solid #e2e8f0; border-left: 6px solid var(--store-color, #22c55e); border-radius: 16px; background: #f8fafc; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.store-swatch { width: 30px; height: 30px; border-radius: 10px; background: var(--store-color, #22c55e); flex: none; }
+.store-summary-copy { flex: 1 1 200px; }
+.store-summary-copy strong { display: block; color: #172033; }
+.store-summary-copy span { display: block; margin-top: 5px; color: #64748b; font-size: .78rem; }
+.store-summary-copy code { border-radius: 6px; padding: 1px 6px; background: #dcfce7; color: #166534; font-weight: 800; }
+.store-summary-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.store-summary-actions button { border: 1px solid #cbd5e1; border-radius: 999px; padding: 7px 12px; background: #fff; color: #334155; cursor: pointer; font-size: .78rem; font-weight: 800; }
+.store-summary-actions .primary-button { border: 0; padding: 8px 15px; }
+.store-summary-actions [data-delete-store] { color: #b91c1c; }
+.store-chip { border-radius: 999px; padding: 5px 10px; background: var(--store-color, #22c55e); color: #06210f; font-size: .68rem; font-weight: 900; }
+
+/* Each store carries a colour so a projected store is identifiable at a glance. */
+[data-color="green"], [data-store-color="green"] { --store-color: #22c55e; }
+[data-color="blue"], [data-store-color="blue"] { --store-color: #3b82f6; }
+[data-color="purple"], [data-store-color="purple"] { --store-color: #a855f7; }
+[data-color="orange"], [data-store-color="orange"] { --store-color: #f97316; }
+[data-color="pink"], [data-store-color="pink"] { --store-color: #ec4899; }
+[data-color="red"], [data-store-color="red"] { --store-color: #ef4444; }
+
+/* ------------------------------------------------------- stocking controls */
+
+.stock-bulk-actions { display: flex; gap: 8px; }
+.stock-bulk-actions button { border: 1px solid #cbd5e1; border-radius: 999px; padding: 8px 13px; background: #fff; color: #334155; cursor: pointer; font-size: .78rem; font-weight: 800; }
+.stock-toggle { display: flex; align-items: center; justify-content: center; gap: 6px; color: #475569; font-size: .72rem; font-weight: 800; }
+.stock-toggle input { width: 15px; height: 15px; accent-color: #16a34a; }
+.price-edit-card-hidden { border-style: dashed; background: #f8fafc; opacity: .58; }
+.price-edit-card-hidden .teacher-money-input { background: #f1f5f9; border-color: #e2e8f0; }
+
+/* -------------------------------------------------------- itemised receipt */
+
+.receipt-heading-actions { display: flex; gap: 6px; }
+.receipt-items { display: grid; gap: 8px; }
+.receipt-item { display: grid; gap: 3px; }
+.receipt-item-row { align-items: baseline; gap: 8px; }
+.receipt-item-name { flex: 1 1 auto; font-weight: 700; }
+.receipt-item-count { color: #64748b; font-size: .78rem; white-space: nowrap; }
+.receipt-item-coupon { padding-left: 14px; font-size: .8rem; }
+.receipt-empty { margin: 0; color: #64748b; font-size: .85rem; }
+
+/* ------------------------------------------------------- printable receipt */
+
+.receipt-sheet { width: min(760px, 100%); margin: 18px auto; }
+.print-receipt { padding: 28px 32px; border-radius: 12px; background: #fff; color: #172033; display: grid; gap: 12px; box-shadow: 0 10px 24px rgba(0,0,0,.14); }
+.print-receipt-head { text-align: center; }
+.print-receipt-head h1 { margin: 0; font-size: 1.6rem; letter-spacing: .18em; }
+.print-receipt-head p { margin: 4px 0 0; color: #64748b; font-size: .82rem; }
+.print-receipt-foot { text-align: center; }
+.print-receipt-foot p { margin: 0; color: #64748b; font-size: .82rem; }
+.receipt-saved { font-size: 1.05rem; }
+
+/* --------------------------------------------------------- presentation */
+
+/* Screen-share view: no teacher chrome, and everything a size the back row can read. */
+body.presenting .storefront-shell { padding-top: 10px; }
+body.presenting .shelf-product-name { font-size: 1.05rem; }
+body.presenting .price-tag { font-size: 1.15rem; }
+body.presenting .shelf-topline h2 { font-size: clamp(2rem, 5vw, 3.4rem); }
+body.presenting .cart-panel { font-size: 1.08rem; }
+body.presenting .receipt-row, body.presenting .receipt-input-row { font-size: 1rem; }
+
+.exit-present { position: fixed; top: 14px; right: 14px; z-index: 40; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; padding: 9px 15px; background: rgba(7,17,31,.82); color: #fff; cursor: pointer; font-size: .82rem; font-weight: 800; }
+.exit-present:hover { background: rgba(7,17,31,.95); }
+
 @media print {
   body {
     background: #ffffff;
@@ -1273,8 +1347,15 @@ p {
     display: none;
   }
 
-  .coupon-sheet {
+  .coupon-sheet,
+  .receipt-sheet {
     margin: 0;
+  }
+
+  .print-receipt {
+    border-radius: 0;
+    box-shadow: none;
+    break-inside: avoid;
   }
 
   .print-coupon {

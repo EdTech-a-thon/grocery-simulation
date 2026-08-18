@@ -18,3 +18,6 @@ dist
 pocketbase
 pb_data/
 pb_backups/
+playwright-report/
+test-results/
+tsconfig.tsbuildinfo
