@@ -55,7 +55,6 @@ const shelfCapacity = 9
 const state = {
   role: null as Role | null,
   screen: 'welcome' as Screen,
-  presenting: false,
   /** Indexes `aisles` — the teacher's price studio shows every aisle. */
   activeAisleIndex: 0,
   /** Indexes `shoppableAisles()` — a fully unstocked aisle is not shown to shoppers. */
@@ -404,7 +403,7 @@ function renderAppHeader(title: string) {
     <nav>
       ${state.role === 'teacher' ? `
         <button type="button" data-teacher-stores>My stores</button>
-        ${state.store ? '<button type="button" data-teacher-prices>Prices &amp; stock</button><button type="button" data-teacher-coupons>Coupons</button><button type="button" data-preview-store>Student preview</button><button type="button" data-present-store>Present</button>' : ''}
+        ${state.store ? '<button type="button" data-teacher-prices>Prices &amp; stock</button><button type="button" data-teacher-coupons>Coupons</button><button type="button" data-preview-store>View as Student</button>' : ''}
         <button type="button" data-sign-out>Sign out</button>` : '<button type="button" data-switch-role>Switch role</button>'}
     </nav>
   </header>`
@@ -602,10 +601,23 @@ function renderReceiptSheet() {
   </main>`
 }
 
+/**
+ * Teachers browse their own store through the student's eyes, often while
+ * screen-sharing, so the usual header is replaced by something no one can
+ * mistake for the real thing.
+ */
+function renderStudentViewHeader() {
+  return `<header class="student-view-header">
+    <h1>Student View</h1>
+    <button type="button" data-exit-student-view>Exit student view</button>
+  </header>`
+}
+
 function renderStore() {
+  const viewingAsTeacher = state.role === 'teacher'
   const shoppable = shoppableAisles()
   if (!shoppable.length) {
-    return `<main class="storefront-shell">${state.presenting ? '' : renderAppHeader('Class grocery challenge')}<section class="storefront"><div class="shelf-column"><div class="empty-cart">This store has no items on its shelves yet. ${state.role === 'teacher' ? 'Tick some items in Prices &amp; stock.' : 'Check back with your teacher.'}</div></div>${renderCart()}</section></main>`
+    return `<main class="storefront-shell">${viewingAsTeacher ? renderStudentViewHeader() : renderAppHeader('Class grocery challenge')}<section class="storefront"><div class="shelf-column"><div class="empty-cart">This store has no items on its shelves yet. ${state.role === 'teacher' ? 'Tick some items in Prices &amp; stock.' : 'Check back with your teacher.'}</div></div>${renderCart()}</section></main>`
   }
   const index = Math.min(state.shopAisleIndex, shoppable.length - 1)
   const aisle = shoppable[index]
@@ -616,7 +628,7 @@ function renderStore() {
     ? `<p class="class-status">Shopping at: <strong>${escapeHtml(state.store?.name ?? state.studentJoinCode)}</strong> ${refreshButton}</p>`
     : ''
   return `<main class="storefront-shell">
-    ${state.presenting ? '<button class="exit-present" type="button" data-exit-present>Exit presentation</button>' : renderAppHeader(state.role === 'teacher' ? 'Student preview' : 'Class grocery challenge')}
+    ${viewingAsTeacher ? renderStudentViewHeader() : renderAppHeader('Class grocery challenge')}
     <section class="storefront"><div class="shelf-column">${statusLine}${renderShelfCard(aisle, index + 1, shoppable.length)}</div>${renderCart()}</section>
   </main>`
 }
@@ -784,34 +796,6 @@ async function scanCoupon() {
   }
 }
 
-// ------------------------------------------------------------ presentation
-
-function startPresenting() {
-  state.presenting = true
-  state.role = 'teacher'
-  state.screen = 'store'
-  void document.documentElement.requestFullscreen?.().catch(() => {
-    // Full screen can be refused; the stripped-down view is still useful.
-  })
-  render()
-}
-
-function stopPresenting() {
-  if (!state.presenting) return
-  state.presenting = false
-  if (document.fullscreenElement) void document.exitFullscreen?.().catch(() => {})
-  state.screen = 'prices'
-  render()
-}
-
-document.addEventListener('fullscreenchange', () => {
-  if (!document.fullscreenElement && state.presenting) stopPresenting()
-})
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && state.presenting) stopPresenting()
-})
-
 // ------------------------------------------------------------------ events
 
 function attachSharedHeaderEvents() {
@@ -840,7 +824,6 @@ function attachSharedHeaderEvents() {
   app!.querySelector('[data-teacher-prices]')?.addEventListener('click', () => { state.screen = 'prices'; state.message = ''; render() })
   app!.querySelector('[data-teacher-coupons]')?.addEventListener('click', () => { state.screen = 'coupons'; state.message = ''; render() })
   app!.querySelector('[data-preview-store]')?.addEventListener('click', () => { state.screen = 'store'; state.shopAisleIndex = 0; state.message = ''; render() })
-  app!.querySelector('[data-present-store]')?.addEventListener('click', () => startPresenting())
 }
 
 function attachWelcomeEvents() {
@@ -1154,7 +1137,7 @@ function attachStoreEvents() {
   app!.querySelectorAll<HTMLElement>('[data-remove-item]').forEach((button) => button.addEventListener('click', () => removeFromCart(button.dataset.removeItem ?? '')))
   app!.querySelector('[data-clear-cart]')?.addEventListener('click', () => { state.cart.clear(); state.appliedCoupons = []; saveCart(); render() })
   app!.querySelector('[data-refresh-store]')?.addEventListener('click', () => void refreshStudentStore())
-  app!.querySelector('[data-exit-present]')?.addEventListener('click', () => stopPresenting())
+  app!.querySelector('[data-exit-student-view]')?.addEventListener('click', () => { state.screen = 'prices'; state.message = ''; render() })
   app!.querySelectorAll<HTMLElement>('[data-nav]').forEach((button) => button.addEventListener('click', () => {
     const count = shoppableAisles().length
     if (!count) return
@@ -1183,7 +1166,6 @@ function attachStoreEvents() {
 // -------------------------------------------------------------------- render
 
 function render() {
-  document.body.classList.toggle('presenting', state.presenting)
   if (state.store) document.body.dataset.storeColor = state.store.color
   else delete document.body.dataset.storeColor
 
@@ -1227,7 +1209,8 @@ function render() {
   if (state.screen === 'coupons') app!.innerHTML = state.store ? renderCouponStudio() : renderStoreList()
   if (state.screen === 'store') app!.innerHTML = renderStore()
 
-  if (!state.presenting) attachSharedHeaderEvents()
+  // The student view swaps the shared header for the Student View banner.
+  if (!(state.screen === 'store' && state.role === 'teacher')) attachSharedHeaderEvents()
   if (state.screen === 'stores' || (!state.store && (state.screen === 'prices' || state.screen === 'coupons'))) attachStoreListEvents()
   else if (state.screen === 'prices') attachPriceStudioEvents()
   else if (state.screen === 'coupons') attachCouponEvents()

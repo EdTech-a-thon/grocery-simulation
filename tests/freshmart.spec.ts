@@ -142,27 +142,36 @@ test('the teacher creates coupons', async ({ page, request }) => {
   expect(published.coupons.every((coupon) => !('copies' in coupon))).toBe(true)
 })
 
-test('an emptied aisle disappears from the student preview', async ({ page }) => {
+test('an emptied aisle disappears from the student view', async ({ page }) => {
   await openStore(page)
-  await page.getByRole('button', { name: 'Student preview' }).click()
+  await page.getByRole('button', { name: 'View as Student' }).click()
 
   const titles = await visibleAisleTitles(page)
   expect(titles).not.toContain('Seafood')
   expect(titles).toContain('Dairy and Eggs')
 })
 
-test('presentation mode hides the teacher chrome', async ({ page }) => {
+test('viewing as a student swaps the header for the Student View banner', async ({ page }) => {
   await openStore(page)
-  await page.getByRole('button', { name: 'Present' }).click()
+  await page.getByRole('button', { name: 'View as Student' }).click()
 
-  await expect(page.locator('body')).toHaveClass(/presenting/)
+  const banner = page.locator('.student-view-header')
+  await expect(banner).toBeVisible()
+  await expect(banner.getByRole('heading')).toHaveText('Student View')
+  await expect(banner.getByRole('button')).toHaveCount(1)
   await expect(page.locator('.app-header')).toHaveCount(0)
-  await expect(page.getByRole('button', { name: 'Exit presentation' })).toBeVisible()
   await expect(page.locator('.shelf-stage')).toBeVisible()
 
-  await page.getByRole('button', { name: 'Exit presentation' }).click()
-  await expect(page.locator('body')).not.toHaveClass(/presenting/)
+  await banner.getByRole('button', { name: 'Exit student view' }).click()
+  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
   await expect(page.locator('.app-header')).toBeVisible()
+  await expect(page.locator('.student-view-header')).toHaveCount(0)
+})
+
+test('a real student keeps the normal header, with no exit button', async ({ page }) => {
+  await joinAsStudent(page, store.joinCode)
+  await expect(page.locator('.app-header')).toBeVisible()
+  await expect(page.locator('.student-view-header')).toHaveCount(0)
 })
 
 test('a student joins the store and sees only what it stocks', async ({ page }) => {
