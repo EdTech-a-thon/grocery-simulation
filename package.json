@@ -1,14 +1,19 @@
 {
-  "name": "default-website",
+  "name": "fresh-mart-classroom",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 8000",
-    "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0 --port 8000"
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 8000",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "typescript": "^5.6.3",
     "vite": "^6.1.0"
+  },
+  "dependencies": {
+    "pocketbase": "^0.27.3"
   }
 }
