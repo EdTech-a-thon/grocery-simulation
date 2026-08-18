@@ -32,6 +32,19 @@ VITE_POCKETBASE_URL=http://127.0.0.1:8090
 
 Teachers sign up at `/teacher`. Students join at `/` with a store code.
 
+## How the code is laid out
+
+The app is SvelteKit, but it has no server of its own: `bun run build` writes a
+plain folder of files to `dist/`, and the browser talks to PocketBase directly.
+
+| Path                  | What lives there                                                    |
+| --------------------- | ------------------------------------------------------------------- |
+| `src/routes/`         | The two pages: `/` for students, `/teacher` for teachers.            |
+| `src/lib/components/` | The screens and pieces they share — shelves, cart, print sheets.     |
+| `src/lib/*.svelte.ts` | Shared state: the open store, the cart, the teacher's stores.        |
+| `src/lib/*.ts`        | Plain logic with no screen attached: prices, coupons, the receipt.   |
+| `src/app.css`         | Every style in the app, in one file.                                 |
+
 ## How the pieces fit together
 
 The browser talks to PocketBase directly through its JS SDK — there is no backend
@@ -40,8 +53,8 @@ collection API Rules, not by checks in the app code, so a teacher can only ever
 see their own stores.
 
 **The 175-product catalogue lives in the code, not the database** —
-`src/products.ts` for the products and `src/aisles/*.json` for which aisle each
-one sits on. PocketBase stores only what differs per store:
+`src/lib/products.ts` for the products and `src/lib/aisles/*.json` for which aisle
+each one sits on. PocketBase stores only what differs per store:
 
 | Collection    | What it holds                                                        |
 | ------------- | -------------------------------------------------------------------- |
@@ -64,6 +77,6 @@ Two things API Rules cannot express live in `pb_hooks/freshmart.pb.js`:
 must already be running.
 
 ```bash
-bun run typecheck   # tsc
+bun run typecheck   # svelte-check
 bun run test        # playwright
 ```

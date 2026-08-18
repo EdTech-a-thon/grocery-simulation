@@ -37,6 +37,12 @@ export type JoinedStore = {
   coupons: Coupon[]
 }
 
+/** PocketBase's own wording for a failure, so the screen can explain it. */
+export function errorMessage(error: unknown, fallback: string) {
+  const response = (error as { response?: { message?: string } })?.response
+  return response?.message || (error as Error)?.message || fallback
+}
+
 export function normalizeJoinCode(value: string) {
   return value.trim().toUpperCase().replace(/[^A-Z0-9-]/g, '').slice(0, 20)
 }
@@ -133,10 +139,10 @@ function toStoreItem(record: Record<string, unknown>): StoreItem {
 
 export async function loadStoreItems(storeId: string) {
   const records = await pb.collection('store_items').getFullList({ filter: pb.filter('store = {:store}', { store: storeId }) })
-  const items = new Map<string, StoreItem>()
+  const items: Record<string, StoreItem> = {}
   for (const record of records) {
     const item = toStoreItem(record as unknown as Record<string, unknown>)
-    items.set(item.productId, item)
+    items[item.productId] = item
   }
   return items
 }
@@ -150,12 +156,12 @@ const pendingItemSaves = new Map<string, Promise<StoreItem | null>>()
  * `price` is the price this store should charge, which callers read off the
  * screen — for an untouched product that is simply the catalogue price.
  */
-export function saveStoreItem(storeId: string, existing: Map<string, StoreItem>, productId: string, changes: { price: number; hidden?: boolean }) {
+export function saveStoreItem(storeId: string, existing: Record<string, StoreItem>, productId: string, changes: { price: number; hidden?: boolean }) {
   const previous = pendingItemSaves.get(productId) ?? Promise.resolve(null)
   const next = previous
     .catch(() => null)
     .then(async () => {
-      const current = existing.get(productId)
+      const current = existing[productId]
       const price = changes.price
       const hidden = changes.hidden !== undefined ? changes.hidden : current?.hidden ?? false
 
@@ -164,7 +170,7 @@ export function saveStoreItem(storeId: string, existing: Map<string, StoreItem>,
         ? await pb.collection('store_items').update(current.id, body)
         : await pb.collection('store_items').create(body)
       const saved = toStoreItem(record as unknown as Record<string, unknown>)
-      existing.set(productId, saved)
+      existing[productId] = saved
       return saved
     })
   pendingItemSaves.set(productId, next)

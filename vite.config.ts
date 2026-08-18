@@ -1,11 +1,9 @@
+import { sveltekit } from '@sveltejs/kit/vite'
 import { defineConfig } from 'vite'
 import { fileURLToPath } from 'node:url'
 
-// Class data used to live in a dev-server middleware that wrote data/classes.json.
-// It is now in PocketBase, which the browser talks to directly, so this config
-// only sets the hostnames the EdTech-a-thon proxy sends traffic from, plus one
-// alias explained below.
 export default defineConfig({
+  plugins: [sveltekit()],
   resolve: {
     alias: {
       // The pinned PocketBase binary lives at the project root (the deploy
