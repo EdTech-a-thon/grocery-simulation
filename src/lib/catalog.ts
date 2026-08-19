@@ -55,8 +55,8 @@ export const aisles: AisleConfig[] = catalogAisles.map((aisle) => ({
   items: aisle.items.flatMap((item) => [item, storeBrandTwin(item)]),
 }))
 
-/** How many products fit on one shelf unit. */
-export const shelfCapacity = 9
+/** How many products fit on one shelf unit (four across and three rows). */
+export const shelfCapacity = 12
 
 // A product's shelf price before any store override: the aisle may set one
 // (only milk and its CG twin do today), otherwise the catalog price applies.

@@ -15,6 +15,10 @@
     shop.aisleIndex = (currentIndex + step + shoppable.length) % shoppable.length
   }
 
+  function selectAisle(index: number) {
+    if (index >= 0 && index < shoppable.length) shop.aisleIndex = index
+  }
+
   // Students see price changes their teacher makes while the class is shopping.
   $effect(() => {
     if (asTeacher || !shop.studentJoinCode) return
@@ -39,7 +43,13 @@
             <button type="button" disabled={shop.refreshing} onclick={() => void refreshJoinedStore()}>Refresh store prices</button>
           </p>
         {/if}
-        <Shelf aisle={shoppable[currentIndex]} aisleNumber={currentIndex + 1} aisleCount={shoppable.length} onNavigate={navigate} />
+        <Shelf
+          aisle={shoppable[currentIndex]}
+          aisleNumber={currentIndex + 1}
+          aisleNames={shoppable.map((aisle) => aisle.title)}
+          onNavigate={navigate}
+          onSelect={selectAisle}
+        />
       {/if}
     </div>
     <Cart />
