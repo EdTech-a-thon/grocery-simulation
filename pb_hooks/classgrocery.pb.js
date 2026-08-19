@@ -153,3 +153,66 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/duplicate', (e) => {
 
   return e.json(200, response)
 }, $apis.requireAuth('teachers'), $apis.bodyLimit(2048))
+
+// Switching a store between the name brands and the CG line touches every
+// product at once — around 350 rows — so it is one transactional request rather
+// than a few hundred from the browser. The catalog is not in the database, so
+// the browser sends the ids and the price each one should start at; a product
+// that already has a row keeps the price the teacher typed.
+routerAdd('POST', '/api/classgrocery/stores/{id}/brands', (e) => {
+  const body = new DynamicModel({ mode: '', items: [] })
+  e.bindBody(body)
+
+  const mode = String(body.mode || '')
+  if (mode !== 'name' && mode !== 'store' && mode !== 'both') throw new BadRequestError('Choose which brands to stock.')
+
+  const items = body.items || []
+  if (!items.length) throw new BadRequestError('Nothing to stock.')
+
+  const storeId = e.request.pathValue('id')
+  const teacherId = e.auth.id
+  let stocked = 0
+
+  e.app.runInTransaction((tx) => {
+    let store
+    try {
+      store = tx.findFirstRecordByFilter('stores', 'id = {:id} && owner = {:owner}', { id: storeId, owner: teacherId })
+    } catch (_) {
+      throw new NotFoundError('Store not found') // same answer whether it is missing or someone else's
+    }
+
+    const existing = {}
+    for (const row of tx.findRecordsByFilter('store_items', 'store = {:store}', '', 0, 0, { store: store.id })) {
+      existing[row.getString('productId')] = row
+    }
+
+    const collection = tx.findCollectionByNameOrId('store_items')
+    for (const item of items) {
+      const productId = String(item.id || '')
+      if (!productId) continue
+
+      // '-cg' is what marks a product as part of the store-brand line; see
+      // storeBrandSuffix in src/lib/products.ts.
+      const isStoreBrand = productId.slice(-3) === '-cg'
+      const wanted = mode === 'both' || (mode === 'store') === isStoreBrand
+      if (wanted) stocked += 1
+
+      const row = existing[productId]
+      if (row) {
+        // Leave the price alone: it may be one the teacher typed.
+        row.set('hidden', !wanted)
+        tx.save(row)
+        continue
+      }
+
+      const fresh = new Record(collection)
+      fresh.set('store', store.id)
+      fresh.set('productId', productId)
+      fresh.set('price', Number(item.price) || 0)
+      fresh.set('hidden', !wanted)
+      tx.save(fresh)
+    }
+  })
+
+  return e.json(200, { mode: mode, stocked: stocked })
+}, $apis.requireAuth('teachers'), $apis.bodyLimit(65536))

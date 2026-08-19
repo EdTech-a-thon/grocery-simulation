@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <path d="M23 73h114v82H23z" fill="#a39975"/>
+  <path d="M23 73h114v24H23z" fill="#c4bea3"/>
+  <text x="80" y="91" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#675f48">CREAMERY</text>
+  <text x="80" y="119" text-anchor="middle" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#fff">BUTTER</text>
+  <path d="M48 130h64v11H48z" fill="#d4cfb7"/>
+  <text x="80" y="148" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#675f48">SALTED STICKS</text>
+</svg>

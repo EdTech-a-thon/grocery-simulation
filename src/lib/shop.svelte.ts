@@ -1,6 +1,7 @@
 import { browser } from '$app/environment'
 import { aisles, catalogPrice, type AisleConfig, type AisleItem } from './catalog'
 import { joinKey } from './joincodes'
+import { isStoreBrand } from './products'
 import {
   fetchStoreByJoinCode, loadCoupons, loadStoreItems,
   type Coupon, type Store, type StoreItem,
@@ -43,7 +44,12 @@ export function forgetStore() {
 // ------------------------------------------------------- prices and stocking
 
 export function isStocked(productId: string) {
-  return !shop.items[productId]?.hidden
+  const override = shop.items[productId]
+  if (override) return !override.hidden
+  // With nothing recorded either way, a store carries the name brands — that is
+  // what a shop looks like out of the box — and leaves the CG line off the
+  // shelves until a teacher asks for it.
+  return !isStoreBrand(productId)
 }
 
 /** Store price, then the aisle's own price, then the catalog price. */

@@ -68,10 +68,10 @@ export function currentTeacher() {
 }
 
 export async function signUp(email: string, password: string, displayName: string) {
-  await pb.collection('teachers').create({
-    email, password, passwordConfirm: password, displayName,
-    emailVisibility: false, verified: false,
-  })
+  // `emailVisibility` and `verified` are PocketBase's own fields and only a
+  // superuser may set them, so a teacher signing themselves up must not send
+  // them. Both default to false, which is what we want anyway.
+  await pb.collection('teachers').create({ email, password, passwordConfirm: password, displayName })
   await pb.collection('teachers').authWithPassword(email, password)
 }
 
@@ -171,6 +171,21 @@ export async function loadStoreItems(storeId: string) {
     items[item.productId] = item
   }
   return items
+}
+
+/** Which brand lines a store carries. */
+export type BrandMode = 'name' | 'store' | 'both'
+
+/**
+ * Stocks a whole brand line across every aisle in one transaction. The catalog
+ * is not in the database, so the browser sends every product with the price it
+ * should start at; products that already have a price keep it.
+ */
+export async function stockBrands(storeId: string, mode: BrandMode, items: Array<{ id: string; price: number }>) {
+  return await pb.send<{ mode: BrandMode; stocked: number }>(`/api/classgrocery/stores/${encodeURIComponent(storeId)}/brands`, {
+    method: 'POST',
+    body: { mode, items },
+  })
 }
 
 // PocketBase has no upsert, and (store, productId) is uniquely indexed, so two

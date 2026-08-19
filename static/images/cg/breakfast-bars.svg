@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220">
+  <rect x="30" y="35" width="120" height="150" rx="12" fill="#ae859a"/>
+  <rect x="37" y="42" width="106" height="136" rx="8" fill="#e7dce2"/>
+  <path d="M37 42h106v47H37z" fill="#8a5d70"/>
+  <text x="90" y="67" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="bold" fill="white">BERRY</text>
+  <text x="90" y="85" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="white">MORNING</text>
+  <rect x="57" y="112" width="66" height="27" rx="5" fill="#9b8c81"/><circle cx="78" cy="124" r="5" fill="#af8484"/><circle cx="101" cy="128" r="5" fill="#af8484"/>
+  <text x="90" y="163" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#785262">BREAKFAST</text>
+</svg>

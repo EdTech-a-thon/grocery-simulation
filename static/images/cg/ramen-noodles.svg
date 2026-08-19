@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <path d="M21 23h118l-10 177H31z" fill="#99706e"/>
+  <path d="M24 23h112l-3 31H27z" fill="#a69873"/>
+  <text x="80" y="46" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#493c38">RAMEN</text>
+  <text x="80" y="79" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#fff">NOODLES</text>
+  <ellipse cx="80" cy="137" rx="46" ry="35" fill="#c2bc9f"/>
+  <path d="M45 134q9-17 18 0t18 0 18 0 18 0" fill="none" stroke="#a7987b" stroke-width="8" stroke-linecap="round"/>
+  <path d="M48 151q9-17 18 0t18 0 18 0 18 0" fill="none" stroke="#a7987b" stroke-width="8" stroke-linecap="round"/>
+  <text x="80" y="183" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#fff">CHICKEN FLAVOR</text>
+</svg>

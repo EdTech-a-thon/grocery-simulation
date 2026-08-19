@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <path d="M21 76h118v80H21z" fill="#758493"/>
+  <path d="M21 76h118v22H21z" fill="#dadee2"/>
+  <text x="80" y="93" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#5c6774">ORIGINAL</text>
+  <text x="80" y="119" text-anchor="middle" font-family="Georgia, serif" font-size="19" font-weight="700" fill="#fff">CREAM CHEESE</text>
+  <path d="M46 132h68v13H46z" fill="#dfdacf"/>
+  <text x="80" y="148" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#fff">SPREADABLE</text>
+</svg>

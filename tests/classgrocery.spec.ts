@@ -320,3 +320,61 @@ test("another teacher sees none of the first teacher's stores, and may reuse the
   const theirs = await readStore(request, store.joinCode)
   expect(theirs.store.name).toBe(store.name)
 })
+
+// ------------------------------------------------------- name brands vs CG
+//
+// These run last on purpose: they restock the whole store, so anything that
+// asserts on an emptied aisle has to have happened already.
+
+test('a teacher stocks both brands, and the CG line reaches the shelves', async ({ page, request }) => {
+  await openStore(page)
+
+  // Out of the box a store carries only the name brands.
+  const before = await readStore(request, store.joinCode)
+  expect(before.items['milk-cg']).toBeUndefined()
+
+  await page.getByRole('button', { name: 'Both brands' }).click()
+  await expect(page.locator('.status-message')).toHaveText('Both brands on the shelves, side by side.')
+
+  const after = await readStore(request, store.joinCode)
+  expect(after.items['eggs'].hidden).toBeFalsy()
+  expect(after.items['eggs-cg'].hidden).toBeFalsy()
+  // 15% under the catalog's $1.59.
+  expect(after.items['eggs-cg'].price).toBe(1.35)
+  // Milk was marked up to $9.99 earlier in this run, and the CG twin is priced
+  // off what this store charges rather than off the catalog.
+  expect(after.items['milk-cg'].price).toBe(8.49)
+})
+
+test('a student can compare a name brand with its CG twin', async ({ page }) => {
+  await joinAsStudent(page, store.joinCode)
+  await goToAisle(page, 'Dairy and Eggs')
+
+  await expect(page.getByRole('button', { name: /^Add Eggs for \$1\.59/ })).toBeVisible()
+  await expect(page.getByRole('button', { name: /^Add CG Eggs for \$1\.35/ })).toBeVisible()
+})
+
+test('stocking the name brands puts the CG line away again', async ({ page, request }) => {
+  await openStore(page)
+
+  await page.getByRole('button', { name: 'Name brands' }).click()
+  await expect(page.locator('.status-message')).toHaveText('Name brands on the shelves. The CG line is put away.')
+
+  const published = await readStore(request, store.joinCode)
+  expect(published.items['eggs'].hidden).toBeFalsy()
+  expect(published.items['eggs-cg'].hidden).toBe(true)
+  // The price a teacher may have typed survives being put away.
+  expect(published.items['eggs-cg'].price).toBe(1.35)
+})
+
+test('stocking the CG store brands puts the name brands away', async ({ page, request }) => {
+  await openStore(page)
+
+  await page.getByRole('button', { name: 'CG store brands' }).click()
+  await expect(page.locator('.status-message'))
+    .toHaveText('CG store brands on the shelves. The name brands are put away.')
+
+  const published = await readStore(request, store.joinCode)
+  expect(published.items['eggs'].hidden).toBe(true)
+  expect(published.items['eggs-cg'].hidden).toBeFalsy()
+})

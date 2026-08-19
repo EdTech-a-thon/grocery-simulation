@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <path d="M22 61h116v106H22z" fill="#7f929d" opacity=".78"/>
+  <path d="M22 61h116v24H22z" fill="#dde5ea" opacity=".72"/>
+  <text x="80" y="79" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#465662">BAKERY FRESH</text>
+  <g fill="#b8ac99" stroke="#9a8c7a" stroke-width="3"><rect x="38" y="94" width="84" height="25" rx="13"/><rect x="38" y="121" width="84" height="25" rx="13"/><rect x="38" y="148" width="84" height="25" rx="13"/></g>
+  <path d="M49 106h62m-62 27h62m-62 27h62" stroke="#cfc7b5" stroke-width="5" stroke-linecap="round"/>
+</svg>

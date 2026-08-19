@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220">
+  <path d="M72 25h36v26H72z" fill="#597165"/>
+  <path d="M62 50h56l10 135H52z" fill="#dfdbcb"/>
+  <path d="M58 89h64l6 88H52z" fill="#ac9d77" opacity=".72"/>
+  <rect x="57" y="78" width="66" height="54" rx="7" fill="#eeece2"/>
+  <path d="M57 78h66v22H57z" fill="#496955"/>
+  <text x="90" y="94" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="white">GOLDEN</text>
+  <path d="M90 106c-12 12-12 20 0 20s12-8 0-20z" fill="#9c8e61"/>
+  <text x="90" y="151" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#70584a">OIL</text>
+  <text x="90" y="166" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#70584a">VEGETABLE</text>
+</svg>

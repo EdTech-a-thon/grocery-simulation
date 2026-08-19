@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <path d="M32 71h96l-11 96H43z" fill="#8594a3"/>
+  <ellipse cx="80" cy="71" rx="49" ry="16" fill="#dde3e6"/>
+  <ellipse cx="80" cy="71" rx="39" ry="10" fill="#eeece2"/>
+  <text x="80" y="103" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#fff">SOUR</text><text x="80" y="122" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#fff">CREAM</text>
+  <path d="M57 143c8-17 38-17 46 0" fill="none" stroke="#d1cdbc" stroke-width="8" stroke-linecap="round"/>
+  <text x="80" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#fff">RICH &amp; CREAMY</text>
+</svg>

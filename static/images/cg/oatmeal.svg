@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220">
+  <path d="M42 27h96l-9 176H51z" fill="#658b9d"/>
+  <path d="M48 34h84l-8 162H56z" fill="#d8e1e7"/>
+  <rect x="48" y="54" width="84" height="41" fill="#486576"/>
+  <text x="90" y="79" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="bold" fill="white">OATY</text>
+  <ellipse cx="90" cy="139" rx="34" ry="19" fill="#e6e9eb"/><ellipse cx="90" cy="135" rx="29" ry="14" fill="#aba08f"/>
+  <circle cx="82" cy="132" r="4" fill="#70584a"/><circle cx="99" cy="139" r="4" fill="#70584a"/><path d="M90 118c-12-17 4-26 13-29-1 13-5 22-13 29z" fill="#67794e"/>
+  <text x="90" y="182" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#486576">OATMEAL</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220">
+  <rect x="35" y="28" width="110" height="165" rx="12" fill="#8f7eab"/>
+  <rect x="43" y="36" width="94" height="149" rx="8" fill="#e3dcea"/>
+  <path d="M43 54h94v42H43z" fill="#6f6088"/>
+  <text x="90" y="80" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="bold" fill="white">SUN</text>
+  <ellipse cx="76" cy="129" rx="12" ry="15" fill="#615475"/><ellipse cx="101" cy="126" rx="12" ry="15" fill="#705b80"/><ellipse cx="90" cy="148" rx="12" ry="15" fill="#615475"/>
+  <text x="90" y="173" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="#6f6088">RAISINS</text>
+</svg>

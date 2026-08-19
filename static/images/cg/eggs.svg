@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <path d="M22 89h116v71H22z" fill="#a79c86" stroke="#867a68" stroke-width="4"/>
+  <path d="M22 89h116v18H22z" fill="#bcb29d"/>
+  <text x="80" y="103" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#64594d">FARM FRESH EGGS</text>
+  <g fill="#e9e5db" stroke="#bdb8ad" stroke-width="2"><ellipse cx="47" cy="125" rx="12" ry="16"/><ellipse cx="80" cy="125" rx="12" ry="16"/><ellipse cx="113" cy="125" rx="12" ry="16"/><ellipse cx="64" cy="145" rx="12" ry="16"/><ellipse cx="97" cy="145" rx="12" ry="16"/></g>
+  <text x="80" y="177" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#64594d">LARGE DOZEN</text>
+</svg>

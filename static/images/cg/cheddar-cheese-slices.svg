@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <path d="M22 46h116v127H22z" fill="#a39476"/>
+  <path d="M22 46h116v34H22z" fill="#896664"/>
+  <text x="80" y="69" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#fff">CHEDDAR</text>
+  <text x="80" y="96" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#6b534c">CHEESE SLICES</text>
+  <path d="M43 113h74v42H43z" fill="#aea37d" stroke="#907e61" stroke-width="3"/>
+  <g fill="#a39476"><circle cx="59" cy="126" r="4"/><circle cx="83" cy="141" r="4"/><circle cx="101" cy="121" r="4"/></g>
+  <text x="80" y="164" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#6b534c">12 SLICES</text>
+</svg>

@@ -6,7 +6,8 @@ export type Product = {
   note: string
 }
 
-export const products: Product[] = [
+// The name brands: the box with the invented wordmark painted on it.
+const nameBrands: Product[] = [
   { id: 'whipped-cream', name: 'Whipped Cream', price: 3.19, image: '/images/whipped-cream.svg', note: 'Sweet whipped topping' },
   { id: 'refrigerated-biscuits', name: 'Refrigerated Biscuits', price: 2.59, image: '/images/refrigerated-biscuits.svg', note: 'Flaky refrigerated biscuits' },
   { id: 'cheese-sticks', name: 'Cheese Sticks', price: 4.49, image: '/images/cheese-sticks.svg', note: 'Mozzarella cheese sticks' },
@@ -381,5 +382,49 @@ export const products: Product[] = [
     note: 'Plant-based milk',
   },
 ]
+
+// --------------------------------------------------- the CG store brand line
+//
+// Every name brand has a ClassGrocery twin: the same product, in the same
+// packaging, printed in a plainer palette and priced a little lower. It is a
+// separate product with its own id, so a store can carry one brand, the other,
+// or both side by side, and a receipt can tell them apart.
+//
+// The artwork is generated from the name-brand file by scripts/make-cg-images.mjs.
+
+/** What marks a product id as belonging to the store-brand line. */
+export const storeBrandSuffix = '-cg'
+
+/** A CG item costs 15% less than the name brand beside it. */
+export const storeBrandDiscount = 0.85
+
+export function isStoreBrand(productId: string) {
+  return productId.endsWith(storeBrandSuffix)
+}
+
+/** 'milk-cg' -> 'milk'. Returns the id unchanged for a name brand. */
+export function nameBrandIdOf(productId: string) {
+  return isStoreBrand(productId) ? productId.slice(0, -storeBrandSuffix.length) : productId
+}
+
+export function storeBrandIdOf(productId: string) {
+  return isStoreBrand(productId) ? productId : productId + storeBrandSuffix
+}
+
+export function storeBrandPrice(nameBrandPrice: number) {
+  return Math.round(nameBrandPrice * storeBrandDiscount * 100) / 100
+}
+
+function storeBrandOf(product: Product): Product {
+  return {
+    id: storeBrandIdOf(product.id),
+    name: `CG ${product.name}`,
+    price: storeBrandPrice(product.price),
+    image: `/images/cg/${product.id}.svg`,
+    note: product.note,
+  }
+}
+
+export const products: Product[] = [...nameBrands, ...nameBrands.map(storeBrandOf)]
 
 export const productById = Object.fromEntries(products.map((product) => [product.id, product]))

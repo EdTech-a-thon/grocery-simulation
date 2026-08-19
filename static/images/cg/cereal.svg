@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220">
+  <rect x="26" y="12" width="128" height="196" rx="12" fill="#a6866f"/>
+  <rect x="34" y="22" width="112" height="176" rx="8" fill="#ece6df"/>
+  <path d="M34 42h112v49H34z" fill="#659075"/>
+  <text x="90" y="67" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="white">SUNNY</text>
+  <text x="90" y="91" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="bold" fill="#3b5044">CRUNCH</text>
+  <circle cx="90" cy="140" r="34" fill="#a79b6f"/>
+  <circle cx="74" cy="136" r="8" fill="#dfdbcb"/><circle cx="100" cy="128" r="8" fill="#dfdbcb"/><circle cx="105" cy="153" r="8" fill="#dfdbcb"/><circle cx="77" cy="158" r="8" fill="#dfdbcb"/>
+  <text x="90" y="189" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#9d7764">CEREAL</text>
+</svg>

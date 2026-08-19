@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <path d="M22 53h116v118H22z" fill="#917571"/>
+  <path d="M29 61h102v101H29z" fill="#e3ded0"/>
+  <text x="80" y="82" text-anchor="middle" font-family="Georgia, serif" font-size="18" font-weight="700" fill="#846966">DINNER</text><text x="80" y="101" text-anchor="middle" font-family="Georgia, serif" font-size="18" font-weight="700" fill="#846966">ROLLS</text>
+  <g fill="#aa9d89" stroke="#8e7e6a" stroke-width="2"><circle cx="56" cy="123" r="16"/><circle cx="80" cy="119" r="16"/><circle cx="104" cy="123" r="16"/><circle cx="68" cy="145" r="16"/><circle cx="93" cy="145" r="16"/></g>
+  <g fill="#c7bda8"><circle cx="52" cy="118" r="5"/><circle cx="76" cy="114" r="5"/><circle cx="100" cy="118" r="5"/><circle cx="64" cy="140" r="5"/><circle cx="89" cy="140" r="5"/></g>
+</svg>
