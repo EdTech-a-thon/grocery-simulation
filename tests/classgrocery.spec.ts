@@ -71,7 +71,7 @@ async function joinAsStudent(page: Page, typed: string, shown = typed) {
 
 async function goToAisle(page: Page, title: string) {
   for (let attempt = 0; attempt < 14; attempt++) {
-    if ((await page.locator('.shelf-topline h2').innerText()).trim() === title) return
+    if ((await page.locator('.shelf-topline h2').innerText()).includes(title)) return
     await page.getByRole('button', { name: 'Next aisle' }).click()
   }
   throw new Error(`Never reached the ${title} aisle`)
@@ -114,7 +114,7 @@ test('the teacher sets prices and chooses what the store stocks', async ({ page,
   await expect(page.locator('.status-message')).toHaveText('Saved.')
 
   await page.getByLabel('Stock Cottage Cheese in this store').uncheck()
-  await expect(page.locator('.price-edit-card', { hasText: 'Cottage Cheese' })).toHaveClass(/price-edit-card-hidden/)
+  await expect(page.locator('.price-edit-card', { has: page.getByLabel('Stock Cottage Cheese in this store') })).toHaveClass(/price-edit-card-hidden/)
 
   // Empty one whole aisle, which should drop out of the shopper's view entirely.
   await page.getByRole('button', { name: 'Seafood' }).click()
@@ -160,8 +160,8 @@ test('an emptied aisle disappears from the student view', async ({ page }) => {
   await page.getByRole('button', { name: 'View as Student' }).click()
 
   const titles = await visibleAisleTitles(page)
-  expect(titles).not.toContain('Seafood')
-  expect(titles).toContain('Dairy and Eggs')
+  expect(titles.some((title) => title.includes('Seafood'))).toBe(false)
+  expect(titles.some((title) => title.includes('Dairy and Eggs'))).toBe(true)
 })
 
 test('viewing as a student swaps the header for the Student View banner', async ({ page }) => {
@@ -229,13 +229,19 @@ test('the receipt itemizes the cart and caps a dollar coupon at the item price',
   await page.locator('.shelf-product-card', { hasText: 'Apple' }).first().getByRole('button', { name: /^Add Apple for/ }).click()
   await page.locator('.shelf-product-card', { hasText: 'Apple' }).first().getByRole('button', { name: 'Add one more Apple' }).click()
 
+  await page.getByRole('button', { name: 'Check out' }).click()
   const receipt = page.locator('.receipt')
   await expect(receipt.locator('.receipt-item-name', { hasText: 'Apple' })).toBeVisible()
   await expect(receipt.locator('.receipt-item-count')).toContainText('2 ×')
   await expect(receipt.locator('.receipt-item').filter({ hasText: 'Apple' }).locator('strong').first()).toHaveText('$1.78')
 
+  await page.getByRole('button', { name: 'Close' }).click()
+  await page.getByRole('button', { name: 'Apply Coupon' }).click()
   await page.getByLabel('Coupon code').fill(dollarsCoupon.code)
   await page.getByRole('button', { name: 'Apply', exact: true }).click()
+
+  await page.getByRole('button', { name: 'Close' }).click()
+  await page.getByRole('button', { name: 'Check out' }).click()
 
   // $1.78 of apples, so a $50 coupon is capped at $1.78 and nothing goes negative.
   await expect(receipt.locator('.receipt-item-coupon')).toContainText(`-$1.78`)
@@ -252,9 +258,12 @@ test('the receipt prints with its items, coupons and total saved', async ({ page
   await joinAsStudent(page, store.joinCode)
   await goToAisle(page, 'Produce')
   await page.locator('.shelf-product-card', { hasText: 'Apple' }).first().getByRole('button', { name: /^Add Apple for/ }).click()
+  await page.getByRole('button', { name: 'Apply Coupon' }).click()
   await page.getByLabel('Coupon code').fill(dollarsCoupon.code)
   await page.getByRole('button', { name: 'Apply', exact: true }).click()
 
+  await page.getByRole('button', { name: 'Close' }).click()
+  await page.getByRole('button', { name: 'Check out' }).click()
   await page.getByRole('button', { name: 'Print' }).click()
 
   const printed = page.locator('.print-receipt')

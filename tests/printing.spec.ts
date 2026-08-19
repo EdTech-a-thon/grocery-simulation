@@ -49,10 +49,12 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   const aisle = (await page.locator('.shelf-topline h2').innerText()).trim()
   await page.locator('.shelf-product').first().click()
   await expect(page.locator('.cart-line')).toHaveCount(1)
+  await page.getByRole('button', { name: 'Check out' }).click()
   await page.getByRole('button', { name: 'Print', exact: true }).click()
   await expect(page.locator('.print-receipt')).toBeVisible()
   await page.getByRole('button', { name: 'Back' }).click()
   await expect(page.locator('.shelf-topline h2')).toHaveText(aisle)
+  await page.getByRole('button', { name: 'Close' }).click()
 
   // A dollar-off coupon changes the label and the field suffix.
   await page.getByRole('button', { name: 'Exit student view' }).click()
