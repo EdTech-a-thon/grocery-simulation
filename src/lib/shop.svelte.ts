@@ -1,11 +1,12 @@
 import { browser } from '$app/environment'
 import { aisles, catalogPrice, type AisleConfig, type AisleItem } from './catalog'
+import { joinKey } from './joincodes'
 import {
-  fetchStoreByJoinCode, loadCoupons, loadStoreItems, normalizeJoinCode,
+  fetchStoreByJoinCode, loadCoupons, loadStoreItems,
   type Coupon, type Store, type StoreItem,
 } from './pocketbase'
 
-const studentJoinCodeStorageKey = 'fresh-mart-student-class-code'
+const studentJoinCodeStorageKey = 'classgrocery-student-class-code'
 
 /**
  * The store currently open — the one a teacher is editing, or the one a student
@@ -25,7 +26,7 @@ export const shop = $state({
 })
 
 export function rememberStudentJoinCode(code: string) {
-  shop.studentJoinCode = normalizeJoinCode(code)
+  shop.studentJoinCode = joinKey(code)
   try {
     localStorage.setItem(studentJoinCodeStorageKey, shop.studentJoinCode)
   } catch {

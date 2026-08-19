@@ -1,17 +1,19 @@
 import { test, expect, type Page, type APIRequestContext } from '@playwright/test'
 
-// One teacher, one store and one join code per run, so repeated runs never
-// collide on the globally unique join code.
+// A fresh identifier per run, so repeated runs never collide on the site-wide
+// unique class identifier.
 const run = Date.now().toString(36).toUpperCase().slice(-6)
-const teacher = { email: `teacher-${run}@school.test`, password: 'classgrocery1234', name: 'Ms. Rivera' }
-const other = { email: `other-${run}@school.test`, password: 'classgrocery1234', name: 'Mr. Chen' }
-const store = { name: `Room ${run}`, joinCode: `ROOM-${run}` }
-const copy = { name: `Room ${run} Copy`, joinCode: `COPY-${run}` }
+const prefix = `T${run}`
+const otherPrefix = `O${run}`
+const teacher = { email: `teacher-${run}@school.test`, password: 'classgrocery1234', name: 'Ms. Rivera', prefix }
+const other = { email: `other-${run}@school.test`, password: 'classgrocery1234', name: 'Mr. Chen', prefix: otherPrefix }
+const store = { name: `Room ${run}`, label: 'P3', joinCode: `${prefix}-P3` }
+const copy = { name: `Room ${run} Copy`, label: 'P4', joinCode: `${prefix}-P4` }
 
 const pocketbaseUrl = process.env.VITE_POCKETBASE_URL || 'http://127.0.0.1:8090'
 
 type PublicStore = {
-  store: { name: string; color: string; joinCode: string }
+  store: { name: string; color: string; joinLabel: string; joinCode: string }
   items: Record<string, { price?: number; hidden?: boolean }>
   coupons: Array<{ code: string; discountType: string; discountAmount: number; productId: string }>
 }
@@ -30,6 +32,12 @@ async function signUp(page: Page, who: typeof teacher) {
   await page.getByLabel('School email').fill(who.email)
   await page.getByLabel('Password').fill(who.password)
   await page.getByRole('button', { name: 'Create account' }).click()
+
+  // Signing up lands on the class identifier question, which has to be answered
+  // before any store can exist.
+  await expect(page.getByRole('heading', { name: 'Choose your class identifier' })).toBeVisible()
+  await page.getByLabel('Your identifier').fill(who.prefix)
+  await page.getByRole('button', { name: 'Save and continue' }).click()
   await expect(page.getByRole('heading', { name: 'My stores' })).toBeVisible()
 }
 
@@ -48,11 +56,15 @@ async function openStore(page: Page, name = store.name) {
   await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
 }
 
-async function joinAsStudent(page: Page, joinCode: string) {
+/**
+ * Joins the way a student does. However the code was typed, the badge shows the
+ * tidy form of it, so `shown` is what the screen is expected to say.
+ */
+async function joinAsStudent(page: Page, typed: string, shown = typed) {
   await page.goto('/')
-  await page.getByLabel('Store code').fill(joinCode)
+  await page.getByLabel('Store code').fill(typed)
   await page.getByRole('button', { name: 'Student join store' }).click()
-  await expect(page.getByText(`Store code: ${joinCode}`)).toBeVisible()
+  await expect(page.getByText(`Store code: ${shown}`)).toBeVisible()
   await page.getByRole('button', { name: 'Enter the store' }).click()
   await expect(page.locator('.shelf-stage')).toBeVisible()
 }
@@ -85,7 +97,8 @@ test('a teacher signs up and creates a store', async ({ page }) => {
 
   await page.getByLabel('Store name').fill(store.name)
   await page.getByLabel('Store color').selectOption('green')
-  await page.getByLabel('Student join code').fill(store.joinCode)
+  await page.getByLabel('Class code').fill(store.label)
+  await expect(page.locator('.join-code-preview')).toContainText(`Students will join with ${store.joinCode}`)
   await page.getByRole('button', { name: 'Create store' }).click()
 
   await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
@@ -186,7 +199,7 @@ test('duplicating a store copies its stock and coupons but reissues the codes', 
   const original = await readStore(request, store.joinCode)
 
   await signIn(page, teacher)
-  const answers = [copy.name, 'blue', copy.joinCode]
+  const answers = [copy.name, 'blue', copy.label]
   page.on('dialog', (dialog) => dialog.accept(answers.shift() ?? ''))
   await page.locator('.store-summary', { hasText: store.name }).getByRole('button', { name: 'Duplicate' }).first().click()
   await expect(page.locator('.status-message')).toContainText(`Students join with ${copy.joinCode}`)
@@ -254,9 +267,56 @@ test('the receipt prints with its items, coupons and total saved', async ({ page
   await expect(page.locator('.receipt')).toBeVisible()
 })
 
-test("another teacher sees none of the first teacher's stores", async ({ page }) => {
+test('a student who leaves out the dash still lands in the right store', async ({ page, request }) => {
+  // The dash is decoration. Typing round it, or in lower case, must still work.
+  const plain = await readStore(request, store.joinCode.replace('-', ''))
+  expect(plain.store.name).toBe(store.name)
+  expect(plain.store.joinCode).toBe(store.joinCode)
+
+  await joinAsStudent(page, store.joinCode.replace('-', '').toLowerCase(), store.joinCode)
+})
+
+test('a join link opens the store without the student typing anything', async ({ page }) => {
+  await page.goto(`/j/${store.joinCode.replace('-', '')}`)
+
+  // The link lands on the normal student dashboard, already in the store.
+  await expect(page.getByText(`Store code: ${store.joinCode}`)).toBeVisible()
+  await page.getByRole('button', { name: 'Enter the store' }).click()
+  await expect(page.locator('.shelf-stage')).toBeVisible()
+})
+
+test('a link to a store that is not there explains itself', async ({ page }) => {
+  await page.goto('/j/NOSUCHSTORE')
+  await expect(page.getByRole('heading', { name: 'That store link did not work' })).toBeVisible()
+})
+
+test('a teacher cannot use one of their own class codes twice', async ({ page }) => {
+  await signIn(page, teacher)
+
+  await page.getByLabel('Store name').fill('Another Room')
+  await page.getByLabel('Class code').fill(store.label)
+  await page.getByRole('button', { name: 'Create store' }).click()
+
+  // The clash is with the teacher's own class, so it is named as one.
+  await expect(page.locator('.status-message'))
+    .toContainText(`You already have a class called ${store.label}`)
+})
+
+test("another teacher sees none of the first teacher's stores, and may reuse the same class code", async ({ page, request }) => {
   await signUp(page, other)
   await expect(page.locator('.store-list')).toContainText('0 stores')
   await expect(page.locator('.store-list')).toContainText('Create your first store to get started.')
   await expect(page.getByText(store.name)).toHaveCount(0)
+
+  // P3 is taken by the first teacher. Under the old site-wide rule that was a
+  // clash; now the identifier keeps the two apart.
+  await page.getByLabel('Store name').fill('Mr Chen P3')
+  await page.getByLabel('Class code').fill(store.label)
+  await page.getByRole('button', { name: 'Create store' }).click()
+  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
+
+  const mine = await readStore(request, `${other.prefix}-${store.label}`)
+  expect(mine.store.name).toBe('Mr Chen P3')
+  const theirs = await readStore(request, store.joinCode)
+  expect(theirs.store.name).toBe(store.name)
 })

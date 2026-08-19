@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-// A fresh teacher and store per run, so repeated runs never collide on the join code.
+// A fresh teacher and identifier per run, so repeated runs never collide.
 const run = `S${Date.now().toString(36).toUpperCase().slice(-6)}`
 
 test('coupons print in sheets, and printing never loses the page underneath', async ({ page }) => {
@@ -21,8 +21,11 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   await page.getByLabel('Password').fill('classgrocery1234')
   await page.getByRole('button', { name: 'Create account' }).click()
 
+  await page.getByLabel('Your identifier').fill(run)
+  await page.getByRole('button', { name: 'Save and continue' }).click()
+
   await page.getByLabel('Store name').fill(`Smoke ${run}`)
-  await page.getByLabel('Student join code').fill(`SMOKE-${run}`)
+  await page.getByLabel('Class code').fill('P1')
   await page.getByRole('button', { name: 'Create store' }).click()
   await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
 

@@ -6,20 +6,55 @@
 //
 // Helpers live in classgrocery_shared.js — see the note at the top of that file.
 
+// A store's join code is not the teacher's to type: it is their class identifier
+// plus the label they gave this class. These two hooks fill it in on the way
+// past, so whatever the browser sent for joinKey is replaced by the real thing.
+onRecordCreateRequest((e) => {
+  const shared = require(`${__hooks}/classgrocery_shared.js`)
+
+  const resolved = shared.resolveJoinKey(e.app, e.auth.id, e.record.getString('joinLabel'), '')
+  e.record.set('joinLabel', resolved.label)
+  e.record.set('joinKey', resolved.joinKey)
+
+  e.next()
+}, 'stores')
+
+onRecordUpdateRequest((e) => {
+  const shared = require(`${__hooks}/classgrocery_shared.js`)
+
+  const resolved = shared.resolveJoinKey(e.app, e.record.getString('owner'), e.record.getString('joinLabel'), e.record.id)
+  e.record.set('joinLabel', resolved.label)
+  e.record.set('joinKey', resolved.joinKey)
+
+  e.next()
+}, 'stores')
+
 // Students have no account, so joining a store cannot go through the collection
 // API: an owner-scoped list rule (correctly) hides every store from them.
 // This route is the one public read, and it returns only what a shopper needs.
 routerAdd('GET', '/api/classgrocery/store/{joinCode}', (e) => {
   const shared = require(`${__hooks}/classgrocery_shared.js`)
 
-  const joinCode = shared.normalizeJoinCode(e.request.pathValue('joinCode'))
-  if (!shared.JOIN_CODE_PATTERN.test(joinCode)) throw new NotFoundError('Store not found')
+  // Students type what is on the board. Dashes, spaces and lower case are all
+  // forgiven, because none of them change which store is meant.
+  const key = shared.joinKey(e.request.pathValue('joinCode'))
+  if (key.length < 4) throw new NotFoundError('Store not found')
 
   let store
   try {
-    store = e.app.findFirstRecordByData('stores', 'joinCode', joinCode)
+    store = e.app.findFirstRecordByData('stores', 'joinKey', key)
   } catch (_) {
     throw new NotFoundError('Store not found')
+  }
+
+  // The tidy form of the code, so the student's screen shows OTTER-P3 however
+  // they happened to type it.
+  let joinCode = key
+  try {
+    const owner = e.app.findRecordById('teachers', store.getString('owner'))
+    joinCode = shared.joinCodeFor(owner.getString('joinPrefix'), store.getString('joinLabel'))
+  } catch (_) {
+    // A store with no readable owner still opens; it just shows the plain code.
   }
 
   const items = {}
@@ -36,7 +71,13 @@ routerAdd('GET', '/api/classgrocery/store/{joinCode}', (e) => {
     .map(shared.couponPayload) // `copies` is a teacher-only printing detail and stays out of this payload
 
   return e.json(200, {
-    store: { id: store.id, name: store.getString('name'), color: store.getString('color'), joinCode },
+    store: {
+      id: store.id,
+      name: store.getString('name'),
+      color: store.getString('color'),
+      joinLabel: store.getString('joinLabel'),
+      joinCode,
+    },
     items,
     coupons,
   })
@@ -47,13 +88,11 @@ routerAdd('GET', '/api/classgrocery/store/{joinCode}', (e) => {
 routerAdd('POST', '/api/classgrocery/stores/{id}/duplicate', (e) => {
   const shared = require(`${__hooks}/classgrocery_shared.js`)
 
-  const body = new DynamicModel({ name: '', color: '', joinCode: '' })
+  const body = new DynamicModel({ name: '', color: '', joinLabel: '' })
   e.bindBody(body)
 
   const name = String(body.name || '').trim().slice(0, 60)
-  const joinCode = shared.normalizeJoinCode(body.joinCode)
   if (!name) throw new BadRequestError('Give the new store a name.')
-  if (!shared.JOIN_CODE_PATTERN.test(joinCode)) throw new BadRequestError('Use 3 to 20 letters, numbers or dashes for the join code.')
 
   const sourceId = e.request.pathValue('id')
   const teacherId = e.auth.id
@@ -67,19 +106,16 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/duplicate', (e) => {
       throw new NotFoundError('Store not found') // same answer whether it is missing or someone else's
     }
 
-    let taken = true
-    try {
-      tx.findFirstRecordByData('stores', 'joinCode', joinCode)
-    } catch (_) {
-      taken = false
-    }
-    if (taken) throw new BadRequestError('That join code is already taken. Pick another.')
+    // The saves below go straight to the database, so they skip the request
+    // hooks above and have to work the code out for themselves.
+    const resolved = shared.resolveJoinKey(tx, teacherId, body.joinLabel, '')
 
     const copy = new Record(tx.findCollectionByNameOrId('stores'))
     copy.set('owner', teacherId)
     copy.set('name', name)
     copy.set('color', String(body.color || source.getString('color')))
-    copy.set('joinCode', joinCode)
+    copy.set('joinLabel', resolved.label)
+    copy.set('joinKey', resolved.joinKey)
     tx.save(copy)
 
     for (const item of tx.findRecordsByFilter('store_items', 'store = {:store}', '', 0, 0, { store: source.id })) {
@@ -106,7 +142,13 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/duplicate', (e) => {
       tx.save(clone)
     }
 
-    response = { id: copy.id, name, color: copy.getString('color'), joinCode }
+    response = {
+      id: copy.id,
+      name,
+      color: copy.getString('color'),
+      joinLabel: resolved.label,
+      joinCode: resolved.joinCode,
+    }
   })
 
   return e.json(200, response)

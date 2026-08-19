@@ -1,4 +1,5 @@
 import PocketBase from 'pocketbase'
+import { joinCodeFor, joinKey, normalizeJoinLabel, normalizeJoinPrefix } from './joincodes'
 
 // The browser talks to PocketBase directly. There is no backend proxy.
 export const pb = new PocketBase(import.meta.env.VITE_POCKETBASE_URL || 'http://127.0.0.1:8090')
@@ -7,7 +8,11 @@ pb.autoCancellation(false)
 export const storeColors = ['green', 'blue', 'purple', 'orange', 'pink', 'red'] as const
 export type StoreColor = (typeof storeColors)[number]
 
-export type Store = { id: string; name: string; color: StoreColor; joinCode: string }
+/**
+ * `joinLabel` is the short code the teacher gave this class; `joinCode` is the
+ * whole thing students are given, their identifier and that label together.
+ */
+export type Store = { id: string; name: string; color: StoreColor; joinLabel: string; joinCode: string }
 
 /**
  * A per-store override. A product with no row is stocked at its catalog price.
@@ -41,10 +46,6 @@ export type JoinedStore = {
 export function errorMessage(error: unknown, fallback: string) {
   const response = (error as { response?: { message?: string } })?.response
   return response?.message || (error as Error)?.message || fallback
-}
-
-export function normalizeJoinCode(value: string) {
-  return value.trim().toUpperCase().replace(/[^A-Z0-9-]/g, '').slice(0, 20)
 }
 
 // ---------------------------------------------------------------- dates
@@ -82,14 +83,35 @@ export function signOut() {
   pb.authStore.clear()
 }
 
+/** The teacher's class identifier, or '' while they have yet to choose one. */
+export function teacherJoinPrefix() {
+  return normalizeJoinPrefix(String(currentTeacher()?.joinPrefix ?? ''))
+}
+
+/**
+ * Claims an identifier for this teacher. It can only be set once — every code
+ * already printed for a class is built from it — which the collection's update
+ * rule enforces, so a second attempt is refused by the server, not just here.
+ */
+export async function claimJoinPrefix(prefix: string) {
+  const teacher = currentTeacher()
+  if (!teacher) throw new Error('Not signed in')
+  await pb.collection('teachers').update(teacher.id, { joinPrefix: normalizeJoinPrefix(prefix) })
+  await pb.collection('teachers').authRefresh()
+}
+
 // ---------------------------------------------------------------- stores
 
+// Stores are saved with the label only; the code students see is that label
+// behind the owner's identifier, which is the teacher reading the screen.
 function toStore(record: Record<string, unknown>): Store {
+  const joinLabel = String(record.joinLabel)
   return {
     id: String(record.id),
     name: String(record.name),
     color: record.color as StoreColor,
-    joinCode: String(record.joinCode),
+    joinLabel,
+    joinCode: joinCodeFor(teacherJoinPrefix(), joinLabel),
   }
 }
 
@@ -98,18 +120,22 @@ export async function listStores(): Promise<Store[]> {
   return records.map((record) => toStore(record as unknown as Record<string, unknown>))
 }
 
-export async function createStore(name: string, color: StoreColor, joinCode: string) {
+// `joinKey` is not sent: a hook fills it in from the owner's identifier before
+// the record is validated, and overwrites anything a browser tried to set.
+export async function createStore(name: string, color: StoreColor, joinLabel: string) {
   const teacher = currentTeacher()
   if (!teacher) throw new Error('Not signed in')
-  const record = await pb.collection('stores').create({ owner: teacher.id, name, color, joinCode: normalizeJoinCode(joinCode) })
+  const record = await pb.collection('stores').create({
+    owner: teacher.id, name, color, joinLabel: normalizeJoinLabel(joinLabel),
+  })
   return toStore(record as unknown as Record<string, unknown>)
 }
 
-export async function updateStore(id: string, changes: { name?: string; color?: StoreColor; joinCode?: string }) {
+export async function updateStore(id: string, changes: { name?: string; color?: StoreColor; joinLabel?: string }) {
   const body: Record<string, unknown> = {}
   if (changes.name !== undefined) body.name = changes.name
   if (changes.color !== undefined) body.color = changes.color
-  if (changes.joinCode !== undefined) body.joinCode = normalizeJoinCode(changes.joinCode)
+  if (changes.joinLabel !== undefined) body.joinLabel = normalizeJoinLabel(changes.joinLabel)
   const record = await pb.collection('stores').update(id, body)
   return toStore(record as unknown as Record<string, unknown>)
 }
@@ -119,10 +145,10 @@ export async function deleteStore(id: string) {
 }
 
 /** Copies the store's prices, stocking and coupons in one transaction on the server. */
-export async function duplicateStore(id: string, name: string, color: StoreColor, joinCode: string) {
+export async function duplicateStore(id: string, name: string, color: StoreColor, joinLabel: string) {
   return await pb.send<Store>(`/api/classgrocery/stores/${encodeURIComponent(id)}/duplicate`, {
     method: 'POST',
-    body: { name, color, joinCode: normalizeJoinCode(joinCode) },
+    body: { name, color, joinLabel: normalizeJoinLabel(joinLabel) },
   })
 }
 
@@ -201,7 +227,7 @@ export async function loadCoupons(storeId: string) {
 
 export function newCouponCode() {
   // Printed as a Code 39 barcode, so keep it short and unambiguous.
-  return `FM-${crypto.randomUUID().replace(/[^0-9a-f]/g, '').slice(0, 6).toUpperCase()}`
+  return `CG-${crypto.randomUUID().replace(/[^0-9a-f]/g, '').slice(0, 6).toUpperCase()}`
 }
 
 export async function createCoupon(storeId: string, coupon: Omit<Coupon, 'id'>) {
@@ -233,10 +259,10 @@ export async function deleteCoupon(id: string) {
  * the collection API — the owner-scoped list rule hides stores from them.
  */
 export async function fetchStoreByJoinCode(joinCode: string): Promise<JoinedStore | null> {
-  const code = normalizeJoinCode(joinCode)
-  if (code.length < 3) return null
+  const key = joinKey(joinCode)
+  if (key.length < 4) return null
   try {
-    return await pb.send<JoinedStore>(`/api/classgrocery/store/${encodeURIComponent(code)}`, { method: 'GET' })
+    return await pb.send<JoinedStore>(`/api/classgrocery/store/${encodeURIComponent(key)}`, { method: 'GET' })
   } catch {
     return null
   }

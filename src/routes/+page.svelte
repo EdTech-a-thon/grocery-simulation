@@ -54,10 +54,10 @@
           <label class="join-card">
             <span class="join-label">Store code</span>
             <div class="join-row">
-              <input type="text" placeholder="ROOM-204" aria-label="Store code" bind:value={joinCodeInput} />
+              <input type="text" placeholder="OTTER-P3" autocapitalize="characters" aria-label="Store code" bind:value={joinCodeInput} />
               <button class="role-button student-role" type="button" disabled={busy} onclick={joinWithCode}>Student join store</button>
             </div>
-            <small>Students type the code their teacher gives them.</small>
+            <small>Type the code your teacher gives you. The dash is optional.</small>
           </label>
           <button class="teacher-link-button" type="button" onclick={() => goto('/teacher')}>Teacher sign in</button>
         </div>
@@ -70,13 +70,13 @@
     <section class="student-dashboard-card" aria-labelledby="student-dashboard-title">
       <div class="student-dashboard-copy">
         <p class="welcome-kicker">Welcome to your class store</p>
-        <h1 id="student-dashboard-title">{shop.store?.name ?? 'Fresh Market'}<br />Grocery Store</h1>
+        <h1 id="student-dashboard-title">{shop.store?.name ?? 'Class'}<br />Grocery Store</h1>
         <p>
           Plan what you want to make, walk the aisles, and compare prices before anything goes in
           your cart. Coupons stretch your budget, so bring the ones your teacher printed.
         </p>
-        {#if shop.studentJoinCode}
-          <p class="student-class-badge">Store code: {shop.studentJoinCode}</p>
+        {#if shop.store?.joinCode}
+          <p class="student-class-badge">Store code: {shop.store.joinCode}</p>
         {/if}
         <button class="student-shop-button" type="button" onclick={() => (screen = 'store')}>
           Enter the store <span aria-hidden="true">&rarr;</span>

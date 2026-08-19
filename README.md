@@ -31,7 +31,34 @@ Point the app at the database with `.env.local` (copy `.env.example`):
 VITE_POCKETBASE_URL=http://127.0.0.1:8090
 ```
 
-Teachers sign up at `/teacher`. Students join at `/` with a store code.
+Teachers sign up at `/teacher`. Students join at `/` with a store code, or by
+following a join link.
+
+## Join codes
+
+A store code is two halves — the teacher's class identifier, chosen once when
+they sign up, and a short label they give each class:
+
+```
+OTTER  -  P3
+^ the identifier, unique across the whole site
+          ^ the label, unique only within that teacher
+```
+
+Making the identifier unique is what lets the label be something a teacher
+already has in their head: a period number, a room, a class name. Two teachers
+can both run a `P3` without ever knowing about each other, which the old
+site-wide codes could not manage — the first teacher to claim `ROOM-204` claimed
+it for everybody.
+
+The dash is decoration. Codes are matched on `joinKey`, the two halves run
+together in upper case, so `OTTER-P3`, `otterp3` and `Otter P3` all open the
+same store. Teachers can also hand out a link — `/j/OTTERP3` — which opens the
+store without the class typing anything.
+
+The identifier cannot be changed once it is set, because every code and link
+already given out is built from it. The `teachers` update rule enforces that, so
+it holds even if the screen is bypassed.
 
 ## How the code is laid out
 
@@ -43,7 +70,7 @@ plain folder of files to `dist/`, and the browser talks to PocketBase directly.
 | `src/routes/`         | The two pages: `/` for students, `/teacher` for teachers.            |
 | `src/lib/components/` | The screens and pieces they share — shelves, cart, print sheets.     |
 | `src/lib/*.svelte.ts` | Shared state: the open store, the cart, the teacher's stores.        |
-| `src/lib/*.ts`        | Plain logic with no screen attached: prices, coupons, the receipt.   |
+| `src/lib/*.ts`        | Plain logic with no screen attached: prices, coupons, join codes.    |
 | `src/app.css`         | Every style in the app, in one file.                                 |
 
 ## How the pieces fit together
@@ -59,18 +86,21 @@ each one sits on. PocketBase stores only what differs per store:
 
 | Collection    | What it holds                                                        |
 | ------------- | -------------------------------------------------------------------- |
-| `teachers`    | Teacher accounts (email and password).                                |
-| `stores`      | One per class: name, color, and the code students type to join.      |
+| `teachers`    | Teacher accounts (email, password, and their class identifier).       |
+| `stores`      | One per class: name, color, and the label half of its join code.     |
 | `store_items` | Per-store price and stocking changes. No row means "stocked, at the catalog price". |
 | `coupons`     | Per-store coupons. Codes are unique so they can be scanned as barcodes. |
 
-Two things API Rules cannot express live in `pb_hooks/classgrocery.pb.js`:
+Three things API Rules cannot express live in `pb_hooks/classgrocery.pb.js`:
 
 - `GET /api/classgrocery/store/{joinCode}` — students have no account, so this is
   the one public read. Rules correctly hide every store from a signed-out visitor.
 - `POST /api/classgrocery/stores/{id}/duplicate` — copies a store's items and
   coupons in a single transaction. The copy gets **new** coupon codes, so sheets
   printed for last term's class cannot be spent in the new one.
+- Create and update hooks on `stores` work out `joinKey` from the owner's
+  identifier and overwrite whatever the browser sent, so a teacher cannot claim a
+  code outside their own identifier.
 
 ## Tests
 

@@ -212,6 +212,24 @@ button {
 .teacher-login-card .primary-button, .teacher-login-card .teacher-link-button { width: 100%; }
 .login-error { border-radius: 12px; padding: 10px 12px; background: #fee2e2; color: #991b1b; font-size: .88rem; font-weight: 800; }
 
+/* Choosing a class identifier, asked for once on the way into the teacher area. */
+.identity-backdrop { min-height: 100vh; padding: 20px; background: #eaf8ee; display: grid; place-items: center; color: #173b25; }
+.identity-card { width: min(520px,100%); padding: clamp(28px,6vw,48px); border-radius: 28px; background: #fff; display: grid; gap: 16px; box-shadow: 0 24px 70px rgba(22,101,52,.18); }
+.identity-card h1 { font-size: clamp(1.7rem,5vw,2.6rem); letter-spacing: -.03em; }
+.identity-card > p:not(.welcome-kicker):not(.login-error):not(.identity-warning) { color: #5e7163; line-height: 1.5; }
+.identity-card label { display: grid; gap: 8px; color: #334155; font-size: .84rem; font-weight: 900; }
+.identity-card input { width: 100%; border: 2px solid #bbf7d0; border-radius: 14px; padding: 14px; color: #14532d; font: inherit; font-size: 1.3rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.identity-card .primary-button, .identity-card .teacher-link-button { width: 100%; }
+.identity-preview { border-radius: 12px; padding: 12px 14px; background: #f0fdf4; font-size: .92rem; }
+.identity-preview strong { color: #14532d; letter-spacing: .06em; }
+.identity-warning { color: #92400e; font-size: .84rem; font-weight: 800; }
+
+/* The finished code, shown under the class code box as the teacher types. */
+.join-code-preview { border-radius: 12px; padding: 10px 12px; background: #f0fdf4; color: #4b5f52; font-size: .88rem; }
+.join-code-preview strong { color: #14532d; letter-spacing: .08em; }
+.teacher-identity-note { font-size: .9rem; }
+.teacher-identity-note strong { letter-spacing: .08em; }
+
 .app-header { margin-bottom: 16px; padding: 13px 18px; border-radius: 22px; background: rgba(7, 17, 31, 0.94); display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center; }
 .app-header > div, .app-header nav { display: flex; align-items: center; gap: 8px; }
 .app-header nav { justify-content: flex-end; flex-wrap: wrap; }

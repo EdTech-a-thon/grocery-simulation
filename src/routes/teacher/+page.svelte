@@ -2,13 +2,14 @@
   import { onMount } from 'svelte'
   import { goto } from '$app/navigation'
   import AppHeader from '$lib/components/AppHeader.svelte'
+  import ClassIdentityModal from '$lib/components/ClassIdentityModal.svelte'
   import CouponStudio from '$lib/components/CouponStudio.svelte'
   import PriceStudio from '$lib/components/PriceStudio.svelte'
   import StoreFront from '$lib/components/StoreFront.svelte'
   import StoreList from '$lib/components/StoreList.svelte'
   import StudentViewHeader from '$lib/components/StudentViewHeader.svelte'
   import TeacherLogin from '$lib/components/TeacherLogin.svelte'
-  import { currentTeacher, pb, signOut, type Store } from '$lib/pocketbase'
+  import { currentTeacher, pb, signOut, teacherJoinPrefix, type Store } from '$lib/pocketbase'
   import { forgetStore, openStore, shop } from '$lib/shop.svelte'
   import { refreshStores, teacher } from '$lib/teacher.svelte'
 
@@ -17,6 +18,9 @@
   let signedIn = $state(false)
   let checkingSession = $state(true)
   let screen = $state<Screen>('stores')
+  // Store codes are built from the teacher's identifier, so nothing else on the
+  // teacher side can happen until they have one.
+  let needsIdentifier = $state(false)
 
   // A teacher who signed in earlier picks their stores back up on this machine.
   onMount(async () => {
@@ -32,7 +36,8 @@
   })
 
   async function enterTeacherArea() {
-    await refreshStores()
+    needsIdentifier = !teacherJoinPrefix()
+    if (!needsIdentifier) await refreshStores()
     teacher.message = ''
     screen = 'stores'
     signedIn = true
@@ -63,6 +68,8 @@
   <main class="teacher-login-page"></main>
 {:else if !signedIn}
   <TeacherLogin onSignedIn={enterTeacherArea} onBackHome={() => void goto('/')} />
+{:else if needsIdentifier}
+  <ClassIdentityModal onClaimed={enterTeacherArea} />
 {:else if screen === 'student-view'}
   <StoreFront asTeacher header={studentViewHeader} />
 {:else if screen === 'prices' && shop.store}

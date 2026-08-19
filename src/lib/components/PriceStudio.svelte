@@ -3,6 +3,7 @@
   import { aisles } from '$lib/catalog'
   import { errorMessage, saveStoreItem } from '$lib/pocketbase'
   import { productById } from '$lib/products'
+  import { copyJoinLink, joinLinkFor } from '$lib/sharing'
   import { isStocked, priceFor, shop } from '$lib/shop.svelte'
   import { teacher, withBusy } from '$lib/teacher.svelte'
 
@@ -53,6 +54,13 @@
       window.prompt('Copy the join code:', code)
     }
   }
+
+  async function shareJoinLink() {
+    if (!shop.store) return
+    teacher.message = (await copyJoinLink(shop.store))
+      ? 'Join link copied. Paste it wherever your class will see it.'
+      : `Join link: ${joinLinkFor(shop.store)}`
+  }
 </script>
 
 <main class="teacher-shell">
@@ -67,6 +75,7 @@
       <p>Students join with <strong>{shop.store?.joinCode ?? ''}</strong></p>
       <div class="class-code-actions">
         <button class="teacher-secondary-button" type="button" onclick={copyJoinCode}>Copy join code</button>
+        <button class="teacher-secondary-button" type="button" onclick={shareJoinLink}>Copy join link</button>
       </div>
     </div>
   </section>
