@@ -1,6 +1,6 @@
 /// <reference path="../pb_data/types.d.ts" />
 
-// ClassGrocery keeps its product catalogue in the browser bundle (src/products.ts).
+// ClassGrocery keeps its product catalog in the browser bundle (src/products.ts).
 // PocketBase only stores who the teacher is, which stores they run, which products
 // each store stocks and at what price, and the coupons for that store.
 //
@@ -25,7 +25,7 @@ routerAdd('GET', '/api/classgrocery/store/{joinCode}', (e) => {
   const items = {}
   for (const record of e.app.findRecordsByFilter('store_items', 'store = {:store}', '', 0, 0, { store: store.id })) {
     const entry = {}
-    // An unset price means "use the catalogue price", which is not the same as 0.
+    // An unset price means "use the catalog price", which is not the same as 0.
     if (record.get('price') !== null && record.get('price') !== '') entry.price = record.getFloat('price')
     if (record.getBool('hidden')) entry.hidden = true
     items[record.getString('productId')] = entry

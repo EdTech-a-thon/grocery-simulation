@@ -43,11 +43,11 @@
   <main class="welcome-page">
     <section class="welcome-card role-welcome" aria-labelledby="welcome-title">
       <div class="welcome-copy">
-        <p class="welcome-kicker">Real-life math adventure</p>
+        <p class="welcome-kicker">Real-life grocery shopping</p>
         <h1 id="welcome-title">ClassGrocery</h1>
         <p class="welcome-intro">
           Choose how you are joining today. Teachers set up their stores, prices and coupons.
-          Students shop and practice checkout math.
+          Students plan meals, compare prices, clip coupons and shop on a budget.
         </p>
         {#if message}<p class="status-message" role="alert">{message}</p>{/if}
         <div class="role-actions">
@@ -71,7 +71,10 @@
       <div class="student-dashboard-copy">
         <p class="welcome-kicker">Welcome to your class store</p>
         <h1 id="student-dashboard-title">{shop.store?.name ?? 'Fresh Market'}<br />Grocery Store</h1>
-        <p>Explore the aisles, choose items for your cart, and practice real-life shopping skills at checkout.</p>
+        <p>
+          Plan what you want to make, walk the aisles, and compare prices before anything goes in
+          your cart. Coupons stretch your budget, so bring the ones your teacher printed.
+        </p>
         {#if shop.studentJoinCode}
           <p class="student-class-badge">Store code: {shop.studentJoinCode}</p>
         {/if}

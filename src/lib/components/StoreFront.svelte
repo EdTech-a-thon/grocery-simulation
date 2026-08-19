@@ -30,7 +30,7 @@
       {#if !shoppable.length}
         <div class="empty-cart">
           This store has no items on its shelves yet.
-          {asTeacher ? 'Tick some items in Prices & stock.' : 'Check back with your teacher.'}
+          {asTeacher ? 'Stock some items in Prices & stock.' : 'Check back with your teacher.'}
         </div>
       {:else}
         {#if !asTeacher && shop.studentJoinCode}

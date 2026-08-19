@@ -6,7 +6,7 @@
 
   let { children } = $props()
 
-  // Each store picks a colour, and it themes the whole page.
+  // Each store picks a color, and it themes the whole page.
   $effect(() => {
     if (shop.store) document.body.dataset.storeColor = shop.store.color
     else delete document.body.dataset.storeColor

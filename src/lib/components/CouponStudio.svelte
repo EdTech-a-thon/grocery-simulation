@@ -116,9 +116,9 @@
   {@render header()}
   <section class="teacher-hero coupon-hero">
     <div>
-      <p class="eyebrow">Printable rewards &middot; {shop.store?.name ?? ''}</p>
-      <h2>Turn savings into a classroom surprise</h2>
-      <p>Create coupons manually or generate a random set. Printable sheets hold 10 coupons per page.</p>
+      <p class="eyebrow">Printable coupons &middot; {shop.store?.name ?? ''}</p>
+      <h2>Give your class something to budget with</h2>
+      <p>Hand these out so students practice clipping and comparing before they shop. Create coupons one at a time or generate a random set. Printable sheets hold 10 coupons per page.</p>
     </div>
     {#if shop.coupons.length}
       <div class="print-all-panel">
@@ -166,7 +166,7 @@
       <label>Number of this coupon<input required bind:value={copies} type="number" min="1" max="100" step="1" /></label>
       <button class="primary-button" type="submit" disabled={teacher.busy}>Create coupon</button>
       <div class="random-coupon-box">
-        <div><p class="eyebrow">Quick surprise</p><h3>Generate random coupons</h3></div>
+        <div><p class="eyebrow">Quick set</p><h3>Generate random coupons</h3></div>
         <label>Different coupon designs<input bind:value={randomDesigns} type="number" min="1" max="10" step="1" /></label>
         <label>Copies of each design<input bind:value={randomCopies} type="number" min="1" max="100" step="1" /></label>
         <button class="randomize-button" type="button" disabled={teacher.busy} onclick={createRandomCoupons}>Generate random coupons</button>

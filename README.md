@@ -1,8 +1,9 @@
 # ClassGrocery
 
-A grocery-store simulation for practising real-life shopping maths. Teachers set
+A grocery-store simulation for practicing real-life grocery shopping: planning
+meals, sticking to a budget, clipping coupons and comparing prices. Teachers set
 up a store for each class — its prices, which products it stocks, and its printable
-coupons. Students join with a store code and shop, then read an itemised receipt.
+coupons. Students join with a store code and shop, then read an itemized receipt.
 
 ## Running it locally
 
@@ -52,15 +53,15 @@ of our own in between. Who may read or change what is decided by PocketBase's
 collection API Rules, not by checks in the app code, so a teacher can only ever
 see their own stores.
 
-**The 175-product catalogue lives in the code, not the database** —
+**The 175-product catalog lives in the code, not the database** —
 `src/lib/products.ts` for the products and `src/lib/aisles/*.json` for which aisle
 each one sits on. PocketBase stores only what differs per store:
 
 | Collection    | What it holds                                                        |
 | ------------- | -------------------------------------------------------------------- |
 | `teachers`    | Teacher accounts (email and password).                                |
-| `stores`      | One per class: name, colour, and the code students type to join.      |
-| `store_items` | Per-store price and stocking changes. No row means "stocked, at the catalogue price". |
+| `stores`      | One per class: name, color, and the code students type to join.      |
+| `store_items` | Per-store price and stocking changes. No row means "stocked, at the catalog price". |
 | `coupons`     | Per-store coupons. Codes are unique so they can be scanned as barcodes. |
 
 Two things API Rules cannot express live in `pb_hooks/classgrocery.pb.js`:

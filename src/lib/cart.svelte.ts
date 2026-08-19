@@ -8,7 +8,7 @@ const cartStorageKey = 'fresh-mart-cart'
 
 /**
  * The shopping cart, plus the two things that turn it into a bill: the coupons
- * the shopper handed over and the sales tax the class is practising with.
+ * the shopper handed over and the sales tax the class is practicing with.
  */
 export const cart = $state({
   lines: [] as CartLine[],

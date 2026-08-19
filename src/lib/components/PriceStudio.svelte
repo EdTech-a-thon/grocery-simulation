@@ -61,7 +61,7 @@
     <div>
       <p class="eyebrow">{shop.store?.name ?? ''}</p>
       <h2>Choose what this store sells</h2>
-      <p>Untick an item to take it off the shelves for this store only. Prices save as you type.</p>
+      <p>Uncheck an item to take it off the shelves for this store only. Prices save as you type.</p>
     </div>
     <div class="teacher-access-panel">
       <p>Students join with <strong>{shop.store?.joinCode ?? ''}</strong></p>
@@ -91,7 +91,7 @@
           <button type="button" onclick={() => stockWholeAisle(true)}>Stock none</button>
         </div>
       </div>
-      <p class="helper-text">Edit any item price, or untick it to remove it from this store's shelves.</p>
+      <p class="helper-text">Edit any item price, or uncheck it to remove it from this store's shelves.</p>
       <div class="price-grid">
         {#each aisle.items as item (item.id)}
           {@const product = productById[item.id]}

@@ -110,7 +110,7 @@
     <div class="receipt-heading">
       <div>
         <p class="receipt-kicker">Grocery receipt</p>
-        <h3>Your estimated checkout</h3>
+        <h3>Your estimated total</h3>
       </div>
       <div class="receipt-heading-actions">
         <button class="copy-receipt" type="button" onclick={printReceipt}>Print</button>

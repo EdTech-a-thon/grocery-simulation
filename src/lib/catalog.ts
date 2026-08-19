@@ -26,7 +26,7 @@ export type ShelfItem = {
   sale?: boolean
 }
 
-// The product catalogue lives in the bundle, not the database. PocketBase only
+// The product catalog lives in the bundle, not the database. PocketBase only
 // records which of these a store stocks and what it charges for them.
 export const aisles = [
   dryGoodsAisle, cannedAndSaucesAisle, saucesAndCondimentsAisle, dairyAisle,
@@ -38,7 +38,7 @@ export const aisles = [
 export const shelfCapacity = 9
 
 // A product's shelf price before any store override: the aisle may set one
-// (only milk does today), otherwise the catalogue price applies.
+// (only milk does today), otherwise the catalog price applies.
 const aisleItemById = new Map<string, AisleItem>()
 for (const aisle of aisles) for (const item of aisle.items) if (!aisleItemById.has(item.id)) aisleItemById.set(item.id, item)
 

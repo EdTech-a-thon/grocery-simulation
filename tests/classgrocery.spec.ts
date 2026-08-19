@@ -206,7 +206,7 @@ test('duplicating a store copies its stock and coupons but reissues the codes', 
   expect((await readStore(request, store.joinCode)).coupons.map((c) => c.code).sort()).toEqual(originalCodes.sort())
 })
 
-test('the receipt itemises the cart and caps a dollar coupon at the item price', async ({ page, request }) => {
+test('the receipt itemizes the cart and caps a dollar coupon at the item price', async ({ page, request }) => {
   const published = await readStore(request, store.joinCode)
   const dollarsCoupon = published.coupons.find((coupon) => coupon.discountType === 'dollars')!
   page.on('dialog', (dialog) => dialog.accept())

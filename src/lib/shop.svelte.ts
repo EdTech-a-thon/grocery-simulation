@@ -45,14 +45,14 @@ export function isStocked(productId: string) {
   return !shop.items[productId]?.hidden
 }
 
-/** Store price, then the aisle's own price, then the catalogue price. */
+/** Store price, then the aisle's own price, then the catalog price. */
 export function priceFor(item: AisleItem) {
   const override = shop.items[item.id]
   if (override) return override.price
   return item.price ?? catalogPrice(item.id)
 }
 
-/** Aisles with at least one stocked product, in catalogue order. */
+/** Aisles with at least one stocked product, in catalog order. */
 export function shoppableAisles(): AisleConfig[] {
   return aisles
     .map((aisle) => ({ ...aisle, items: aisle.items.filter((item) => isStocked(item.id)) }))

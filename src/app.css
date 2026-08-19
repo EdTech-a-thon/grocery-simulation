@@ -1281,7 +1281,7 @@ p {
 .store-summary-actions [data-delete-store] { color: #b91c1c; }
 .store-chip { border-radius: 999px; padding: 5px 10px; background: var(--store-color, #22c55e); color: #06210f; font-size: .68rem; font-weight: 900; }
 
-/* Each store carries a colour so a projected store is identifiable at a glance. */
+/* Each store carries a color so a projected store is identifiable at a glance. */
 [data-color="green"], [data-store-color="green"] { --store-color: #22c55e; }
 [data-color="blue"], [data-store-color="blue"] { --store-color: #3b82f6; }
 [data-color="purple"], [data-store-color="purple"] { --store-color: #a855f7; }
@@ -1298,7 +1298,7 @@ p {
 .price-edit-card-hidden { border-style: dashed; background: #f8fafc; opacity: .58; }
 .price-edit-card-hidden .teacher-money-input { background: #f1f5f9; border-color: #e2e8f0; }
 
-/* -------------------------------------------------------- itemised receipt */
+/* -------------------------------------------------------- itemized receipt */
 
 .receipt-heading-actions { display: flex; gap: 6px; }
 .receipt-items { display: grid; gap: 8px; }

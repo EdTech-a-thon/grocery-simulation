@@ -10,7 +10,7 @@ export type StoreColor = (typeof storeColors)[number]
 export type Store = { id: string; name: string; color: StoreColor; joinCode: string }
 
 /**
- * A per-store override. A product with no row is stocked at its catalogue price.
+ * A per-store override. A product with no row is stocked at its catalog price.
  * `price` is always a real number: PocketBase's REST API reports an unset number
  * field as 0, so a row that left it unset would be indistinguishable from one
  * priced at $0.00. Callers therefore always send the price they want.
@@ -154,7 +154,7 @@ const pendingItemSaves = new Map<string, Promise<StoreItem | null>>()
 
 /**
  * `price` is the price this store should charge, which callers read off the
- * screen — for an untouched product that is simply the catalogue price.
+ * screen — for an untouched product that is simply the catalog price.
  */
 export function saveStoreItem(storeId: string, existing: Record<string, StoreItem>, productId: string, changes: { price: number; hidden?: boolean }) {
   const previous = pendingItemSaves.get(productId) ?? Promise.resolve(null)
