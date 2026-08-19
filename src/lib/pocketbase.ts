@@ -68,10 +68,12 @@ export function currentTeacher() {
 }
 
 export async function signUp(email: string, password: string, displayName: string) {
-  // `emailVisibility` and `verified` are PocketBase's own fields and only a
-  // superuser may set them, so a teacher signing themselves up must not send
-  // them. Both default to false, which is what we want anyway.
-  await pb.collection('teachers').create({ email, password, passwordConfirm: password, displayName })
+  // The teachers collection's create rule requires these privacy fields to be
+  // explicitly false. Keep them in sync with that rule so public signup works.
+  await pb.collection('teachers').create({
+    email, password, passwordConfirm: password, displayName,
+    emailVisibility: false, verified: false,
+  })
   await pb.collection('teachers').authWithPassword(email, password)
 }
 
