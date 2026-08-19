@@ -1,8 +1,8 @@
 /// <reference path="../pb_data/types.d.ts" />
 
 // PocketBase runs every route handler in its own JS runtime, so handlers cannot
-// see file-scope helpers in freshmart.pb.js. Shared code lives here and each
-// handler pulls it in with require(`${__hooks}/freshmart_shared.js`).
+// see file-scope helpers in classgrocery.pb.js. Shared code lives here and each
+// handler pulls it in with require(`${__hooks}/classgrocery_shared.js`).
 
 const JOIN_CODE_PATTERN = /^[A-Z0-9-]{3,20}$/
 

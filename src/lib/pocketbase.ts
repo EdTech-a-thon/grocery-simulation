@@ -120,7 +120,7 @@ export async function deleteStore(id: string) {
 
 /** Copies the store's prices, stocking and coupons in one transaction on the server. */
 export async function duplicateStore(id: string, name: string, color: StoreColor, joinCode: string) {
-  return await pb.send<Store>(`/api/freshmart/stores/${encodeURIComponent(id)}/duplicate`, {
+  return await pb.send<Store>(`/api/classgrocery/stores/${encodeURIComponent(id)}/duplicate`, {
     method: 'POST',
     body: { name, color, joinCode: normalizeJoinCode(joinCode) },
   })
@@ -236,7 +236,7 @@ export async function fetchStoreByJoinCode(joinCode: string): Promise<JoinedStor
   const code = normalizeJoinCode(joinCode)
   if (code.length < 3) return null
   try {
-    return await pb.send<JoinedStore>(`/api/freshmart/store/${encodeURIComponent(code)}`, { method: 'GET' })
+    return await pb.send<JoinedStore>(`/api/classgrocery/store/${encodeURIComponent(code)}`, { method: 'GET' })
   } catch {
     return null
   }

@@ -19,7 +19,7 @@
     <span class="coupon-cart-icon" aria-hidden="true">$</span>
   {/if}
   <div class="print-coupon-copy">
-    <p>FRESH MART CLASS COUPON</p>
+    <p>CLASSGROCERY COUPON</p>
     <h2>{couponDiscountLabel(coupon)} {formatCouponItem(coupon)}</h2>
     <span>Valid {formatDate(coupon.startsAt)}<br />through {formatDate(coupon.endsAt)}</span>
     <Barcode code={coupon.code} />

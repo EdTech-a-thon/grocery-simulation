@@ -19,6 +19,6 @@ export default defineConfig({
     exclude: ['pocketbase'],
   },
   server: {
-    allowedHosts: ['.exe.xyz', '.edtechathon.com'],
+    allowedHosts: ['.exe.xyz', '.edtechathon.com', '.classgrocery.com'],
   },
 })

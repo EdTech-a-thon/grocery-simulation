@@ -18,7 +18,7 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   await page.getByRole('button', { name: 'Create a teacher account' }).click()
   await page.getByLabel('Your name').fill('Ms. Smoke')
   await page.getByLabel('School email').fill(`smoke-${run}@school.test`)
-  await page.getByLabel('Password').fill('freshmart1234')
+  await page.getByLabel('Password').fill('classgrocery1234')
   await page.getByRole('button', { name: 'Create account' }).click()
 
   await page.getByLabel('Store name').fill(`Smoke ${run}`)

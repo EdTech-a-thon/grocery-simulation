@@ -41,7 +41,7 @@ export function buildReceipt() {
 /** The same receipt as plain text, for the Copy button. */
 export function receiptText() {
   const receipt = buildReceipt()
-  const rows = ['FRESH MART RECEIPT', '']
+  const rows = ['CLASSGROCERY RECEIPT', '']
   for (const line of receipt.lines) {
     rows.push(`${line.item.name}  ${line.item.quantity} x ${money(line.item.price)} = ${money(line.lineTotal)}`)
     for (const entry of line.coupons) rows.push(`   ${entry.coupon.code}  ${couponDiscountLabel(entry.coupon)}: -${money(entry.amount)}`)

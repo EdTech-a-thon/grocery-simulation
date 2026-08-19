@@ -3,8 +3,8 @@ import { test, expect, type Page, type APIRequestContext } from '@playwright/tes
 // One teacher, one store and one join code per run, so repeated runs never
 // collide on the globally unique join code.
 const run = Date.now().toString(36).toUpperCase().slice(-6)
-const teacher = { email: `teacher-${run}@school.test`, password: 'freshmart1234', name: 'Ms. Rivera' }
-const other = { email: `other-${run}@school.test`, password: 'freshmart1234', name: 'Mr. Chen' }
+const teacher = { email: `teacher-${run}@school.test`, password: 'classgrocery1234', name: 'Ms. Rivera' }
+const other = { email: `other-${run}@school.test`, password: 'classgrocery1234', name: 'Mr. Chen' }
 const store = { name: `Room ${run}`, joinCode: `ROOM-${run}` }
 const copy = { name: `Room ${run} Copy`, joinCode: `COPY-${run}` }
 
@@ -18,7 +18,7 @@ type PublicStore = {
 
 /** Reads a store the way an anonymous student's browser does. */
 async function readStore(request: APIRequestContext, joinCode: string) {
-  const response = await request.get(`${pocketbaseUrl}/api/freshmart/store/${joinCode}`)
+  const response = await request.get(`${pocketbaseUrl}/api/classgrocery/store/${joinCode}`)
   expect(response.ok()).toBeTruthy()
   return (await response.json()) as PublicStore
 }
@@ -245,7 +245,7 @@ test('the receipt prints with its items, coupons and total saved', async ({ page
   await page.getByRole('button', { name: 'Print' }).click()
 
   const printed = page.locator('.print-receipt')
-  await expect(printed.getByText('FRESH MART', { exact: true })).toBeVisible()
+  await expect(printed.getByText('CLASSGROCERY', { exact: true })).toBeVisible()
   await expect(printed.locator('.receipt-item-name', { hasText: 'Apple' })).toBeVisible()
   await expect(printed.locator('.receipt-item-coupon')).toContainText(dollarsCoupon.code)
   await expect(printed.getByText('Total Amount Saved Today')).toBeVisible()

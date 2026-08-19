@@ -1,4 +1,4 @@
-# Fresh Mart Classroom
+# ClassGrocery
 
 A grocery-store simulation for practising real-life shopping maths. Teachers set
 up a store for each class — its prices, which products it stocks, and its printable
@@ -63,11 +63,11 @@ each one sits on. PocketBase stores only what differs per store:
 | `store_items` | Per-store price and stocking changes. No row means "stocked, at the catalogue price". |
 | `coupons`     | Per-store coupons. Codes are unique so they can be scanned as barcodes. |
 
-Two things API Rules cannot express live in `pb_hooks/freshmart.pb.js`:
+Two things API Rules cannot express live in `pb_hooks/classgrocery.pb.js`:
 
-- `GET /api/freshmart/store/{joinCode}` — students have no account, so this is
+- `GET /api/classgrocery/store/{joinCode}` — students have no account, so this is
   the one public read. Rules correctly hide every store from a signed-out visitor.
-- `POST /api/freshmart/stores/{id}/duplicate` — copies a store's items and
+- `POST /api/classgrocery/stores/{id}/duplicate` — copies a store's items and
   coupons in a single transaction. The copy gets **new** coupon codes, so sheets
   printed for last term's class cannot be spent in the new one.
 

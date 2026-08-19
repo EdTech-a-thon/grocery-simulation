@@ -1,16 +1,16 @@
 /// <reference path="../pb_data/types.d.ts" />
 
-// Fresh Mart keeps its product catalogue in the browser bundle (src/products.ts).
+// ClassGrocery keeps its product catalogue in the browser bundle (src/products.ts).
 // PocketBase only stores who the teacher is, which stores they run, which products
 // each store stocks and at what price, and the coupons for that store.
 //
-// Helpers live in freshmart_shared.js — see the note at the top of that file.
+// Helpers live in classgrocery_shared.js — see the note at the top of that file.
 
 // Students have no account, so joining a store cannot go through the collection
 // API: an owner-scoped list rule (correctly) hides every store from them.
 // This route is the one public read, and it returns only what a shopper needs.
-routerAdd('GET', '/api/freshmart/store/{joinCode}', (e) => {
-  const shared = require(`${__hooks}/freshmart_shared.js`)
+routerAdd('GET', '/api/classgrocery/store/{joinCode}', (e) => {
+  const shared = require(`${__hooks}/classgrocery_shared.js`)
 
   const joinCode = shared.normalizeJoinCode(e.request.pathValue('joinCode'))
   if (!shared.JOIN_CODE_PATTERN.test(joinCode)) throw new NotFoundError('Store not found')
@@ -44,8 +44,8 @@ routerAdd('GET', '/api/freshmart/store/{joinCode}', (e) => {
 
 // Copying a store touches many records at once and has to be all-or-nothing,
 // so it belongs here rather than in a loop in the browser.
-routerAdd('POST', '/api/freshmart/stores/{id}/duplicate', (e) => {
-  const shared = require(`${__hooks}/freshmart_shared.js`)
+routerAdd('POST', '/api/classgrocery/stores/{id}/duplicate', (e) => {
+  const shared = require(`${__hooks}/classgrocery_shared.js`)
 
   const body = new DynamicModel({ name: '', color: '', joinCode: '' })
   e.bindBody(body)

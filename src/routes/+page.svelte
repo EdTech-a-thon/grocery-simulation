@@ -44,7 +44,7 @@
     <section class="welcome-card role-welcome" aria-labelledby="welcome-title">
       <div class="welcome-copy">
         <p class="welcome-kicker">Real-life math adventure</p>
-        <h1 id="welcome-title">Fresh Mart Classroom</h1>
+        <h1 id="welcome-title">ClassGrocery</h1>
         <p class="welcome-intro">
           Choose how you are joining today. Teachers set up their stores, prices and coupons.
           Students shop and practice checkout math.

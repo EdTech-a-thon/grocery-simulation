@@ -12,7 +12,7 @@
 
 <header class="app-header">
   <div>
-    <button class="brand-button" type="button" onclick={onHome}>Fresh Mart</button>
+    <button class="brand-button" type="button" onclick={onHome}>ClassGrocery</button>
     <span class="role-chip">{role} view</span>
     {#if shop.store}
       <span class="store-chip" data-color={shop.store.color}>{shop.store.name}</span>

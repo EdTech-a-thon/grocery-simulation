@@ -42,7 +42,7 @@
     <section class="receipt-sheet">
       <article class="print-receipt">
         <header class="print-receipt-head">
-          <h1>FRESH MART</h1>
+          <h1>CLASSGROCERY</h1>
           <p>{shop.store?.name ?? 'Classroom store'}</p>
           <p>{new Date().toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}</p>
         </header>
@@ -53,7 +53,7 @@
         <div class="receipt-final"><span>Final total</span><strong>{money(receipt.finalTotal)}</strong></div>
         <div class="receipt-rule"></div>
         <div class="receipt-row coupon-total receipt-saved"><span>Total Amount Saved Today</span><strong>{money(receipt.discount)}</strong></div>
-        <footer class="print-receipt-foot"><p>Thank you for shopping at Fresh Mart!</p></footer>
+        <footer class="print-receipt-foot"><p>Thank you for shopping at ClassGrocery!</p></footer>
       </article>
     </section>
   {/if}
