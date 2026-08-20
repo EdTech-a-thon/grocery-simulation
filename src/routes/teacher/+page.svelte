@@ -94,7 +94,7 @@
       <button type="button" onclick={() => show('stores')}>My stores</button>
       {#if shop.store}
         <button type="button" onclick={() => show('prices')}>Prices &amp; stock</button>
-        <button type="button" onclick={() => show('coupons')}>Coupons</button>
+        {#if shop.store.couponsEnabled}<button type="button" onclick={() => show('coupons')}>Coupons</button>{/if}
         <button type="button" onclick={() => { shop.aisleIndex = 0; show('student-view') }}>View as Student</button>
       {/if}
       <button type="button" onclick={leave}>Sign out</button>

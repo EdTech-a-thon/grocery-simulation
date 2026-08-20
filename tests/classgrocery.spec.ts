@@ -13,7 +13,10 @@ const copy = { name: `Room ${run} Copy`, label: 'P4', joinCode: `${prefix}-P4` }
 const pocketbaseUrl = process.env.VITE_POCKETBASE_URL || 'http://127.0.0.1:8090'
 
 type PublicStore = {
-  store: { name: string; color: string; joinLabel: string; joinCode: string }
+  store: {
+    name: string; color: string; joinLabel: string; joinCode: string
+    brandMode: string; couponsEnabled: boolean; taxEnabled: boolean; salesTax: number
+  }
   items: Record<string, { price?: number; hidden?: boolean }>
   coupons: Array<{ code: string; discountType: string; discountAmount: number; productId: string }>
 }
@@ -49,10 +52,15 @@ async function signIn(page: Page, who: typeof teacher) {
   await expect(page.getByRole('heading', { name: 'My stores' })).toBeVisible()
 }
 
+/** The one card for a store, matched on the whole name: "Room 7" is not "Room 7 Copy". */
+function storeCard(page: Page, name: string) {
+  return page.locator('.store-summary').filter({ has: page.getByText(name, { exact: true }) })
+}
+
 /** Signs in and opens the named store's price studio. */
 async function openStore(page: Page, name = store.name) {
   await signIn(page, teacher)
-  await page.locator('.store-summary', { hasText: name }).getByRole('button', { name: 'Open' }).click()
+  await storeCard(page, name).getByRole('button', { name: 'Open' }).click()
   await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
 }
 
@@ -95,6 +103,7 @@ test.describe.configure({ mode: 'serial' })
 test('a teacher signs up and creates a store', async ({ page }) => {
   await signUp(page, teacher)
 
+  await page.getByRole('button', { name: 'Create New Store' }).click()
   await page.getByLabel('Store name').fill(store.name)
   await page.getByLabel('Store color').selectOption('green')
   await page.getByLabel('Class code').fill(store.label)
@@ -201,7 +210,7 @@ test('duplicating a store copies its stock and coupons but reissues the codes', 
   await signIn(page, teacher)
   const answers = [copy.name, 'blue', copy.label]
   page.on('dialog', (dialog) => dialog.accept(answers.shift() ?? ''))
-  await page.locator('.store-summary', { hasText: store.name }).getByRole('button', { name: 'Duplicate' }).first().click()
+  await storeCard(page, store.name).getByRole('button', { name: 'Duplicate' }).click()
   await expect(page.locator('.status-message')).toContainText(`Students join with ${copy.joinCode}`)
 
   const duplicated = await readStore(request, copy.joinCode)
@@ -302,6 +311,7 @@ test('a link to a store that is not there explains itself', async ({ page }) => 
 test('a teacher cannot use one of their own class codes twice', async ({ page }) => {
   await signIn(page, teacher)
 
+  await page.getByRole('button', { name: 'Create New Store' }).click()
   await page.getByLabel('Store name').fill('Another Room')
   await page.getByLabel('Class code').fill(store.label)
   await page.getByRole('button', { name: 'Create store' }).click()
@@ -319,6 +329,7 @@ test("another teacher sees none of the first teacher's stores, and may reuse the
 
   // P3 is taken by the first teacher. Under the old site-wide rule that was a
   // clash; now the identifier keeps the two apart.
+  await page.getByRole('button', { name: 'Create New Store' }).click()
   await page.getByLabel('Store name').fill('Mr Chen P3')
   await page.getByLabel('Class code').fill(store.label)
   await page.getByRole('button', { name: 'Create store' }).click()
@@ -367,7 +378,7 @@ test('stocking the name brands puts the CG line away again', async ({ page, requ
   await openStore(page)
 
   await page.getByRole('button', { name: 'Name brands' }).click()
-  await expect(page.locator('.status-message')).toHaveText('Name brands on the shelves. The CG line is put away.')
+  await expect(page.locator('.status-message')).toHaveText('Name brands on the shelves. The CG Value line is put away.')
 
   const published = await readStore(request, store.joinCode)
   expect(published.items['eggs'].hidden).toBeFalsy()
@@ -379,11 +390,63 @@ test('stocking the name brands puts the CG line away again', async ({ page, requ
 test('stocking the CG store brands puts the name brands away', async ({ page, request }) => {
   await openStore(page)
 
-  await page.getByRole('button', { name: 'CG store brands' }).click()
+  await page.getByRole('button', { name: 'CG Value store brands' }).click()
   await expect(page.locator('.status-message'))
-    .toHaveText('CG store brands on the shelves. The name brands are put away.')
+    .toHaveText('CG Value store brands on the shelves. The name brands are put away.')
 
   const published = await readStore(request, store.joinCode)
   expect(published.items['eggs'].hidden).toBe(true)
   expect(published.items['eggs-cg'].hidden).toBeFalsy()
+})
+
+// --------------------------------------------------- settings after the fact
+//
+// The create form and the Edit form are the same form: what a teacher chooses
+// when a store is built can be chosen again at any point afterwards.
+
+test('a teacher changes a store settings after it is built', async ({ page, request }) => {
+  const settingsStore = { name: `Room ${run} Settings`, label: 'P5', joinCode: `${prefix}-P5` }
+  await signIn(page, teacher)
+
+  await page.getByRole('button', { name: 'Create New Store' }).click()
+  const form = page.locator('.store-modal')
+  await form.getByLabel('Store name').fill(settingsStore.name)
+  await form.getByLabel('Class code').fill(settingsStore.label)
+  await form.getByLabel('CG Value store brand').check()
+  await form.getByLabel('Use sales tax').check()
+  await form.getByLabel('Default sales tax (%)').fill('8.25')
+  await form.getByLabel('No coupons').check()
+  await page.getByRole('button', { name: 'Create store' }).click()
+  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
+
+  // Coupons are off, so the teacher is not offered the coupon workshop at all.
+  await expect(page.getByRole('button', { name: 'Coupons' })).toHaveCount(0)
+
+  const built = await readStore(request, settingsStore.joinCode)
+  expect(built.store.brandMode).toBe('store')
+  expect(built.store.taxEnabled).toBe(true)
+  expect(built.store.salesTax).toBe(8.25)
+  expect(built.store.couponsEnabled).toBe(false)
+  expect(built.items['eggs'].hidden).toBe(true)
+  expect(built.items['eggs-cg'].hidden).toBeFalsy()
+
+  // Every one of those choices is reopened and reversed.
+  await page.getByRole('button', { name: 'My stores' }).click()
+  await storeCard(page, settingsStore.name).getByRole('button', { name: 'Edit' }).click()
+  await expect(form.getByRole('heading', { name: `Edit ${settingsStore.name}` })).toBeVisible()
+  await expect(form.getByLabel('Default sales tax (%)')).toHaveValue('8.25')
+  await form.getByLabel('Name brands').check()
+  await form.getByLabel('No sales tax').check()
+  await form.getByLabel('Allow coupons').check()
+  await page.getByRole('button', { name: 'Save changes' }).click()
+  await expect(page.locator('.status-message')).toContainText(`${settingsStore.name} updated.`)
+
+  const changed = await readStore(request, settingsStore.joinCode)
+  expect(changed.store.brandMode).toBe('name')
+  expect(changed.store.taxEnabled).toBe(false)
+  expect(changed.store.salesTax).toBe(0)
+  expect(changed.store.couponsEnabled).toBe(true)
+  // Changing the brand line restocked the shelves to match.
+  expect(changed.items['eggs'].hidden).toBeFalsy()
+  expect(changed.items['eggs-cg'].hidden).toBe(true)
 })

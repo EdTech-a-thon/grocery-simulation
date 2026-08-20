@@ -48,7 +48,7 @@
         </header>
         <div class="receipt-rule"></div>
         <ReceiptBody {receipt} />
-        <div class="receipt-row"><span>Sales tax ({cart.salesTax}%)</span><strong>{money(receipt.salesTaxAmount)}</strong></div>
+        {#if shop.store?.taxEnabled}<div class="receipt-row"><span>Sales tax ({cart.salesTax}%)</span><strong>{money(receipt.salesTaxAmount)}</strong></div>{/if}
         <div class="receipt-rule"></div>
         <div class="receipt-final"><span>Final total</span><strong>{money(receipt.finalTotal)}</strong></div>
         <div class="receipt-rule"></div>

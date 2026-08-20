@@ -96,7 +96,7 @@
   <div class="cart-total"><span>Total bill</span><strong>{money(totals.totalPrice)}</strong></div>
 
   <div class="cart-actions">
-    <button class="coupon-action" type="button" onclick={() => { openModal = 'coupon' }}>Apply Coupon</button>
+    {#if shop.store?.couponsEnabled}<button class="coupon-action" type="button" onclick={() => { openModal = 'coupon' }}>Apply Coupon</button>{/if}
     <button class="checkout-action" type="button" disabled={cart.lines.length === 0} onclick={() => { openModal = 'checkout' }}>Check out</button>
   </div>
 </aside>
@@ -138,21 +138,14 @@
           </div>
           <div class="receipt-rule"></div>
           <ReceiptBody {receipt} />
-          <label class="receipt-input-row">
+          {#if shop.store?.taxEnabled}<div class="receipt-input-row">
             <span>Sales tax</span>
             <span class="percent-input">
-              <input
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0"
-                value={cart.salesTax || ''}
-                onchange={(event) => { cart.salesTax = Math.max(0, Number(event.currentTarget.value) || 0) }}
-              />
+              <strong>{cart.salesTax}</strong>
               <span>%</span>
             </span>
-          </label>
-          <div class="receipt-row"><span>Tax amount</span><strong>{money(receipt.salesTaxAmount)}</strong></div>
+          </div>
+          <div class="receipt-row"><span>Tax amount</span><strong>{money(receipt.salesTaxAmount)}</strong></div>{/if}
           <div class="receipt-rule"></div>
           <div class="receipt-final"><span>Final total</span><strong>{money(receipt.finalTotal)}</strong></div>
           <div class="receipt-rule"></div>

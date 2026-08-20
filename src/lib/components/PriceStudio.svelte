@@ -2,9 +2,9 @@
   import type { Snippet } from 'svelte'
   import { aisles } from '$lib/catalog'
   import { errorMessage, loadStoreItems, saveStoreItem, stockBrands, type BrandMode } from '$lib/pocketbase'
-  import { isStoreBrand, nameBrandIdOf, productById, storeBrandPrice } from '$lib/products'
+  import { isStoreBrand, productById } from '$lib/products'
   import { copyJoinLink, joinLinkFor } from '$lib/sharing'
-  import { isStocked, priceFor, shop } from '$lib/shop.svelte'
+  import { everyProductWithItsPrice, isStocked, priceFor, shop } from '$lib/shop.svelte'
   import { teacher, withBusy } from '$lib/teacher.svelte'
 
   let { header }: { header: Snippet } = $props()
@@ -46,41 +46,22 @@
   }
 
   const brandModeLabels: Record<BrandMode, string> = {
-    name: 'Name brands on the shelves. The CG line is put away.',
-    store: 'CG store brands on the shelves. The name brands are put away.',
+    name: 'Name brands on the shelves. The CG Value line is put away.',
+    store: 'CG Value store brands on the shelves. The name brands are put away.',
     both: 'Both brands on the shelves, side by side.',
-  }
-
-  /**
-   * Every product in the catalog with the price this store should charge for
-   * it. The server has no catalog of its own, so it is told.
-   */
-  function everyProductWithItsPrice() {
-    const items: Array<{ id: string; price: number }> = []
-    for (const entry of aisles) {
-      const inThisAisle = new Map(entry.items.map((item) => [item.id, item]))
-      for (const item of entry.items) {
-        // A CG item nobody has priced yet starts 15% under whatever the name
-        // brand costs *in this store*, so a teacher's own prices carry across.
-        const nameBrand = inThisAisle.get(nameBrandIdOf(item.id))
-        const price = isStoreBrand(item.id) && !shop.items[item.id] && nameBrand
-          ? storeBrandPrice(priceFor(nameBrand))
-          : priceFor(item)
-        items.push({ id: item.id, price })
-      }
-    }
-    return items
   }
 
   /** Stocks one brand line across the whole store, every aisle at once. */
   function stockWholeStore(mode: BrandMode) {
-    const storeId = shop.store?.id
-    if (!storeId) return
-    const items = everyProductWithItsPrice()
+    const store = shop.store
+    if (!store) return
+    const items = everyProductWithItsPrice(shop.items)
     void withBusy(async () => {
       try {
-        await stockBrands(storeId, mode, items)
-        shop.items = await loadStoreItems(storeId)
+        await stockBrands(store.id, mode, items)
+        shop.items = await loadStoreItems(store.id)
+        // The endpoint records the mode on the store; keep the open copy level with it.
+        shop.store = { ...store, brandMode: mode }
         teacher.message = brandModeLabels[mode]
       } catch (error) {
         teacher.message = errorMessage(error, 'Those changes could not be saved.')
@@ -116,7 +97,7 @@
       <div class="brand-bulk-actions">
         <span>Stock the whole store with</span>
         <button type="button" onclick={() => stockWholeStore('name')}>Name brands</button>
-        <button type="button" onclick={() => stockWholeStore('store')}>CG store brands</button>
+        <button type="button" onclick={() => stockWholeStore('store')}>CG Value store brands</button>
         <button type="button" onclick={() => stockWholeStore('both')}>Both brands</button>
       </div>
     </div>
@@ -149,7 +130,7 @@
           <button type="button" onclick={() => stockWholeAisle(true)}>Stock none</button>
         </div>
       </div>
-      <p class="helper-text">Every product comes in two brands: the name brand, and the cheaper CG store brand beside it. Edit any price, or uncheck an item to remove it from this store's shelves.</p>
+      <p class="helper-text">Every product comes in two brands: the name brand, and the cheaper CG Value store brand beside it. Edit any price, or uncheck an item to remove it from this store's shelves.</p>
       <div class="price-grid">
         {#each aisle.items as item (item.id)}
           {@const product = productById[item.id]}
@@ -157,7 +138,7 @@
             <img src={product.image} alt="" />
             <span>
               {product.name}
-              {#if isStoreBrand(item.id)}<span class="brand-tag">CG</span>{/if}
+              {#if isStoreBrand(item.id)}<span class="brand-tag">CG Value</span>{/if}
             </span>
             <span class="teacher-money-input">
               $<input

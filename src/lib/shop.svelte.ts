@@ -1,7 +1,8 @@
 import { browser } from '$app/environment'
 import { aisles, catalogPrice, type AisleConfig, type AisleItem } from './catalog'
 import { joinKey } from './joincodes'
-import { isStoreBrand } from './products'
+import { isStoreBrand, nameBrandIdOf, storeBrandPrice } from './products'
+import { cart } from './cart.svelte'
 import {
   fetchStoreByJoinCode, loadCoupons, loadStoreItems,
   type Coupon, type Store, type StoreItem,
@@ -54,9 +55,36 @@ export function isStocked(productId: string) {
 
 /** Store price, then the aisle's own price, then the catalog price. */
 export function priceFor(item: AisleItem) {
-  const override = shop.items[item.id]
+  return priceIn(shop.items, item)
+}
+
+/** The same lookup against any store's overrides, not just the open one. */
+function priceIn(items: Record<string, StoreItem>, item: AisleItem) {
+  const override = items[item.id]
   if (override) return override.price
   return item.price ?? catalogPrice(item.id)
+}
+
+/**
+ * Every product in the catalog with the price a store should charge for it.
+ * The server has no catalog of its own, so a brand restock is told the whole
+ * list, and a teacher's own prices ride along with it.
+ */
+export function everyProductWithItsPrice(items: Record<string, StoreItem>) {
+  const priced: Array<{ id: string; price: number }> = []
+  for (const aisle of aisles) {
+    const inThisAisle = new Map(aisle.items.map((item) => [item.id, item]))
+    for (const item of aisle.items) {
+      // A CG item nobody has priced yet starts 15% under whatever the name
+      // brand costs *in this store*, so a teacher's own prices carry across.
+      const nameBrand = inThisAisle.get(nameBrandIdOf(item.id))
+      const price = isStoreBrand(item.id) && !items[item.id] && nameBrand
+        ? storeBrandPrice(priceIn(items, nameBrand))
+        : priceIn(items, item)
+      priced.push({ id: item.id, price })
+    }
+  }
+  return priced
 }
 
 /** Aisles with at least one stocked product, in catalog order. */
@@ -80,6 +108,16 @@ export async function openStore(store: Store) {
   shop.items = await loadStoreItems(store.id)
   shop.coupons = await loadCoupons(store.id)
   shop.aisleIndex = 0
+  syncCartToStore(store)
+}
+
+/**
+ * Puts the store's own rules on the cart: the tax rate the class practices
+ * with, and no coupons at all where the teacher turned them off.
+ */
+export function syncCartToStore(store: Store) {
+  cart.salesTax = store.taxEnabled ? store.salesTax : 0
+  if (!store.couponsEnabled) cart.appliedCoupons = []
 }
 
 /** Loads a store from the public join route, which is all a student can read. */
@@ -92,6 +130,7 @@ export async function joinStore(joinCode: string) {
     productId,
     { id: '', productId, price: entry.price ?? catalogPrice(productId), hidden: Boolean(entry.hidden) },
   ]))
+  syncCartToStore(joined.store)
   return true
 }
 

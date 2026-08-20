@@ -12,7 +12,18 @@ export type StoreColor = (typeof storeColors)[number]
  * `joinLabel` is the short code the teacher gave this class; `joinCode` is the
  * whole thing students are given, their identifier and that label together.
  */
-export type Store = { id: string; name: string; color: StoreColor; joinLabel: string; joinCode: string }
+export type BrandMode = 'name' | 'store' | 'both'
+export type Store = {
+  id: string
+  name: string
+  color: StoreColor
+  joinLabel: string
+  joinCode: string
+  brandMode: BrandMode
+  couponsEnabled: boolean
+  taxEnabled: boolean
+  salesTax: number
+}
 
 /**
  * A per-store override. A product with no row is stocked at its catalog price.
@@ -114,6 +125,10 @@ function toStore(record: Record<string, unknown>): Store {
     color: record.color as StoreColor,
     joinLabel,
     joinCode: joinCodeFor(teacherJoinPrefix(), joinLabel),
+    brandMode: record.brandMode === 'store' || record.brandMode === 'both' ? record.brandMode : 'name',
+    couponsEnabled: !Boolean(record.couponsDisabled),
+    taxEnabled: Boolean(record.taxEnabled),
+    salesTax: Math.max(0, Number(record.salesTax) || 0),
   }
 }
 
@@ -124,20 +139,44 @@ export async function listStores(): Promise<Store[]> {
 
 // `joinKey` is not sent: a hook fills it in from the owner's identifier before
 // the record is validated, and overwrites anything a browser tried to set.
-export async function createStore(name: string, color: StoreColor, joinLabel: string) {
+export type NewStoreSettings = {
+  name: string
+  color: StoreColor
+  joinLabel: string
+  brandMode: BrandMode
+  couponsEnabled: boolean
+  taxEnabled: boolean
+  salesTax: number
+}
+
+export async function createStore(settings: NewStoreSettings) {
   const teacher = currentTeacher()
   if (!teacher) throw new Error('Not signed in')
   const record = await pb.collection('stores').create({
-    owner: teacher.id, name, color, joinLabel: normalizeJoinLabel(joinLabel),
+    owner: teacher.id,
+    name: settings.name,
+    color: settings.color,
+    joinLabel: normalizeJoinLabel(settings.joinLabel),
+    brandMode: settings.brandMode,
+    couponsDisabled: !settings.couponsEnabled,
+    taxEnabled: settings.taxEnabled,
+    salesTax: settings.taxEnabled ? settings.salesTax : 0,
   })
   return toStore(record as unknown as Record<string, unknown>)
 }
 
-export async function updateStore(id: string, changes: { name?: string; color?: StoreColor; joinLabel?: string }) {
+export async function updateStore(id: string, changes: Partial<NewStoreSettings>) {
   const body: Record<string, unknown> = {}
   if (changes.name !== undefined) body.name = changes.name
   if (changes.color !== undefined) body.color = changes.color
   if (changes.joinLabel !== undefined) body.joinLabel = normalizeJoinLabel(changes.joinLabel)
+  if (changes.brandMode !== undefined) body.brandMode = changes.brandMode
+  if (changes.couponsEnabled !== undefined) body.couponsDisabled = !changes.couponsEnabled
+  if (changes.taxEnabled !== undefined) body.taxEnabled = changes.taxEnabled
+  // A store with tax turned off carries no rate, so turning it back on later
+  // never resurrects a number the teacher has forgotten about.
+  if (changes.taxEnabled === false) body.salesTax = 0
+  else if (changes.salesTax !== undefined) body.salesTax = changes.salesTax
   const record = await pb.collection('stores').update(id, body)
   return toStore(record as unknown as Record<string, unknown>)
 }
@@ -174,9 +213,6 @@ export async function loadStoreItems(storeId: string) {
   }
   return items
 }
-
-/** Which brand lines a store carries. */
-export type BrandMode = 'name' | 'store' | 'both'
 
 /**
  * Stocks a whole brand line across every aisle in one transaction. The catalog

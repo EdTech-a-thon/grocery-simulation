@@ -51,7 +51,7 @@ export function receiptText() {
   }
   rows.push('', `Shopping list total: ${money(receipt.totalPrice)}`)
   rows.push(`Subtotal after savings: ${money(receipt.discountedPrice)}`)
-  rows.push(`Sales tax (${cart.salesTax}%): ${money(receipt.salesTaxAmount)}`)
+  if (cart.salesTax) rows.push(`Sales tax (${cart.salesTax}%): ${money(receipt.salesTaxAmount)}`)
   rows.push(`FINAL TOTAL: ${money(receipt.finalTotal)}`)
   rows.push('', `TOTAL AMOUNT SAVED TODAY: ${money(receipt.discount)}`)
   return rows.join('\n')

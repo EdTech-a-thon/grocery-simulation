@@ -66,7 +66,7 @@ routerAdd('GET', '/api/classgrocery/store/{joinCode}', (e) => {
     items[record.getString('productId')] = entry
   }
 
-  const coupons = e.app
+  const coupons = store.getBool('couponsDisabled') ? [] : e.app
     .findRecordsByFilter('coupons', 'store = {:store}', 'created', 0, 0, { store: store.id })
     .map(shared.couponPayload) // `copies` is a teacher-only printing detail and stays out of this payload
 
@@ -77,6 +77,10 @@ routerAdd('GET', '/api/classgrocery/store/{joinCode}', (e) => {
       color: store.getString('color'),
       joinLabel: store.getString('joinLabel'),
       joinCode,
+      brandMode: store.getString('brandMode') || 'name',
+      couponsEnabled: !store.getBool('couponsDisabled'),
+      taxEnabled: store.getBool('taxEnabled'),
+      salesTax: store.getFloat('salesTax'),
     },
     items,
     coupons,
@@ -116,6 +120,10 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/duplicate', (e) => {
     copy.set('color', String(body.color || source.getString('color')))
     copy.set('joinLabel', resolved.label)
     copy.set('joinKey', resolved.joinKey)
+    copy.set('brandMode', source.getString('brandMode'))
+    copy.set('couponsDisabled', source.getBool('couponsDisabled'))
+    copy.set('taxEnabled', source.getBool('taxEnabled'))
+    copy.set('salesTax', source.getFloat('salesTax'))
     tx.save(copy)
 
     for (const item of tx.findRecordsByFilter('store_items', 'store = {:store}', '', 0, 0, { store: source.id })) {
@@ -148,6 +156,10 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/duplicate', (e) => {
       color: copy.getString('color'),
       joinLabel: resolved.label,
       joinCode: resolved.joinCode,
+      brandMode: copy.getString('brandMode') || 'name',
+      couponsEnabled: !copy.getBool('couponsDisabled'),
+      taxEnabled: copy.getBool('taxEnabled'),
+      salesTax: copy.getFloat('salesTax'),
     }
   })
 
@@ -180,6 +192,8 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/brands', (e) => {
     } catch (_) {
       throw new NotFoundError('Store not found') // same answer whether it is missing or someone else's
     }
+    store.set('brandMode', mode)
+    tx.save(store)
 
     const existing = {}
     for (const row of tx.findRecordsByFilter('store_items', 'store = {:store}', '', 0, 0, { store: store.id })) {
@@ -211,6 +225,10 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/brands', (e) => {
       fresh.set('price', Number(item.price) || 0)
       fresh.set('hidden', !wanted)
       tx.save(fresh)
+      // Some catalog items appear in more than one aisle. Reuse the row when
+      // that product id comes around again instead of violating the per-store
+      // uniqueness rule.
+      existing[productId] = fresh
     }
   })
 
