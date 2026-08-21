@@ -26,7 +26,7 @@ test('coupons print in sheets, and printing never loses the page underneath', as
 
   await page.getByRole('button', { name: 'Create New Store' }).click()
   await page.getByLabel('Store name').fill(`Smoke ${run}`)
-  await page.getByLabel('Class code').fill('P1')
+  await page.getByLabel('Store code').fill('P1')
   await page.getByRole('button', { name: 'Create store' }).click()
   await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
 

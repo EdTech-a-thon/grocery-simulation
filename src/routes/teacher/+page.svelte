@@ -88,16 +88,26 @@
   <StudentViewHeader onExit={() => show('prices')} />
 {/snippet}
 
+<!--
+  The dark header is only ever about getting around the site: the pages on the
+  left of the divider, leaving on the right. Anything that changes a store lives
+  in that store's green header instead.
+-->
 {#snippet teacherHeader(title: string)}
   <AppHeader {title} role="teacher" onHome={() => show('stores')}>
     {#snippet nav()}
-      <button type="button" onclick={() => show('stores')}>My stores</button>
-      {#if shop.store}
-        <button type="button" onclick={() => show('prices')}>Prices &amp; stock</button>
-        {#if shop.store.couponsEnabled}<button type="button" onclick={() => show('coupons')}>Coupons</button>{/if}
-        <button type="button" onclick={() => { shop.aisleIndex = 0; show('student-view') }}>View as Student</button>
-      {/if}
-      <button type="button" onclick={leave}>Sign out</button>
+      <span class="header-pages">
+        <button class:active={screen === 'stores'} type="button" onclick={() => show('stores')}>My stores</button>
+        {#if shop.store?.couponsEnabled}
+          <button class:active={screen === 'coupons'} type="button" onclick={() => show('coupons')}>Coupons</button>
+        {/if}
+      </span>
+      <span class="header-exits">
+        {#if shop.store}
+          <button type="button" onclick={() => { shop.aisleIndex = 0; show('student-view') }}>View as Student</button>
+        {/if}
+        <button type="button" onclick={leave}>Sign out</button>
+      </span>
     {/snippet}
   </AppHeader>
 {/snippet}

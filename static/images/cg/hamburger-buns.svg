@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
-  <path d="M18 55h124v113H18z" fill="#a49979" opacity=".85"/>
-  <path d="M18 55h124v26H18z" fill="#e0dccb" opacity=".86"/>
-  <text x="80" y="74" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#6a5e4d">CLASSIC BUNS</text>
-  <g fill="#ac9f8b" stroke="#8d7c6a" stroke-width="3"><path d="M37 113c0-24 36-31 45-6v12H37z"/><path d="M79 113c0-24 36-31 45-6v12H79z"/><path d="M37 150c0-24 36-31 45-6v12H37z"/><path d="M79 150c0-24 36-31 45-6v12H79z"/></g>
-  <g fill="#ddd8c6"><circle cx="57" cy="103" r="2"/><circle cx="68" cy="98" r="2"/><circle cx="98" cy="102" r="2"/><circle cx="109" cy="98" r="2"/></g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)">
+  <path d="M18 55h124v113H18z" fill="#e3b735" opacity=".85"/>
+  <path d="M18 55h124v26H18z" fill="#fff4c7" opacity=".86"/>
+  <text x="80" y="74" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#80541d">CLASSIC BUNS</text>
+  <g fill="#dda95b" stroke="#b97631" stroke-width="3"><path d="M37 113c0-24 36-31 45-6v12H37z"/><path d="M79 113c0-24 36-31 45-6v12H79z"/><path d="M37 150c0-24 36-31 45-6v12H37z"/><path d="M79 150c0-24 36-31 45-6v12H79z"/></g>
+  <g fill="#fff1bd"><circle cx="57" cy="103" r="2"/><circle cx="68" cy="98" r="2"/><circle cx="98" cy="102" r="2"/><circle cx="109" cy="98" r="2"/></g>
+</g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>

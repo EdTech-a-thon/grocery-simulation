@@ -16,7 +16,7 @@
     version="1.1"
     inkscape:output_extension="org.inkscape.output.svg.inkscape"
     inkscape:version="0.48.5 r10040"
-  >
+  ><g transform="translate(251.57 0) scale(0.8132101550675387) translate(-251.57 0)">
   <defs
       id="defs4"
     >
@@ -31,12 +31,12 @@
       >
       <stop
           id="stop5303-9"
-          style="stop-color:#91836c"
+          style="stop-color:#c08c31"
           offset="0"
       />
       <stop
           id="stop5305-8"
-          style="stop-color:#baac93"
+          style="stop-color:#f5bf5e"
           offset="1"
       />
     </linearGradient
@@ -52,12 +52,12 @@
       >
       <stop
           id="stop5293-6"
-          style="stop-color:#787e53"
+          style="stop-color:#95aa11"
           offset="0"
       />
       <stop
           id="stop5295-3"
-          style="stop-color:#baac93"
+          style="stop-color:#f5bf5e"
           offset="1"
       />
     </linearGradient
@@ -73,12 +73,12 @@
       >
       <stop
           id="stop5438-8"
-          style="stop-color:#c6b8a0"
+          style="stop-color:#ffcc73"
           offset="0"
       />
       <stop
           id="stop5440-5"
-          style="stop-color:#737b4f"
+          style="stop-color:#8da90a"
           offset="1"
       />
     </linearGradient
@@ -156,25 +156,25 @@
         id="path4479"
         inkscape:connector-curvature="0"
         sodipodi:nodetypes="csssssssssc"
-        style="fill-rule:evenodd;fill:#6b5e54"
+        style="fill-rule:evenodd;fill:#7a4d2c"
         d="m515.62 428.48c-0.73024 1.2725-1.8664 3.1653-3.3482 3.9062-0.95769 0.47885-1.9498 3.8483-2.1965 5.0817-0.44901 2.245 1.5841 1.7406 3.3126 2.1728 4.6032 1.1508 7.0506 1.9907 9.7656 3.3482 0.42705 0.21352 5.2872 0.5795 5.5755 0.29112 0.77577-0.77577-0.83225-5.6605-0.83225-6.7085 0-2.3316 0.2337-2.5112-2.2321-2.5112-1.7725 0-2.0974 0.83705-4.4643 0.83705-0.86161 0-3.5389-4.3017-3.6272-4.7433-0.0814-0.40711-1.7953-1.5794-1.9531-1.6741z"
     />
     <path
         id="path4481"
         inkscape:connector-curvature="0"
         sodipodi:nodetypes="csssssssssss"
-        style="fill-rule:evenodd;fill:#a39a93"
+        style="fill-rule:evenodd;fill:#bd967a"
         d="m524.55 425.13c-1.4418 0.0112-6.5803 1.9012-8.2282 3.5491-1.9203 1.9203 1.1654 2.7842 2.3187 4.0708 1.5697 1.7512-0.99287 2.1775 4.5145 3.3482 1.9123 0.40652 2.3447-0.36765 3.3482-1.2026 1.7857-1.4857 1.9503 0.004 3.6272-2.2321 0.79278-1.057 0.28781-3.3658 0.83705-4.4643 0.30533-0.61067 3.0578-1.9417 3.6272-2.5112 1.5422-1.5422 1.8789-2.0088-0.27902-3.6272-1.3485-1.0114-1.2162-1.2376-1.6741-3.0692-0.39091-1.5636-3.5681 0.10994-3.9062 0.27902-1.2355 0.61774-1.5304 2.0884-2.5112 3.0692"
     />
     <path
         id="path5253"
-        style="fill-rule:evenodd;fill:#524841"
+        style="fill-rule:evenodd;fill:#53351d"
         inkscape:connector-curvature="0"
         d="m537.99 416.21c-1.6963-0.22124-4.162 0.70279-5.975 1.4515-1.466 0.60544-0.95384 3.5257-0.70294 4.3546 0.49353 1.6306 4.4573 1.4119 5.975 1.1612 2.0426-0.33743 3.3783-2.3874 4.2176-3.774 1.3922-2.2998-1.8184-2.9132-3.5147-3.1934z"
     />
     <path
         id="path5309"
-        style="filter:url(#filter5431-6);fill-rule:evenodd;fill:#8f7d5b"
+        style="filter:url(#filter5431-6);fill-rule:evenodd;fill:#cf890c"
         d="m231.01 504.75c3.116 4.5738 26.275 17.504 30.463 17.77 5.2871 0.3366-29.959-21.933-30.463-17.77z"
         sodipodi:nodetypes="csc"
         transform="matrix(.99486 -.10122 .12129 1.1921 -61.365 -75.116)"
@@ -182,7 +182,7 @@
     />
     <path
         id="path2453"
-        style="fill-rule:evenodd;fill:#49413e"
+        style="fill-rule:evenodd;fill:#402921"
         inkscape:connector-curvature="0"
         d="m235.25 499.86-0.66005 11.136-3.3003 4.3305-18.482 9.2796-6.6006-9.2796 6.6006-0.61864 1.3201-9.8982 5.2804-1.2373 5.9405-4.9491 5.2804 3.0932 4.6204-1.8559z"
     />
@@ -235,5 +235,4 @@
     >
   </metadata
   >
-</svg
->
+</g><g><rect x="0" y="284.7618" width="503.14" height="65.4082" fill="#15803d"/><text x="251.57" y="331.855704" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="40.553084" fill="#ffffff">CG Value</text></g></svg>

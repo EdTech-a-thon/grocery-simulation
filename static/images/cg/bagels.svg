@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
-  <path d="M19 57h122v112H19z" fill="#7c8978" opacity=".7"/>
-  <path d="M19 57h122v28H19z" fill="#dcdfd4" opacity=".88"/>
-  <text x="80" y="77" text-anchor="middle" font-family="Georgia, serif" font-size="16" font-weight="700" fill="#4f5c51">BAKERY BAGELS</text>
-  <g fill="#9b8d7b" stroke="#7d6e5d" stroke-width="3"><circle cx="57" cy="112" r="25"/><circle cx="101" cy="112" r="25"/><circle cx="57" cy="148" r="25"/><circle cx="101" cy="148" r="25"/></g>
-  <g fill="#c4bca5"><circle cx="57" cy="112" r="9"/><circle cx="101" cy="112" r="9"/><circle cx="57" cy="148" r="9"/><circle cx="101" cy="148" r="9"/></g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)">
+  <path d="M19 57h122v112H19z" fill="#699b5b" opacity=".7"/>
+  <path d="M19 57h122v28H19z" fill="#eff5da" opacity=".88"/>
+  <text x="80" y="77" text-anchor="middle" font-family="Georgia, serif" font-size="16" font-weight="700" fill="#315d38">BAKERY BAGELS</text>
+  <g fill="#c89148" stroke="#9f6528" stroke-width="3"><circle cx="57" cy="112" r="25"/><circle cx="101" cy="112" r="25"/><circle cx="57" cy="148" r="25"/><circle cx="101" cy="148" r="25"/></g>
+  <g fill="#f2d583"><circle cx="57" cy="112" r="9"/><circle cx="101" cy="112" r="9"/><circle cx="57" cy="148" r="9"/><circle cx="101" cy="148" r="9"/></g>
+</g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>

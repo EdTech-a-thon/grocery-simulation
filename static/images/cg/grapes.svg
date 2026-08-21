@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
-  <path d="M81 24c-4 18-2 32 8 45" fill="none" stroke="#666e5f" stroke-width="9" stroke-linecap="round"/>
-  <path d="M87 42c18-17 34-13 37-3-15 13-29 14-37 3z" fill="#74806e"/>
-  <path d="M76 51C57 36 42 41 39 53c16 9 29 8 37-2z" fill="#7b8873"/>
-  <g fill="#74687b"><circle cx="78" cy="75" r="18"/><circle cx="57" cy="91" r="18"/><circle cx="98" cy="93" r="18"/><circle cx="76" cy="112" r="19"/><circle cx="51" cy="127" r="17"/><circle cx="101" cy="129" r="17"/><circle cx="75" cy="148" r="19"/><circle cx="61" cy="169" r="16"/><circle cx="91" cy="169" r="16"/></g>
-  <g fill="#948998" opacity=".55"><circle cx="72" cy="69" r="5"/><circle cx="52" cy="85" r="5"/><circle cx="92" cy="87" r="5"/><circle cx="70" cy="106" r="5"/></g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)">
+  <path d="M81 24c-4 18-2 32 8 45" fill="none" stroke="#5a7740" stroke-width="9" stroke-linecap="round"/>
+  <path d="M87 42c18-17 34-13 37-3-15 13-29 14-37 3z" fill="#63934c"/>
+  <path d="M76 51C57 36 42 41 39 53c16 9 29 8 37-2z" fill="#6e9f50"/>
+  <g fill="#71458d"><circle cx="78" cy="75" r="18"/><circle cx="57" cy="91" r="18"/><circle cx="98" cy="93" r="18"/><circle cx="76" cy="112" r="19"/><circle cx="51" cy="127" r="17"/><circle cx="101" cy="129" r="17"/><circle cx="75" cy="148" r="19"/><circle cx="61" cy="169" r="16"/><circle cx="91" cy="169" r="16"/></g>
+  <g fill="#9a70ae" opacity=".55"><circle cx="72" cy="69" r="5"/><circle cx="52" cy="85" r="5"/><circle cx="92" cy="87" r="5"/><circle cx="70" cy="106" r="5"/></g>
+</g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>

@@ -1,10 +1,10 @@
 // Builds the ClassGrocery store-brand artwork.
 //
 // A CG package is deliberately the *same* package as the name brand: identical
-// paths, identical text, identical proportions. Only the colors change, the way
-// a supermarket's own label is the plain version of the box beside it. So this
-// script copies each file in static/images verbatim and rewrites nothing but
-// the color literals.
+// paths, identical text, identical colors. What marks it as the store brand is
+// the house trim — the art is nudged up to make room for a green CG band along
+// the bottom, the way a supermarket's own label carries the same banner across
+// every product in the line.
 //
 // Re-run it whenever a product is added:  bun run images:cg
 
@@ -14,65 +14,56 @@ import { join } from 'node:path'
 const source = 'static/images'
 const target = 'static/images/cg'
 
-/** How much of the original color survives. Lower is plainer. */
-const saturationKept = 0.25
-/** How far every color drifts towards a mid tone, flattening the contrast a little. */
-const flattenTowards = 0.6
-const flattenBy = 0.18
-/** Colors this close to grey already read as plain, so leave them exactly as they are. */
-const alreadyPlain = 0.08
+/** The house green, the same one the app itself is built around. */
+const bandColor = '#15803d'
+/** What the band says. */
+const bandText = 'CG Value'
+/** How tall the band is, as a share of the artwork's own height. */
+const bandShare = 0.16
+/** Wide artwork gets a slightly taller band so it still reads once scaled down. */
+const bandShareOfWidth = 0.13
+const tallestBand = 0.32
 
-function toHsl(r, g, b) {
-  const max = Math.max(r, g, b)
-  const min = Math.min(r, g, b)
-  const lightness = (max + min) / 2
-  if (max === min) return [0, 0, lightness]
-
-  const span = max - min
-  const saturation = lightness > 0.5 ? span / (2 - max - min) : span / (max + min)
-  let hue
-  if (max === r) hue = (g - b) / span + (g < b ? 6 : 0)
-  else if (max === g) hue = (b - r) / span + 2
-  else hue = (r - g) / span + 4
-  return [hue / 6, saturation, lightness]
+/** The artwork's own coordinate box, whatever units the file was drawn in. */
+function viewport(svg) {
+  const viewBox = svg.match(/viewBox\s*=\s*"([^"]+)"/)
+  if (viewBox) {
+    const [x, y, width, height] = viewBox[1].trim().split(/[\s,]+/).map(Number)
+    return { x, y, width, height }
+  }
+  const width = Number((svg.match(/\swidth\s*=\s*"([\d.]+)/) || [])[1] || 100)
+  const height = Number((svg.match(/\sheight\s*=\s*"([\d.]+)/) || [])[1] || 100)
+  return { x: 0, y: 0, width, height }
 }
 
-function channel(p, q, t) {
-  if (t < 0) t += 1
-  if (t > 1) t -= 1
-  if (t < 1 / 6) return p + (q - p) * 6 * t
-  if (t < 1 / 2) return q
-  if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6
-  return p
-}
-
-function toRgb(hue, saturation, lightness) {
-  if (saturation === 0) return [lightness, lightness, lightness]
-  const q = lightness < 0.5 ? lightness * (1 + saturation) : lightness + saturation - lightness * saturation
-  const p = 2 * lightness - q
-  return [channel(p, q, hue + 1 / 3), channel(p, q, hue), channel(p, q, hue - 1 / 3)]
-}
-
-const twoDigits = (value) => Math.round(Math.min(1, Math.max(0, value)) * 255).toString(16).padStart(2, '0')
-
-/** '#d84335' -> '#a7908c'. The store-brand version of one color. */
-export function plainer(hex) {
-  const digits = hex.slice(1)
-  const full = digits.length === 3 ? digits.split('').map((d) => d + d).join('') : digits
-  const [r, g, b] = [0, 2, 4].map((at) => parseInt(full.slice(at, at + 2), 16) / 255)
-
-  const [hue, saturation, lightness] = toHsl(r, g, b)
-  if (saturation < alreadyPlain) return hex
-
-  const plainerLightness = lightness + (flattenTowards - lightness) * flattenBy
-  return '#' + toRgb(hue, saturation * saturationKept, plainerLightness).map(twoDigits).join('')
-}
-
-// A `#` inside url(...) points at a gradient, not a color, so it is left alone.
-const colorLiteral = /(^|[^(])(#(?:[0-9a-fA-F]{6}|[0-9a-fA-F]{3}))\b/g
+// Inkscape writes its closing tag as `</svg\n>`, so the tag name and the bracket
+// cannot be matched as one literal.
+const closingTag = /<\/svg\s*>\s*$/
 
 function storeBrandVersion(svg) {
-  return svg.replace(colorLiteral, (_, before, hex) => before + plainer(hex))
+  const { x, y, width, height } = viewport(svg)
+  const band = Math.max(height * bandShare, Math.min(height * tallestBand, width * bandShareOfWidth))
+  const top = y + height - band
+  const middle = x + width / 2
+
+  // Everything the file already drew, scaled about its top edge so the art
+  // shrinks into the space above the band instead of hiding behind it.
+  const openingTag = svg.match(/<svg[\s\S]*?>/)[0]
+  const before = svg.slice(0, svg.indexOf(openingTag) + openingTag.length)
+  const art = svg.slice(before.length).replace(closingTag, '')
+  const lifted = `<g transform="translate(${middle} ${y}) scale(${1 - band / height}) translate(${-middle} ${-y})">`
+
+  // Big enough to read, small enough that the wordmark still clears the sides
+  // of a narrow package.
+  const wordmark = Math.min(band * 0.62, (width * 0.82) / (bandText.length * 0.6))
+
+  const trim =
+    `<g><rect x="${x}" y="${top}" width="${width}" height="${band}" fill="${bandColor}"/>` +
+    `<text x="${middle}" y="${top + band * 0.72}" text-anchor="middle"` +
+    ` font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="${wordmark}"` +
+    ` fill="#ffffff">${bandText}</text></g>`
+
+  return `${before}${lifted}${art}</g>${trim}</svg>`
 }
 
 mkdirSync(target, { recursive: true })

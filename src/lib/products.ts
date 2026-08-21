@@ -386,9 +386,9 @@ const nameBrands: Product[] = [
 // --------------------------------------------------- the CG store brand line
 //
 // Every name brand has a ClassGrocery twin: the same product, in the same
-// packaging, printed in a plainer palette and priced a little lower. It is a
-// separate product with its own id, so a store can carry one brand, the other,
-// or both side by side, and a receipt can tell them apart.
+// packaging, carrying the green CG band along the bottom and priced a little
+// lower. It is a separate product with its own id, so a store can carry one
+// brand, the other, or both side by side, and a receipt can tell them apart.
 //
 // The artwork is generated from the name-brand file by scripts/make-cg-images.mjs.
 
@@ -411,8 +411,14 @@ export function storeBrandIdOf(productId: string) {
   return isStoreBrand(productId) ? productId : productId + storeBrandSuffix
 }
 
+/**
+ * 15% off, then snapped to the nearest price ending in 9 cents, so the CG line
+ * reads like shelf pricing instead of like arithmetic.
+ */
 export function storeBrandPrice(nameBrandPrice: number) {
-  return Math.round(nameBrandPrice * storeBrandDiscount * 100) / 100
+  const discounted = nameBrandPrice * storeBrandDiscount
+  const dimes = Math.max(0, Math.round((discounted - 0.09) / 0.1))
+  return Math.round(dimes * 10 + 9) / 100
 }
 
 function storeBrandOf(product: Product): Product {

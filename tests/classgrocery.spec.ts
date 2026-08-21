@@ -106,7 +106,7 @@ test('a teacher signs up and creates a store', async ({ page }) => {
   await page.getByRole('button', { name: 'Create New Store' }).click()
   await page.getByLabel('Store name').fill(store.name)
   await page.getByLabel('Store color').selectOption('green')
-  await page.getByLabel('Class code').fill(store.label)
+  await page.getByLabel('Store code').fill(store.label)
   await expect(page.locator('.join-code-preview')).toContainText(`Students will join with ${store.joinCode}`)
   await page.getByRole('button', { name: 'Create store' }).click()
 
@@ -313,7 +313,7 @@ test('a teacher cannot use one of their own class codes twice', async ({ page })
 
   await page.getByRole('button', { name: 'Create New Store' }).click()
   await page.getByLabel('Store name').fill('Another Room')
-  await page.getByLabel('Class code').fill(store.label)
+  await page.getByLabel('Store code').fill(store.label)
   await page.getByRole('button', { name: 'Create store' }).click()
 
   // The clash is with the teacher's own class, so it is named as one.
@@ -331,7 +331,7 @@ test("another teacher sees none of the first teacher's stores, and may reuse the
   // clash; now the identifier keeps the two apart.
   await page.getByRole('button', { name: 'Create New Store' }).click()
   await page.getByLabel('Store name').fill('Mr Chen P3')
-  await page.getByLabel('Class code').fill(store.label)
+  await page.getByLabel('Store code').fill(store.label)
   await page.getByRole('button', { name: 'Create store' }).click()
   await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
 
@@ -359,8 +359,9 @@ test('a teacher stocks both brands, and the CG line reaches the shelves', async 
   const after = await readStore(request, store.joinCode)
   expect(after.items['eggs'].hidden).toBeFalsy()
   expect(after.items['eggs-cg'].hidden).toBeFalsy()
-  // 15% under the catalog's $1.59.
-  expect(after.items['eggs-cg'].price).toBe(1.35)
+  // 15% under the catalog's $1.59 is $1.3515, snapped up to the nearest price
+  // ending in 9 cents.
+  expect(after.items['eggs-cg'].price).toBe(1.39)
   // Milk was marked up to $9.99 earlier in this run, and the CG twin is priced
   // off what this store charges rather than off the catalog.
   expect(after.items['milk-cg'].price).toBe(8.49)
@@ -371,7 +372,7 @@ test('a student can compare a name brand with its CG twin', async ({ page }) => 
   await goToAisle(page, 'Dairy and Eggs')
 
   await expect(page.getByRole('button', { name: /^Add Eggs for \$1\.59/ })).toBeVisible()
-  await expect(page.getByRole('button', { name: /^Add CG Eggs for \$1\.35/ })).toBeVisible()
+  await expect(page.getByRole('button', { name: /^Add CG Eggs for \$1\.39/ })).toBeVisible()
 })
 
 test('stocking the name brands puts the CG line away again', async ({ page, request }) => {
@@ -384,7 +385,7 @@ test('stocking the name brands puts the CG line away again', async ({ page, requ
   expect(published.items['eggs'].hidden).toBeFalsy()
   expect(published.items['eggs-cg'].hidden).toBe(true)
   // The price a teacher may have typed survives being put away.
-  expect(published.items['eggs-cg'].price).toBe(1.35)
+  expect(published.items['eggs-cg'].price).toBe(1.39)
 })
 
 test('stocking the CG store brands puts the name brands away', async ({ page, request }) => {
@@ -411,7 +412,7 @@ test('a teacher changes a store settings after it is built', async ({ page, requ
   await page.getByRole('button', { name: 'Create New Store' }).click()
   const form = page.locator('.store-modal')
   await form.getByLabel('Store name').fill(settingsStore.name)
-  await form.getByLabel('Class code').fill(settingsStore.label)
+  await form.getByLabel('Store code').fill(settingsStore.label)
   await form.getByLabel('CG Value store brand').check()
   await form.getByLabel('Use sales tax').check()
   await form.getByLabel('Default sales tax (%)').fill('8.25')
