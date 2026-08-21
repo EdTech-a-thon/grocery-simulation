@@ -7,25 +7,18 @@
   } from '$lib/pocketbase'
   import { copyJoinLink, joinLinkFor } from '$lib/sharing'
   import { forgetStore, shop } from '$lib/shop.svelte'
-  import { refreshStores, teacher, withBusy } from '$lib/teacher.svelte'
+  import { refreshStores, teacher, withBusy, type StorePage } from '$lib/teacher.svelte'
 
-  let { header, onOpenStore }: { header: Snippet; onOpenStore: (store: Store) => Promise<void> } = $props()
+  let { header, onOpenStore }: {
+    header: Snippet
+    onOpenStore: (store: Store, page?: StorePage) => Promise<void>
+  } = $props()
 
-  /** The store the settings form is editing, or null when it is making a new one. */
-  let editing = $state<Store | null>(null)
-  let modalOpen = $state(false)
+  // A store that already exists edits its settings on its own page; the modal is
+  // only for a store that does not exist yet, and so has no page to open.
+  let creating = $state(false)
 
   const prefix = teacherJoinPrefix()
-
-  function openSettings(store: Store | null) {
-    editing = store
-    modalOpen = true
-  }
-
-  function closeModal() {
-    modalOpen = false
-    editing = null
-  }
 
   function duplicate(store: Store) {
     const copyName = window.prompt('Name for the copy', `${store.name} (copy)`)
@@ -74,7 +67,7 @@
       <h2>Set up a store for each class</h2>
       <p>Every store keeps its own prices, its own stocked items and its own coupons. Duplicate one to reuse it with another class.</p>
       <p class="teacher-identity-note">Your class codes all start with <strong>{prefix}</strong>.</p>
-      <button class="primary-button create-store-button" type="button" onclick={() => openSettings(null)}>Create New Store</button>
+      <button class="primary-button create-store-button" type="button" onclick={() => (creating = true)}>Create New Store</button>
     </div>
   </section>
   {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
@@ -97,7 +90,7 @@
           <div class="store-summary-actions">
             <button type="button" onclick={() => void share(store)}>Copy join link</button>
             <button type="button" onclick={() => duplicate(store)}>Duplicate</button>
-            <button type="button" onclick={() => openSettings(store)}>Settings</button>
+            <button type="button" onclick={() => void withBusy(() => onOpenStore(store, 'settings'))}>Settings</button>
             <button class="icon-button" data-delete-store type="button" title="Delete store" aria-label="Delete {store.name}" onclick={() => remove(store)}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M3 6h18" /><path d="M8 6V4h8v2" /><path d="M6 6l1 14h10l1-14" /><path d="M10 11v5" /><path d="M14 11v5" />
@@ -112,6 +105,6 @@
   </section>
 </main>
 
-{#if modalOpen}
-  <StoreSettingsModal store={editing} onClose={closeModal} onCreated={onOpenStore} />
+{#if creating}
+  <StoreSettingsModal store={null} onClose={() => (creating = false)} onCreated={onOpenStore} />
 {/if}

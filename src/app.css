@@ -215,7 +215,10 @@ button {
 .class-code-field input { width: 255px; border: 1px solid rgba(255,255,255,.35); border-radius: var(--radius-md); padding: 10px 11px; background: rgba(255,255,255,.12); color: #fff; font: inherit; font-size: .92rem; font-weight: 900; letter-spacing: .05em; }
 .teacher-access-code-field { display: grid; gap: 5px; color: #fff7c2; font-size: .75rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
 .teacher-access-code-field input { width: 255px; border: 1px solid rgba(255,247,194,.5); border-radius: var(--radius-md); padding: 10px 11px; background: rgba(255,247,194,.12); color: #fff7c2; font: inherit; font-size: .92rem; font-weight: 900; letter-spacing: .05em; }
-.class-code-actions { display: flex; gap: 8px; }
+.class-code-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.join-code-copy { display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(255,247,194,.45); border-radius: var(--radius-md); padding: 4px 9px; background: rgba(255,247,194,.12); color: #fff7c2; cursor: pointer; font: inherit; font-size: .92rem; vertical-align: middle; }
+.join-code-copy:hover { background: rgba(255,247,194,.24); }
+.join-code-copy svg { width: 15px; height: 15px; }
 .teacher-secondary-button { border: 1px solid rgba(255,255,255,.35); border-radius: var(--radius-md); padding: 11px 14px; background: transparent; color: #fff; cursor: pointer; font-weight: 900; }
 .primary-button:disabled { cursor: not-allowed; opacity: .55; }
 .teacher-login-page { min-height: 100vh; padding: 20px; background: #eaf8ee; display: grid; place-items: center; color: #173b25; }
@@ -280,10 +283,8 @@ button {
 .teacher-money-input { width: 100%; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 7px 9px; background: #f0fdf4; color: #166534; display: flex; }
 .teacher-money-input input { width: 100%; border: 0; outline: 0; background: transparent; color: #14532d; font-weight: 900; text-align: right; }
 .status-message { max-width: 1400px; margin: 0 auto 16px; border-radius: var(--radius-md); padding: 11px 15px; background: #fef3c7; color: #854d0e; font-weight: 700; }
-.coupon-hero { background: linear-gradient(120deg,#713f12,#a16207 60%,#eab308); }
-.print-all-panel { min-width: 220px; padding: 16px; border-radius: var(--radius-lg); background: rgba(255,255,255,.12); display: grid; gap: 5px; justify-items: end; text-align: right; }
-.print-all-panel strong { color: #fff; font-size: 1.05rem; }
-.print-all-panel span { margin-bottom: 7px; color: #fef3c7; font-size: .82rem; }
+.print-all-panel { display: grid; gap: 7px; justify-items: end; text-align: right; }
+.print-all-panel span { color: #78716c; font-size: .8rem; font-weight: 800; }
 .coupon-workspace { grid-template-columns: minmax(280px,.4fr) minmax(0,.6fr); }
 .coupon-form { padding: 26px; display: grid; gap: 16px; align-content: start; }
 .coupon-form label { position: relative; display: grid; gap: 7px; color: #475569; font-size: .8rem; font-weight: 800; }
@@ -1358,7 +1359,7 @@ p {
 
   .class-code-field input { width: min(100%, 300px); }
 
-  .class-code-actions { flex-wrap: wrap; }
+  .class-code-actions { justify-content: flex-start; }
 
   .print-all-panel { width: 100%; justify-items: start; text-align: left; }
 
@@ -1407,6 +1408,8 @@ p {
 .store-form fieldset .helper-text { flex: 1 0 100%; margin: 0; }
 .store-options-grid fieldset { align-content: start; }
 .store-options-grid fieldset label:last-child:has(input[type="number"]) { flex: 1 0 100%; display: grid; }
+.store-settings-workspace { max-width: 1400px; margin: 0 auto; padding: 0 clamp(14px,3vw,28px) 40px; }
+.store-settings-workspace .store-form { width: min(720px,100%); color: #172033; }
 .store-modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
 .store-modal-actions > button:not(.primary-button) { border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 10px 18px; background: #fff; color: #334155; cursor: pointer; font-weight: 800; }
 .store-list { padding: clamp(18px,3vw,32px); }
@@ -1441,23 +1444,21 @@ p {
 /* ------------------------------------------------------- stocking controls */
 
 /* The whole-store brand switch, sitting on the dark hero. */
-.brand-bulk-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
-.brand-bulk-actions span { color: #dcfce7; font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
-.brand-bulk-actions button { border: 1px solid rgba(255,255,255,.35); border-radius: var(--radius-md); padding: 9px 14px; background: rgba(255,255,255,.08); color: #fff; cursor: pointer; font-size: .82rem; font-weight: 900; }
-.brand-bulk-actions button:hover { background: rgba(255,255,255,.18); }
-.brand-bulk-actions button.active { border-color: transparent; background: #facc15; color: #713f12; }
+/* The three pages of one open store, side by side in that store's green bar. */
+.store-tabs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
+.store-tabs button { border: 1px solid rgba(255,255,255,.35); border-radius: var(--radius-md); padding: 9px 14px; background: rgba(255,255,255,.08); color: #fff; cursor: pointer; font-size: .82rem; font-weight: 900; }
+.store-tabs button:hover { background: rgba(255,255,255,.18); }
+.store-tabs button.active { border-color: transparent; background: #facc15; color: #713f12; }
 
-/* Store setup that is not a stocking choice, plus the switch that brings the
-   brand line this store does not sell back into the grid. */
-.store-config-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 12px; }
-.brand-view-toggle { display: flex; align-items: center; gap: 7px; color: #dcfce7; font-size: .82rem; font-weight: 800; cursor: pointer; }
-.brand-view-toggle input { width: 15px; height: 15px; accent-color: #facc15; }
+/* The switch that brings the brand line this store does not sell back into the grid. */
+.brand-view-toggle { display: flex; align-items: center; gap: 7px; margin-right: 6px; color: #475569; font-size: .82rem; font-weight: 800; cursor: pointer; }
+.brand-view-toggle input { width: 15px; height: 15px; accent-color: #15803d; }
 
 /* Marks a card in the price grid as the CG store brand, which the muted
    artwork alone does not make obvious at thumbnail size. */
 .brand-tag { display: inline-block; margin-left: 5px; border-radius: var(--radius-xs); padding: 2px 6px; background: #e2e8f0; color: #475569; font-size: .62rem; font-weight: 900; letter-spacing: .06em; vertical-align: middle; }
 
-.stock-bulk-actions { display: flex; gap: 8px; }
+.stock-bulk-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .stock-bulk-actions button { border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 8px 13px; background: #fff; color: #334155; cursor: pointer; font-size: .78rem; font-weight: 800; }
 .stock-toggle { display: flex; align-items: center; justify-content: center; gap: 6px; color: #475569; font-size: .72rem; font-weight: 800; }
 .stock-toggle input { width: 15px; height: 15px; accent-color: #16a34a; }

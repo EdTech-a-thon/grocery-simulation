@@ -1,5 +1,8 @@
 import { listStores, type Store } from './pocketbase'
 
+/** The three pages a teacher works through inside one open store. */
+export type StorePage = 'prices' | 'coupons' | 'settings'
+
 /**
  * What every teacher screen shares: their stores, the one-line status message
  * under the header, and whether a save is in flight.

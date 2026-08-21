@@ -412,13 +412,18 @@ export function storeBrandIdOf(productId: string) {
 }
 
 /**
- * 15% off, then snapped to the nearest price ending in 9 cents, so the CG line
- * reads like shelf pricing instead of like arithmetic.
+ * The nearest price ending in 9 cents. Every CG Value price goes through this,
+ * whether it was worked out from the name brand or typed in by a teacher, so
+ * the line reads like shelf pricing instead of like arithmetic.
  */
+export function priceEndingInNine(price: number) {
+  const dimes = Math.max(0, Math.round((price - 0.09) / 0.1))
+  return (dimes * 10 + 9) / 100
+}
+
+/** 15% off the name brand beside it, snapped to a price ending in 9 cents. */
 export function storeBrandPrice(nameBrandPrice: number) {
-  const discounted = nameBrandPrice * storeBrandDiscount
-  const dimes = Math.max(0, Math.round((discounted - 0.09) / 0.1))
-  return Math.round(dimes * 10 + 9) / 100
+  return priceEndingInNine(nameBrandPrice * storeBrandDiscount)
 }
 
 function storeBrandOf(product: Product): Product {

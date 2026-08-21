@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
+  import StoreHeader from '$lib/components/StoreHeader.svelte'
   import { couponCopies, couponDiscountLabel, formatCouponItem, formatDate } from '$lib/coupons'
   import {
     createCoupon, deleteCoupon, errorMessage, fromDateInput, newCouponCode, updateCouponCopies,
@@ -7,9 +8,13 @@
   import { printCoupons } from '$lib/printing.svelte'
   import { productById } from '$lib/products'
   import { shop, stockedProductIds } from '$lib/shop.svelte'
-  import { teacher, withBusy } from '$lib/teacher.svelte'
+  import { teacher, withBusy, type StorePage } from '$lib/teacher.svelte'
 
-  let { header }: { header: Snippet } = $props()
+  let { header, onGo, onViewAsStudent }: {
+    header: Snippet
+    onGo: (next: StorePage) => void
+    onViewAsStudent: () => void
+  } = $props()
 
   let discountType = $state<'percent' | 'dollars'>('percent')
   let discountAmount = $state('10')
@@ -114,20 +119,13 @@
 
 <main class="teacher-shell">
   {@render header()}
-  <section class="teacher-hero coupon-hero">
-    <div>
-      <p class="eyebrow">Printable coupons &middot; {shop.store?.name ?? ''}</p>
-      <h2>Give your class something to budget with</h2>
-      <p>Hand these out so students practice clipping and comparing before they shop. Create coupons one at a time or generate a random set. Printable sheets hold 10 coupons per page.</p>
-    </div>
-    {#if shop.coupons.length}
-      <div class="print-all-panel">
-        <strong>{totalPrintableCoupons} total coupon{totalPrintableCoupons === 1 ? '' : 's'}</strong>
-        <span>{pages} PDF page{pages === 1 ? '' : 's'}</span>
-        <button class="primary-button" type="button" onclick={() => printCoupons(shop.coupons)}>Print all coupons to PDF</button>
-      </div>
-    {/if}
-  </section>
+  <StoreHeader
+    page="coupons"
+    title="Give your class something to budget with"
+    lede="Hand these out so students practice clipping and comparing before they shop. Create coupons one at a time or generate a random set. Printable sheets hold 10 coupons per page."
+    {onGo}
+    {onViewAsStudent}
+  />
   {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
   <section class="coupon-workspace">
     <form class="coupon-form" onsubmit={create}>
@@ -175,6 +173,12 @@
     <section class="coupon-list">
       <div class="section-heading">
         <div><p class="eyebrow">Store coupons</p><h2>{shop.coupons.length} ready to use</h2></div>
+        {#if shop.coupons.length}
+          <div class="print-all-panel">
+            <span>{totalPrintableCoupons} coupon{totalPrintableCoupons === 1 ? '' : 's'} &middot; {pages} PDF page{pages === 1 ? '' : 's'}</span>
+            <button class="primary-button" type="button" onclick={() => printCoupons(shop.coupons)}>Print all coupons to PDF</button>
+          </div>
+        {/if}
       </div>
       {#each shop.coupons as coupon (coupon.id)}
         <article class="coupon-summary">

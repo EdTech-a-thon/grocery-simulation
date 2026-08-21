@@ -11,12 +11,17 @@ export function joinLinkFor(store: Store) {
   return `${origin}/j/${joinKey(store.joinCode)}`
 }
 
-/** Copies the link, and says whether the clipboard accepted it. */
-export async function copyJoinLink(store: Store) {
+/** Copies text, and says whether the clipboard accepted it. */
+export async function copyText(value: string) {
   try {
-    await navigator.clipboard.writeText(joinLinkFor(store))
+    await navigator.clipboard.writeText(value)
     return true
   } catch {
-    return false // the caller shows the link instead, so it can still be copied by hand
+    return false // the caller shows the text instead, so it can still be copied by hand
   }
+}
+
+/** Copies the link, and says whether the clipboard accepted it. */
+export function copyJoinLink(store: Store) {
+  return copyText(joinLinkFor(store))
 }

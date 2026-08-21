@@ -1,16 +1,18 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
-  import StoreSettingsModal from '$lib/components/StoreSettingsModal.svelte'
+  import StoreHeader from '$lib/components/StoreHeader.svelte'
   import { aisles } from '$lib/catalog'
-  import { errorMessage, loadStoreItems, saveStoreItem, stockBrands, type BrandMode } from '$lib/pocketbase'
-  import { isStoreBrand, productById } from '$lib/products'
-  import { copyJoinLink, joinLinkFor } from '$lib/sharing'
-  import { everyProductWithItsPrice, isStocked, priceFor, shop } from '$lib/shop.svelte'
-  import { teacher, withBusy } from '$lib/teacher.svelte'
+  import { errorMessage, saveStoreItem } from '$lib/pocketbase'
+  import { isStoreBrand, priceEndingInNine, productById } from '$lib/products'
+  import { isStocked, priceFor, shop } from '$lib/shop.svelte'
+  import { teacher, withBusy, type StorePage } from '$lib/teacher.svelte'
 
-  let { header }: { header: Snippet } = $props()
+  let { header, onGo, onViewAsStudent }: {
+    header: Snippet
+    onGo: (next: StorePage) => void
+    onViewAsStudent: () => void
+  } = $props()
 
-  let settingsOpen = $state(false)
   /** Off by default: a store that sells one brand line only edits that line. */
   let showOtherBrands = $state(false)
 
@@ -43,7 +45,11 @@
   function changePrice(productId: string, value: string) {
     const price = Number(value)
     if (!Number.isFinite(price) || price < 0) return
-    void save(productId, { price: Math.round(price * 100) / 100 })
+    // A CG Value price always ends in 9 cents, so whatever a teacher types is
+    // snapped to the nearest one before it is saved.
+    void save(productId, {
+      price: isStoreBrand(productId) ? priceEndingInNine(price) : Math.round(price * 100) / 100,
+    })
   }
 
   function changeStock(productId: string, stocked: boolean) {
@@ -65,83 +71,17 @@
       }
     })
   }
-
-  const brandModeLabels: Record<BrandMode, string> = {
-    name: 'Name brands on the shelves. The CG Value line is put away.',
-    store: 'CG Value store brands on the shelves. The name brands are put away.',
-    both: 'Both brands on the shelves, side by side.',
-  }
-
-  /** Stocks one brand line across the whole store, every aisle at once. */
-  function stockWholeStore(mode: BrandMode) {
-    const store = shop.store
-    if (!store) return
-    const items = everyProductWithItsPrice(shop.items)
-    void withBusy(async () => {
-      try {
-        await stockBrands(store.id, mode, items)
-        shop.items = await loadStoreItems(store.id)
-        // The endpoint records the mode on the store; keep the open copy level with it.
-        shop.store = { ...store, brandMode: mode }
-        showOtherBrands = false
-        teacher.message = brandModeLabels[mode]
-      } catch (error) {
-        teacher.message = errorMessage(error, 'Those changes could not be saved.')
-      }
-    })
-  }
-
-  async function copyJoinCode() {
-    const code = shop.store?.joinCode ?? ''
-    try {
-      await navigator.clipboard.writeText(code)
-      teacher.message = `Join code ${code} copied.`
-    } catch {
-      window.prompt('Copy the join code:', code)
-    }
-  }
-
-  async function shareJoinLink() {
-    if (!shop.store) return
-    teacher.message = (await copyJoinLink(shop.store))
-      ? 'Join link copied. Paste it wherever your class will see it.'
-      : `Join link: ${joinLinkFor(shop.store)}`
-  }
 </script>
 
 <main class="teacher-shell">
   {@render header()}
-  <!-- Everything in this bar configures the store itself; moving around the
-       site is the dark header's job. -->
-  <section class="teacher-hero">
-    <div>
-      <p class="eyebrow">{shop.store?.name ?? ''}</p>
-      <h2>Choose what this store sells</h2>
-      <p class="hero-lede">Uncheck an item to take it off the shelves for this store only. Prices save as you type.</p>
-      <div class="brand-bulk-actions">
-        <span>This store sells</span>
-        <button class:active={brandMode === 'name'} type="button" onclick={() => stockWholeStore('name')}>Name brands</button>
-        <button class:active={brandMode === 'store'} type="button" onclick={() => stockWholeStore('store')}>CG Value store brands</button>
-        <button class:active={brandMode === 'both'} type="button" onclick={() => stockWholeStore('both')}>Both brands</button>
-      </div>
-      <div class="store-config-actions">
-        <button class="teacher-secondary-button" type="button" onclick={() => (settingsOpen = true)}>Store settings</button>
-        {#if brandMode !== 'both'}
-          <label class="brand-view-toggle">
-            <input type="checkbox" bind:checked={showOtherBrands} />
-            Also show {otherBrandLabel}
-          </label>
-        {/if}
-      </div>
-    </div>
-    <div class="teacher-access-panel">
-      <p>Students join with <strong>{shop.store?.joinCode ?? ''}</strong></p>
-      <div class="class-code-actions">
-        <button class="teacher-secondary-button" type="button" onclick={copyJoinCode}>Copy join code</button>
-        <button class="teacher-secondary-button" type="button" onclick={shareJoinLink}>Copy join link</button>
-      </div>
-    </div>
-  </section>
+  <StoreHeader
+    page="prices"
+    title="Choose what this store sells"
+    lede="Uncheck an item to take it off the shelves for this store only. Prices save as you type."
+    {onGo}
+    {onViewAsStudent}
+  />
   {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
   <section class="teacher-workspace">
     <aside class="aisle-picker">
@@ -159,6 +99,12 @@
           <h2>{aisle.title}</h2>
         </div>
         <div class="stock-bulk-actions">
+          {#if brandMode !== 'both'}
+            <label class="brand-view-toggle">
+              <input type="checkbox" bind:checked={showOtherBrands} />
+              Also show {otherBrandLabel}
+            </label>
+          {/if}
           <button type="button" onclick={() => stockWholeAisle(false)}>Stock all</button>
           <button type="button" onclick={() => stockWholeAisle(true)}>Stock none</button>
         </div>
@@ -204,7 +150,3 @@
     </section>
   </section>
 </main>
-
-{#if settingsOpen}
-  <StoreSettingsModal store={shop.store} onClose={() => (settingsOpen = false)} />
-{/if}

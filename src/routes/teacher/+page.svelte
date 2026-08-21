@@ -7,13 +7,15 @@
   import PriceStudio from '$lib/components/PriceStudio.svelte'
   import StoreFront from '$lib/components/StoreFront.svelte'
   import StoreList from '$lib/components/StoreList.svelte'
+  import StoreSettings from '$lib/components/StoreSettings.svelte'
   import StudentViewHeader from '$lib/components/StudentViewHeader.svelte'
   import TeacherLogin from '$lib/components/TeacherLogin.svelte'
   import { currentTeacher, pb, signOut, teacherJoinPrefix, type Store } from '$lib/pocketbase'
   import { forgetStore, openStore, shop } from '$lib/shop.svelte'
-  import { refreshStores, teacher } from '$lib/teacher.svelte'
+  import { refreshStores, teacher, type StorePage } from '$lib/teacher.svelte'
 
-  type Screen = 'stores' | 'prices' | 'coupons' | 'student-view'
+  /** The store list and the student's-eye view, plus a store's own three pages. */
+  type Screen = 'stores' | 'student-view' | StorePage
 
   let signedIn = $state(false)
   let checkingSession = $state(true)
@@ -43,15 +45,20 @@
     signedIn = true
   }
 
-  async function open(store: Store) {
+  async function open(store: Store, page: StorePage = 'prices') {
     await openStore(store)
     teacher.message = ''
-    screen = 'prices'
+    screen = page
   }
 
   function show(next: Screen) {
     teacher.message = ''
     screen = next
+  }
+
+  function onViewAsStudent() {
+    shop.aisleIndex = 0
+    show('student-view')
   }
 
   function leave() {
@@ -73,16 +80,19 @@
 {:else if screen === 'student-view'}
   <StoreFront asTeacher header={studentViewHeader} />
 {:else if screen === 'prices' && shop.store}
-  <PriceStudio header={pricesHeader} />
+  <PriceStudio header={pricesHeader} onGo={show} {onViewAsStudent} />
 {:else if screen === 'coupons' && shop.store}
-  <CouponStudio header={couponsHeader} />
+  <CouponStudio header={couponsHeader} onGo={show} {onViewAsStudent} />
+{:else if screen === 'settings' && shop.store}
+  <StoreSettings header={settingsHeader} onGo={show} {onViewAsStudent} />
 {:else}
   <StoreList header={storesHeader} onOpenStore={open} />
 {/if}
 
 {#snippet storesHeader()}{@render teacherHeader('My stores')}{/snippet}
 {#snippet pricesHeader()}{@render teacherHeader('Prices and stock')}{/snippet}
-{#snippet couponsHeader()}{@render teacherHeader('Coupon workshop')}{/snippet}
+{#snippet couponsHeader()}{@render teacherHeader('Coupons')}{/snippet}
+{#snippet settingsHeader()}{@render teacherHeader('Store settings')}{/snippet}
 
 {#snippet studentViewHeader()}
   <StudentViewHeader onExit={() => show('prices')} />
@@ -98,14 +108,8 @@
     {#snippet nav()}
       <span class="header-pages">
         <button class:active={screen === 'stores'} type="button" onclick={() => show('stores')}>My stores</button>
-        {#if shop.store?.couponsEnabled}
-          <button class:active={screen === 'coupons'} type="button" onclick={() => show('coupons')}>Coupons</button>
-        {/if}
       </span>
       <span class="header-exits">
-        {#if shop.store}
-          <button type="button" onclick={() => { shop.aisleIndex = 0; show('student-view') }}>View as Student</button>
-        {/if}
         <button type="button" onclick={leave}>Sign out</button>
       </span>
     {/snippet}

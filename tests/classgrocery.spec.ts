@@ -58,9 +58,17 @@ function storeCard(page: Page, name: string) {
 }
 
 /** Signs in and opens the named store's price studio. */
+/** Brands on the shelves are a store setting, so switching lines goes through that page. */
+async function setBrandMode(page: Page, label: string) {
+  await page.getByRole('button', { name: 'Store settings' }).click()
+  await page.getByLabel(label).check()
+  await page.getByRole('button', { name: 'Save changes' }).click()
+  await expect(page.locator('.status-message')).toContainText('updated. Students join with')
+}
+
 async function openStore(page: Page, name = store.name) {
   await signIn(page, teacher)
-  await storeCard(page, name).getByRole('button', { name: 'Open' }).click()
+  await storeCard(page, name).getByRole('button', { name: 'Edit Store' }).click()
   await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
 }
 
@@ -353,8 +361,7 @@ test('a teacher stocks both brands, and the CG line reaches the shelves', async 
   const before = await readStore(request, store.joinCode)
   expect(before.items['milk-cg']).toBeUndefined()
 
-  await page.getByRole('button', { name: 'Both brands' }).click()
-  await expect(page.locator('.status-message')).toHaveText('Both brands on the shelves, side by side.')
+  await setBrandMode(page, 'Both')
 
   const after = await readStore(request, store.joinCode)
   expect(after.items['eggs'].hidden).toBeFalsy()
@@ -378,8 +385,7 @@ test('a student can compare a name brand with its CG twin', async ({ page }) => 
 test('stocking the name brands puts the CG line away again', async ({ page, request }) => {
   await openStore(page)
 
-  await page.getByRole('button', { name: 'Name brands' }).click()
-  await expect(page.locator('.status-message')).toHaveText('Name brands on the shelves. The CG Value line is put away.')
+  await setBrandMode(page, 'Name brands')
 
   const published = await readStore(request, store.joinCode)
   expect(published.items['eggs'].hidden).toBeFalsy()
@@ -391,9 +397,7 @@ test('stocking the name brands puts the CG line away again', async ({ page, requ
 test('stocking the CG store brands puts the name brands away', async ({ page, request }) => {
   await openStore(page)
 
-  await page.getByRole('button', { name: 'CG Value store brands' }).click()
-  await expect(page.locator('.status-message'))
-    .toHaveText('CG Value store brands on the shelves. The name brands are put away.')
+  await setBrandMode(page, 'CG Value store brand')
 
   const published = await readStore(request, store.joinCode)
   expect(published.items['eggs'].hidden).toBe(true)
@@ -431,14 +435,16 @@ test('a teacher changes a store settings after it is built', async ({ page, requ
   expect(built.items['eggs'].hidden).toBe(true)
   expect(built.items['eggs-cg'].hidden).toBeFalsy()
 
-  // Every one of those choices is reopened and reversed.
+  // Every one of those choices is reopened and reversed, this time on the
+  // store's own settings page rather than in the create dialog.
   await page.getByRole('button', { name: 'My stores' }).click()
-  await storeCard(page, settingsStore.name).getByRole('button', { name: 'Edit' }).click()
-  await expect(form.getByRole('heading', { name: `Edit ${settingsStore.name}` })).toBeVisible()
-  await expect(form.getByLabel('Default sales tax (%)')).toHaveValue('8.25')
-  await form.getByLabel('Name brands').check()
-  await form.getByLabel('No sales tax').check()
-  await form.getByLabel('Allow coupons').check()
+  await storeCard(page, settingsStore.name).getByRole('button', { name: 'Settings', exact: true }).click()
+  const settingsPage = page.locator('.store-settings-workspace')
+  await expect(settingsPage.getByRole('heading', { name: `Edit ${settingsStore.name}` })).toBeVisible()
+  await expect(settingsPage.getByLabel('Default sales tax (%)')).toHaveValue('8.25')
+  await settingsPage.getByLabel('Name brands').check()
+  await settingsPage.getByLabel('No sales tax').check()
+  await settingsPage.getByLabel('Allow coupons').check()
   await page.getByRole('button', { name: 'Save changes' }).click()
   await expect(page.locator('.status-message')).toContainText(`${settingsStore.name} updated.`)
 
