@@ -39,9 +39,9 @@
      site is the dark header's job. -->
 <section class="teacher-hero">
   <div>
-    <p class="eyebrow">{shop.store?.name ?? ''}</p>
-    <h2>{title}</h2>
-    <p class="hero-lede">{lede}</p>
+    <p class="eyebrow">Store workspace</p>
+    <h2>{shop.store?.name ?? ''}</h2>
+    <p class="hero-lede">Manage what students see and use in this store.</p>
   </div>
   <div class="teacher-access-panel">
     <p>
@@ -61,7 +61,6 @@
 </section>
 
 <nav class="store-tabs" aria-label="Store pages">
-  <span class="store-tabs-label">Store pages</span>
   <div class="store-tab-list">
     <button class:active={page === 'prices'} aria-current={page === 'prices' ? 'page' : undefined} type="button" onclick={() => onGo('prices')}>Prices and stock</button>
     {#if shop.store?.couponsEnabled}
@@ -70,3 +69,8 @@
     <button class:active={page === 'settings'} aria-current={page === 'settings' ? 'page' : undefined} type="button" onclick={() => onGo('settings')}>Store settings</button>
   </div>
 </nav>
+
+<section class="store-page-heading">
+  <h2>{title}</h2>
+  <p>{lede}</p>
+</section>
