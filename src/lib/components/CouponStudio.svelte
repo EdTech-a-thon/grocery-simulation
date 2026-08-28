@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
   import StoreHeader from '$lib/components/StoreHeader.svelte'
-  import { couponCopies, couponDiscountLabel, formatCouponItem, formatDate } from '$lib/coupons'
+  import { couponDiscountLabel, formatCouponItem } from '$lib/coupons'
   import {
-    createCoupon, deleteCoupon, errorMessage, fromDateInput, newCouponCode, updateCouponCopies,
+    createCoupon, deleteCoupon, errorMessage, newCouponCode,
   } from '$lib/pocketbase'
   import { printCoupons } from '$lib/printing.svelte'
   import { productById } from '$lib/products'
@@ -19,15 +19,28 @@
   let discountType = $state<'percent' | 'dollars'>('percent')
   let discountAmount = $state('10')
   let productId = $state('all')
-  let startsAt = $state('')
-  let endsAt = $state('')
-  let copies = $state('10')
+  let couponCode = $state('')
   let randomDesigns = $state('3')
-  let randomCopies = $state('10')
+  let printTarget = $state<'all' | string | null>(null)
+  let printCopies = $state<Record<string, string>>({})
 
   const inDollars = $derived(discountType === 'dollars')
-  const totalPrintableCoupons = $derived(shop.coupons.reduce((total, coupon) => total + couponCopies(coupon), 0))
-  const pages = $derived(Math.ceil(totalPrintableCoupons / 10))
+
+  function copiesFor(couponId: string) {
+    return Math.min(100, Math.max(1, Number(printCopies[couponId]) || 1))
+  }
+
+  function choosePrint(target: 'all' | string) {
+    printTarget = printTarget === target ? null : target
+    for (const coupon of target === 'all' ? shop.coupons : shop.coupons.filter((item) => item.id === target)) {
+      printCopies[coupon.id] ??= '1'
+    }
+  }
+
+  function openPrintPreview(coupons = shop.coupons) {
+    printCoupons(coupons.map((coupon) => ({ ...coupon, copies: copiesFor(coupon.id) })))
+    printTarget = null
+  }
 
   /** Percent and dollar discounts want different limits, steps and starting values. */
   function changeDiscountType(event: Event & { currentTarget: HTMLSelectElement }) {
@@ -39,10 +52,9 @@
     event.preventDefault()
     const storeId = shop.store?.id
     if (!storeId) return
-    const starts = fromDateInput(startsAt)
-    const ends = fromDateInput(endsAt)
-    if (starts && ends && new Date(ends) <= new Date(starts)) {
-      teacher.message = 'The ending time must be after the starting time.'
+    const code = couponCode.trim().toUpperCase()
+    if (!/^[A-Z0-9 .$/+%-]{3,20}$/.test(code)) {
+      teacher.message = 'Use 3 to 20 letters, numbers, spaces, or simple punctuation for the coupon code.'
       return
     }
     const amount = Number(discountAmount)
@@ -53,17 +65,17 @@
     void withBusy(async () => {
       try {
         const coupon = await createCoupon(storeId, {
-          code: newCouponCode(),
+          code,
           discountType,
           discountAmount: amount,
           productId,
-          startsAt: starts,
-          endsAt: ends,
-          copies: Math.min(100, Math.max(1, Number(copies) || 1)),
+          startsAt: '',
+          endsAt: '',
+          copies: 1,
         })
         shop.coupons.push(coupon)
         teacher.message = `${coupon.code} created.`
-        printCoupons([coupon])
+        couponCode = ''
       } catch (error) {
         teacher.message = errorMessage(error, 'That coupon could not be created.')
       }
@@ -74,7 +86,6 @@
     const storeId = shop.store?.id
     if (!storeId) return
     const designs = Math.min(10, Math.max(1, Number(randomDesigns) || 1))
-    const each = Math.min(100, Math.max(1, Number(randomCopies) || 10))
     const percents = [5, 10, 15, 20, 25, 30, 40, 50]
     const productIds = ['all', ...stockedProductIds()]
     void withBusy(async () => {
@@ -87,22 +98,14 @@
             productId: productIds[Math.floor(Math.random() * productIds.length)],
             startsAt: '',
             endsAt: '',
-            copies: each,
+            copies: 1,
           }))
         }
-        teacher.message = `${designs} random coupon design${designs === 1 ? '' : 's'} created with ${each} copies each.`
+        teacher.message = `${designs} random coupon design${designs === 1 ? '' : 's'} created.`
       } catch (error) {
         teacher.message = errorMessage(error, 'Those coupons could not be created.')
       }
     })
-  }
-
-  function changeCopies(couponId: string, value: string) {
-    const coupon = shop.coupons.find((item) => item.id === couponId)
-    if (!coupon) return
-    coupon.copies = Math.min(100, Math.max(1, Number(value) || 1))
-    void updateCouponCopies(coupon.id, coupon.copies)
-      .catch((error) => { teacher.message = errorMessage(error, 'That change could not be saved.') })
   }
 
   function remove(couponId: string) {
@@ -159,14 +162,15 @@
           {/each}
         </select>
       </label>
-      <label>Starts<input bind:value={startsAt} type="datetime-local" /></label>
-      <label>Ends<input bind:value={endsAt} type="datetime-local" /></label>
-      <label>Number of this coupon<input required bind:value={copies} type="number" min="1" max="100" step="1" /></label>
+      <label>
+        Coupon code word
+        <input required bind:value={couponCode} minlength="3" maxlength="20" pattern="[A-Za-z0-9 .$/+%\-]+" placeholder="Example: SAVE10" />
+        <span class="field-help">Students will type this code at checkout. It does not need to start with CG.</span>
+      </label>
       <button class="primary-button" type="submit" disabled={teacher.busy}>Create coupon</button>
       <div class="random-coupon-box">
         <div><p class="eyebrow">Quick set</p><h3>Generate random coupons</h3></div>
         <label>Different coupon designs<input bind:value={randomDesigns} type="number" min="1" max="10" step="1" /></label>
-        <label>Copies of each design<input bind:value={randomCopies} type="number" min="1" max="100" step="1" /></label>
         <button class="randomize-button" type="button" disabled={teacher.busy} onclick={createRandomCoupons}>Generate random coupons</button>
       </div>
     </form>
@@ -175,8 +179,11 @@
         <div><p class="eyebrow">Store coupons</p><h2>{shop.coupons.length} ready to use</h2></div>
         {#if shop.coupons.length}
           <div class="print-all-panel">
-            <span>{totalPrintableCoupons} coupon{totalPrintableCoupons === 1 ? '' : 's'} &middot; {pages} PDF page{pages === 1 ? '' : 's'}</span>
-            <button class="primary-button" type="button" onclick={() => printCoupons(shop.coupons)}>Print all coupons to PDF</button>
+            <button class="primary-button" type="button" onclick={() => choosePrint('all')}>Print all coupons to PDF</button>
+            {#if printTarget === 'all'}
+              <span>Choose the number of copies for each coupon below.</span>
+              <button type="button" onclick={() => openPrintPreview()}>Open print preview</button>
+            {/if}
           </div>
         {/if}
       </div>
@@ -184,20 +191,19 @@
         <article class="coupon-summary">
           <div>
             <strong>{couponDiscountLabel(coupon)} {formatCouponItem(coupon)}</strong>
-            <span>{coupon.code} &middot; {formatDate(coupon.startsAt)} to {formatDate(coupon.endsAt)}</span>
+            <span>{coupon.code}</span>
           </div>
-          <label class="coupon-copy-control">
-            Copies
-            <input
-              type="number"
-              min="1"
-              max="100"
-              step="1"
-              value={couponCopies(coupon)}
-              onchange={(event) => changeCopies(coupon.id, event.currentTarget.value)}
-            />
-          </label>
-          <button type="button" onclick={() => printCoupons([coupon])}>Print</button>
+          {#if printTarget === 'all' || printTarget === coupon.id}
+            <label class="coupon-copy-control">
+              Copies to print
+              <input type="number" min="1" max="100" step="1" bind:value={printCopies[coupon.id]} />
+            </label>
+          {/if}
+          {#if printTarget === coupon.id}
+            <button type="button" onclick={() => openPrintPreview([coupon])}>Open print preview</button>
+          {:else if printTarget !== 'all'}
+            <button type="button" onclick={() => choosePrint(coupon.id)}>Print</button>
+          {/if}
           <button type="button" aria-label="Delete coupon {coupon.code}" onclick={() => remove(coupon.id)}>Delete</button>
         </article>
       {:else}

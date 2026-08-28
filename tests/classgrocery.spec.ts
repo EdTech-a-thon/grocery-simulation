@@ -79,7 +79,7 @@ async function openStore(page: Page, name = store.name) {
 async function joinAsStudent(page: Page, typed: string, shown = typed) {
   await page.goto('/')
   await page.getByLabel('Store code').fill(typed)
-  await page.getByRole('button', { name: 'Student join store' }).click()
+  await page.getByRole('button', { name: 'Join store' }).click()
   await expect(page.getByText(`Store code: ${shown}`)).toBeVisible()
   await page.getByRole('button', { name: 'Enter the store' }).click()
   await expect(page.locator('.shelf-stage')).toBeVisible()
@@ -150,8 +150,12 @@ test('the teacher creates coupons', async ({ page, request }) => {
 
   await page.getByLabel('Applies to').selectOption('milk')
   await page.locator('[data-discount-amount]').fill('10')
-  await page.getByLabel('Number of this coupon').fill('4')
+  await page.getByLabel('Coupon code word').fill('MILK DAY')
   await page.getByRole('button', { name: 'Create coupon' }).click()
+  await expect(page.locator('.print-sheet')).toHaveCount(0)
+  await page.getByRole('button', { name: 'Print', exact: true }).click()
+  await page.getByLabel('Copies to print').fill('4')
+  await page.getByRole('button', { name: 'Open print preview' }).click()
   await expect(page.locator('.print-sheet')).toContainText('4 coupons, 10 per page')
   await page.getByRole('button', { name: 'Back' }).click()
 
@@ -159,14 +163,14 @@ test('the teacher creates coupons', async ({ page, request }) => {
   await page.getByLabel('Discount type').selectOption('dollars')
   await page.locator('[data-discount-amount]').fill('50')
   await page.getByLabel('Applies to').selectOption('apple')
-  await page.getByLabel('Number of this coupon').fill('1')
+  await page.getByLabel('Coupon code word').fill('APPLE50')
   await page.getByRole('button', { name: 'Create coupon' }).click()
-  await page.getByRole('button', { name: 'Back' }).click()
 
   await expect(page.getByText('2 ready to use')).toBeVisible()
 
   const published = await readStore(request, store.joinCode)
   expect(published.coupons).toHaveLength(2)
+  expect(published.coupons.some((coupon) => coupon.code === 'MILK DAY')).toBe(true)
   expect(published.coupons.some((coupon) => coupon.discountType === 'dollars' && coupon.productId === 'apple')).toBe(true)
   // Print counts are a teacher-only detail and must not reach students.
   expect(published.coupons.every((coupon) => !('copies' in coupon))).toBe(true)

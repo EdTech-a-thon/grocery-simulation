@@ -9,7 +9,7 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   page.on('pageerror', (e) => problems.push(String(e)))
 
   await page.goto('/')
-  await expect(page.locator('.welcome-card')).toBeVisible()
+  await expect(page.locator('.landing-hero')).toBeVisible()
   await expect(page.locator('.student-store-scene')).toBeVisible()
 
   await page.getByRole('button', { name: 'Teacher sign in' }).click()
@@ -33,10 +33,13 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   // Random coupons, then the print-all sheet.
   await page.getByRole('button', { name: 'Coupons' }).click()
   await page.getByLabel('Different coupon designs').fill('2')
-  await page.getByLabel('Copies of each design').fill('6')
   await page.getByRole('button', { name: 'Generate random coupons' }).click()
   await expect(page.getByText('2 ready to use')).toBeVisible()
   await page.getByRole('button', { name: 'Print all coupons to PDF' }).click()
+  await expect(page.getByLabel('Copies to print')).toHaveCount(2)
+  await page.getByLabel('Copies to print').nth(0).fill('6')
+  await page.getByLabel('Copies to print').nth(1).fill('6')
+  await page.getByRole('button', { name: 'Open print preview' }).click()
   await expect(page.locator('.print-sheet')).toContainText('12 coupons, 10 per page')
   await expect(page.locator('.coupon-sheet')).toHaveCount(2)
   await expect(page.locator('.print-coupon')).toHaveCount(12)
@@ -66,11 +69,11 @@ test('coupons print in sheets, and printing never loses the page underneath', as
 
   await page.getByRole('button', { name: 'Sign out' }).click()
   await expect(page).toHaveURL(/\/$/)
-  await expect(page.locator('.welcome-card')).toBeVisible()
+  await expect(page.locator('.landing-hero')).toBeVisible()
 
   // A reload lands back on the welcome screen, signed out.
   await page.reload()
-  await expect(page.locator('.welcome-card')).toBeVisible()
+  await expect(page.locator('.landing-hero')).toBeVisible()
 
   expect(problems).toEqual([])
 })
