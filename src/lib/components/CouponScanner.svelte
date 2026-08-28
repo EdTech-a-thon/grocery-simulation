@@ -21,30 +21,49 @@
   }
 
   onMount(async () => {
-    const Detector = (window as unknown as { BarcodeDetector?: BarcodeDetectorConstructor }).BarcodeDetector
-    if (!Detector) return
     try {
       stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
       if (!video) return
       video.srcObject = stream
       await video.play()
+
+      const Detector = (window as unknown as { BarcodeDetector?: BarcodeDetectorConstructor }).BarcodeDetector
+      if (!Detector) {
+        stop()
+        onError('Your camera is available, but this browser cannot automatically read coupon barcodes. Enter the printed code instead.')
+        return
+      }
       const detector = new Detector({ formats: ['code_39'] })
       // Look a few times a second until a barcode appears or the shopper cancels.
       const check = async () => {
         if (!looking || !video) return
-        const results = await detector.detect(video)
-        const code = results[0]?.rawValue
-        if (code) {
+        try {
+          const results = await detector.detect(video)
+          const code = results[0]?.rawValue
+          if (code) {
+            stop()
+            onDetected(code)
+            return
+          }
+          window.setTimeout(check, 250)
+        } catch {
           stop()
-          onDetected(code)
-          return
+          onError('The barcode could not be read. Enter the code printed below it instead.')
         }
-        window.setTimeout(check, 250)
       }
       void check()
-    } catch {
+    } catch (error) {
       stop()
-      onError('Camera access was not allowed. Type the coupon code instead.')
+      const name = error instanceof DOMException ? error.name : ''
+      if (name === 'NotAllowedError' || name === 'SecurityError') {
+        onError('Camera permission was not granted. Allow camera access and try again, or enter the printed code.')
+      } else if (name === 'NotFoundError') {
+        onError('No camera was found on this device. Enter the printed code instead.')
+      } else if (name === 'NotReadableError') {
+        onError('The camera is already in use by another app. Close it there and try again, or enter the printed code.')
+      } else {
+        onError('The camera could not be started. Enter the printed code instead.')
+      }
     }
   })
 

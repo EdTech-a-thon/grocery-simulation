@@ -1,7 +1,7 @@
 <script lang="ts">
   import Barcode from './Barcode.svelte'
   import { money } from '$lib/catalog'
-  import { couponDiscountLabel, formatCouponItem, formatDate } from '$lib/coupons'
+  import { couponDiscountLabel, formatCouponItem } from '$lib/coupons'
   import { productById } from '$lib/products'
   import type { Coupon } from '$lib/pocketbase'
 
@@ -13,16 +13,21 @@
 
 <article class="print-coupon">
   <div class="coupon-burst">{burst}<small>OFF</small></div>
-  {#if product}
-    <img class="coupon-product-image" src={product.image} alt={product.name} />
-  {:else}
-    <span class="coupon-cart-icon" aria-hidden="true">$</span>
-  {/if}
   <div class="print-coupon-copy">
-    <p>CLASSGROCERY COUPON</p>
-    <h2>{couponDiscountLabel(coupon)} {formatCouponItem(coupon)}</h2>
-    <span>Valid {formatDate(coupon.startsAt)}<br />through {formatDate(coupon.endsAt)}</span>
-    <Barcode code={coupon.code} />
-    <strong>{coupon.code}</strong>
+    <div class="coupon-offer">
+      {#if product}
+        <img class="coupon-product-image" src={product.image} alt={product.name} />
+      {:else}
+        <span class="coupon-cart-icon" aria-hidden="true">$</span>
+      {/if}
+      <div>
+        <p>CLASSGROCERY COUPON</p>
+        <h2>{couponDiscountLabel(coupon)} {formatCouponItem(coupon)}</h2>
+      </div>
+    </div>
+    <div class="coupon-code-block">
+      <Barcode code={coupon.code} />
+      <div><small>COUPON CODE</small><strong>{coupon.code}</strong></div>
+    </div>
   </div>
 </article>

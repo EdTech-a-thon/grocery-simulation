@@ -3,7 +3,7 @@
   import ReceiptBody from './ReceiptBody.svelte'
   import { cart, cartTotals, clearCart, increaseCartLine, removeFromCart } from '$lib/cart.svelte'
   import { money } from '$lib/catalog'
-  import { couponDiscountLabel, couponStatus, formatCouponItem } from '$lib/coupons'
+  import { couponDiscountLabel, couponStatus } from '$lib/coupons'
   import { printReceipt } from '$lib/printing.svelte'
   import { buildReceipt, receiptText } from '$lib/receipt'
   import { shop } from '$lib/shop.svelte'
@@ -31,7 +31,6 @@
       message = problem
       return
     }
-    if (!window.confirm(`Apply ${couponDiscountLabel(coupon)} ${formatCouponItem(coupon)}?`)) return
     if (couponLimitReached) message = `You can apply up to ${maxCoupons} class coupons.`
     else if (cart.appliedCoupons.some((item) => item.code === coupon.code)) message = 'That coupon has already been applied.'
     else {
@@ -41,11 +40,11 @@
   }
 
   function startScanning() {
-    const canScan = 'BarcodeDetector' in window && Boolean(navigator.mediaDevices?.getUserMedia)
-    if (!canScan) {
-      message = 'Camera barcode scanning is blocked or unavailable. Type the code printed below the barcode instead.'
+    if (!navigator.mediaDevices?.getUserMedia) {
+      message = 'Camera access is not available here. Enter the code printed below the barcode.'
       return
     }
+    message = ''
     scanning = true
   }
 
@@ -75,12 +74,20 @@
 
   <div class="cart-lines">
     {#each cart.lines as line (line.key)}
+      {@const receiptLine = receipt.lines.find((item) => item.item.key === line.key)}
+      {@const lineSavings = receiptLine?.coupons.reduce((sum, entry) => sum + entry.amount, 0) ?? 0}
       <div class="cart-line">
         <span class="cart-item-image" style="background-image:url('{line.image}')"></span>
         <div class="cart-item-details">
           <strong>{line.name}</strong>
           <span>{money(line.price)} each</span>
-          <span class="cart-line-total">{line.quantity} x {money(line.price)} = {money(line.price * line.quantity)}</span>
+          <span class:cart-line-discounted={lineSavings > 0} class="cart-line-total">
+            {line.quantity} x {money(line.price)} =
+            {#if lineSavings > 0}<s>{money(line.price * line.quantity)}</s> <strong>{money(line.price * line.quantity - lineSavings)}</strong>{:else}{money(line.price * line.quantity)}{/if}
+          </span>
+          {#each receiptLine?.coupons ?? [] as entry (entry.coupon.id)}
+            <span class="cart-line-coupon">{entry.coupon.code} · {couponDiscountLabel(entry.coupon)} · -{money(entry.amount)}</span>
+          {/each}
         </div>
         <div class="cart-controls">
           <button class="ghost" type="button" aria-label="Remove one {line.name}" onclick={() => removeFromCart(line.key)}>-</button>
@@ -93,7 +100,16 @@
     {/each}
   </div>
 
-  <div class="cart-total"><span>Total bill</span><strong>{money(totals.totalPrice)}</strong></div>
+  <div class="cart-totals">
+    {#if receipt.discount > 0}
+      <div><span>Shopping list total</span><strong>{money(receipt.totalPrice)}</strong></div>
+      {#each receipt.purchaseCoupons as entry (entry.coupon.id)}
+        <div class="cart-purchase-coupon"><span>{entry.coupon.code} · {couponDiscountLabel(entry.coupon)}</span><strong>-{money(entry.amount)}</strong></div>
+      {/each}
+      <div class="cart-savings"><span>Coupon savings</span><strong>-{money(receipt.discount)}</strong></div>
+    {/if}
+    <div class="cart-total"><span>Total bill</span><strong>{money(receipt.discountedPrice)}</strong></div>
+  </div>
 
   <div class="cart-actions">
     {#if shop.store?.couponsEnabled}<button class="coupon-action" type="button" onclick={() => { openModal = 'coupon' }}>Apply Coupon</button>{/if}
@@ -109,19 +125,19 @@
         <div class="coupon-checkout">
           <p class="modal-kicker">Class coupon</p>
           <h2 id="cart-modal-title">Apply a coupon</h2>
-          <p>Scan up to {maxCoupons} coupon barcodes or enter their printed codes.</p>
+          <p>Enter the code printed below the barcode, or scan it with your camera.</p>
           <div class="coupon-entry">
             <input
               type="text"
-              placeholder="FM-XXXXXX"
+              placeholder="Coupon code"
               aria-label="Coupon code"
               bind:value={couponCode}
               onkeydown={(event) => { if (event.key === 'Enter') applyCouponCode(couponCode) }}
             />
-            <button type="button" disabled={couponLimitReached} onclick={() => applyCouponCode(couponCode)}>Apply</button>
+            <button type="button" disabled={couponLimitReached} onclick={() => applyCouponCode(couponCode)}>Apply code</button>
           </div>
-          <button class="scan-button" type="button" disabled={couponLimitReached} onclick={startScanning}>Scan with camera</button>
-          <p class="coupon-count">{cart.appliedCoupons.length} of {maxCoupons} coupons applied</p>
+          <button class="scan-button" type="button" disabled={couponLimitReached} onclick={startScanning}>Use camera to scan</button>
+          <p class="coupon-count">Coupons applied: {cart.appliedCoupons.length} / {maxCoupons}</p>
           {#if message}<p class="checkout-message">{message}</p>{/if}
         </div>
       {:else}

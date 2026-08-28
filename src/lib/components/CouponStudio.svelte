@@ -25,20 +25,33 @@
   let printCopies = $state<Record<string, string>>({})
 
   const inDollars = $derived(discountType === 'dollars')
+  const couponsToPrint = $derived(
+    printTarget === 'all'
+      ? shop.coupons
+      : shop.coupons.filter((coupon) => coupon.id === printTarget),
+  )
 
   function copiesFor(couponId: string) {
     return Math.min(100, Math.max(1, Number(printCopies[couponId]) || 1))
   }
 
   function choosePrint(target: 'all' | string) {
-    printTarget = printTarget === target ? null : target
+    printTarget = target
     for (const coupon of target === 'all' ? shop.coupons : shop.coupons.filter((item) => item.id === target)) {
       printCopies[coupon.id] ??= '1'
     }
   }
 
-  function openPrintPreview(coupons = shop.coupons) {
-    printCoupons(coupons.map((coupon) => ({ ...coupon, copies: copiesFor(coupon.id) })))
+  function closePrintModal() {
+    printTarget = null
+  }
+
+  function handlePrintModalKeydown(event: KeyboardEvent) {
+    if (event.key === 'Escape') closePrintModal()
+  }
+
+  function openPrintPreview() {
+    printCoupons(couponsToPrint.map((coupon) => ({ ...coupon, copies: copiesFor(coupon.id) })))
     printTarget = null
   }
 
@@ -120,6 +133,8 @@
   }
 </script>
 
+<svelte:window onkeydown={handlePrintModalKeydown} />
+
 <main class="teacher-shell">
   {@render header()}
   <StoreHeader
@@ -165,7 +180,7 @@
       <label>
         Coupon code word
         <input required bind:value={couponCode} minlength="3" maxlength="20" pattern="[A-Za-z0-9 .$/+%\-]+" placeholder="Example: SAVE10" />
-        <span class="field-help">Students will type this code at checkout. It does not need to start with CG.</span>
+        <span class="field-help">Students will type this code at checkout.</span>
       </label>
       <button class="primary-button" type="submit" disabled={teacher.busy}>Create coupon</button>
       <div class="random-coupon-box">
@@ -178,13 +193,7 @@
       <div class="section-heading">
         <div><p class="eyebrow">Store coupons</p><h2>{shop.coupons.length} ready to use</h2></div>
         {#if shop.coupons.length}
-          <div class="print-all-panel">
-            <button class="primary-button" type="button" onclick={() => choosePrint('all')}>Print all coupons to PDF</button>
-            {#if printTarget === 'all'}
-              <span>Choose the number of copies for each coupon below.</span>
-              <button type="button" onclick={() => openPrintPreview()}>Open print preview</button>
-            {/if}
-          </div>
+          <button class="primary-button" type="button" onclick={() => choosePrint('all')}>Print all coupons to PDF</button>
         {/if}
       </div>
       {#each shop.coupons as coupon (coupon.id)}
@@ -193,17 +202,7 @@
             <strong>{couponDiscountLabel(coupon)} {formatCouponItem(coupon)}</strong>
             <span>{coupon.code}</span>
           </div>
-          {#if printTarget === 'all' || printTarget === coupon.id}
-            <label class="coupon-copy-control">
-              Copies to print
-              <input type="number" min="1" max="100" step="1" bind:value={printCopies[coupon.id]} />
-            </label>
-          {/if}
-          {#if printTarget === coupon.id}
-            <button type="button" onclick={() => openPrintPreview([coupon])}>Open print preview</button>
-          {:else if printTarget !== 'all'}
-            <button type="button" onclick={() => choosePrint(coupon.id)}>Print</button>
-          {/if}
+          <button data-print-one-coupon type="button" onclick={() => choosePrint(coupon.id)}>Print</button>
           <button type="button" aria-label="Delete coupon {coupon.code}" onclick={() => remove(coupon.id)}>Delete</button>
         </article>
       {:else}
@@ -212,3 +211,31 @@
     </section>
   </section>
 </main>
+
+{#if printTarget}
+  <div class="modal-backdrop" role="presentation" onclick={(event) => event.target === event.currentTarget && closePrintModal()}>
+    <div class="print-coupon-modal" role="dialog" aria-modal="true" aria-labelledby="print-coupon-title">
+      <div class="print-modal-heading">
+        <div>
+          <p class="eyebrow">Print coupons</p>
+          <h2 id="print-coupon-title">{printTarget === 'all' ? 'Print all coupons' : 'Print coupon'}</h2>
+        </div>
+        <button class="modal-close-button" type="button" aria-label="Close print dialog" onclick={closePrintModal}>×</button>
+      </div>
+      <p class="helper-text">Choose how many copies you need, then open the print preview.</p>
+      <div class="print-copy-list">
+        {#each couponsToPrint as coupon (coupon.id)}
+          <label class="coupon-copy-control">
+            <span><strong>{couponDiscountLabel(coupon)} {formatCouponItem(coupon)}</strong><small>{coupon.code}</small></span>
+            Copies to print
+            <input type="number" min="1" max="100" step="1" bind:value={printCopies[coupon.id]} />
+          </label>
+        {/each}
+      </div>
+      <div class="print-modal-actions">
+        <button type="button" onclick={closePrintModal}>Cancel</button>
+        <button class="primary-button" type="button" onclick={openPrintPreview}>Open print preview</button>
+      </div>
+    </div>
+  </div>
+{/if}

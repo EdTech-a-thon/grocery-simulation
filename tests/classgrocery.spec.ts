@@ -259,9 +259,15 @@ test('the receipt itemizes the cart and caps a dollar coupon at the item price',
   await page.getByRole('button', { name: 'Close' }).click()
   await page.getByRole('button', { name: 'Apply Coupon' }).click()
   await page.getByLabel('Coupon code').fill(dollarsCoupon.code)
-  await page.getByRole('button', { name: 'Apply', exact: true }).click()
+  await page.getByRole('button', { name: 'Apply code', exact: true }).click()
 
   await page.getByRole('button', { name: 'Close' }).click()
+  const discountedCartLine = page.locator('.cart-line').filter({ hasText: 'Apple' })
+  await expect(discountedCartLine.locator('.cart-line-coupon')).toContainText(dollarsCoupon.code)
+  await expect(discountedCartLine.locator('.cart-line-coupon')).toContainText('-$1.78')
+  await expect(discountedCartLine.locator('.cart-line-total strong')).toHaveText('$0.00')
+  await expect(page.locator('.cart-savings strong')).toHaveText('-$1.78')
+  await expect(page.locator('.cart-total strong')).toHaveText('$0.00')
   await page.getByRole('button', { name: 'Check out' }).click()
 
   // $1.78 of apples, so a $50 coupon is capped at $1.78 and nothing goes negative.
@@ -281,7 +287,7 @@ test('the receipt prints with its items, coupons and total saved', async ({ page
   await page.locator('.shelf-product-card', { hasText: 'Apple' }).first().getByRole('button', { name: /^Add Apple for/ }).click()
   await page.getByRole('button', { name: 'Apply Coupon' }).click()
   await page.getByLabel('Coupon code').fill(dollarsCoupon.code)
-  await page.getByRole('button', { name: 'Apply', exact: true }).click()
+  await page.getByRole('button', { name: 'Apply code', exact: true }).click()
 
   await page.getByRole('button', { name: 'Close' }).click()
   await page.getByRole('button', { name: 'Check out' }).click()
