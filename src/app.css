@@ -1520,12 +1520,19 @@ p {
 
 /* ------------------------------------------------------- stocking controls */
 
-/* The whole-store brand switch, sitting on the dark hero. */
-/* The three pages of one open store, side by side in that store's green bar. */
-.store-tabs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
-.store-tabs button { border: 1px solid rgba(255,255,255,.35); border-radius: var(--radius-md); padding: 9px 14px; background: rgba(255,255,255,.08); color: #fff; cursor: pointer; font-size: .82rem; font-weight: 900; }
-.store-tabs button:hover { background: rgba(255,255,255,.18); }
-.store-tabs button.active { border-color: transparent; background: #facc15; color: #713f12; }
+/* The three distinct pages within an open store, directly below its green bar. */
+.store-tabs { max-width: 1400px; margin: -1px auto 16px; padding: 14px clamp(16px,3vw,28px) 0; border: 1px solid #dbe7dc; border-top: 0; border-radius: 0 0 var(--radius-xl) var(--radius-xl); background: #fff; box-shadow: var(--shadow-sm); }
+.store-tabs-label { display: block; margin-bottom: 8px; color: #64748b; font-size: .68rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.store-tab-list { display: flex; align-items: stretch; }
+.store-tab-list button { flex: 1 1 0; border: 0; border-bottom: 4px solid transparent; padding: 12px 14px 11px; background: transparent; color: #475569; cursor: pointer; font-size: .88rem; font-weight: 900; }
+.store-tab-list button:hover { background: #f0fdf4; color: #166534; }
+.store-tab-list button.active { border-bottom-color: #16a34a; background: #f0fdf4; color: #14532d; }
+
+@media (max-width: 620px) {
+  .store-tabs { padding-inline: 8px; }
+  .store-tabs-label { padding-inline: 8px; }
+  .store-tab-list button { padding-inline: 7px; font-size: .76rem; }
+}
 
 /* The switch that brings the brand line this store does not sell back into the grid. */
 .brand-view-toggle { display: flex; align-items: center; gap: 7px; margin-right: 6px; color: #475569; font-size: .82rem; font-weight: 800; cursor: pointer; }

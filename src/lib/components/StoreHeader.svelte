@@ -42,13 +42,6 @@
     <p class="eyebrow">{shop.store?.name ?? ''}</p>
     <h2>{title}</h2>
     <p class="hero-lede">{lede}</p>
-    <nav class="store-tabs" aria-label="This store">
-      <button class:active={page === 'prices'} type="button" onclick={() => onGo('prices')}>Prices and stock</button>
-      {#if shop.store?.couponsEnabled}
-        <button class:active={page === 'coupons'} type="button" onclick={() => onGo('coupons')}>Coupons</button>
-      {/if}
-      <button class:active={page === 'settings'} type="button" onclick={() => onGo('settings')}>Store settings</button>
-    </nav>
   </div>
   <div class="teacher-access-panel">
     <p>
@@ -66,3 +59,14 @@
     </div>
   </div>
 </section>
+
+<nav class="store-tabs" aria-label="Store pages">
+  <span class="store-tabs-label">Store pages</span>
+  <div class="store-tab-list">
+    <button class:active={page === 'prices'} aria-current={page === 'prices' ? 'page' : undefined} type="button" onclick={() => onGo('prices')}>Prices and stock</button>
+    {#if shop.store?.couponsEnabled}
+      <button class:active={page === 'coupons'} aria-current={page === 'coupons' ? 'page' : undefined} type="button" onclick={() => onGo('coupons')}>Coupons</button>
+    {/if}
+    <button class:active={page === 'settings'} aria-current={page === 'settings' ? 'page' : undefined} type="button" onclick={() => onGo('settings')}>Store settings</button>
+  </div>
+</nav>
