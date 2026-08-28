@@ -13,6 +13,7 @@
   let joinCodeInput = $state('')
   let message = $state('')
   let busy = $state(false)
+  let joinInput = $state<HTMLInputElement | null>(null)
 
   const itemCount = $derived(cartTotals().totalItems)
 
@@ -21,6 +22,12 @@
     if (!shop.studentJoinCode) return
     if (await joinStore(shop.studentJoinCode)) screen = 'dashboard'
   })
+
+  /** The landing page is long, so its lower buttons send the class back up to the code box. */
+  function focusJoin() {
+    joinInput?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    joinInput?.focus({ preventScroll: true })
+  }
 
   async function joinWithCode() {
     if (busy) return
@@ -40,29 +47,94 @@
 </script>
 
 {#if screen === 'welcome'}
-  <main class="welcome-page">
-    <section class="welcome-card role-welcome" aria-labelledby="welcome-title">
-      <div class="welcome-copy">
-        <p class="welcome-kicker">Real-life grocery shopping</p>
-        <h1 id="welcome-title">ClassGrocery</h1>
-        <p class="welcome-intro">
-          Choose how you are joining today. Teachers set up their stores, prices and coupons.
-          Students plan meals, compare prices, clip coupons and shop on a budget.
-        </p>
-        {#if message}<p class="status-message" role="alert">{message}</p>{/if}
-        <div class="role-actions">
-          <label class="join-card">
-            <span class="join-label">Store code</span>
-            <div class="join-row">
-              <input type="text" placeholder="OTTER-P3" autocapitalize="characters" aria-label="Store code" bind:value={joinCodeInput} />
-              <button class="role-button student-role" type="button" disabled={busy} onclick={joinWithCode}>Student join store</button>
-            </div>
-            <small>Type the code your teacher gives you. The dash is optional.</small>
-          </label>
-          <button class="teacher-link-button" type="button" onclick={() => goto('/teacher')}>Teacher sign in</button>
-        </div>
-      </div>
+  <main class="landing-page">
+    <section class="landing-hero" aria-labelledby="welcome-title">
       <StoreScene />
+      <div class="landing-hero-content">
+        <p class="landing-hero-kicker">Real-life grocery shopping</p>
+        <h1 id="welcome-title">ClassGrocery</h1>
+        <p class="landing-hero-intro">
+          A grocery store you run for your class. Teachers set the prices and the coupons.
+          Students shop on a budget and read the receipt.
+        </p>
+        <div class="join-panel">
+          <label class="join-panel-label" for="store-code">Store code</label>
+          <div class="join-panel-row">
+            <input
+              id="store-code"
+              bind:this={joinInput}
+              type="text"
+              placeholder="OTTER-P3"
+              autocapitalize="characters"
+              bind:value={joinCodeInput}
+              onkeydown={(event) => { if (event.key === 'Enter') void joinWithCode() }}
+            />
+            <button type="button" disabled={busy} onclick={joinWithCode}>Join store</button>
+          </div>
+          <small>Type the code your teacher gives you. The dash is optional.</small>
+          {#if message}<p class="join-panel-error" role="alert">{message}</p>{/if}
+        </div>
+        <button class="landing-teacher-link" type="button" onclick={() => goto('/teacher')}>
+          Teacher sign in <span aria-hidden="true">&rarr;</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="landing-band landing-steps-band" aria-labelledby="how-title">
+      <div class="landing-inner">
+        <h2 id="how-title" class="visually-hidden">How it works</h2>
+        <ol class="landing-steps">
+          <li>
+            <span class="landing-step-number" aria-hidden="true">1</span>
+            <h3>Build the store</h3>
+            <p>Choose what it stocks, what it charges, and which coupons it prints.</p>
+          </li>
+          <li>
+            <span class="landing-step-number" aria-hidden="true">2</span>
+            <h3>Share the code</h3>
+            <p>Each class gets a code like <code>OTTER-P3</code>, and a link that opens it.</p>
+          </li>
+          <li>
+            <span class="landing-step-number" aria-hidden="true">3</span>
+            <h3>Shop the aisles</h3>
+            <p>Students fill a cart, clip coupons and check out with a receipt.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="landing-band landing-roles-band" aria-labelledby="roles-title">
+      <div class="landing-inner landing-roles">
+        <h2 id="roles-title" class="visually-hidden">What teachers and students can do</h2>
+        <article class="landing-role landing-role-teacher">
+          <p class="landing-eyebrow">For teachers</p>
+          <h3>You set the prices</h3>
+          <ul class="landing-list">
+            <li>Price anything, or take it off the shelf</li>
+            <li>Sell name brands, the CG&nbsp;Value store brand, or both</li>
+            <li>Print coupons with scannable barcodes</li>
+            <li>Turn on sales tax, per store</li>
+            <li>Duplicate a store for the next class</li>
+          </ul>
+          <button class="landing-cta" type="button" onclick={() => goto('/teacher')}>
+            Set up a store <span aria-hidden="true">&rarr;</span>
+          </button>
+        </article>
+        <article class="landing-role landing-role-student">
+          <p class="landing-eyebrow">For students</p>
+          <h3>They do the shopping</h3>
+          <ul class="landing-list">
+            <li>Join with a code &mdash; no account needed</li>
+            <li>Shop 12 aisles of 175 groceries</li>
+            <li>Compare brands right on the shelf</li>
+            <li>Scan a coupon with the camera</li>
+            <li>Check out with an itemized receipt</li>
+          </ul>
+          <button class="landing-cta landing-cta-student" type="button" onclick={focusJoin}>
+            Enter a store code <span aria-hidden="true">&uarr;</span>
+          </button>
+        </article>
+      </div>
     </section>
   </main>
 {:else if screen === 'dashboard'}
