@@ -1,9 +1,7 @@
 :root {
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: #e5eefc;
-  background:
-    radial-gradient(circle at center top, rgba(59, 130, 246, 0.22), transparent 35%),
-    linear-gradient(180deg, #07111f 0%, #0b1728 42%, #030712 100%);
+  color: #173b25;
+  background: #f6faf7;
 
   /* One corner-rounding scale for the whole app, so every button, input, card
      and panel picks its radius from the same short list instead of inventing
@@ -1582,6 +1580,243 @@ p {
 [data-color="pink"], [data-store-color="pink"] { --store-color: #ec4899; }
 [data-color="red"], [data-store-color="red"] { --store-color: #ef4444; }
 
+/* ------------------------------------------------------- product workspace
+   The landing page is intentionally open and bright. The working screens use
+   the same language: colour separates regions, while borders (rather than
+   nested rounded cards) establish hierarchy. */
+
+.teacher-shell {
+  padding: 0 0 48px;
+  background: #f7faf7;
+}
+
+.teacher-shell > .app-header,
+.storefront-shell > .app-header {
+  margin: 0;
+  border-bottom: 1px solid #d7e7da;
+  border-radius: 0;
+  padding: 14px max(20px, calc((100vw - 1400px) / 2));
+  background: #ffffff;
+  color: #173b25;
+}
+
+.app-header h1 { color: #31533b; }
+.app-header button,
+.app-header a {
+  border-color: #d7e7da;
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  color: #31533b;
+}
+.app-header button:hover,
+.app-header a:hover { background: #f0f8f2; }
+.brand-button { color: #14532d !important; font-size: 1.08rem !important; }
+.role-chip { background: #e7f6eb; color: #166534; }
+.app-header .header-exits { border-left-color: #d7e7da; }
+.app-header nav button.active { background: #dcfce7; color: #14532d; }
+
+.teacher-hero {
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  padding: 28px max(20px, calc((100vw - 1400px) / 2));
+  background: #eaf8ee;
+  color: #14532d;
+}
+.teacher-hero h2 { font-size: clamp(1.65rem, 3vw, 2.45rem); }
+.teacher-hero .eyebrow { color: #15803d; }
+.teacher-hero p:last-child,
+.teacher-hero p.hero-lede { color: #4b6354; }
+.teacher-access-panel p { color: #4b6354; }
+.teacher-access-panel strong { color: #14532d; }
+.join-code-copy {
+  border-color: #b7d8c0;
+  background: #ffffff;
+  color: #14532d;
+}
+.join-code-copy:hover { background: #f4fbf6; }
+.teacher-secondary-button {
+  border-color: #b7d8c0;
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  color: #14532d;
+}
+
+.store-tabs {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid #d7e7da;
+  border-radius: 0;
+  padding: 0 max(20px, calc((100vw - 1400px) / 2));
+  background: #ffffff;
+  box-shadow: none;
+}
+.store-tab-list { gap: 24px; }
+.store-tab-list button {
+  margin-bottom: -1px;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  padding: 14px 2px 12px;
+}
+.store-tab-list button:hover { background: transparent; }
+.store-tab-list button.active {
+  border-bottom-color: #15803d;
+  background: transparent;
+  color: #14532d;
+  box-shadow: none;
+}
+.store-page-heading { margin: 0 auto; padding: 30px 20px 22px; }
+
+.teacher-workspace,
+.coupon-workspace,
+.store-workspace {
+  gap: 0;
+  padding: 0 20px;
+}
+.teacher-workspace > .aisle-picker {
+  border: 0;
+  border-right: 1px solid #d7e7da;
+  border-radius: 0;
+  padding: 4px 22px 24px 0;
+  background: transparent;
+  box-shadow: none;
+}
+.teacher-workspace > .aisle-picker button { border-radius: var(--radius-sm); }
+.price-editor,
+.coupon-form,
+.coupon-list,
+.store-list {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.price-editor { padding: 4px 0 32px 32px; }
+.price-grid { gap: 1px; background: #dce7de; border: 1px solid #dce7de; }
+.price-edit-card {
+  border: 0;
+  border-radius: 0;
+  padding: 16px 12px;
+  background: #ffffff;
+}
+.price-edit-card-hidden { background: #f3f6f4; }
+.teacher-money-input { border-radius: var(--radius-sm); }
+.coupon-workspace { grid-template-columns: minmax(280px, .38fr) minmax(0, .62fr); }
+.coupon-form { border-right: 1px solid #d7e7da; padding: 4px 32px 32px 0; }
+.coupon-list { padding: 4px 0 32px 32px; }
+.coupon-summary {
+  border: 0;
+  border-bottom: 1px solid #e4e9e5;
+  border-radius: 0;
+  background: #fffdf5;
+}
+.random-coupon-box { border-radius: var(--radius-sm); }
+.store-list { padding: 26px 0; }
+.store-summary {
+  margin-top: 0;
+  border: 0;
+  border-bottom: 1px solid #dfe8e1;
+  border-left: 3px solid var(--store-color, #22c55e);
+  border-radius: 0;
+  padding: 18px;
+  background: #ffffff;
+}
+.store-summary:first-of-type { border-top: 1px solid #dfe8e1; }
+.store-settings-workspace { padding-top: 8px; }
+.store-settings-workspace .store-form {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+.status-message { margin-top: 14px; }
+
+/* Student store: bright and tactile without putting every area in a dark pod. */
+.storefront-shell {
+  padding: 0;
+  background: #f4faf5;
+  color: #173b25;
+}
+.storefront {
+  min-height: calc(100vh - 62px);
+  gap: 0;
+  padding: 24px max(20px, calc((100vw - 1400px) / 2)) 36px;
+}
+.shelf-column { gap: 10px; }
+.class-status {
+  border-bottom: 1px solid #d7e7da;
+  border-radius: 0;
+  padding: 9px 0 13px;
+  background: transparent;
+  color: #4b6354;
+}
+.class-status button {
+  border-color: #b7d8c0;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: #166534;
+}
+.shelf-stage {
+  min-height: calc(100vh - 125px);
+  border: 1px solid #cae0d0;
+  border-radius: 0;
+  padding: 22px 24px 28px;
+  background: linear-gradient(180deg, #eaf8ee, #d8efde);
+  box-shadow: none;
+}
+.shelf-topline h2 { color: #14532d; }
+.aisle-controls .aisle-picker { color: #4b6354; }
+.aisle-controls .aisle-picker select { border-color: #b7d8c0; border-radius: var(--radius-sm); }
+.nav-arrow {
+  border: 1px solid #b7d8c0;
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  color: #14532d;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.nav-arrow:hover,
+.nav-arrow:focus-visible { background: #f0fdf4; }
+.shelf-unit { border-radius: var(--radius-sm); box-shadow: 0 4px 12px rgba(20, 83, 45, .12); }
+
+.cart-panel {
+  top: 0;
+  height: calc(100vh - 62px);
+  border: 1px solid #d7e7da;
+  border-left: 0;
+  border-radius: 0;
+  padding: 22px;
+  background: #ffffff;
+  color: #173b25;
+  box-shadow: none;
+}
+.cart-summary { color: #64748b; }
+.empty-cart,
+.cart-line { border-radius: var(--radius-sm); background: #f4f8f5; }
+.empty-cart { color: #64748b; }
+.cart-item-image { background-color: #ffffff; }
+.cart-line span { color: #64748b; }
+.cart-line-total { color: #475569; }
+.cart-line-total strong { color: #15803d; }
+.cart-line-discounted s { color: #94a3b8; }
+.cart-line-coupon { background: #dcfce7; color: #166534 !important; }
+.cart-panel .ghost {
+  border-color: #cbd5e1;
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  color: #334155;
+}
+.cart-totals { border-top-color: #d7e7da; }
+.cart-totals > div { color: #64748b; }
+.cart-totals .cart-total { color: #173b25; }
+.cart-totals .cart-savings { color: #15803d; }
+.cart-totals .cart-purchase-coupon { color: #166534; }
+.cart-actions button { border-radius: var(--radius-sm); }
+.checkout-action { background: #15803d; color: #ffffff; }
+
 /* ------------------------------------------------------- stocking controls */
 
 /* The three distinct pages within an open store, directly below its green bar. */
@@ -1643,6 +1878,75 @@ p {
 .student-view-header h1 { margin: 0; color: #fff; font-size: 1.35rem; font-weight: 900; letter-spacing: .04em; text-shadow: 0 1px 2px rgba(131, 24, 67, .35); }
 .student-view-header button { border: 0; border-radius: var(--radius-md); padding: 10px 18px; background: #fff; color: #9d174d; cursor: pointer; font: inherit; font-size: .82rem; font-weight: 900; }
 .student-view-header button:hover { background: #fdf2f8; }
+
+/* These page tabs are deliberately last in the cascade: they replace the old
+   pill-shaped menu with the same simple underline navigation as the landing
+   page's section rhythm. */
+.store-tabs {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid #d7e7da;
+  border-radius: 0;
+  padding: 0 max(20px, calc((100vw - 1400px) / 2));
+  background: #ffffff;
+  box-shadow: none;
+}
+.store-tab-list { gap: 24px; }
+.store-tab-list button {
+  margin-bottom: -1px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  padding: 14px 2px 12px;
+}
+.store-tab-list button:hover { background: transparent; }
+.store-tab-list button.active {
+  border-bottom-color: #15803d;
+  background: transparent;
+  box-shadow: none;
+}
+.store-page-heading { margin: 0 auto; padding: 30px 20px 22px; }
+
+.student-view-header {
+  margin: 0;
+  border-radius: 0;
+  padding: 13px max(20px, calc((100vw - 1400px) / 2));
+  box-shadow: none;
+}
+
+@media (max-width: 1100px) {
+  .storefront { grid-template-columns: 1fr; }
+  .cart-panel {
+    position: static;
+    height: auto;
+    border-top: 0;
+    border-left: 1px solid #d7e7da;
+  }
+}
+
+@media (max-width: 850px) {
+  .teacher-workspace,
+  .coupon-workspace { grid-template-columns: 1fr; }
+  .teacher-workspace > .aisle-picker {
+    display: flex;
+    border-right: 0;
+    border-bottom: 1px solid #d7e7da;
+    padding: 0 0 14px;
+  }
+  .price-editor,
+  .coupon-list { padding: 24px 0 32px; }
+  .coupon-form { border-right: 0; border-bottom: 1px solid #d7e7da; padding: 0 0 28px; }
+}
+
+@media (max-width: 700px) {
+  .storefront { padding: 12px; }
+  .shelf-stage { min-height: 52vh; padding: 16px; }
+  .cart-panel { padding: 16px; }
+  .teacher-hero { padding-block: 24px; }
+  .store-tab-list { gap: 16px; overflow-x: auto; }
+}
 
 @media print {
   body {
