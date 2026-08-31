@@ -279,7 +279,7 @@ export async function loadCoupons(storeId: string) {
 }
 
 export function newCouponCode() {
-  // Printed as a Code 39 barcode, so keep it short and unambiguous.
+  // Keep printed codes short and unambiguous for students to type.
   return `CG-${crypto.randomUUID().replace(/[^0-9a-f]/g, '').slice(0, 6).toUpperCase()}`
 }
 

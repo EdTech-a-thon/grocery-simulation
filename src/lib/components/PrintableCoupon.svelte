@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Barcode from './Barcode.svelte'
   import { money } from '$lib/catalog'
   import { couponDiscountLabel, formatCouponItem } from '$lib/coupons'
   import { productById } from '$lib/products'
@@ -26,7 +25,6 @@
       </div>
     </div>
     <div class="coupon-code-block">
-      <Barcode code={coupon.code} />
       <div><small>COUPON CODE</small><strong>{coupon.code}</strong></div>
     </div>
   </div>

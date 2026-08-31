@@ -1,5 +1,4 @@
 <script lang="ts">
-  import CouponScanner from './CouponScanner.svelte'
   import ReceiptBody from './ReceiptBody.svelte'
   import { cart, cartTotals, clearCart, increaseCartLine, removeFromCart } from '$lib/cart.svelte'
   import { money } from '$lib/catalog'
@@ -12,7 +11,6 @@
 
   let couponCode = $state('')
   let message = $state('')
-  let scanning = $state(false)
   let openModal = $state<'coupon' | 'checkout' | null>(null)
 
   const totals = $derived(cartTotals())
@@ -39,15 +37,6 @@
     }
   }
 
-  function startScanning() {
-    if (!navigator.mediaDevices?.getUserMedia) {
-      message = 'Camera access is not available here. Enter the code printed below the barcode.'
-      return
-    }
-    message = ''
-    scanning = true
-  }
-
   async function copyReceipt() {
     const text = receiptText()
     try {
@@ -63,7 +52,7 @@
   }
 </script>
 
-<svelte:window onkeydown={(event) => { if (event.key === 'Escape' && !scanning) closeModal() }} />
+<svelte:window onkeydown={(event) => { if (event.key === 'Escape') closeModal() }} />
 
 <aside class="cart-panel">
   <div class="cart-header">
@@ -125,7 +114,7 @@
         <div class="coupon-checkout">
           <p class="modal-kicker">Class coupon</p>
           <h2 id="cart-modal-title">Apply a coupon</h2>
-          <p>Enter the code printed below the barcode, or scan it with your camera.</p>
+          <p>Enter the coupon code printed on your coupon.</p>
           <div class="coupon-entry">
             <input
               type="text"
@@ -136,7 +125,6 @@
             />
             <button type="button" disabled={couponLimitReached} onclick={() => applyCouponCode(couponCode)}>Apply code</button>
           </div>
-          <button class="scan-button" type="button" disabled={couponLimitReached} onclick={startScanning}>Use camera to scan</button>
           <p class="coupon-count">Coupons applied: {cart.appliedCoupons.length} / {maxCoupons}</p>
           {#if message}<p class="checkout-message">{message}</p>{/if}
         </div>
@@ -170,12 +158,4 @@
       {/if}
     </div>
   </div>
-{/if}
-
-{#if scanning}
-  <CouponScanner
-    onDetected={(code) => { scanning = false; applyCouponCode(code) }}
-    onClose={() => { scanning = false }}
-    onError={(problem) => { scanning = false; message = problem }}
-  />
 {/if}

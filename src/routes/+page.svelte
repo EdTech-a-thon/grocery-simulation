@@ -112,7 +112,7 @@
           <ul class="landing-list">
             <li>Price anything, or take it off the shelf</li>
             <li>Sell name brands, the CG&nbsp;Value store brand, or both</li>
-            <li>Print coupons with scannable barcodes</li>
+            <li>Print coupons with easy-to-type codes</li>
             <li>Turn on sales tax, per store</li>
             <li>Duplicate a store for the next class</li>
           </ul>
@@ -127,7 +127,7 @@
             <li>Join with a code &mdash; no account needed</li>
             <li>Shop 12 aisles of 175 groceries</li>
             <li>Compare brands right on the shelf</li>
-            <li>Scan a coupon with the camera</li>
+            <li>Type in a coupon code</li>
             <li>Check out with an itemized receipt</li>
           </ul>
           <button class="landing-cta landing-cta-student" type="button" onclick={focusJoin}>

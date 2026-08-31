@@ -45,7 +45,7 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   await expect(page.locator('.coupon-sheet')).toHaveCount(2)
   await expect(page.locator('.coupon-sheet').last()).toHaveCSS('break-after', 'auto')
   await expect(page.locator('.print-coupon')).toHaveCount(12)
-  await expect(page.locator('.coupon-barcode').first()).toBeVisible()
+  await expect(page.locator('.coupon-code-block strong').first()).toBeVisible()
   await page.getByRole('button', { name: 'Back' }).click()
   await expect(page.getByText('2 ready to use')).toBeVisible()
 
