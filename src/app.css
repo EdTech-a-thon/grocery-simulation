@@ -1716,6 +1716,10 @@ p {
   box-shadow: none;
 }
 .shelf-topline h2 { color: #14532d; }
+.shelf-topline h2 {
+  font-size: clamp(1.35rem, 2.5vw, 2.6rem);
+  white-space: nowrap;
+}
 .aisle-controls .aisle-picker { color: #4b6354; }
 .aisle-controls .aisle-picker select { border-color: #b7d8c0; border-radius: var(--radius-sm); }
 .nav-arrow {
@@ -1729,6 +1733,19 @@ p {
 .nav-arrow:hover,
 .nav-arrow:focus-visible { background: #f0fdf4; }
 .shelf-unit { border-radius: var(--radius-sm); box-shadow: 0 4px 12px rgba(20, 83, 45, .12); }
+
+@media (min-width: 1101px) {
+  .shelf-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    overflow-x: visible;
+  }
+
+  .shelf-unit {
+    width: 100%;
+    max-width: 480px;
+  }
+}
 
 .cart-panel {
   top: 0;
