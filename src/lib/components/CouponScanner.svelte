@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte'
+  import { readCode39Row } from '$lib/coupons'
 
   let { onDetected, onClose, onError }: {
     onDetected: (code: string) => void
@@ -13,6 +14,7 @@
   let video = $state<HTMLVideoElement | null>(null)
   let stream: MediaStream | null = null
   let looking = true
+  let canvas: HTMLCanvasElement | null = null
 
   function stop() {
     looking = false
@@ -22,24 +24,44 @@
 
   onMount(async () => {
     try {
+      canvas = document.createElement('canvas')
       stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
       if (!video) return
       video.srcObject = stream
       await video.play()
 
       const Detector = (window as unknown as { BarcodeDetector?: BarcodeDetectorConstructor }).BarcodeDetector
-      if (!Detector) {
-        stop()
-        onError('Your camera is available, but this browser cannot automatically read coupon barcodes. Enter the printed code instead.')
-        return
+      let detector: BarcodeDetectorLike | null = null
+      try {
+        detector = Detector ? new Detector({ formats: ['code_39'] }) : null
+      } catch {
+        // Some browsers expose BarcodeDetector without supporting Code 39.
       }
-      const detector = new Detector({ formats: ['code_39'] })
       // Look a few times a second until a barcode appears or the shopper cancels.
       const check = async () => {
         if (!looking || !video) return
         try {
-          const results = await detector.detect(video)
-          const code = results[0]?.rawValue
+          let code = ''
+          if (detector) {
+            try {
+              code = (await detector.detect(video))[0]?.rawValue ?? ''
+            } catch {
+              detector = null
+            }
+          }
+          if (!code && canvas && video.videoWidth && video.videoHeight) {
+            canvas.width = Math.min(960, video.videoWidth)
+            canvas.height = Math.round(canvas.width * video.videoHeight / video.videoWidth)
+            const context = canvas.getContext('2d', { willReadFrequently: true })
+            context?.drawImage(video, 0, 0, canvas.width, canvas.height)
+            const image = context?.getImageData(0, 0, canvas.width, canvas.height)
+            if (image) {
+              for (const fraction of [0.5, 0.45, 0.55, 0.4, 0.6]) {
+                code = readCode39Row(image.data, image.width, Math.round(image.height * fraction))
+                if (code) break
+              }
+            }
+          }
           if (code) {
             stop()
             onDetected(code)
