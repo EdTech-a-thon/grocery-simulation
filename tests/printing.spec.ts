@@ -8,6 +8,14 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   page.on('console', (m) => { if (m.type() === 'error') problems.push(m.text()) })
   page.on('pageerror', (e) => problems.push(String(e)))
 
+  // The analytics beacon only talks to Cloudflare from the real domain, so from
+  // a test it fails and fills the console with its own noise. An empty script
+  // stands in for it: this test is watching the app's console, not a third
+  // party's.
+  await page.route('https://static.cloudflareinsights.com/**', (route) =>
+    route.fulfill({ status: 200, contentType: 'application/javascript', body: '' }),
+  )
+
   await page.goto('/')
   await expect(page.locator('.landing-hero')).toBeVisible()
   await expect(page.locator('.student-store-scene')).toBeVisible()
