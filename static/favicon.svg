@@ -5,10 +5,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ClassGrocery">
   <rect width="64" height="64" rx="14" fill="#166534"/>
   <g transform="translate(32 39) scale(1.12) translate(-32 -39)">
-  <path d="M32 25V18.5" stroke="#4c963f" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M32 23.5V16.5" stroke="#4c963f" stroke-width="5" stroke-linecap="round"/>
   <path d="M32 21C44 21 51 28.5 51 38.5 51 49.5 42.5 57 32 57 21.5 57 13 49.5 13 38.5 13 28.5 20 21 32 21Z" fill="#e43e35"/>
   <ellipse cx="23" cy="34" rx="4.5" ry="7" transform="rotate(-20 23 34)" fill="#f8a293" opacity=".7"/>
-  <path d="M32 24.5Q25.5 19.9 20.6 26.1Q27.1 30.7 32 24.5ZM32 24.5Q36.9 30.7 43.4 26.1Q38.5 19.9 32 24.5ZM32 24.5Q24.4 24.7 25 32.3Q32.6 32.1 32 24.5ZM32 24.5Q31.4 32.1 39 32.3Q39.6 24.7 32 24.5ZM32 24.5Q26.5 28.3 32 32Q37.5 28.3 32 24.5Z" fill="#6ec24f"/>
-  <circle cx="32" cy="24.5" r="4.5" fill="#6ec24f"/>
+  <path d="M32 22.5Q25.4 19.3 19 22.7Q25.6 25.9 32 22.5ZM32 22.5Q38.4 25.9 45 22.7Q38.6 19.3 32 22.5ZM32 22.5Q25.7 22.8 23 28.5Q29.4 28.3 32 22.5ZM32 22.5Q34.6 28.3 41 28.5Q38.3 22.8 32 22.5ZM32 22.5Q28.7 25.5 32 28.5Q35.3 25.5 32 22.5Z" fill="#6ec24f"/>
+  <circle cx="32" cy="22.5" r="3.1" fill="#6ec24f"/>
   </g>
 </svg>
