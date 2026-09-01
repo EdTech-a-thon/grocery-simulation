@@ -264,6 +264,47 @@ button {
 .landing-cta-student { border: 1px solid #bfe3ca; background: #fff; color: #14532d; }
 .landing-cta-student:hover, .landing-cta-student:focus-visible { background: #f0fdf4; }
 
+/* The EdTech-a-thon footer, the same row on every project in the group: who
+   built it, then the pages that are not part of the app itself. */
+.site-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 18px; padding: 26px 20px 30px; border-top: 1px solid #dcf0e2; background: #fff; text-align: center; }
+.site-footer a { color: #5e7163; font-size: .88rem; font-weight: 700; text-decoration: none; }
+.site-footer a:hover { color: #15803d; }
+.site-footer-brand { display: inline-flex; align-items: center; gap: 8px; }
+.site-footer-brand img { display: block; }
+
+/* About and privacy: a column of plain reading, so they borrow nothing from the
+   store's chrome beyond its colours. */
+.info-page { min-height: 100vh; display: flex; flex-direction: column; background: #f4fbf6; color: #173b25; }
+.info-main { width: min(760px,100%); flex: 1; margin: 0 auto; padding: clamp(24px,5vw,44px) 20px 48px; }
+.info-main h1 { font-size: clamp(1.9rem,5vw,2.6rem); letter-spacing: -.03em; }
+.info-lede { margin: 8px 0 26px; color: #5e7163; font-size: 1rem; line-height: 1.5; }
+
+.page-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px clamp(16px,4vw,28px); border-bottom: 1px solid #dcf0e2; background: #fff; }
+.page-header-brand { display: inline-flex; align-items: center; gap: 9px; color: #14532d; font-size: 1.1rem; font-weight: 900; letter-spacing: -.02em; text-decoration: none; }
+.page-header-back { border: 1px solid #cfe9d6; border-radius: var(--radius-md); padding: 8px 13px; color: #15803d; font-size: .86rem; font-weight: 800; text-decoration: none; }
+.page-header-back:hover { background: #f0fdf4; }
+
+.info-card { margin-bottom: 20px; padding: clamp(18px,4vw,26px); border: 1px solid #dcf0e2; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-sm); }
+.info-card h2 { font-size: 1.15rem; letter-spacing: -.02em; }
+.info-card p { margin-top: 12px; color: #3f5c49; font-size: .96rem; line-height: 1.65; }
+.info-card h2 + p, .info-card-heading + p { margin-top: 10px; }
+.info-card a { color: #15803d; font-weight: 700; text-underline-offset: 3px; }
+.info-card-heading { display: flex; align-items: center; gap: 12px; }
+.info-card-heading img { flex: 0 0 auto; }
+
+.info-promise { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+.info-promise li { position: relative; padding-left: 24px; color: #3f5c49; font-size: .96rem; }
+.info-promise li::before { content: ''; position: absolute; top: .45em; left: 2px; width: 8px; height: 8px; border-radius: 2px; background: #86efac; }
+.info-promise strong { color: #14532d; }
+
+/* A photo pinned to the page rather than dropped into the layout square. */
+.info-photo { width: min(520px,100%); margin: 26px auto 0; padding: 12px 12px 22px; border: 1px solid #e6efe8; border-radius: var(--radius-xs); background: #fff; transform: rotate(-1deg); box-shadow: var(--shadow-lg); }
+.info-photo img { display: block; width: 100%; background: #eef4f0; }
+.info-photo figcaption { padding-top: 16px; color: #4b6354; font-family: 'Segoe Script', 'Bradley Hand', 'Snell Roundhand', 'Comic Sans MS', cursive; font-size: 1.1rem; text-align: center; }
+
+.info-mail-button { display: inline-block; margin-top: 16px; border-radius: var(--radius-md); padding: 11px 17px; background: #15803d; color: #fff !important; font-size: .92rem; font-weight: 900; text-decoration: none; }
+.info-mail-button:hover { background: #166534; }
+
 @media (max-width: 860px) {
   /* The sky is too narrow for weather behind the words: the sun keeps a corner
      out of the way of the heading, and the clouds sit this one out. */

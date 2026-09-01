@@ -4,6 +4,7 @@
   import AppHeader from '$lib/components/AppHeader.svelte'
   import StoreFront from '$lib/components/StoreFront.svelte'
   import StoreScene from '$lib/components/StoreScene.svelte'
+  import SiteFooter from '$lib/components/SiteFooter.svelte'
   import { cartTotals } from '$lib/cart.svelte'
   import { joinStore, rememberStudentJoinCode, shop } from '$lib/shop.svelte'
 
@@ -136,6 +137,8 @@
         </article>
       </div>
     </section>
+
+    <SiteFooter />
   </main>
 {:else if screen === 'dashboard'}
   <main class="student-dashboard-page">
