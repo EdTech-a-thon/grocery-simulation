@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)">
+  <path d="M34 61h92l-10 107H44z" fill="#ec6c92"/>
+  <ellipse cx="80" cy="61" rx="47" ry="14" fill="#fff4f4"/>
+  <ellipse cx="80" cy="61" rx="38" ry="9" fill="#d84468"/>
+  <text x="80" y="94" text-anchor="middle" font-family="Georgia, serif" font-size="19" font-weight="700" fill="#fff">YOGURT</text>
+  <path d="M53 134c0-23 54-23 54 0v14H53z" fill="#fff5df"/>
+  <g fill="#d94357"><path d="M68 123c-11 0-15 13-7 21 8 7 14 0 14-8 0-8-3-13-7-13z"/><path d="M91 123c-11 0-15 13-7 21 8 7 14 0 14-8 0-8-3-13-7-13z"/></g>
+  <text x="80" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#fff">STRAWBERRY</text>
+</g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>

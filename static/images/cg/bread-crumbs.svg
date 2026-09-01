@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220"><g transform="translate(90 0) scale(0.84) translate(-90 0)">
+  <path d="M45 28h90l8 165H37z" fill="#d97706"/>
+  <path d="M51 35h78l7 151H44z" fill="#fef3c7"/>
+  <path d="M51 52h78v40H51z" fill="#b45309"/>
+  <text x="90" y="76" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="white">CRUNCHY</text>
+  <path d="M62 119c4-25 52-25 56 0v21H62z" fill="#d6a866"/><circle cx="76" cy="128" r="4" fill="#92400e"/><circle cx="91" cy="121" r="4" fill="#92400e"/><circle cx="104" cy="132" r="4" fill="#92400e"/>
+  <text x="90" y="165" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#92400e">BREAD CRUMBS</text>
+</g><g><rect x="0" y="184.8" width="180" height="35.2" fill="#15803d"/><text x="90" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>

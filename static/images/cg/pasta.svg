@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)">
+  <path d="M39 14h82l11 194H28z" fill="#f2c436"/>
+  <path d="M39 14h82v36H39z" fill="#bc2633"/>
+  <text x="80" y="39" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#fff">ROMA</text>
+  <text x="80" y="75" text-anchor="middle" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#79251e">PENNE</text>
+  <rect x="43" y="91" width="74" height="78" rx="37" fill="#fff4c9"/>
+  <g fill="#d38d28" stroke="#a86a1b" stroke-width="3">
+    <path d="M54 111l17-7 8 20-17 7z"/><path d="M84 104l17 7-8 20-17-7z"/><path d="M67 133l18-3 4 20-18 3z"/><path d="M92 139l16-8 9 18-16 8z"/><path d="M45 143l16-8 9 18-16 8z"/>
+  </g>
+  <text x="80" y="193" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#79251e">PASTA</text>
+</g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>

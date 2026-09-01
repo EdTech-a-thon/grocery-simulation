@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220"><g transform="translate(90 0) scale(0.84) translate(-90 0)">
+  <path d="M47 20h86l9 181H38z" fill="#d97706"/>
+  <path d="M52 26h76l7 169H45z" fill="#fef3c7"/>
+  <rect x="52" y="47" width="76" height="45" rx="5" fill="#65a30d"/>
+  <text x="90" y="69" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="bold" fill="white">HONEY</text>
+  <text x="90" y="86" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white">OAT</text>
+  <path d="M57 117c18-20 48-20 66 0l-8 38H65z" fill="#a16207"/>
+  <circle cx="76" cy="134" r="8" fill="#eab308"/><circle cx="96" cy="128" r="8" fill="#f97316"/><circle cx="108" cy="145" r="8" fill="#84cc16"/>
+  <text x="90" y="181" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#92400e">GRANOLA</text>
+</g><g><rect x="0" y="184.8" width="180" height="35.2" fill="#15803d"/><text x="90" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>

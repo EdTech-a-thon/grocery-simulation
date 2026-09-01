@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)">
+  <path d="M20 49h120v124H20z" fill="#e3a438"/>
+  <path d="M27 57h106v108H27z" fill="#fcf0bd"/>
+  <text x="80" y="79" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#9e5627">SOFT FLOUR</text><text x="80" y="97" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#9e5627">TORTILLAS</text>
+  <g fill="#f5d990" stroke="#d1a44c" stroke-width="2"><circle cx="80" cy="131" r="33"/><circle cx="69" cy="141" r="28"/><circle cx="91" cy="143" r="27"/></g>
+  <g fill="#c59649"><circle cx="67" cy="123" r="2"/><circle cx="92" cy="130" r="2"/><circle cx="73" cy="151" r="2"/><circle cx="101" cy="151" r="2"/></g>
+</g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>

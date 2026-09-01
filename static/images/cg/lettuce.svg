@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)">
+  <path d="M80 190c-49 0-66-39-51-75-7-35 22-56 51-41 30-15 58 6 51 41 15 36-2 75-51 75z" fill="#78ad46"/>
+  <path d="M80 179c-40 0-53-32-39-61-4-28 18-43 39-29 22-14 44 1 39 29 14 29 1 61-39 61z" fill="#a8ca58"/>
+  <path d="M80 171V98M80 126L51 108M80 139l33-22M80 151l-29 13M80 157l31 10" fill="none" stroke="#669a3e" stroke-width="6" stroke-linecap="round"/>
+</g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>

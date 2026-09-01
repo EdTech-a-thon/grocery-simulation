@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)">
+  <path d="M21 76h118v80H21z" fill="#427fbd"/>
+  <path d="M21 76h118v22H21z" fill="#e4edf6"/>
+  <text x="80" y="93" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#315b89">ORIGINAL</text>
+  <text x="80" y="119" text-anchor="middle" font-family="Georgia, serif" font-size="19" font-weight="700" fill="#fff">CREAM CHEESE</text>
+  <path d="M46 132h68v13H46z" fill="#f9edd0"/>
+  <text x="80" y="148" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#fff">SPREADABLE</text>
+</g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>

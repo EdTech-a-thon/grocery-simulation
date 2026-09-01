@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)">
+  <path d="M18 49h124v123H18z" fill="#d8573f"/>
+  <path d="M18 49h124v31H18z" fill="#f4cc48"/>
+  <text x="80" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#7d3027">PIZZA CRUST</text>
+  <circle cx="80" cy="126" r="42" fill="#d89b4c" stroke="#a86628" stroke-width="4"/>
+  <circle cx="80" cy="126" r="32" fill="#f2c66a"/>
+  <g fill="#b97935"><circle cx="66" cy="112" r="3"/><circle cx="88" cy="105" r="3"/><circle cx="99" cy="125" r="3"/><circle cx="76" cy="139" r="3"/><circle cx="57" cy="130" r="3"/></g>
+  <text x="80" y="164" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#fff">READY TO BAKE</text>
+</g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
