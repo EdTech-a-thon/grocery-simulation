@@ -12,7 +12,9 @@
 
 <header class="app-header">
   <div>
-    <button class="brand-button" type="button" onclick={onHome}>ClassGrocery</button>
+    <button class="brand-button" type="button" onclick={onHome}>
+      <img src="/logo.svg" alt="" width="20" height="20" />ClassGrocery
+    </button>
     <span class="role-chip">{role} view</span>
     {#if shop.store}
       <span class="store-chip" data-color={shop.store.color}>{shop.store.name}</span>

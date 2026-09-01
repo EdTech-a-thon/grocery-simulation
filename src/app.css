@@ -336,7 +336,7 @@ button {
 .app-header nav button.active { border-color: transparent; background: #facc15; color: #713f12; }
 .app-header h1 { font-size: 1.05rem; text-align: center; }
 .app-header button, .app-header a { border: 1px solid rgba(255,255,255,.2); border-radius: var(--radius-md); padding: 8px 11px; background: rgba(255,255,255,.08); color: #fff; cursor: pointer; font-size: .8rem; font-weight: 800; text-decoration: none; }
-.brand-button { border: 0 !important; padding-left: 0 !important; background: transparent !important; color: #86efac !important; font-size: 1rem !important; }
+.brand-button { border: 0 !important; padding-left: 0 !important; background: transparent !important; color: #86efac !important; font-size: 1rem !important; display: inline-flex; align-items: center; gap: 7px; }
 .role-chip { border-radius: var(--radius-sm); padding: 5px 8px; background: #166534; color: #dcfce7; font-size: .68rem; font-weight: 900; text-transform: uppercase; }
 
 .teacher-shell { min-height: 100vh; padding: 16px; color: #172033; background: #f3f7f3; }

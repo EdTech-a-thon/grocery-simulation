@@ -9,6 +9,7 @@
     "preview": "vite preview --host 0.0.0.0 --port 8000",
     "typecheck": "svelte-check --tsconfig ./tsconfig.json",
     "images:cg": "node scripts/make-cg-images.mjs",
+    "images:icons": "node scripts/make-icons.mjs",
     "test": "playwright test"
   },
   "devDependencies": {

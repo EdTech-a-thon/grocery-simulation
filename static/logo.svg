@@ -1,0 +1,9 @@
+<!-- The ClassGrocery mark: a tomato, drawn in the same flat shapes as the
+     product artwork so it reads at 16px in a browser tab. This is the mark on
+     its own, for placing on a background the page already provides. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ClassGrocery">
+  <path d="M32 26V17" stroke="#4c963f" stroke-width="5" stroke-linecap="round"/>
+  <path d="M32 21C44 21 51 28.5 51 38.5 51 49.5 42.5 57 32 57 21.5 57 13 49.5 13 38.5 13 28.5 20 21 32 21Z" fill="#e43e35"/>
+  <path d="M32 25c-9-10-14-4-16 0 6 3 9 5 16 0 7 5 10 3 16 0-2-4-7-10-16 0z" fill="#6ec24f"/>
+  <ellipse cx="23" cy="34" rx="4.5" ry="7" transform="rotate(-20 23 34)" fill="#f8a293" opacity=".7"/>
+</svg>
