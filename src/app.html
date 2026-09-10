@@ -17,11 +17,19 @@
   </head>
   <body>
     <div id="app">%sveltekit.body%</div>
-    <!-- Cloudflare Web Analytics -->
-    <script
-      type="module"
-      src="https://static.cloudflareinsights.com/beacon.min.js"
-      data-cf-beacon='{"token": "2ae50fd97d024149ad225ead7c2075e8"}'
-    ></script>
+    <!-- Cloudflare Web Analytics. PUBLIC_CF_BEACON_TOKEN is set only on the
+         production Vercel environment, so local and preview builds don't count visits. -->
+    <script>
+      {
+        const token = '%sveltekit.env.PUBLIC_CF_BEACON_TOKEN%';
+        if (token) {
+          const beacon = document.createElement('script');
+          beacon.type = 'module';
+          beacon.dataset.cfBeacon = JSON.stringify({ token });
+          beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+          document.body.append(beacon);
+        }
+      }
+    </script>
   </body>
 </html>
