@@ -395,6 +395,13 @@ const nameBrands: Product[] = [
 /** What marks a product id as belonging to the store-brand line. */
 export const storeBrandSuffix = '-cg'
 
+/**
+ * The store's own brand, written in front of the product's name. It is a brand
+ * name rather than a word, so it reads the same in every language — see
+ * productName() in $lib/i18n.
+ */
+export const storeBrandPrefix = 'CG'
+
 /** A CG item costs 15% less than the name brand beside it. */
 export const storeBrandDiscount = 0.85
 
@@ -429,7 +436,7 @@ export function storeBrandPrice(nameBrandPrice: number) {
 function storeBrandOf(product: Product): Product {
   return {
     id: storeBrandIdOf(product.id),
-    name: `CG ${product.name}`,
+    name: `${storeBrandPrefix} ${product.name}`,
     price: storeBrandPrice(product.price),
     image: `/images/cg/${product.id}.svg`,
     note: product.note,

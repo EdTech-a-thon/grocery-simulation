@@ -38,13 +38,13 @@ routerAdd('GET', '/api/classgrocery/store/{joinCode}', (e) => {
   // Students type what is on the board. Dashes, spaces and lower case are all
   // forgiven, because none of them change which store is meant.
   const key = shared.joinKey(e.request.pathValue('joinCode'))
-  if (key.length < 4) throw new NotFoundError('Store not found')
+  if (key.length < 4) throw new NotFoundError(shared.tagged('store-not-found', 'Store not found'))
 
   let store
   try {
     store = e.app.findFirstRecordByData('stores', 'joinKey', key)
   } catch (_) {
-    throw new NotFoundError('Store not found')
+    throw new NotFoundError(shared.tagged('store-not-found', 'Store not found'))
   }
 
   // The tidy form of the code, so the student's screen shows OTTER-P3 however
@@ -96,7 +96,7 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/duplicate', (e) => {
   e.bindBody(body)
 
   const name = String(body.name || '').trim().slice(0, 60)
-  if (!name) throw new BadRequestError('Give the new store a name.')
+  if (!name) throw new BadRequestError(shared.tagged('store-name-missing', 'Give the new store a name.'))
 
   const sourceId = e.request.pathValue('id')
   const teacherId = e.auth.id
@@ -107,7 +107,7 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/duplicate', (e) => {
     try {
       source = tx.findFirstRecordByFilter('stores', 'id = {:id} && owner = {:owner}', { id: sourceId, owner: teacherId })
     } catch (_) {
-      throw new NotFoundError('Store not found') // same answer whether it is missing or someone else's
+      throw new NotFoundError(shared.tagged('store-not-found', 'Store not found')) // same answer whether it is missing or someone else's
     }
 
     // The saves below go straight to the database, so they skip the request
@@ -176,10 +176,10 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/brands', (e) => {
   e.bindBody(body)
 
   const mode = String(body.mode || '')
-  if (mode !== 'name' && mode !== 'store' && mode !== 'both') throw new BadRequestError('Choose which brands to stock.')
+  if (mode !== 'name' && mode !== 'store' && mode !== 'both') throw new BadRequestError(shared.tagged('brand-mode-invalid', 'Choose which brands to stock.'))
 
   const items = body.items || []
-  if (!items.length) throw new BadRequestError('Nothing to stock.')
+  if (!items.length) throw new BadRequestError(shared.tagged('nothing-to-stock', 'Nothing to stock.'))
 
   const storeId = e.request.pathValue('id')
   const teacherId = e.auth.id
@@ -190,7 +190,7 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/brands', (e) => {
     try {
       store = tx.findFirstRecordByFilter('stores', 'id = {:id} && owner = {:owner}', { id: storeId, owner: teacherId })
     } catch (_) {
-      throw new NotFoundError('Store not found') // same answer whether it is missing or someone else's
+      throw new NotFoundError(shared.tagged('store-not-found', 'Store not found')) // same answer whether it is missing or someone else's
     }
     store.set('brandMode', mode)
     tx.save(store)

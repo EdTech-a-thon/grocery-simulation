@@ -10,7 +10,8 @@
     "typecheck": "svelte-check --tsconfig ./tsconfig.json",
     "images:cg": "node scripts/make-cg-images.mjs",
     "images:icons": "node scripts/make-icons.mjs",
-    "test": "playwright test"
+    "test": "playwright test",
+    "check:translations": "bun scripts/check-translations.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",

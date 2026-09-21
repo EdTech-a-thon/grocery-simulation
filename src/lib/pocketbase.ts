@@ -1,3 +1,4 @@
+import { t } from './i18n/index.svelte'
 import PocketBase from 'pocketbase'
 import { joinCodeFor, joinKey, normalizeJoinLabel, normalizeJoinPrefix } from './joincodes'
 
@@ -53,10 +54,30 @@ export type JoinedStore = {
   coupons: Coupon[]
 }
 
-/** PocketBase's own wording for a failure, so the screen can explain it. */
+/**
+ * What to put on the screen when a save fails.
+ *
+ * The server refuses a save for a handful of reasons a teacher can act on —
+ * the class code is already in use, the store has no name — and each of those
+ * arrives with a tag on the front of the message, "[join-label-taken:P3] ..."
+ * (see tagged() in pb_hooks). The tag is translated here, so a Spanish
+ * classroom is told about its class code in Spanish.
+ *
+ * Anything else is PocketBase describing its own database ("Failed to update
+ * record."), which is English-only and means nothing to a teacher, so the
+ * caller's own sentence is shown instead and the detail goes to the console.
+ */
+const SERVER_REASON = /^\[([a-z-]+)(?::([^\]]*))?\]\s*/
+
 export function errorMessage(error: unknown, fallback: string) {
   const response = (error as { response?: { message?: string } })?.response
-  return response?.message || (error as Error)?.message || fallback
+  const detail = response?.message || (error as Error)?.message
+
+  const tag = detail?.match(SERVER_REASON)
+  if (tag) return t(`server.${tag[1]}`, { label: tag[2] ?? '' })
+
+  if (detail) console.warn('ClassGrocery request failed:', detail, error)
+  return fallback
 }
 
 // ---------------------------------------------------------------- dates

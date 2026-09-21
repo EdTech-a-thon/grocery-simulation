@@ -48,6 +48,22 @@ function couponPayload(record) {
   }
 }
 
+/**
+ * Tags a refusal with a reason the browser can translate.
+ *
+ * PocketBase rewrites anything handed to an error's `data` into its own
+ * validation shape, so the tag travels at the front of the message instead:
+ *
+ *   [join-label-taken:P3] You already have a class called P3. ...
+ *
+ * The English sentence stays on the end for anything reading the API directly;
+ * the browser strips the tag and says the same thing in the class's language.
+ * See errorMessage() in src/lib/pocketbase.ts.
+ */
+function tagged(reason, english, value) {
+  return `[${reason}${value === undefined ? '' : ':' + value}] ${english}`
+}
+
 function freshCouponCode(tx) {
   // Codes are printed as Code 39 barcodes, so they stay short and unambiguous.
   for (let attempt = 0; attempt < 20; attempt++) {
@@ -58,7 +74,7 @@ function freshCouponCode(tx) {
       return code // nothing found, so the code is free
     }
   }
-  throw new BadRequestError('Could not generate a unique coupon code.')
+  throw new BadRequestError(tagged('coupon-code-unavailable', 'Could not generate a unique coupon code.'))
 }
 
 /**
@@ -70,12 +86,12 @@ function resolveJoinKey(tx, ownerId, rawLabel, ignoreStoreId) {
   const owner = tx.findRecordById('teachers', ownerId)
   const prefix = normalizeJoinPrefix(owner.getString('joinPrefix'))
   if (!JOIN_PREFIX_PATTERN.test(prefix)) {
-    throw new BadRequestError('Choose your class identifier before creating a store.')
+    throw new BadRequestError(tagged('identifier-missing', 'Choose your class identifier before creating a store.'))
   }
 
   const label = normalizeJoinLabel(rawLabel)
   if (!JOIN_LABEL_PATTERN.test(label)) {
-    throw new BadRequestError('Give the class a short code of 1 to 6 letters or numbers, such as P3.')
+    throw new BadRequestError(tagged('join-label-invalid', 'Give the class a short code of 1 to 6 letters or numbers, such as P3.'))
   }
 
   let clash = null
@@ -87,7 +103,11 @@ function resolveJoinKey(tx, ownerId, rawLabel, ignoreStoreId) {
     clash = null // nothing found, so the label is free
   }
   if (clash && clash.id !== ignoreStoreId) {
-    throw new BadRequestError(`You already have a class called ${label}. Give this one a different code.`)
+    throw new BadRequestError(tagged(
+      'join-label-taken',
+      `You already have a class called ${label}. Give this one a different code.`,
+      label,
+    ))
   }
 
   return { prefix, label, joinKey: joinKey(prefix + label), joinCode: joinCodeFor(prefix, label) }
@@ -96,5 +116,5 @@ function resolveJoinKey(tx, ownerId, rawLabel, ignoreStoreId) {
 module.exports = {
   JOIN_PREFIX_PATTERN, JOIN_LABEL_PATTERN,
   joinKey, normalizeJoinPrefix, normalizeJoinLabel, joinCodeFor,
-  isoDate, couponPayload, freshCouponCode, resolveJoinKey,
+  isoDate, couponPayload, freshCouponCode, resolveJoinKey, tagged,
 }

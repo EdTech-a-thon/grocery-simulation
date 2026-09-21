@@ -1,7 +1,9 @@
-<script lang="ts"></script>
+<script lang="ts">
+  import { t } from '$lib/i18n/index.svelte'
+</script>
 
 <!-- The illustrated shopfront that welcomes students on the first two screens. -->
-<div class="student-store-scene" aria-label="Fresh Market grocery store illustration">
+<div class="student-store-scene" aria-label={t('scene.label')}>
   <div class="student-sun"></div>
   <div class="student-cloud student-cloud-one"></div>
   <div class="student-cloud student-cloud-two"></div>

@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import { goto } from '$app/navigation'
   import { page } from '$app/state'
+  import { t } from '$lib/i18n/index.svelte'
   import { joinStore, rememberStudentJoinCode } from '$lib/shop.svelte'
 
   let failed = $state(false)
@@ -24,14 +25,11 @@
   <section class="welcome-card">
     <div class="welcome-copy">
       {#if failed}
-        <h1>That store link did not work</h1>
-        <p class="welcome-intro">
-          The link may be out of date, or the store may have been deleted. Ask your teacher
-          for the store code and type it on the front page.
-        </p>
-        <button class="primary-button" type="button" onclick={() => void goto('/')}>Go to the front page</button>
+        <h1>{t('join.failedTitle')}</h1>
+        <p class="welcome-intro">{t('join.failedBody')}</p>
+        <button class="primary-button" type="button" onclick={() => void goto('/')}>{t('join.goHome')}</button>
       {:else}
-        <h1>Opening your class store…</h1>
+        <h1>{t('join.opening')}</h1>
       {/if}
     </div>
   </section>

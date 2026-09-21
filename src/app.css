@@ -213,6 +213,8 @@ button {
    padding is what keeps the join box clear of the shop's sign. */
 .landing-hero .student-market-building { left: 50%; right: auto; width: min(350px,52vw); height: 210px; bottom: clamp(30px,5vh,64px); transform: translateX(-50%); }
 
+.landing-language { position: absolute; top: clamp(14px,3vh,24px); right: clamp(14px,3vw,28px); z-index: 7; color: #14532d; }
+
 .landing-hero-content { position: relative; z-index: 6; width: min(640px,100%); display: grid; justify-items: center; }
 .landing-hero-kicker { color: #14532d; font-size: .8rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
 .landing-hero h1 { margin: 10px 0 0; color: #0f3f22; font-size: clamp(2.6rem,6.5vw,4.6rem); line-height: .98; letter-spacing: -.055em; }
@@ -487,12 +489,19 @@ button {
 
 .shelf-topline {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 12px 20px;
 }
 
-.aisle-heading { min-width: 0; }
+/* The aisle name is the widest thing on this row, and how wide depends on the
+   language: "Sauces and Condiments" is already too long for a narrow laptop,
+   and "Pescados y mariscos" or "Crèmerie et œufs" are no shorter. So the name
+   gives way first — it wraps, and if there is still not room the controls drop
+   to their own line rather than sliding under the cart. */
+.aisle-heading { flex: 1 1 14rem; min-width: 0; }
+.aisle-heading h2 { overflow-wrap: break-word; }
 
 h1,
 h2,
@@ -1293,6 +1302,7 @@ p {
 
 .aisle-controls {
   display: flex;
+  flex: 0 0 auto;
   align-items: end;
   gap: 10px;
 }
