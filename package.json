@@ -8,12 +8,14 @@
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0 --port 8000",
     "typecheck": "svelte-check --tsconfig ./tsconfig.json",
-    "images:cg": "node scripts/make-cg-images.mjs",
+    "images:ship": "bun scripts/ship-product-art.mjs",
+    "images:art": "bun scripts/make-product-art.mjs",
     "images:icons": "node scripts/make-icons.mjs",
     "test": "playwright test",
     "check:translations": "bun scripts/check-translations.mjs"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.127.0",
     "@playwright/test": "^1.62.1",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.70.3",
@@ -22,7 +24,8 @@
     "svelte": "^5.56.9",
     "svelte-check": "^4.7.6",
     "typescript": "^5.6.3",
-    "vite": "^7"
+    "vite": "^7",
+    "zod": "^4.6.5"
   },
   "dependencies": {
     "pocketbase": "^0.27.3"

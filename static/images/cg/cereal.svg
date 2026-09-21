@@ -1,10 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220"><g transform="translate(90 0) scale(0.84) translate(-90 0)">
-  <rect x="26" y="12" width="128" height="196" rx="12" fill="#f97316"/>
-  <rect x="34" y="22" width="112" height="176" rx="8" fill="#fff7ed"/>
-  <path d="M34 42h112v49H34z" fill="#22c55e"/>
-  <text x="90" y="67" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="white">SUNNY</text>
-  <text x="90" y="91" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="bold" fill="#14532d">CRUNCH</text>
-  <circle cx="90" cy="140" r="34" fill="#facc15"/>
-  <circle cx="74" cy="136" r="8" fill="#fef3c7"/><circle cx="100" cy="128" r="8" fill="#fef3c7"/><circle cx="105" cy="153" r="8" fill="#fef3c7"/><circle cx="77" cy="158" r="8" fill="#fef3c7"/>
-  <text x="90" y="189" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#ea580c">CEREAL</text>
-</g><g><rect x="0" y="184.8" width="180" height="35.2" fill="#15803d"/><text x="90" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="194" rx="50" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M34 36h84v154H34z" fill="#d8c09a"/>
+    <path d="M118 36l14 8v138l-14 8z" fill="#b39a74"/>
+    <path d="M38 40h7v146h-7z" fill="#efe3ce"/>
+    <path d="M34 36h84l14 8H48z" fill="#efe3ce"/>
+    <path d="M34 46h84" fill="none" stroke="#b39a74" stroke-width="2"/>
+    <path d="M34 52h84" fill="none" stroke="#b39a74" stroke-width="2"/>
+    <path d="M34 182h84" fill="none" stroke="#b39a74" stroke-width="2"/>
+  </g><g id="label">
+    <rect x="40" y="76" width="72" height="72" rx="3" fill="#f7efe2"/>
+  </g><g id="brand-cg">
+    <rect x="40" y="76" width="72" height="72" rx="3" fill="#ffffff"/>
+    <path d="M40 76h72v9H40z" fill="#15803d"/>
+    <ellipse cx="76" cy="120" rx="26" ry="18" fill="none" stroke="#d8c09a" stroke-width="1.5"/>
+    <ellipse cx="76" cy="120" rx="22" ry="14" fill="#e0b33a"/>
+    <ellipse cx="76" cy="120" rx="16" ry="10" fill="#d4a830"/>
+    <ellipse cx="76" cy="120" rx="10" ry="6" fill="#efc95e"/>
+    <path d="M60 108c2-4 6-5 9-4" fill="none" stroke="#e8e8e8" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M52 144h48v3H52z" fill="#15803d"/>
+  </g></svg>

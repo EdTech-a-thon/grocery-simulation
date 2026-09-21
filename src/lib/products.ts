@@ -1,3 +1,5 @@
+import { isPackagedProduct } from './unbranded'
+
 export type Product = {
   id: string
   name: string
@@ -390,7 +392,7 @@ const nameBrands: Product[] = [
 // lower. It is a separate product with its own id, so a store can carry one
 // brand, the other, or both side by side, and a receipt can tell them apart.
 //
-// The artwork is generated from the name-brand file by scripts/make-cg-images.mjs.
+// Both packages are cut from one layered drawing by scripts/ship-product-art.mjs.
 
 /** What marks a product id as belonging to the store-brand line. */
 export const storeBrandSuffix = '-cg'
@@ -443,6 +445,11 @@ function storeBrandOf(product: Product): Product {
   }
 }
 
-export const products: Product[] = [...nameBrands, ...nameBrands.map(storeBrandOf)]
+// Only packaged products have a store-brand twin. A store brand is printing, and
+// printing needs a package — see unbranded.ts for which products are sold loose.
+export const products: Product[] = [
+  ...nameBrands,
+  ...nameBrands.filter((product) => isPackagedProduct(product.id)).map(storeBrandOf),
+]
 
 export const productById = Object.fromEntries(products.map((product) => [product.id, product]))

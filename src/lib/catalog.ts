@@ -1,4 +1,5 @@
 import { productById, storeBrandIdOf, storeBrandPrice } from './products'
+import { isPackagedProduct } from './unbranded'
 import dryGoodsAisle from './aisles/dry-goods.json'
 import cannedAndSaucesAisle from './aisles/canned-and-sauces.json'
 import saucesAndCondimentsAisle from './aisles/sauces-and-condiments.json'
@@ -45,14 +46,18 @@ function storeBrandTwin(item: AisleItem): AisleItem {
 }
 
 /**
- * The shoppable aisles: every product immediately followed by its CG store
- * brand, so the two prices a shopper is choosing between are side by side.
- * Whether a store actually carries either is a separate question — see
- * isStocked() in shop.svelte.ts.
+ * The shoppable aisles: every packaged product immediately followed by its CG
+ * store brand, so the two prices a shopper is choosing between are side by side.
+ * Loose food — fruit, raw cuts, the shop's own bakery — has no own-label twin
+ * and appears once; pairing it with one put a choice on the shelf that no real
+ * shop offers. Whether a store actually carries either is a separate question —
+ * see isStocked() in shop.svelte.ts.
  */
 export const aisles: AisleConfig[] = catalogAisles.map((aisle) => ({
   ...aisle,
-  items: aisle.items.flatMap((item) => [item, storeBrandTwin(item)]),
+  items: aisle.items.flatMap((item) =>
+    isPackagedProduct(item.id) ? [item, storeBrandTwin(item)] : [item],
+  ),
 }))
 
 /** How many products fit on one shelf unit (four across and three rows). */

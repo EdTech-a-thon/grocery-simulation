@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item">
+    <ellipse cx="80" cy="192" rx="42" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M41 38h78v150H41z" fill="#c3cad3"/>
+    <path d="M101 38h18v150h-18z" fill="#98a1ac"/>
+    <path d="M47 42h8v142h-8z" fill="#e7ecf1"/>
+    <ellipse cx="80" cy="188" rx="39" ry="8" fill="#98a1ac"/>
+    <ellipse cx="80" cy="38" rx="39" ry="9" fill="#d9dfe6"/>
+    <ellipse cx="80" cy="38" rx="31" ry="6" fill="#aeb7c1"/>
+    <path d="M41 52h78" fill="none" stroke="#98a1ac" stroke-width="3"/>
+    <path d="M41 174h78" fill="none" stroke="#98a1ac" stroke-width="3"/>
+  </g>
+  <g id="label">
+    <rect x="41" y="78" width="78" height="72" fill="#f7efe2"/>
+  </g>
+  <g id="brand">
+    <path d="M41 78h78v13H41z" fill="#b0261f"/>
+    <path d="M50 108c0 20 8 32 30 32s30-12 30-32a30 10 0 0 1-60 0z" fill="#f4f1ec"/>
+    <path d="M80 140c22 0 30-12 30-32a30 10 0 0 1-30 10z" fill="#d6d1c8"/>
+    <path d="M52 110c1 15 6 26 14 30" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="80" cy="142" rx="15" ry="4" fill="#d6d1c8"/>
+    <ellipse cx="80" cy="108" rx="30" ry="10" fill="#e8b13f"/>
+    <ellipse cx="80" cy="107" rx="22" ry="6" fill="#f5cd6a"/>
+    <path d="M64 106q7-5 14 0" fill="none" stroke="#c98a2b" stroke-width="2" stroke-linecap="round"/>
+    <path d="M80 110q7-5 14 0" fill="none" stroke="#c98a2b" stroke-width="2" stroke-linecap="round"/>
+    <path d="M72 112q6-4 12 0" fill="none" stroke="#c98a2b" stroke-width="2" stroke-linecap="round"/>
+    <rect x="66" y="109" width="3" height="3" fill="#d4762a"/>
+    <rect x="88" y="105" width="3" height="3" fill="#d4762a"/>
+    <rect x="78" y="103" width="3" height="3" fill="#d4762a"/>
+    <path d="M70 96q-4-6 0-10" fill="none" stroke="#e7ecf1" stroke-width="2" stroke-linecap="round"/>
+    <path d="M90 96q4-6 0-10" fill="none" stroke="#e7ecf1" stroke-width="2" stroke-linecap="round"/>
+    <path d="M52 144h56v4H52z" fill="#e0b33a"/>
+  </g>
+  <g id="brand-cg">
+    <rect x="41" y="78" width="78" height="72" fill="#ffffff"/>
+    <path d="M41 78h78v8H41z" fill="#15803d"/>
+    <path d="M50 110c0 20 8 32 30 32s30-12 30-32a30 10 0 0 1-60 0z" fill="#f4f1ec"/>
+    <path d="M80 142c22 0 30-12 30-32a30 10 0 0 1-30 10z" fill="#d6d1c8"/>
+    <ellipse cx="80" cy="144" rx="15" ry="4" fill="#d6d1c8"/>
+    <ellipse cx="80" cy="110" rx="30" ry="10" fill="#e8b13f"/>
+    <ellipse cx="80" cy="109" rx="22" ry="6" fill="#f5cd6a"/>
+    <path d="M66 108q7-5 14 0" fill="none" stroke="#c98a2b" stroke-width="2" stroke-linecap="round"/>
+    <path d="M80 112q7-5 14 0" fill="none" stroke="#c98a2b" stroke-width="2" stroke-linecap="round"/>
+    <path d="M56 146h48v3H56z" fill="#15803d"/>
+  </g>
+</svg>
