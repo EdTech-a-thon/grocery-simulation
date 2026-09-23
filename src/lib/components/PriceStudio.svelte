@@ -2,6 +2,7 @@
   import type { Snippet } from 'svelte'
   import StoreHeader from '$lib/components/StoreHeader.svelte'
   import { aisles } from '$lib/catalog'
+  import { aisleTitle, productName, t } from '$lib/i18n/index.svelte'
   import { errorMessage, saveStoreItem } from '$lib/pocketbase'
   import { isStoreBrand, priceEndingInNine, productById } from '$lib/products'
   import { isStocked, priceFor, shop } from '$lib/shop.svelte'
@@ -18,7 +19,9 @@
 
   const aisle = $derived(aisles[teacher.priceAisleIndex])
   const brandMode = $derived(shop.store?.brandMode ?? 'name')
-  const otherBrandLabel = $derived(brandMode === 'store' ? 'the name brands' : 'the CG Value store brands')
+  const otherBrandLabel = $derived(
+    brandMode === 'store' ? t('prices.otherBrandsName') : t('prices.otherBrandsStore'),
+  )
 
   /**
    * A store that sells one brand line has no use for the other line's cards, so
@@ -38,8 +41,8 @@
     const storeId = shop.store?.id
     if (!storeId) return Promise.resolve()
     return saveStoreItem(storeId, shop.items, productId, changes)
-      .then(() => { teacher.message = 'Saved.' })
-      .catch((error) => { teacher.message = errorMessage(error, 'That change could not be saved.') })
+      .then(() => { teacher.message = t('prices.saved') })
+      .catch((error) => { teacher.message = errorMessage(error, t('prices.saveFailed')) })
   }
 
   function changePrice(productId: string, value: string) {
@@ -65,9 +68,11 @@
     void withBusy(async () => {
       try {
         await Promise.all(items.map((item) => saveStoreItem(storeId, shop.items, item.id, { price: priceFor(item), hidden })))
-        teacher.message = hidden ? `${aisle.title} taken off the shelves.` : `${aisle.title} fully stocked.`
+        teacher.message = hidden
+          ? t('prices.aisleCleared', { aisle: aisleTitle(aisle.title) })
+          : t('prices.aisleStocked', { aisle: aisleTitle(aisle.title) })
       } catch (error) {
-        teacher.message = errorMessage(error, 'Those changes could not be saved.')
+        teacher.message = errorMessage(error, t('prices.bulkFailed'))
       }
     })
   }
@@ -77,53 +82,56 @@
   {@render header()}
   <StoreHeader
     page="prices"
-    title="Choose what this store sells"
-    lede="Uncheck an item to take it off the shelves for this store only. Prices save as you type."
+    title={t('prices.pageTitle')}
+    lede={t('prices.pageLede')}
     {onGo}
     {onViewAsStudent}
   />
   {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
   <section class="teacher-workspace">
     <aside class="aisle-picker">
-      <h3>Food class</h3>
+      <h3>{t('prices.aisleListTitle')}</h3>
       {#each aisles as item, index (item.title)}
         <button class:active={index === teacher.priceAisleIndex} type="button" onclick={() => (teacher.priceAisleIndex = index)}>
-          {item.title}
+          {aisleTitle(item.title)}
         </button>
       {/each}
     </aside>
     <section class="price-editor">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Aisle {teacher.priceAisleIndex + 1} &middot; {stockedInAisle} of {visibleItems.length} stocked</p>
-          <h2>{aisle.title}</h2>
+          <p class="eyebrow">{t('prices.summary', { number: teacher.priceAisleIndex + 1, stocked: stockedInAisle, total: visibleItems.length })}</p>
+          <h2>{aisleTitle(aisle.title)}</h2>
         </div>
         <div class="stock-bulk-actions">
           {#if brandMode !== 'both'}
             <label class="brand-view-toggle">
               <input type="checkbox" bind:checked={showOtherBrands} />
-              Also show {otherBrandLabel}
+              {t('prices.alsoShow', { brands: otherBrandLabel })}
             </label>
           {/if}
-          <button type="button" onclick={() => stockWholeAisle(false)}>Stock all</button>
-          <button type="button" onclick={() => stockWholeAisle(true)}>Stock none</button>
+          <button type="button" onclick={() => stockWholeAisle(false)}>{t('prices.stockAll')}</button>
+          <button type="button" onclick={() => stockWholeAisle(true)}>{t('prices.stockNone')}</button>
         </div>
       </div>
       <p class="helper-text">
         {#if brandMode === 'both' || showOtherBrands}
-          Every product comes in two brands: the name brand, and the cheaper CG Value store brand beside it. Edit any price, or uncheck an item to remove it from this store's shelves.
+          {t('prices.helpBoth')}
         {:else}
-          This store sells {brandMode === 'store' ? 'the CG Value store brand' : 'the name brands'} only, so that is what this aisle shows. Edit any price, or uncheck an item to remove it from this store's shelves.
+          {t('prices.helpOne', {
+            brands: brandMode === 'store' ? t('prices.brandStoreOnly') : t('prices.brandNameOnly'),
+          })}
         {/if}
       </p>
       <div class="price-grid">
         {#each visibleItems as item (item.id)}
           {@const product = productById[item.id]}
+          {@const name = productName(item.id)}
           <label class="price-edit-card" class:price-edit-card-hidden={!isStocked(item.id)}>
             <img src={product.image} alt="" />
             <span>
-              {product.name}
-              {#if isStoreBrand(item.id)}<span class="brand-tag">CG Value</span>{/if}
+              {name}
+              {#if isStoreBrand(item.id)}<span class="brand-tag">{t('prices.cgTag')}</span>{/if}
             </span>
             <span class="teacher-money-input">
               $<input
@@ -132,7 +140,7 @@
                 max="999"
                 step="0.01"
                 value={priceFor(item).toFixed(2)}
-                aria-label="Price for {product.name}"
+                aria-label={t('prices.priceLabel', { name })}
                 onchange={(event) => changePrice(item.id, event.currentTarget.value)}
               />
             </span>
@@ -140,9 +148,9 @@
               <input
                 type="checkbox"
                 checked={isStocked(item.id)}
-                aria-label="Stock {product.name} in this store"
+                aria-label={t('prices.stockLabel', { name })}
                 onchange={(event) => changeStock(item.id, event.currentTarget.checked)}
-              /> In this store
+              /> {t('prices.inStore')}
             </span>
           </label>
         {/each}

@@ -10,6 +10,7 @@
   import StoreSettings from '$lib/components/StoreSettings.svelte'
   import StudentViewHeader from '$lib/components/StudentViewHeader.svelte'
   import TeacherLogin from '$lib/components/TeacherLogin.svelte'
+  import { t } from '$lib/i18n/index.svelte'
   import { currentTeacher, pb, signOut, teacherJoinPrefix, type Store } from '$lib/pocketbase'
   import { forgetStore, openStore, shop } from '$lib/shop.svelte'
   import { refreshStores, teacher, type StorePage } from '$lib/teacher.svelte'
@@ -89,10 +90,10 @@
   <StoreList header={storesHeader} onOpenStore={open} />
 {/if}
 
-{#snippet storesHeader()}{@render teacherHeader('My stores')}{/snippet}
-{#snippet pricesHeader()}{@render teacherHeader('Prices and stock')}{/snippet}
-{#snippet couponsHeader()}{@render teacherHeader('Coupons')}{/snippet}
-{#snippet settingsHeader()}{@render teacherHeader('Store settings')}{/snippet}
+{#snippet storesHeader()}{@render teacherHeader(t('teacher.myStores'))}{/snippet}
+{#snippet pricesHeader()}{@render teacherHeader(t('teacher.pricesTitle'))}{/snippet}
+{#snippet couponsHeader()}{@render teacherHeader(t('teacher.couponsTitle'))}{/snippet}
+{#snippet settingsHeader()}{@render teacherHeader(t('teacher.settingsTitle'))}{/snippet}
 
 {#snippet studentViewHeader()}
   <StudentViewHeader onExit={() => show('prices')} />
@@ -107,10 +108,10 @@
   <AppHeader {title} role="teacher" onHome={() => show('stores')}>
     {#snippet nav()}
       <span class="header-pages">
-        <button class:active={screen === 'stores'} type="button" onclick={() => show('stores')}>My stores</button>
+        <button class:active={screen === 'stores'} type="button" onclick={() => show('stores')}>{t('teacher.myStores')}</button>
       </span>
       <span class="header-exits">
-        <button type="button" onclick={leave}>Sign out</button>
+        <button type="button" onclick={leave}>{t('teacher.signOut')}</button>
       </span>
     {/snippet}
   </AppHeader>

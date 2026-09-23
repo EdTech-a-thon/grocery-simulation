@@ -2,10 +2,15 @@
   import { onMount } from 'svelte'
   import { goto } from '$app/navigation'
   import AppHeader from '$lib/components/AppHeader.svelte'
+  import LanguagePicker from '$lib/components/LanguagePicker.svelte'
   import StoreFront from '$lib/components/StoreFront.svelte'
   import StoreScene from '$lib/components/StoreScene.svelte'
   import SiteFooter from '$lib/components/SiteFooter.svelte'
+  import RichText from '$lib/components/RichText.svelte'
   import { cartTotals } from '$lib/cart.svelte'
+  import { aisles } from '$lib/catalog'
+  import { plural, t } from '$lib/i18n/index.svelte'
+  import { products } from '$lib/products'
   import { joinStore, rememberStudentJoinCode, shop } from '$lib/shop.svelte'
 
   type Screen = 'welcome' | 'dashboard' | 'store'
@@ -35,7 +40,7 @@
     busy = true
     try {
       if (!(await joinStore(joinCodeInput))) {
-        message = 'That store code was not found. Check the code with your teacher.'
+        message = t('landing.codeNotFound')
         return
       }
       rememberStudentJoinCode(joinCodeInput)
@@ -51,15 +56,15 @@
   <main class="landing-page">
     <section class="landing-hero" aria-labelledby="welcome-title">
       <StoreScene />
+      <!-- Someone who cannot read this page yet must not have to scroll to the
+           footer to change it, so the picker sits above everything else. -->
+      <div class="landing-language"><LanguagePicker /></div>
       <div class="landing-hero-content">
-        <p class="landing-hero-kicker">Real-life grocery shopping</p>
+        <p class="landing-hero-kicker">{t('landing.kicker')}</p>
         <h1 id="welcome-title">ClassGrocery</h1>
-        <p class="landing-hero-intro">
-          A grocery store you run for your class. Teachers set the prices and the coupons.
-          Students shop on a budget and read the receipt.
-        </p>
+        <p class="landing-hero-intro">{t('landing.intro')}</p>
         <div class="join-panel">
-          <label class="join-panel-label" for="store-code">Store code</label>
+          <label class="join-panel-label" for="store-code">{t('landing.storeCode')}</label>
           <div class="join-panel-row">
             <input
               id="store-code"
@@ -70,35 +75,35 @@
               bind:value={joinCodeInput}
               onkeydown={(event) => { if (event.key === 'Enter') void joinWithCode() }}
             />
-            <button type="button" disabled={busy} onclick={joinWithCode}>Join store</button>
+            <button type="button" disabled={busy} onclick={joinWithCode}>{t('landing.join')}</button>
           </div>
-          <small>Type the code your teacher gives you. The dash is optional.</small>
+          <small>{t('landing.codeHint')}</small>
           {#if message}<p class="join-panel-error" role="alert">{message}</p>{/if}
         </div>
         <button class="landing-teacher-link" type="button" onclick={() => goto('/teacher')}>
-          Teacher sign in <span aria-hidden="true">&rarr;</span>
+          {t('landing.teacherSignIn')} <span aria-hidden="true">&rarr;</span>
         </button>
       </div>
     </section>
 
     <section class="landing-band landing-steps-band" aria-labelledby="how-title">
       <div class="landing-inner">
-        <h2 id="how-title" class="visually-hidden">How it works</h2>
+        <h2 id="how-title" class="visually-hidden">{t('landing.howTitle')}</h2>
         <ol class="landing-steps">
           <li>
             <span class="landing-step-number" aria-hidden="true">1</span>
-            <h3>Build the store</h3>
-            <p>Choose what it stocks, what it charges, and which coupons it prints.</p>
+            <h3>{t('landing.step1.title')}</h3>
+            <p>{t('landing.step1.body')}</p>
           </li>
           <li>
             <span class="landing-step-number" aria-hidden="true">2</span>
-            <h3>Share the code</h3>
-            <p>Each class gets a code like <code>OTTER-P3</code>, and a link that opens it.</p>
+            <h3>{t('landing.step2.title')}</h3>
+            <p><RichText key="landing.step2.body" values={{ code: 'OTTER-P3' }} /></p>
           </li>
           <li>
             <span class="landing-step-number" aria-hidden="true">3</span>
-            <h3>Shop the aisles</h3>
-            <p>Students fill a cart, clip coupons and check out with a receipt.</p>
+            <h3>{t('landing.step3.title')}</h3>
+            <p>{t('landing.step3.body')}</p>
           </li>
         </ol>
       </div>
@@ -106,33 +111,33 @@
 
     <section class="landing-band landing-roles-band" aria-labelledby="roles-title">
       <div class="landing-inner landing-roles">
-        <h2 id="roles-title" class="visually-hidden">What teachers and students can do</h2>
+        <h2 id="roles-title" class="visually-hidden">{t('landing.rolesTitle')}</h2>
         <article class="landing-role landing-role-teacher">
-          <p class="landing-eyebrow">For teachers</p>
-          <h3>You set the prices</h3>
+          <p class="landing-eyebrow">{t('landing.teachers.eyebrow')}</p>
+          <h3>{t('landing.teachers.title')}</h3>
           <ul class="landing-list">
-            <li>Price anything, or take it off the shelf</li>
-            <li>Sell name brands, the CG&nbsp;Value store brand, or both</li>
-            <li>Print coupons with easy-to-type codes</li>
-            <li>Turn on sales tax, per store</li>
-            <li>Duplicate a store for the next class</li>
+            <li>{t('landing.teachers.point1')}</li>
+            <li>{t('landing.teachers.point2')}</li>
+            <li>{t('landing.teachers.point3')}</li>
+            <li>{t('landing.teachers.point4')}</li>
+            <li>{t('landing.teachers.point5')}</li>
           </ul>
           <button class="landing-cta" type="button" onclick={() => goto('/teacher')}>
-            Set up a store <span aria-hidden="true">&rarr;</span>
+            {t('landing.teachers.cta')} <span aria-hidden="true">&rarr;</span>
           </button>
         </article>
         <article class="landing-role landing-role-student">
-          <p class="landing-eyebrow">For students</p>
-          <h3>They do the shopping</h3>
+          <p class="landing-eyebrow">{t('landing.students.eyebrow')}</p>
+          <h3>{t('landing.students.title')}</h3>
           <ul class="landing-list">
-            <li>Join with a code &mdash; no account needed</li>
-            <li>Shop 12 aisles of 175 groceries</li>
-            <li>Compare brands right on the shelf</li>
-            <li>Type in a coupon code</li>
-            <li>Check out with an itemized receipt</li>
+            <li>{t('landing.students.point1')}</li>
+            <li>{t('landing.students.point2', { aisles: aisles.length, products: products.length })}</li>
+            <li>{t('landing.students.point3')}</li>
+            <li>{t('landing.students.point4')}</li>
+            <li>{t('landing.students.point5')}</li>
           </ul>
           <button class="landing-cta landing-cta-student" type="button" onclick={focusJoin}>
-            Enter a store code <span aria-hidden="true">&uarr;</span>
+            {t('landing.students.cta')} <span aria-hidden="true">&uarr;</span>
           </button>
         </article>
       </div>
@@ -144,20 +149,17 @@
   <main class="student-dashboard-page">
     <section class="student-dashboard-card" aria-labelledby="student-dashboard-title">
       <div class="student-dashboard-copy">
-        <p class="welcome-kicker">Welcome to your class store</p>
-        <h1 id="student-dashboard-title">{shop.store?.name ?? 'Class'}<br />Grocery Store</h1>
-        <p>
-          Plan what you want to make, walk the aisles, and compare prices before anything goes in
-          your cart. Coupons stretch your budget, so bring the ones your teacher printed.
-        </p>
+        <p class="welcome-kicker">{t('student.kicker')}</p>
+        <h1 id="student-dashboard-title">{shop.store?.name ?? t('student.defaultStoreName')}<br />{t('student.storeTitle')}</h1>
+        <p>{t('student.intro')}</p>
         {#if shop.store?.joinCode}
-          <p class="student-class-badge">Store code: {shop.store.joinCode}</p>
+          <p class="student-class-badge">{t('student.storeCode', { code: shop.store.joinCode })}</p>
         {/if}
         <button class="student-shop-button" type="button" onclick={() => (screen = 'store')}>
-          Enter the store <span aria-hidden="true">&rarr;</span>
+          {t('student.enter')} <span aria-hidden="true">&rarr;</span>
         </button>
         {#if itemCount}
-          <p class="saved-cart-note">Your cart has {itemCount} item{itemCount === 1 ? '' : 's'} waiting.</p>
+          <p class="saved-cart-note">{plural('student.cartWaiting', itemCount)}</p>
         {/if}
       </div>
       <StoreScene />
@@ -168,9 +170,9 @@
 {/if}
 
 {#snippet studentHeader()}
-  <AppHeader title="Class grocery challenge" role="student" onHome={() => (screen = 'dashboard')}>
+  <AppHeader title={t('student.headerTitle')} role="student" onHome={() => (screen = 'dashboard')}>
     {#snippet nav()}
-      <button type="button" onclick={() => (screen = 'welcome')}>Switch role</button>
+      <button type="button" onclick={() => (screen = 'welcome')}>{t('student.switchRole')}</button>
     {/snippet}
   </AppHeader>
 {/snippet}

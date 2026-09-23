@@ -1,6 +1,7 @@
 <script lang="ts">
   import ShelfProduct from './ShelfProduct.svelte'
   import { chunkItems, shelfCapacity, type AisleConfig, type ShelfItem } from '$lib/catalog'
+  import { aisleTitle, t } from '$lib/i18n/index.svelte'
   import { productById } from '$lib/products'
   import { priceFor } from '$lib/shop.svelte'
 
@@ -26,26 +27,26 @@
 <section class="shelf-stage">
   <div class="shelf-topline">
     <div class="aisle-heading">
-      <h2>Aisle {aisleNumber}: {aisle.title}</h2>
+      <h2>{t('shelf.aisleHeading', { number: aisleNumber, title: aisleTitle(aisle.title) })}</h2>
     </div>
     {#if aisleNames.length > 1}
       <div class="aisle-controls">
-        <button class="nav-arrow" type="button" aria-label="Previous aisle" onclick={() => onNavigate(-1)}><span>&lsaquo;</span></button>
+        <button class="nav-arrow" type="button" aria-label={t('shelf.previousAisle')} onclick={() => onNavigate(-1)}><span>&lsaquo;</span></button>
         <label class="aisle-picker">
-          <span>Go to aisle</span>
+          <span>{t('shelf.goToAisle')}</span>
           <select value={aisleNumber - 1} onchange={(event) => onSelect(Number(event.currentTarget.value))}>
             {#each aisleNames as name, index}
-              <option value={index}>Aisle {index + 1}: {name}</option>
+              <option value={index}>{t('shelf.aisleOption', { number: index + 1, title: aisleTitle(name) })}</option>
             {/each}
           </select>
         </label>
-        <button class="nav-arrow" type="button" aria-label="Next aisle" onclick={() => onNavigate(1)}><span>&rsaquo;</span></button>
+        <button class="nav-arrow" type="button" aria-label={t('shelf.nextAisle')} onclick={() => onNavigate(1)}><span>&rsaquo;</span></button>
       </div>
     {/if}
   </div>
   <div class="shelf-row">
     {#each shelves as slots, index (index)}
-      <section class="shelf-unit" aria-label="Shelf {index + 1}">
+      <section class="shelf-unit" aria-label={t('shelf.unit', { number: index + 1 })}>
         <div class="shelf-skin" style="background-image:url('/groceryshelf.svg')"></div>
         <div class="shelf-grid">
           {#each slots as item, slot (slot)}

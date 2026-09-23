@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from '$lib/i18n/index.svelte'
   import { copyJoinLink, copyText, joinLinkFor } from '$lib/sharing'
   import { shop } from '$lib/shop.svelte'
   import { teacher, type StorePage } from '$lib/teacher.svelte'
@@ -21,17 +22,17 @@
 
   async function copyJoinCode() {
     if (!(await copyText(joinCode))) {
-      window.prompt('Copy the join code:', joinCode)
+      window.prompt(t('store.copyJoinCodePrompt'), joinCode)
       return
     }
-    teacher.message = `Join code ${joinCode} copied.`
+    teacher.message = t('store.joinCodeCopied', { code: joinCode })
   }
 
   async function shareJoinLink() {
     if (!shop.store) return
     teacher.message = (await copyJoinLink(shop.store))
-      ? 'Join link copied. Paste it wherever your class will see it.'
-      : `Join link: ${joinLinkFor(shop.store)}`
+      ? t('store.joinLinkCopied')
+      : t('store.joinLinkFallback', { link: joinLinkFor(shop.store) })
   }
 </script>
 
@@ -39,14 +40,14 @@
      site is the dark header's job. -->
 <section class="teacher-hero">
   <div>
-    <p class="eyebrow">Store workspace</p>
+    <p class="eyebrow">{t('store.workspace')}</p>
     <h2>{shop.store?.name ?? ''}</h2>
-    <p class="hero-lede">Manage what students see and use in this store.</p>
+    <p class="hero-lede">{t('store.workspaceLede')}</p>
   </div>
   <div class="teacher-access-panel">
     <p>
-      Students join with
-      <button class="join-code-copy" type="button" title="Copy join code" aria-label="Copy join code {joinCode}" onclick={copyJoinCode}>
+      {t('store.joinWith')}
+      <button class="join-code-copy" type="button" title={t('store.copyJoinCode')} aria-label={t('store.copyJoinCodeLabel', { code: joinCode })} onclick={copyJoinCode}>
         <strong>{joinCode}</strong>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
@@ -54,19 +55,19 @@
       </button>
     </p>
     <div class="class-code-actions">
-      <button class="teacher-secondary-button" type="button" onclick={shareJoinLink}>Copy join link</button>
-      <button class="teacher-secondary-button" type="button" onclick={onViewAsStudent}>View as Student</button>
+      <button class="teacher-secondary-button" type="button" onclick={shareJoinLink}>{t('store.copyJoinLink')}</button>
+      <button class="teacher-secondary-button" type="button" onclick={onViewAsStudent}>{t('store.viewAsStudent')}</button>
     </div>
   </div>
 </section>
 
-<nav class="store-tabs" aria-label="Store pages">
+<nav class="store-tabs" aria-label={t('store.tabsLabel')}>
   <div class="store-tab-list">
-    <button class:active={page === 'prices'} aria-current={page === 'prices' ? 'page' : undefined} type="button" onclick={() => onGo('prices')}>Prices and stock</button>
+    <button class:active={page === 'prices'} aria-current={page === 'prices' ? 'page' : undefined} type="button" onclick={() => onGo('prices')}>{t('teacher.pricesTitle')}</button>
     {#if shop.store?.couponsEnabled}
-      <button class:active={page === 'coupons'} aria-current={page === 'coupons' ? 'page' : undefined} type="button" onclick={() => onGo('coupons')}>Coupons</button>
+      <button class:active={page === 'coupons'} aria-current={page === 'coupons' ? 'page' : undefined} type="button" onclick={() => onGo('coupons')}>{t('teacher.couponsTitle')}</button>
     {/if}
-    <button class:active={page === 'settings'} aria-current={page === 'settings' ? 'page' : undefined} type="button" onclick={() => onGo('settings')}>Store settings</button>
+    <button class:active={page === 'settings'} aria-current={page === 'settings' ? 'page' : undefined} type="button" onclick={() => onGo('settings')}>{t('teacher.settingsTitle')}</button>
   </div>
 </nav>
 

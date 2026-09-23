@@ -1,0 +1,38 @@
+{
+  "bacon": {
+    "form": "foam tray under film",
+    "motif": "three rashers of streaky bacon, deep pink with cream fat"
+  },
+  "cereal": {
+    "form": "cardboard box",
+    "motif": "a white bowl of golden cereal rings with milk pouring in"
+  },
+  "eggs": {
+    "form": "egg carton",
+    "motif": "a single brown egg, lit from the upper left"
+  },
+  "ketchup": {
+    "form": "squeeze bottle",
+    "motif": "one ripe tomato with a green calyx"
+  },
+  "potato-chips": {
+    "form": "printed bag",
+    "motif": "three rippled golden crisps, overlapping"
+  },
+  "salsa": {
+    "form": "glass jar",
+    "motif": "a halved tomato beside a green chilli"
+  },
+  "sausage-links": {
+    "form": "foam tray under film",
+    "motif": "a row of four plump pork sausages"
+  },
+  "soup": {
+    "form": "tin can",
+    "motif": "a steaming bowl of golden noodle soup"
+  },
+  "yogurt": {
+    "form": "plastic tub",
+    "motif": "a swirl of pink yoghurt with two strawberries"
+  }
+}

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item">
+    <ellipse cx="80" cy="192" rx="58" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M22 140v-20q0-18 22-18h72q22 0 22 18v20z" fill="#d8c09a"/>
+    <path d="M108 104h4q22 0 22 18v20h-16v-20q0-13-10-18z" fill="#b39a74"/>
+    <path d="M32 126q3-16 17-20" fill="none" stroke="#efe3ce" stroke-width="4" stroke-linecap="round"/>
+    <path d="M38 116q8-8 15 0" fill="none" stroke="#b39a74" stroke-width="3" stroke-linecap="round"/>
+    <path d="M63 115q8-7 16 0" fill="none" stroke="#b39a74" stroke-width="3" stroke-linecap="round"/>
+    <path d="M88 116q8-8 15 0" fill="none" stroke="#b39a74" stroke-width="3" stroke-linecap="round"/>
+    <path d="M22 140h116" fill="none" stroke="#b39a74" stroke-width="2"/>
+    <path d="M25 140h110q2 0 2 2v38q0 2-2 2H25q-2 0-2-2v-38q0-2 2-2z" fill="#d8c09a"/>
+    <path d="M113 140h19q2 0 2 2v38q0 2-2 2h-19z" fill="#b39a74"/>
+    <path d="M62 186h32v4q0 2-2 2H64q-2 0-2-2z" fill="#c9b08a"/>
+  </g>
+  <g id="label">
+    <rect x="32" y="148" width="76" height="28" rx="3" fill="#f7efe2"/>
+  </g>
+  <g id="brand">
+    <path d="M32 148h76v8H32z" fill="#8b5a27"/>
+    <path d="M50 155c7 0 11 8 11 15s-5 11-11 11-11-4-11-11 4-15 11-15z" fill="#dba86a"/>
+    <path d="M50 155c7 0 11 8 11 15s-5 11-11 11z" fill="#b5793f"/>
+    <ellipse cx="45" cy="165" rx="3" ry="3" fill="#f3e0c4"/>
+    <path d="M71 160c6 0 9 6 9 12s-3 9-9 9-9-3-9-9 3-12 9-12z" fill="#c98a4b"/>
+    <path d="M71 160c6 0 9 6 9 12s-3 9-9 9z" fill="#a8641f"/>
+    <ellipse cx="66" cy="169" rx="2" ry="3" fill="#f3e0c4"/>
+  </g>
+  <g id="brand-cg">
+    <rect x="32" y="148" width="76" height="28" rx="3" fill="#ffffff"/>
+    <path d="M32 148h76v5H32z" fill="#15803d"/>
+    <path d="M52 157C59 157 63 165 63 172C63 179 58.1 182 52.1 182C46.1 182 41 179 41 172C41 165 45 157 52 157Z" fill="#dba86a"/>
+    <path d="M52 157c7 0 11 8 11 15s-5 11-11 11z" fill="#b5793f"/>
+    <ellipse cx="47" cy="167" rx="3" ry="3" fill="#f3e0c4"/>
+    <path d="M73 167h20v3H73z" fill="#15803d"/>
+  </g>
+</svg>

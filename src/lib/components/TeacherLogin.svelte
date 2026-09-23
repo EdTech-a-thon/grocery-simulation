@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from '$lib/i18n/index.svelte'
   import { errorMessage, signIn, signUp } from '$lib/pocketbase'
   import { teacher, withBusy } from '$lib/teacher.svelte'
 
@@ -19,8 +20,8 @@
         await onSignedIn()
       } catch (error) {
         teacher.message = showSignup
-          ? errorMessage(error, 'That account could not be created. Try a different email.')
-          : errorMessage(error, 'That email and password did not match.')
+          ? errorMessage(error, t('login.signupFailed'))
+          : errorMessage(error, t('login.signinFailed'))
       }
     })
   }
@@ -33,36 +34,36 @@
 
 <main class="teacher-login-page">
   <form class="teacher-login-card" onsubmit={submit}>
-    <p class="welcome-kicker">Teacher area</p>
+    <p class="welcome-kicker">{t('login.kicker')}</p>
     {#if showSignup}
-      <h1>Create your account</h1>
-      <p>You will use this to sign in and pick up your stores on any computer.</p>
-      <label>Your name<input bind:value={displayName} type="text" maxlength="80" placeholder="Ms. Rivera" required /></label>
+      <h1>{t('login.signupTitle')}</h1>
+      <p>{t('login.signupBody')}</p>
+      <label>{t('login.name')}<input bind:value={displayName} type="text" maxlength="80" placeholder={t('login.namePlaceholder')} required /></label>
     {:else}
-      <h1>Sign in to your stores</h1>
-      <p>Your stores, prices and coupons are saved to your account. Only you can see them.</p>
+      <h1>{t('login.signinTitle')}</h1>
+      <p>{t('login.signinBody')}</p>
     {/if}
-    <label>School email<input bind:value={email} type="email" autocomplete="email" placeholder="you@school.org" required /></label>
+    <label>{t('login.email')}<input bind:value={email} type="email" autocomplete="email" placeholder={t('login.emailPlaceholder')} required /></label>
     <label>
-      Password
+      {t('login.password')}
       <input
         bind:value={password}
         type="password"
         autocomplete={showSignup ? 'new-password' : 'current-password'}
         minlength={showSignup ? 8 : undefined}
-        placeholder={showSignup ? 'At least 8 characters' : 'Your password'}
+        placeholder={showSignup ? t('login.passwordNew') : t('login.passwordCurrent')}
         required
       />
     </label>
     {#if teacher.message}<p class="login-error" role="alert">{teacher.message}</p>{/if}
     <button class="primary-button teacher-login-submit" type="submit" disabled={teacher.busy}>
-      {showSignup ? 'Create account' : 'Sign in'}
+      {showSignup ? t('login.createAccount') : t('login.signIn')}
     </button>
     {#if showSignup}
-      <button class="teacher-link-button" type="button" onclick={() => show(false)}>I already have an account</button>
+      <button class="teacher-link-button" type="button" onclick={() => show(false)}>{t('login.haveAccount')}</button>
     {:else}
-      <button class="teacher-link-button" type="button" onclick={() => show(true)}>Create a teacher account</button>
-      <button class="teacher-link-button" type="button" onclick={onBackHome}>Back to student sign in</button>
+      <button class="teacher-link-button" type="button" onclick={() => show(true)}>{t('login.needAccount')}</button>
+      <button class="teacher-link-button" type="button" onclick={onBackHome}>{t('login.backHome')}</button>
     {/if}
   </form>
 </main>

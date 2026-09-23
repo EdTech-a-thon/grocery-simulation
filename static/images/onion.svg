@@ -1,1 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><path d="M80 53c-18 25-43 37-39 78 4 43 74 43 78 0 4-41-21-53-39-78z" fill="#d8b45d"/><path d="M80 57v109M61 80c10 26 10 54 2 77m36-77c-10 26-10 54-2 77" fill="none" stroke="#f0d888" stroke-width="4"/><path d="M80 55c-3-19 3-28 13-35" fill="none" stroke="#5b9b43" stroke-width="6" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="196" rx="62" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M64 82C72 92 118 96 118 138C118 168 96 188 66 188C36 188 18 168 18 138C18 98 58 92 64 82Z" fill="#d58f35"/>
+    <path d="M64 82C72 92 118 96 118 138C118 168 96 188 66 188C88 180 102 162 102 138C102 108 80 96 64 82Z" fill="#b06f22"/>
+    <path d="M30 128C32 112 44 100 56 94C46 106 40 118 38 132Z" fill="#efbe6a"/>
+    <path d="M62 86C44 100 32 116 32 140C32 164 48 180 60 186" fill="none" stroke="#9a5a1a" stroke-width="2" stroke-linecap="round"/>
+    <path d="M64 86C56 106 52 124 54 146C56 166 60 180 64 186" fill="none" stroke="#9a5a1a" stroke-width="2" stroke-linecap="round"/>
+    <path d="M66 86C78 104 84 124 82 146C80 166 74 180 70 186" fill="none" stroke="#8a4f14" stroke-width="2" stroke-linecap="round"/>
+    <path d="M60 86C60 76 62 68 66 62C68 68 70 76 70 86Z" fill="#c2802e"/>
+    <path d="M65 86C66 76 67 68 66 62C69 68 70 78 70 86Z" fill="#9a5a1a"/>
+    <path d="M66 63C69 57 76 56 79 61C75 60 71 61 68 66Z" fill="#c2802e"/>
+    <path d="M58 186L54 194M63 187L62 195M68 187L70 195M73 186L77 193" fill="none" stroke="#d9c7a0" stroke-width="2" stroke-linecap="round"/>
+    <path d="M60 182H72L71 188H61Z" fill="#8a4f14"/>
+    <path d="M62 172C62 192 82 197 102 197C122 197 142 192 142 172Z" fill="#d58f35"/>
+    <path d="M117.9 195.7C132 194 142 186 142 172L128 172C128 184 124 192 117.9 195.7Z" fill="#b06f22"/>
+    <ellipse cx="102" cy="172" rx="40" ry="19" fill="#efbe6a"/>
+    <ellipse cx="102" cy="172" rx="36.5" ry="16.5" fill="#f8f0da"/>
+    <ellipse cx="102" cy="172" rx="27" ry="12" fill="none" stroke="#caa860" stroke-width="2.5"/>
+    <ellipse cx="102" cy="172" rx="17.5" ry="7.5" fill="none" stroke="#caa860" stroke-width="2.5"/>
+    <ellipse cx="102" cy="172" rx="8" ry="3.4" fill="none" stroke="#caa860" stroke-width="2.5"/>
+    <path d="M72 166C78 160 86 158 94 157" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  </g></svg>

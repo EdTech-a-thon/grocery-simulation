@@ -1,1 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><path d="M78 43c43 0 56 36 34 78-19 36-51 57-78 41-28-17-15-66 10-91 9-9 21-8 34-8z" fill="#b8413e"/><path d="M72 56c27-5 44 20 27 48-15 25-38 39-53 25-14-13 2-55 26-73z" fill="#db7064"/><ellipse cx="73" cy="103" rx="17" ry="23" fill="#f6d5b6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <g transform="translate(80, 196) scale(1.12) translate(-80, -196)">
+      <ellipse cx="80" cy="197" rx="55" ry="8" fill="#0f172a" opacity="0.08"/>
+      <path d="M22 138 Q16 115 22 92 Q33 73 50 67 Q66 63 80 63 Q94 63 110 67 Q127 73 138 92 Q144 115 138 138 L130 164 Q122 178 112 188 L95 196 Q80 199 65 196 L48 186 Q32 176 22 138 Z" fill="#d1493f"/>
+      <path d="M111.7 67.6Q127 73 138 92Q144 115 138 138L130 164Q122 178 112 188L94.9 196Q105 188 122 148Q132 108 111.7 67.6Z" fill="#a82a1c"/>
+      <path d="M114 130 L120 135 L117 135 Z" fill="#8c1c17"/>
+      <path d="M43 82 Q50 73 63 70 L64 75 Q56 77 48 85 Z" fill="#f3e5cf"/>
+      <path d="M22 138 Q25 118 36 92 L38 95 Q33 118 25 138 Z" stroke="#f3e5cf" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M48 186 Q58 192 72 195 L71 199 Q60 195 48 190 Z" stroke="#f3e5cf" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M80 196 Q92 198 108 196 L107 200 Q92 202 80 200 Z" fill="#f3e5cf"/>
+      <path d="M48 106 Q65 96 90 113" stroke="#e8c1b8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M58 130 Q78 120 112 140" stroke="#f5d5c8" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M45 158 Q70 150 108 168" stroke="#e8c1b8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M68 92 Q88 82 125 108" stroke="#f5d5c8" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M55 175 Q78 170 112 183" stroke="#e8c1b8" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M72 75 Q85 69 110 82" stroke="#f5d5c8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M48 186 Q70 194 97 196 Q122 192 130 186 L129 191 Q115 200 80 202 Q60 195 49 190 Z" fill="#8c1c17"/>
+      <path d="M75 70 Q85 65 102 73 Q99 80 82 83 Z" fill="#f5d5c8"/>
+    </g>
+  </g></svg>

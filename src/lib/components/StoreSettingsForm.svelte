@@ -1,5 +1,7 @@
 <script lang="ts">
   import { untrack } from 'svelte'
+  import RichText from '$lib/components/RichText.svelte'
+  import { t } from '$lib/i18n/index.svelte'
   import { joinLabelPattern, normalizeJoinLabel } from '$lib/joincodes'
   import {
     createStore, errorMessage, loadStoreItems, stockBrands, storeColors, teacherJoinPrefix,
@@ -34,10 +36,6 @@
 
   const label = $derived(normalizeJoinLabel(joinLabel))
 
-  function capitalize(value: string) {
-    return `${value[0].toUpperCase()}${value.slice(1)}`
-  }
-
   /** What the form is asking for, with the tax rate a store without tax keeps. */
   function settingsFromForm() {
     return {
@@ -54,7 +52,7 @@
   function submit(event: SubmitEvent) {
     event.preventDefault()
     if (!joinLabelPattern.test(label)) {
-      teacher.message = 'Give the class a short code of 1 to 6 letters or numbers, such as P3.'
+      teacher.message = t('settings.badCode')
       return
     }
     void withBusy(store ? saveEdits(store) : create)
@@ -66,10 +64,10 @@
       if (brandMode !== 'name') await stockBrands(created.id, brandMode, everyProductWithItsPrice({}))
       await refreshStores()
       await onCreated?.(created)
-      teacher.message = `${created.name} is ready. Students join with ${created.joinCode}.`
+      teacher.message = t('settings.created', { name: created.name, code: created.joinCode })
       onClose?.()
     } catch (error) {
-      teacher.message = errorMessage(error, 'That store could not be created.')
+      teacher.message = errorMessage(error, t('settings.createFailed'))
     }
   }
 
@@ -88,10 +86,10 @@
           syncCartToStore(updated)
         }
         await refreshStores()
-        teacher.message = `${updated.name} updated. Students join with ${updated.joinCode}.`
+        teacher.message = t('settings.updated', { name: updated.name, code: updated.joinCode })
         onClose?.()
       } catch (error) {
-        teacher.message = errorMessage(error, 'That store could not be updated.')
+        teacher.message = errorMessage(error, t('settings.updateFailed'))
       }
     }
   }
@@ -99,45 +97,45 @@
 
 <form class="store-form" onsubmit={submit}>
   {#if onClose}
-    <button class="store-modal-close" type="button" aria-label="Close" onclick={onClose}>&times;</button>
+    <button class="store-modal-close" type="button" aria-label={t('action.close')} onclick={onClose}>&times;</button>
   {/if}
   <div>
-    <p class="eyebrow">{store ? 'Store settings' : 'New store'}</p>
-    <h2 id="store-modal-title">{store ? `Edit ${store.name}` : 'Create New Store'}</h2>
+    <p class="eyebrow">{store ? t('settings.eyebrowEdit') : t('settings.eyebrowNew')}</p>
+    <h2 id="store-modal-title">{store ? t('settings.editTitle', { name: store.name }) : t('settings.newTitle')}</h2>
   </div>
   <div class="store-form-grid">
-    <label>Store name<input required bind:value={name} type="text" maxlength="60" placeholder="Room 204 Market" /></label>
-    <label>Store color<select bind:value={color}>{#each storeColors as option (option)}<option value={option}>{capitalize(option)}</option>{/each}</select></label>
-    <label>Store code<input required bind:value={joinLabel} type="text" maxlength="6" autocapitalize="characters" placeholder="P3" /></label>
+    <label>{t('settings.name')}<input required bind:value={name} type="text" maxlength="60" placeholder={t('settings.namePlaceholder')} /></label>
+    <label>{t('settings.color')}<select bind:value={color}>{#each storeColors as option (option)}<option value={option}>{t(`color.${option}`)}</option>{/each}</select></label>
+    <label>{t('settings.code')}<input required bind:value={joinLabel} type="text" maxlength="6" autocapitalize="characters" placeholder="P3" /></label>
   </div>
   <p class="join-code-preview">
-    {#if joinLabelPattern.test(label)}Students will join with <strong>{prefix}-{label}</strong>
-    {:else}Your identifier is <strong>{prefix}</strong>. Add a short code such as Period3 or FreshMart.{/if}
+    {#if joinLabelPattern.test(label)}<RichText key="settings.codePreview" values={{ code: `${prefix}-${label}` }} />
+    {:else}<RichText key="settings.codeHint" values={{ prefix }} />{/if}
   </p>
   <fieldset>
-    <legend>This store sells</legend>
-    <label><input type="radio" bind:group={brandMode} value="name" /> Name brands</label>
-    <label><input type="radio" bind:group={brandMode} value="store" /> CG Value store brand</label>
-    <label><input type="radio" bind:group={brandMode} value="both" /> Both</label>
+    <legend>{t('settings.sells')}</legend>
+    <label><input type="radio" bind:group={brandMode} value="name" /> {t('settings.brandName')}</label>
+    <label><input type="radio" bind:group={brandMode} value="store" /> {t('settings.brandStore')}</label>
+    <label><input type="radio" bind:group={brandMode} value="both" /> {t('settings.brandBoth')}</label>
     {#if store && brandMode !== store.brandMode}
-      <p class="helper-text">Saving restocks every aisle to match. Your prices stay as you set them.</p>
+      <p class="helper-text">{t('settings.restockNote')}</p>
     {/if}
   </fieldset>
   <div class="store-options-grid">
     <fieldset>
-      <legend>Sales tax</legend>
-      <label><input type="radio" bind:group={taxEnabled} value={false} /> No sales tax</label>
-      <label><input type="radio" bind:group={taxEnabled} value={true} /> Use sales tax</label>
-      {#if taxEnabled}<label>Default sales tax (%)<input required bind:value={salesTax} type="number" min="0" max="100" step="0.01" /></label>{/if}
+      <legend>{t('settings.tax')}</legend>
+      <label><input type="radio" bind:group={taxEnabled} value={false} /> {t('settings.noTax')}</label>
+      <label><input type="radio" bind:group={taxEnabled} value={true} /> {t('settings.useTax')}</label>
+      {#if taxEnabled}<label>{t('settings.taxRate')}<input required bind:value={salesTax} type="number" min="0" max="100" step="0.01" /></label>{/if}
     </fieldset>
     <fieldset>
-      <legend>Coupons</legend>
-      <label><input type="radio" bind:group={couponsEnabled} value={true} /> Allow coupons</label>
-      <label><input type="radio" bind:group={couponsEnabled} value={false} /> No coupons</label>
+      <legend>{t('settings.coupons')}</legend>
+      <label><input type="radio" bind:group={couponsEnabled} value={true} /> {t('settings.allowCoupons')}</label>
+      <label><input type="radio" bind:group={couponsEnabled} value={false} /> {t('settings.noCoupons')}</label>
     </fieldset>
   </div>
   <div class="store-modal-actions">
-    {#if onClose}<button type="button" onclick={onClose}>Cancel</button>{/if}
-    <button class="primary-button" type="submit" disabled={teacher.busy}>{store ? 'Save changes' : 'Create store'}</button>
+    {#if onClose}<button type="button" onclick={onClose}>{t('action.cancel')}</button>{/if}
+    <button class="primary-button" type="submit" disabled={teacher.busy}>{store ? t('settings.save') : t('settings.create')}</button>
   </div>
 </form>

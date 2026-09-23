@@ -1,6 +1,7 @@
 import { cart, type CartLine } from './cart.svelte'
 import { money } from './catalog'
 import { couponDiscountLabel, discountFor } from './coupons'
+import { productName, t } from './i18n/index.svelte'
 import type { Coupon } from './pocketbase'
 
 export type ReceiptCoupon = { coupon: Coupon; amount: number }
@@ -41,18 +42,18 @@ export function buildReceipt() {
 /** The same receipt as plain text, for the Copy button. */
 export function receiptText() {
   const receipt = buildReceipt()
-  const rows = ['CLASSGROCERY RECEIPT', '']
+  const rows = [t('receipt.textHeading'), '']
   for (const line of receipt.lines) {
-    rows.push(`${line.item.name}  ${line.item.quantity} x ${money(line.item.price)} = ${money(line.lineTotal)}`)
+    rows.push(`${productName(line.item.id)}  ${line.item.quantity} x ${money(line.item.price)} = ${money(line.lineTotal)}`)
     for (const entry of line.coupons) rows.push(`   ${entry.coupon.code}  ${couponDiscountLabel(entry.coupon)}: -${money(entry.amount)}`)
   }
   for (const entry of receipt.purchaseCoupons) {
-    rows.push(`Entire purchase  ${entry.coupon.code}  ${couponDiscountLabel(entry.coupon)}: -${money(entry.amount)}`)
+    rows.push(`${t('receipt.entirePurchase')}  ${entry.coupon.code}  ${couponDiscountLabel(entry.coupon)}: -${money(entry.amount)}`)
   }
-  rows.push('', `Shopping list total: ${money(receipt.totalPrice)}`)
-  rows.push(`Subtotal after savings: ${money(receipt.discountedPrice)}`)
-  if (cart.salesTax) rows.push(`Sales tax (${cart.salesTax}%): ${money(receipt.salesTaxAmount)}`)
-  rows.push(`FINAL TOTAL: ${money(receipt.finalTotal)}`)
-  rows.push('', `TOTAL AMOUNT SAVED TODAY: ${money(receipt.discount)}`)
+  rows.push('', `${t('receipt.listTotal')}: ${money(receipt.totalPrice)}`)
+  rows.push(`${t('receipt.subtotal')}: ${money(receipt.discountedPrice)}`)
+  if (cart.salesTax) rows.push(`${t('receipt.salesTaxPercent', { percent: cart.salesTax })}: ${money(receipt.salesTaxAmount)}`)
+  rows.push(`${t('receipt.finalTotal').toUpperCase()}: ${money(receipt.finalTotal)}`)
+  rows.push('', `${t('receipt.savedToday').toUpperCase()}: ${money(receipt.discount)}`)
   return rows.join('\n')
 }

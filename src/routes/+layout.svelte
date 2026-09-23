@@ -1,8 +1,10 @@
 <script lang="ts">
   import '../app.css'
   import PrintOverlay from '$lib/components/PrintOverlay.svelte'
+  import SupportButton from '$lib/components/SupportButton.svelte'
   import { printing } from '$lib/printing.svelte'
   import { shop } from '$lib/shop.svelte'
+  import { current } from '$lib/i18n/index.svelte'
 
   let { children } = $props()
 
@@ -10,6 +12,14 @@
   $effect(() => {
     if (shop.store) document.body.dataset.storeColor = shop.store.color
     else delete document.body.dataset.storeColor
+  })
+
+  // The chosen language belongs to the document, not to one screen, so the
+  // shop floor, the teacher pages and the printed receipt all read in it, and
+  // a screen reader announces the page in the right voice.
+  $effect(() => {
+    document.documentElement.lang = current().locale
+    document.documentElement.dir = current().dir
   })
 </script>
 
@@ -24,4 +34,5 @@
 -->
 <div style:display={printing.job ? 'none' : 'contents'}>
   {@render children()}
+  <SupportButton />
 </div>

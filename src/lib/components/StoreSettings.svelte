@@ -2,6 +2,7 @@
   import type { Snippet } from 'svelte'
   import StoreHeader from '$lib/components/StoreHeader.svelte'
   import StoreSettingsForm from '$lib/components/StoreSettingsForm.svelte'
+  import { t } from '$lib/i18n/index.svelte'
   import { shop } from '$lib/shop.svelte'
   import { teacher, type StorePage } from '$lib/teacher.svelte'
 
@@ -16,8 +17,8 @@
   {@render header()}
   <StoreHeader
     page="settings"
-    title="Set up how this store works"
-    lede="The name and code your class sees, which brands are on the shelves, sales tax and coupons."
+    title={t('settings.pageTitle')}
+    lede={t('settings.pageLede')}
     {onGo}
     {onViewAsStudent}
   />

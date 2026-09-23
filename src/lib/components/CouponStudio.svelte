@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
   import StoreHeader from '$lib/components/StoreHeader.svelte'
-  import { couponDiscountLabel, formatCouponItem } from '$lib/coupons'
+  import { couponOffer } from '$lib/coupons'
   import {
     createCoupon, deleteCoupon, errorMessage, newCouponCode,
   } from '$lib/pocketbase'
+  import { plural, productName, t } from '$lib/i18n/index.svelte'
   import { printCoupons } from '$lib/printing.svelte'
-  import { productById } from '$lib/products'
   import { shop, stockedProductIds } from '$lib/shop.svelte'
   import { teacher, withBusy, type StorePage } from '$lib/teacher.svelte'
 
@@ -67,12 +67,12 @@
     if (!storeId) return
     const code = couponCode.trim().toUpperCase()
     if (!/^[A-Z0-9 .$/+%-]{3,20}$/.test(code)) {
-      teacher.message = 'Use 3 to 20 letters, numbers, spaces, or simple punctuation for the coupon code.'
+      teacher.message = t('coupons.badCode')
       return
     }
     const amount = Number(discountAmount)
     if (!Number.isFinite(amount) || amount <= 0) {
-      teacher.message = 'Enter a discount greater than zero.'
+      teacher.message = t('coupons.badAmount')
       return
     }
     void withBusy(async () => {
@@ -87,10 +87,10 @@
           copies: 1,
         })
         shop.coupons.push(coupon)
-        teacher.message = `${coupon.code} created.`
+        teacher.message = t('coupons.created', { code: coupon.code })
         couponCode = ''
       } catch (error) {
-        teacher.message = errorMessage(error, 'That coupon could not be created.')
+        teacher.message = errorMessage(error, t('coupons.createFailed'))
       }
     })
   }
@@ -114,9 +114,9 @@
             copies: 1,
           }))
         }
-        teacher.message = `${designs} random coupon design${designs === 1 ? '' : 's'} created.`
+        teacher.message = plural('coupons.randomCreated', designs)
       } catch (error) {
-        teacher.message = errorMessage(error, 'Those coupons could not be created.')
+        teacher.message = errorMessage(error, t('coupons.randomFailed'))
       }
     })
   }
@@ -127,7 +127,7 @@
         await deleteCoupon(couponId)
         shop.coupons = shop.coupons.filter((coupon) => coupon.id !== couponId)
       } catch (error) {
-        teacher.message = errorMessage(error, 'That coupon could not be deleted.')
+        teacher.message = errorMessage(error, t('coupons.deleteFailed'))
       }
     })
   }
@@ -139,24 +139,24 @@
   {@render header()}
   <StoreHeader
     page="coupons"
-    title="Give your class something to budget with"
-    lede="Hand these out so students practice clipping and comparing before they shop. Create coupons one at a time or generate a random set. Printable sheets hold 10 coupons per page."
+    title={t('coupons.pageTitle')}
+    lede={t('coupons.pageLede')}
     {onGo}
     {onViewAsStudent}
   />
   {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
   <section class="coupon-workspace">
     <form class="coupon-form" onsubmit={create}>
-      <div><p class="eyebrow">New coupon</p><h2>Discount details</h2></div>
+      <div><p class="eyebrow">{t('coupons.newEyebrow')}</p><h2>{t('coupons.detailsTitle')}</h2></div>
       <label>
-        Discount type
+        {t('coupons.type')}
         <select value={discountType} onchange={changeDiscountType}>
-          <option value="percent">Percent off</option>
-          <option value="dollars">Dollar amount off</option>
+          <option value="percent">{t('coupons.percentOption')}</option>
+          <option value="dollars">{t('coupons.dollarsOption')}</option>
         </select>
       </label>
       <label>
-        {inDollars ? 'Dollar amount off' : 'Percent off'}
+        {inDollars ? t('coupons.dollarsOption') : t('coupons.percentOption')}
         <input
           required
           data-discount-amount
@@ -169,44 +169,44 @@
         <span class="field-suffix">{inDollars ? '$' : '%'}</span>
       </label>
       <label>
-        Applies to
+        {t('coupons.appliesTo')}
         <select required bind:value={productId}>
-          <option value="all">Entire purchase</option>
+          <option value="all">{t('coupons.entirePurchase')}</option>
           {#each stockedProductIds() as id (id)}
-            <option value={id}>{productById[id]?.name ?? id}</option>
+            <option value={id}>{productName(id)}</option>
           {/each}
         </select>
       </label>
       <label>
-        Coupon code word
-        <input required bind:value={couponCode} minlength="3" maxlength="20" pattern="[A-Za-z0-9 .$/+%\-]+" placeholder="Example: SAVE10" />
-        <span class="field-help">Students will type this code at checkout.</span>
+        {t('coupons.codeWord')}
+        <input required bind:value={couponCode} minlength="3" maxlength="20" pattern="[A-Za-z0-9 .$/+%\-]+" placeholder={t('coupons.codePlaceholder')} />
+        <span class="field-help">{t('coupons.codeHelp')}</span>
       </label>
-      <button class="primary-button" type="submit" disabled={teacher.busy}>Create coupon</button>
+      <button class="primary-button" type="submit" disabled={teacher.busy}>{t('coupons.create')}</button>
       <div class="random-coupon-box">
-        <div><p class="eyebrow">Quick set</p><h3>Generate random coupons</h3></div>
-        <label>Different coupon designs<input bind:value={randomDesigns} type="number" min="1" max="10" step="1" /></label>
-        <button class="randomize-button" type="button" disabled={teacher.busy} onclick={createRandomCoupons}>Generate random coupons</button>
+        <div><p class="eyebrow">{t('coupons.quickSet')}</p><h3>{t('coupons.randomTitle')}</h3></div>
+        <label>{t('coupons.designs')}<input bind:value={randomDesigns} type="number" min="1" max="10" step="1" /></label>
+        <button class="randomize-button" type="button" disabled={teacher.busy} onclick={createRandomCoupons}>{t('coupons.generate')}</button>
       </div>
     </form>
     <section class="coupon-list">
       <div class="section-heading">
-        <div><p class="eyebrow">Store coupons</p><h2>{shop.coupons.length} ready to use</h2></div>
+        <div><p class="eyebrow">{t('coupons.listEyebrow')}</p><h2>{t('coupons.ready', { count: shop.coupons.length })}</h2></div>
         {#if shop.coupons.length}
-          <button class="primary-button" type="button" onclick={() => choosePrint('all')}>Print all coupons to PDF</button>
+          <button class="primary-button" type="button" onclick={() => choosePrint('all')}>{t('coupons.printAll')}</button>
         {/if}
       </div>
       {#each shop.coupons as coupon (coupon.id)}
         <article class="coupon-summary">
           <div>
-            <strong>{couponDiscountLabel(coupon)} {formatCouponItem(coupon)}</strong>
+            <strong>{couponOffer(coupon)}</strong>
             <span>{coupon.code}</span>
           </div>
-          <button data-print-one-coupon type="button" onclick={() => choosePrint(coupon.id)}>Print</button>
-          <button type="button" aria-label="Delete coupon {coupon.code}" onclick={() => remove(coupon.id)}>Delete</button>
+          <button data-print-one-coupon type="button" onclick={() => choosePrint(coupon.id)}>{t('coupons.print')}</button>
+          <button type="button" aria-label={t('coupons.deleteLabel', { code: coupon.code })} onclick={() => remove(coupon.id)}>{t('coupons.delete')}</button>
         </article>
       {:else}
-        <div class="empty-coupons">Your created coupons will appear here.</div>
+        <div class="empty-coupons">{t('coupons.empty')}</div>
       {/each}
     </section>
   </section>
@@ -217,24 +217,24 @@
     <div class="print-coupon-modal" role="dialog" aria-modal="true" aria-labelledby="print-coupon-title">
       <div class="print-modal-heading">
         <div>
-          <p class="eyebrow">Print coupons</p>
-          <h2 id="print-coupon-title">{printTarget === 'all' ? 'Print all coupons' : 'Print coupon'}</h2>
+          <p class="eyebrow">{t('coupons.printEyebrow')}</p>
+          <h2 id="print-coupon-title">{printTarget === 'all' ? t('coupons.printAllTitle') : t('coupons.printOneTitle')}</h2>
         </div>
-        <button class="modal-close-button" type="button" aria-label="Close print dialog" onclick={closePrintModal}>×</button>
+        <button class="modal-close-button" type="button" aria-label={t('coupons.printCloseLabel')} onclick={closePrintModal}>×</button>
       </div>
-      <p class="helper-text">Choose how many copies you need, then open the print preview.</p>
+      <p class="helper-text">{t('coupons.printHelp')}</p>
       <div class="print-copy-list">
         {#each couponsToPrint as coupon (coupon.id)}
           <label class="coupon-copy-control">
-            <span><strong>{couponDiscountLabel(coupon)} {formatCouponItem(coupon)}</strong><small>{coupon.code}</small></span>
-            Copies to print
+            <span><strong>{couponOffer(coupon)}</strong><small>{coupon.code}</small></span>
+            {t('coupons.copies')}
             <input type="number" min="1" max="100" step="1" bind:value={printCopies[coupon.id]} />
           </label>
         {/each}
       </div>
       <div class="print-modal-actions">
-        <button type="button" onclick={closePrintModal}>Cancel</button>
-        <button class="primary-button" type="button" onclick={openPrintPreview}>Open print preview</button>
+        <button type="button" onclick={closePrintModal}>{t('action.cancel')}</button>
+        <button class="primary-button" type="button" onclick={openPrintPreview}>{t('coupons.openPreview')}</button>
       </div>
     </div>
   </div>

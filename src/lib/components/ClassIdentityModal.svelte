@@ -1,5 +1,7 @@
 <script lang="ts">
   import { joinPrefixPattern, normalizeJoinPrefix, suggestJoinPrefix } from '$lib/joincodes'
+  import RichText from '$lib/components/RichText.svelte'
+  import { t } from '$lib/i18n/index.svelte'
   import { claimJoinPrefix, errorMessage } from '$lib/pocketbase'
   import { teacher, withBusy } from '$lib/teacher.svelte'
 
@@ -14,7 +16,7 @@
   function submit(event: SubmitEvent) {
     event.preventDefault()
     if (!valid) {
-      message = 'Use 3 to 12 letters or numbers.'
+      message = t('identity.invalid')
       return
     }
     void withBusy(async () => {
@@ -23,7 +25,7 @@
         message = ''
         await onClaimed()
       } catch (error) {
-        message = errorMessage(error, 'That identifier is already taken. Try another one.')
+        message = errorMessage(error, t('identity.taken'))
       }
     })
   }
@@ -35,15 +37,11 @@
 -->
 <div class="identity-backdrop">
   <form class="identity-card" onsubmit={submit} aria-labelledby="identity-title">
-    <p class="welcome-kicker">One quick thing</p>
-    <h1 id="identity-title">Choose your class identifier</h1>
-    <p>
-      This goes at the front of every store code you hand out, so all of your classes
-      share it and you can spot your own codes at a glance. Pick something your students
-      can read off the board — your room, your name, your school.
-    </p>
+    <p class="welcome-kicker">{t('identity.kicker')}</p>
+    <h1 id="identity-title">{t('identity.title')}</h1>
+    <p>{t('identity.body')}</p>
     <label>
-      Your identifier
+      {t('identity.label')}
       <input
         bind:value={prefix}
         type="text"
@@ -55,17 +53,17 @@
       />
     </label>
     <button class="teacher-link-button" type="button" onclick={() => (prefix = suggestJoinPrefix())}>
-      Suggest one for me
+      {t('identity.suggest')}
     </button>
     <p class="identity-preview" id="identity-preview">
       {#if valid}
-        Your class codes will look like <strong>{cleaned}-P3</strong> and <strong>{cleaned}-P4</strong>.
+        <RichText key="identity.preview" values={{ first: `${cleaned}-P3`, second: `${cleaned}-P4` }} />
       {:else}
-        Between 3 and 12 letters or numbers.
+        {t('identity.hint')}
       {/if}
     </p>
-    <p class="identity-warning">This cannot be changed later: every store code and join link you share is built from it.</p>
+    <p class="identity-warning">{t('identity.warning')}</p>
     {#if message}<p class="login-error" role="alert">{message}</p>{/if}
-    <button class="primary-button" type="submit" disabled={teacher.busy || !valid}>Save and continue</button>
+    <button class="primary-button" type="submit" disabled={teacher.busy || !valid}>{t('identity.save')}</button>
   </form>
 </div>

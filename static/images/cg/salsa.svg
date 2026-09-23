@@ -1,1 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)"><path d="M47 53h66v17l8 20v78H39V90l8-20z" fill="#d44a35"/><path d="M39 109h82v38H39z" fill="#f0c53f"/><text x="80" y="133" text-anchor="middle" font-family="Arial" font-size="17" font-weight="700" fill="#8c382d">SALSA</text></g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="188" rx="58" ry="6" fill="#0f172a" opacity="0.08"/>
+    <path d="M40 80h80q18 0 18 22v76a8 8 0 0 1-8 8H30a8 8 0 0 1-8-8v-76q0-22 18-22z" fill="#dbe7e4"/>
+    <path d="M104 80h16q18 0 18 22v76a8 8 0 0 1-8 8h-26z" fill="#b3c6c2"/>
+    <path d="M42 88q-12 5-12 20v70h-7v-70q0-19 17-24z" fill="#f2f8f7"/>
+    <path d="M42 48h76a6 6 0 0 1 6 6v26H36V54a6 6 0 0 1 6-6z" fill="#b0261f"/>
+    <path d="M106 48h12a6 6 0 0 1 6 6v26h-18z" fill="#8c1c17"/>
+    <path d="M43 52h7v28h-7z" fill="#d1493f"/>
+    <path d="M44 58h72" fill="none" stroke="#8c1c17" stroke-width="2"/>
+    <path d="M44 66h72" fill="none" stroke="#8c1c17" stroke-width="2"/>
+    <path d="M36 74L124 74L123.8 80L36 80Z" fill="#8c1c17"/>
+  </g><g id="label">
+    <rect x="30" y="108" width="100" height="58" rx="3" fill="#f7efe2"/>
+  </g><g id="brand-cg">
+    <rect x="30" y="108" width="100" height="58" rx="3" fill="#ffffff"/>
+    <path d="M30 108h100v8H30z" fill="#15803d"/>
+    <circle cx="60" cy="136" r="17" fill="#d13b2a"/>
+    <path d="M60 119a17 17 0 0 1 12 29z" fill="#a82a1c"/>
+    <circle cx="54" cy="130" r="4" fill="#e8705c"/>
+    <path d="M67 121c0-2 1-3 1-2 1-3 1-4 2-3 0-2 1-3 1-2 0 1 0 2-1 3-1 1 0 2 1 3-1 2 0 3-1 3-2 0-2-1-3-3z" fill="#15803d"/>
+    <path d="M67 125c0 1 0 2 1 3 0 1 1 2 2 2 0 0 0-1 0-2 0-2 0-3-1-4-1 0-1 0-2 1z" fill="#0c6b2a"/>
+    <path d="M88 130q-1-4 3-4t4 4q0 3-3 4t-4-4z" fill="#a82a1c"/>
+    <path d="M44 153h72v3H44z" fill="#15803d"/>
+  </g></svg>

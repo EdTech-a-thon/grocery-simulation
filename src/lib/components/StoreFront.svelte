@@ -2,6 +2,7 @@
   import type { Snippet } from 'svelte'
   import Cart from './Cart.svelte'
   import Shelf from './Shelf.svelte'
+  import { t } from '$lib/i18n/index.svelte'
   import { refreshJoinedStore, shop, shoppableAisles } from '$lib/shop.svelte'
 
   let { asTeacher = false, header }: { asTeacher?: boolean; header: Snippet } = $props()
@@ -33,14 +34,14 @@
     <div class="shelf-column">
       {#if !shoppable.length}
         <div class="empty-cart">
-          This store has no items on its shelves yet.
-          {asTeacher ? 'Stock some items in Prices & stock.' : 'Check back with your teacher.'}
+          {t('store.empty')}
+          {asTeacher ? t('store.emptyTeacher') : t('store.emptyStudent')}
         </div>
       {:else}
         {#if !asTeacher && shop.studentJoinCode}
           <p class="class-status">
-            Shopping at: <strong>{shop.store?.name ?? shop.studentJoinCode}</strong>
-            <button type="button" disabled={shop.refreshing} onclick={() => void refreshJoinedStore()}>Refresh store prices</button>
+            {t('store.shoppingAt')} <strong>{shop.store?.name ?? shop.studentJoinCode}</strong>
+            <button type="button" disabled={shop.refreshing} onclick={() => void refreshJoinedStore()}>{t('store.refreshPrices')}</button>
           </p>
         {/if}
         <Shelf

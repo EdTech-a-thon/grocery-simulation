@@ -1,9 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)">
-  <path d="M34 61h92l-10 107H44z" fill="#ec6c92"/>
-  <ellipse cx="80" cy="61" rx="47" ry="14" fill="#fff4f4"/>
-  <ellipse cx="80" cy="61" rx="38" ry="9" fill="#d84468"/>
-  <text x="80" y="94" text-anchor="middle" font-family="Georgia, serif" font-size="19" font-weight="700" fill="#fff">YOGURT</text>
-  <path d="M53 134c0-23 54-23 54 0v14H53z" fill="#fff5df"/>
-  <g fill="#d94357"><path d="M68 123c-11 0-15 13-7 21 8 7 14 0 14-8 0-8-3-13-7-13z"/><path d="M91 123c-11 0-15 13-7 21 8 7 14 0 14-8 0-8-3-13-7-13z"/></g>
-  <text x="80" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#fff">STRAWBERRY</text>
-</g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="190" rx="44" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M22 96h116l-10 84a8 8 0 0 1-8 7H40a8 8 0 0 1-8-7z" fill="#f4f1ec"/>
+    <path d="M80 96h58l-10 84a8 8 0 0 1-8 7H80z" fill="#d6d1c8"/>
+    <path d="M30 104h8l8 76h-8z" fill="#ffffff"/>
+    <path d="M20 88h120v10H20z" fill="#dde3e8"/>
+    <path d="M80 88h60v10H80z" fill="#b4bec7"/>
+    <path d="M24 90h10v6H24z" fill="#f5f8fa"/>
+    <path d="M20 88h120" fill="none" stroke="#98a1ac" stroke-width="2"/>
+  </g><g id="label">
+    <rect x="34" y="112" width="92" height="52" rx="3" fill="#f7efe2"/>
+  </g><g id="brand-cg">
+    <rect x="34" y="112" width="92" height="52" rx="3" fill="#ffffff"/>
+    <path d="M34 112h92v8H34z" fill="#15803d"/>
+    <path d="M48 142q14-10 28-4t16 16q-12-6-28 0t-16-12z" fill="#f2b8cf"/>
+    <path d="M106 140c5 0 9 4 9 9s-4 9-9 9-9-4-9-9 4-9 9-9z" fill="#dc2626"/>
+    <path d="M106 140c5 0 9 4 9 9s-4 9-9 9z" fill="#991b1b"/>
+    <path d="M106 141c0-1 1-2 2-2 1 0 2 1 2 2s-1 2-2 2c-1 0-2-1-2-2z" fill="#3f8f4a"/>
+    <path d="M103 143c0-1 1-2 2-2 1 0 2 1 2 2s-1 2-2 2c-1 0-2-1-2-2z" fill="#3f8f4a"/>
+    <path d="M109 143c0-1 1-2 2-2 1 0 2 1 2 2s-1 2-2 2c-1 0-2-1-2-2z" fill="#3f8f4a"/>
+    <path d="M106 138c-1 0-1-1-2-2v2h4v-2c-1 1-1 2-2 2z" fill="#22c55e"/>
+    <path d="M48 158h48v3H48z" fill="#15803d"/>
+  </g></svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item">
+    <ellipse cx="80" cy="188" rx="54" ry="6" fill="#0f172a" opacity="0.08"/>
+    <path d="M34 108h92l14 42H20z" fill="#e8e2d4"/>
+    <path d="M20 150h120v24a8 8 0 0 1-8 8H28a8 8 0 0 1-8-8z" fill="#f4f1ec"/>
+    <path d="M86 150h54v24a8 8 0 0 1-8 8H86z" fill="#d6d1c8"/>
+    <path d="M20 150h120v5H20z" fill="#dde3e8"/>
+    <path d="M40 114h80l3 9H37z" fill="#c06a63"/>
+    <path d="M40 114h80l1 3H39z" fill="#efb2a5"/>
+    <path d="M37 126h86l3 9H34z" fill="#c06a63"/>
+    <path d="M37 126h86l1 3H36z" fill="#efb2a5"/>
+    <path d="M34 138h92l3 9H31z" fill="#c06a63"/>
+    <path d="M34 138h92l1 3H33z" fill="#efb2a5"/>
+    <path d="M40 111q40 6 80 0" fill="none" stroke="#f6fbfd" stroke-width="3"/>
+  </g>
+  <g id="label">
+    <rect x="34" y="154" width="92" height="22" rx="3" fill="#f7efe2"/>
+  </g>
+  <g id="brand">
+    <path d="M34 154h92v7H34z" fill="#b0261f"/>
+    <path d="M44 164h34v4H44z" fill="#c06a63"/>
+    <path d="M44 164h34v2H44z" fill="#efb2a5"/>
+    <path d="M44 170h34v4H44z" fill="#c06a63"/>
+    <path d="M44 170h34v2H44z" fill="#efb2a5"/>
+    <path d="M86 164h30v4H86z" fill="#e0b33a"/>
+    <path d="M86 170h22v3H86z" fill="#c9912b"/>
+  </g>
+  <g id="brand-cg">
+    <rect x="34" y="154" width="92" height="22" rx="3" fill="#ffffff"/>
+    <path d="M34 154h92v5H34z" fill="#15803d"/>
+    <path d="M46 163h32v4H46z" fill="#c06a63"/>
+    <path d="M46 163h32v2H46z" fill="#efb2a5"/>
+    <path d="M46 169h32v4H46z" fill="#c06a63"/>
+    <path d="M86 166h28v3H86z" fill="#15803d"/>
+  </g>
+</svg>

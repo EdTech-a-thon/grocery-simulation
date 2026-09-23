@@ -1,14 +1,16 @@
 import { cart } from './cart.svelte'
 import { money } from './catalog'
-import { productById } from './products'
+import { current, productName, t } from './i18n/index.svelte'
 import type { Coupon } from './pocketbase'
 
 export function formatCouponItem(coupon: Coupon) {
-  return coupon.productId === 'all' ? 'entire purchase' : productById[coupon.productId]?.name ?? coupon.productId
+  return coupon.productId === 'all' ? t('coupon.entirePurchase') : productName(coupon.productId)
 }
 
 export function formatDate(value: string) {
-  return value ? new Date(value).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }) : 'No limit'
+  return value
+    ? new Date(value).toLocaleString(current().locale, { dateStyle: 'medium', timeStyle: 'short' })
+    : t('coupon.noLimit')
 }
 
 export function couponCopies(coupon: Coupon) {
@@ -17,8 +19,13 @@ export function couponCopies(coupon: Coupon) {
 
 export function couponDiscountLabel(coupon: Coupon) {
   return coupon.discountType === 'dollars'
-    ? `${money(coupon.discountAmount)} off`
-    : `${coupon.discountAmount}% off`
+    ? t('coupon.dollarsOff', { amount: money(coupon.discountAmount) })
+    : t('coupon.percentOff', { amount: coupon.discountAmount })
+}
+
+/** The whole offer as one phrase: "10% off Milk", "10 % de réduction sur Lait". */
+export function couponOffer(coupon: Coupon) {
+  return t('coupon.offer', { discount: couponDiscountLabel(coupon), item: formatCouponItem(coupon) })
 }
 
 /** A coupon can never take off more than the items it applies to actually cost. */
@@ -32,10 +39,10 @@ export function discountFor(coupon: Coupon, eligibleTotal: number) {
 /** Why this coupon cannot be used right now, or '' when it can. */
 export function couponStatus(coupon: Coupon) {
   const now = Date.now()
-  if (coupon.startsAt && now < new Date(coupon.startsAt).getTime()) return 'This coupon is not active yet.'
-  if (coupon.endsAt && now > new Date(coupon.endsAt).getTime()) return 'This coupon has expired.'
+  if (coupon.startsAt && now < new Date(coupon.startsAt).getTime()) return t('coupon.notActiveYet')
+  if (coupon.endsAt && now > new Date(coupon.endsAt).getTime()) return t('coupon.expired')
   if (coupon.productId !== 'all' && !cart.lines.some((line) => line.id === coupon.productId)) {
-    return `Add ${productById[coupon.productId]?.name ?? 'the coupon item'} to the cart first.`
+    return t('coupon.needsItem', { name: productName(coupon.productId) || t('coupon.theItem') })
   }
   return ''
 }

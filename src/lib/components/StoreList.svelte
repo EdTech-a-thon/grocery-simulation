@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
+  import RichText from '$lib/components/RichText.svelte'
   import StoreSettingsModal from '$lib/components/StoreSettingsModal.svelte'
+  import { plural, t } from '$lib/i18n/index.svelte'
   import {
     deleteStore, duplicateStore, errorMessage, storeColors, teacherJoinPrefix,
     type Store, type StoreColor,
@@ -21,39 +23,39 @@
   const prefix = teacherJoinPrefix()
 
   function duplicate(store: Store) {
-    const copyName = window.prompt('Name for the copy', `${store.name} (copy)`)
+    const copyName = window.prompt(t('stores.copyNamePrompt'), t('stores.copyNameDefault', { name: store.name }))
     if (!copyName) return
-    const copyColor = window.prompt(`Color for the copy (${storeColors.join(', ')})`, store.color)
+    const copyColor = window.prompt(t('stores.copyColorPrompt', { colors: storeColors.join(', ') }), store.color)
     if (!copyColor) return
-    const copyLabel = window.prompt(`Class code for the copy, after ${prefix}-`, '')
+    const copyLabel = window.prompt(t('stores.copyCodePrompt', { prefix }), '')
     if (!copyLabel) return
     void withBusy(async () => {
       try {
         const copy = await duplicateStore(store.id, copyName, copyColor as StoreColor, copyLabel)
         await refreshStores()
-        teacher.message = `${copy.name} created with the same prices, stock and coupons. Students join with ${copy.joinCode}.`
+        teacher.message = t('stores.duplicated', { name: copy.name, code: copy.joinCode })
       } catch (error) {
-        teacher.message = errorMessage(error, 'That store could not be duplicated.')
+        teacher.message = errorMessage(error, t('stores.duplicateFailed'))
       }
     })
   }
 
   async function share(store: Store) {
     teacher.message = (await copyJoinLink(store))
-      ? `Join link for ${store.name} copied. Paste it wherever your class will see it.`
-      : `Join link for ${store.name}: ${joinLinkFor(store)}`
+      ? t('stores.linkCopied', { name: store.name })
+      : t('stores.linkFallback', { name: store.name, link: joinLinkFor(store) })
   }
 
   function remove(store: Store) {
-    if (!window.confirm(`Delete ${store.name}? Its prices and coupons are deleted too. This cannot be undone.`)) return
+    if (!window.confirm(t('stores.deleteConfirm', { name: store.name }))) return
     void withBusy(async () => {
       try {
         await deleteStore(store.id)
         if (shop.store?.id === store.id) forgetStore()
         await refreshStores()
-        teacher.message = `${store.name} deleted.`
+        teacher.message = t('stores.deleted', { name: store.name })
       } catch (error) {
-        teacher.message = errorMessage(error, 'That store could not be deleted.')
+        teacher.message = errorMessage(error, t('stores.deleteFailed'))
       }
     })
   }
@@ -63,11 +65,11 @@
   {@render header()}
   <section class="teacher-hero">
     <div>
-      <p class="eyebrow">Teacher controls</p>
-      <h2>Set up a store for each class</h2>
-      <p>Every store keeps its own prices, its own stocked items and its own coupons. Duplicate one to reuse it with another class.</p>
-      <p class="teacher-identity-note">Your class codes all start with <strong>{prefix}</strong>.</p>
-      <button class="primary-button create-store-button" type="button" onclick={() => (creating = true)}>Create New Store</button>
+      <p class="eyebrow">{t('stores.eyebrow')}</p>
+      <h2>{t('stores.title')}</h2>
+      <p>{t('stores.body')}</p>
+      <p class="teacher-identity-note"><RichText key="stores.prefixNote" values={{ prefix }} /></p>
+      <button class="primary-button create-store-button" type="button" onclick={() => (creating = true)}>{t('stores.create')}</button>
     </div>
   </section>
   {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
@@ -75,8 +77,8 @@
     <section class="store-list">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Your stores</p>
-          <h2>{teacher.stores.length} store{teacher.stores.length === 1 ? '' : 's'}</h2>
+          <p class="eyebrow">{t('stores.yours')}</p>
+          <h2>{plural('stores.count', teacher.stores.length)}</h2>
         </div>
       </div>
       {#each teacher.stores as store (store.id)}
@@ -84,14 +86,14 @@
           <span class="store-swatch" aria-hidden="true"></span>
           <div class="store-summary-copy">
             <button class="store-name-button" type="button" onclick={() => void withBusy(() => onOpenStore(store))}>{store.name}</button>
-            <span>Students join with <code>{store.joinCode}</code></span>
+            <span>{t('stores.joinWith')} <code>{store.joinCode}</code></span>
           </div>
-          <button class="primary-button store-open-button" type="button" onclick={() => void withBusy(() => onOpenStore(store))}>Edit Store</button>
+          <button class="primary-button store-open-button" type="button" onclick={() => void withBusy(() => onOpenStore(store))}>{t('stores.edit')}</button>
           <div class="store-summary-actions">
-            <button type="button" onclick={() => void share(store)}>Copy join link</button>
-            <button type="button" onclick={() => duplicate(store)}>Duplicate</button>
-            <button type="button" onclick={() => void withBusy(() => onOpenStore(store, 'settings'))}>Settings</button>
-            <button class="icon-button" data-delete-store type="button" title="Delete store" aria-label="Delete {store.name}" onclick={() => remove(store)}>
+            <button type="button" onclick={() => void share(store)}>{t('stores.copyLink')}</button>
+            <button type="button" onclick={() => duplicate(store)}>{t('stores.duplicate')}</button>
+            <button type="button" onclick={() => void withBusy(() => onOpenStore(store, 'settings'))}>{t('stores.settings')}</button>
+            <button class="icon-button" data-delete-store type="button" title={t('stores.delete')} aria-label={t('stores.deleteLabel', { name: store.name })} onclick={() => remove(store)}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M3 6h18" /><path d="M8 6V4h8v2" /><path d="M6 6l1 14h10l1-14" /><path d="M10 11v5" /><path d="M14 11v5" />
               </svg>
@@ -99,7 +101,7 @@
           </div>
         </article>
       {:else}
-        <div class="empty-coupons">Create your first store to get started.</div>
+        <div class="empty-coupons">{t('stores.empty')}</div>
       {/each}
     </section>
   </section>

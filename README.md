@@ -72,6 +72,56 @@ plain folder of files to `dist/`, and the browser talks to PocketBase directly.
 | `src/lib/*.svelte.ts` | Shared state: the open store, the cart, the teacher's stores.        |
 | `src/lib/*.ts`        | Plain logic with no screen attached: prices, coupons, join codes.    |
 | `src/app.css`         | Every style in the app, in one file.                                 |
+| `art/references/`     | One verified drawing per package format, adapted to draw products.   |
+| `art/masters/`        | The layered source drawing for each product.                         |
+| `scripts/product-art/`| The drawing pipeline: house style, checks, rendering.                |
+
+## The product artwork
+
+Every product tile is generated, and none of it is trusted on arrival.
+
+A **master** in `art/masters/` is a layered drawing: `#item` is the package or the
+bare food, `#label` is the blank printed panel, and `#brand` and `#brand-cg` are
+two alternative faces for that panel. The two shipped files are cut from that one
+drawing — `static/images/<id>.svg` keeps `#brand`, `static/images/cg/<id>.svg`
+keeps `#brand-cg` — so a product and its ClassGrocery twin share a silhouette
+because they are literally the same paths. That is the point: an own-label package
+is the same package printed more plainly, not a different product, and not the
+name brand with a green stripe stacked under it.
+
+Food sold loose — fruit, raw cuts, the shop's own bakery — has no printed panel,
+so it is drawn in `#item` alone and has no twin at all. `src/lib/unbranded.ts` is
+the list, and both the catalog and the pipeline read it.
+
+A drawing is produced by adapting a **reference** in `art/references/`, one per
+package format. This is the pipeline's central lesson, learned the hard way: a
+small model handed a written description of a package ("a cone shoulder tapering
+to a narrow neck") draws a rectangle, while the same model handed a working
+squeeze bottle and asked to make it a ketchup bottle succeeds. References are
+therefore the most load-bearing files here — a flaw in one propagates into every
+product drawn from it, which is why they have their own checker.
+
+Three gates stand between a drawing and the shop, cheapest first:
+
+1. `scripts/product-art/validate.mjs` — the house style as code: layer structure,
+   frame, shape count, colour values, and the rule that the CG face must be
+   plainer than the name brand without being gutted.
+2. `scripts/product-art/render.mjs` — measured in a real browser: whether the file
+   parses at all, whether the ink actually fills the frame, and whether the
+   drawing has kept its reference's proportions.
+3. A look at the rendered tile, by something that can see it. Nothing above this
+   line can tell whether a drawing reads as *soup*.
+
+```sh
+bun scripts/check-references.mjs        # the format references
+bun scripts/check-product-art.mjs       # every master, plus a contact sheet
+bun run images:ship                     # cut the shipped artwork from the masters
+```
+
+Both checkers write a contact sheet to `art/review/` and exit non-zero on
+failure, so they can gate a commit. `scripts/make-product-art.mjs` drives the
+whole loop against the Claude API when `ANTHROPIC_API_KEY` is set, judging with a
+stronger model and redrawing rejects with the criticism attached.
 
 ## How the pieces fit together
 
