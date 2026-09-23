@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item">
     <ellipse cx="80" cy="196" rx="58" ry="5" fill="#0f172a" opacity="0.08"/>
     <path d="M24 142h112l-3 6H27z" fill="#2f7a47"/>
     <circle cx="70" cy="74" r="12" fill="#5f7299"/>
@@ -46,4 +47,5 @@
     <circle cx="127" cy="141" r="12" fill="#5f7299"/>
     <path d="M115.6 142.2A12 12 0 0 1 131.2 129.7A13.2 13.2 0 0 0 115.6 142.2z" fill="#8193b9"/>
     <path d="M26 136l3 3 3-4 3 4 3-3v6q-6 3-12 0zM50 137l3 3 3-4 3 4 3-3v6q-6 3-12 0zM74 138l3 3 3-4 3 4 3-3v6q-6 3-12 0zM98 137l3 3 3-4 3 4 3-3v6q-6 3-12 0zM122 136l3 3 3-4 3 4 3-3v6q-6 3-12 0z" fill="#1f2937"/>
-  </g></svg>
+  </g>
+</svg>

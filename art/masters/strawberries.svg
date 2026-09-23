@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item">
     <ellipse cx="80" cy="197" rx="56" ry="6" fill="#0f172a" opacity="0.08"/>
     <g transform="translate(80 196) scale(1) translate(-80 -196)">
         <path d="M80.5 59C113 49.5 141 51 142 87.5C143 130.5 109.5 183.5 87.5 196C64 185.5 25.5 136.5 22 94C19 57 47 52.5 80.5 59Z" fill="#e0342f"/>
@@ -22,4 +23,5 @@
         <path d="M74 56.5Q60 55 50.5 60.5" fill="none" stroke="#7cc46a" stroke-width="2.5" stroke-linecap="round"/>
         <path d="M80.5 60Q80.5 46 86 37.5" fill="none" stroke="#3b8a3c" stroke-width="4.5" stroke-linecap="round"/>
     </g>
-  </g></svg>
+  </g>
+</svg>
