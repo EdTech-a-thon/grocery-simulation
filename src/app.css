@@ -1946,7 +1946,9 @@ p {
 
 /* Inventory: the aisle list and the cards, side by side. */
 .store-main .teacher-workspace { max-width: none; padding: 0; }
-.store-main .teacher-workspace > .aisle-picker { padding-top: 0; }
+/* The aisle list stays in view while the products scroll past it, and
+   scrolls by itself if there are more aisles than fit. */
+.store-main .teacher-workspace > .aisle-picker { position: sticky; top: 0; align-self: start; max-height: calc(100vh - 66px - 48px); overflow-y: auto; padding-top: 0; }
 .store-main .price-editor { padding-top: 0; }
 .store-main .aisle-picker h3 { color: #4b6354; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
 .price-edit-card { position: relative; cursor: pointer; }
@@ -2035,6 +2037,7 @@ p {
   .teacher-shell.store-shell { height: auto; display: block; }
   .store-layout { grid-template-columns: 1fr; }
   .store-main { overflow: visible; }
+  .store-main .teacher-workspace > .aisle-picker { position: static; max-height: none; }
   .coupon-editor-manual { grid-template-columns: 1fr; }
   .store-sidebar { position: static; height: auto; overflow: visible; border-right: 0; border-bottom: 1px solid #d7e7da; flex-direction: row; flex-wrap: wrap; align-items: center; }
   .store-sidebar button { width: auto; }

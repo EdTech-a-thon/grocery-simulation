@@ -45,6 +45,12 @@
       : t('prices.aisleCleared', { aisle: aisleTitle(aisle.title) })
   }
 
+  /** A new aisle starts at its first products, wherever the last one was scrolled to. */
+  function chooseAisle(index: number) {
+    teacher.inventoryAisleIndex = index
+    document.querySelector('.store-main')?.scrollTo({ top: 0 })
+  }
+
   /**
    * A click anywhere on a card, picture included, puts the product on or off
    * the shelves, unless it landed in one of the card's own fields.
@@ -59,7 +65,7 @@
     <aside class="aisle-picker">
       <h3>{t('prices.aisleListTitle')}</h3>
       {#each aisles as item, index (item.title)}
-        <button class:active={index === teacher.inventoryAisleIndex} type="button" onclick={() => (teacher.inventoryAisleIndex = index)}>
+        <button class:active={index === teacher.inventoryAisleIndex} type="button" onclick={() => chooseAisle(index)}>
           {aisleTitle(item.title)}
         </button>
       {/each}
