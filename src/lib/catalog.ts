@@ -27,8 +27,8 @@ export type ShelfItem = {
   sale?: boolean
 }
 
-// The product catalog lives in the bundle, not the database. PocketBase only
-// records which of these a store stocks and what it charges for them.
+// The product catalog lives in the bundle. A store only records where it
+// differs from it: which products it stocks and what it charges for them.
 const catalogAisles = [
   dryGoodsAisle, cannedAndSaucesAisle, saucesAndCondimentsAisle, dairyAisle,
   frozenFoodsAisle, bakeryAisle, produceAisle, meatAisle, seafoodAisle,

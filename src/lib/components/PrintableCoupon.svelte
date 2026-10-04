@@ -3,7 +3,7 @@
   import { couponOffer } from '$lib/coupons'
   import { productName, t } from '$lib/i18n/index.svelte'
   import { productById } from '$lib/products'
-  import type { Coupon } from '$lib/pocketbase'
+  import type { Coupon } from '$lib/store'
 
   let { coupon }: { coupon: Coupon } = $props()
 

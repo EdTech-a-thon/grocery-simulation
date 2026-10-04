@@ -1,14 +1,9 @@
 <script lang="ts">
   import { untrack } from 'svelte'
-  import RichText from '$lib/components/RichText.svelte'
   import { t } from '$lib/i18n/index.svelte'
-  import { joinLabelPattern, normalizeJoinLabel } from '$lib/joincodes'
-  import {
-    createStore, errorMessage, loadStoreItems, stockBrands, storeColors, teacherJoinPrefix,
-    updateStore, type BrandMode, type Store, type StoreColor,
-  } from '$lib/pocketbase'
-  import { everyProductWithItsPrice, shop, syncCartToStore } from '$lib/shop.svelte'
-  import { refreshStores, teacher, withBusy } from '$lib/teacher.svelte'
+  import { shop, syncCartToStore } from '$lib/shop.svelte'
+  import { newStore, storeColors, type BrandMode, type Store, type StoreColor } from '$lib/store'
+  import { teacher } from '$lib/teacher.svelte'
 
   /**
    * Everything a store is configured with, in one form. `store` is the store
@@ -19,29 +14,23 @@
   let { store, onClose, onCreated }: {
     store: Store | null
     onClose?: () => void
-    onCreated?: (created: Store) => Promise<void>
+    onCreated?: (created: Store) => void
   } = $props()
-
-  const prefix = teacherJoinPrefix()
 
   // The fields are seeded once, on purpose: from here on the teacher owns them.
   const seed = untrack(() => store)
   let name = $state(seed?.name ?? '')
   let color = $state<StoreColor>(seed?.color ?? 'green')
-  let joinLabel = $state(seed?.joinLabel ?? '')
   let brandMode = $state<BrandMode>(seed?.brandMode ?? 'name')
   let couponsEnabled = $state(seed?.couponsEnabled ?? true)
   let taxEnabled = $state(seed?.taxEnabled ?? false)
   let salesTax = $state(seed?.salesTax ?? 0)
 
-  const label = $derived(normalizeJoinLabel(joinLabel))
-
   /** What the form is asking for, with the tax rate a store without tax keeps. */
   function settingsFromForm() {
     return {
-      name,
+      name: name.trim().slice(0, 60),
       color,
-      joinLabel: label,
       brandMode,
       couponsEnabled,
       taxEnabled,
@@ -51,47 +40,23 @@
 
   function submit(event: SubmitEvent) {
     event.preventDefault()
-    if (!joinLabelPattern.test(label)) {
-      teacher.message = t('settings.badCode')
+    const settings = settingsFromForm()
+    if (!settings.name) return
+    if (!store) {
+      const created = newStore(settings)
+      onCreated?.(created)
+      teacher.message = t('settings.created', { name: created.name })
+      onClose?.()
       return
     }
-    void withBusy(store ? saveEdits(store) : create)
-  }
-
-  async function create() {
-    try {
-      const created = await createStore(settingsFromForm())
-      if (brandMode !== 'name') await stockBrands(created.id, brandMode, everyProductWithItsPrice({}))
-      await refreshStores()
-      await onCreated?.(created)
-      teacher.message = t('settings.created', { name: created.name, code: created.joinCode })
-      onClose?.()
-    } catch (error) {
-      teacher.message = errorMessage(error, t('settings.createFailed'))
-    }
-  }
-
-  function saveEdits(editing: Store) {
-    return async () => {
-      try {
-        const updated = await updateStore(editing.id, settingsFromForm())
-        // Only a changed brand line reshelves the store: restocking rewrites
-        // every stock flag, and prices the teacher set stay as they are.
-        if (updated.brandMode !== editing.brandMode) {
-          await stockBrands(updated.id, updated.brandMode, everyProductWithItsPrice(await loadStoreItems(updated.id)))
-        }
-        if (shop.store?.id === updated.id) {
-          shop.store = updated
-          shop.items = await loadStoreItems(updated.id)
-          syncCartToStore(updated)
-        }
-        await refreshStores()
-        teacher.message = t('settings.updated', { name: updated.name, code: updated.joinCode })
-        onClose?.()
-      } catch (error) {
-        teacher.message = errorMessage(error, t('settings.updateFailed'))
-      }
-    }
+    // A changed brand line reshelves the store: what the teacher stocked or
+    // cleared by hand is forgotten, and the prices they set stay as they are.
+    const restock = settings.brandMode !== store.brandMode
+    Object.assign(store, settings)
+    if (restock) store.stocked = {}
+    if (shop.store === store) syncCartToStore(store)
+    teacher.message = t('settings.updated', { name: store.name })
+    onClose?.()
   }
 </script>
 
@@ -106,12 +71,7 @@
   <div class="store-form-grid">
     <label>{t('settings.name')}<input required bind:value={name} type="text" maxlength="60" placeholder={t('settings.namePlaceholder')} /></label>
     <label>{t('settings.color')}<select bind:value={color}>{#each storeColors as option (option)}<option value={option}>{t(`color.${option}`)}</option>{/each}</select></label>
-    <label>{t('settings.code')}<input required bind:value={joinLabel} type="text" maxlength="6" autocapitalize="characters" placeholder="P3" /></label>
   </div>
-  <p class="join-code-preview">
-    {#if joinLabelPattern.test(label)}<RichText key="settings.codePreview" values={{ code: `${prefix}-${label}` }} />
-    {:else}<RichText key="settings.codeHint" values={{ prefix }} />{/if}
-  </p>
   <fieldset>
     <legend>{t('settings.sells')}</legend>
     <label><input type="radio" bind:group={brandMode} value="name" /> {t('settings.brandName')}</label>
@@ -136,6 +96,6 @@
   </div>
   <div class="store-modal-actions">
     {#if onClose}<button type="button" onclick={onClose}>{t('action.cancel')}</button>{/if}
-    <button class="primary-button" type="submit" disabled={teacher.busy}>{store ? t('settings.save') : t('settings.create')}</button>
+    <button class="primary-button" type="submit">{store ? t('settings.save') : t('settings.create')}</button>
   </div>
 </form>

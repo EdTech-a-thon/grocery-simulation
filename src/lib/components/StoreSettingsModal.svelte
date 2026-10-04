@@ -1,6 +1,6 @@
 <script lang="ts">
   import StoreSettingsForm from '$lib/components/StoreSettingsForm.svelte'
-  import type { Store } from '$lib/pocketbase'
+  import type { Store } from '$lib/store'
 
   /**
    * The settings form in a dialog. An open store edits its settings on its own
@@ -10,7 +10,7 @@
   let { store, onClose, onCreated }: {
     store: Store | null
     onClose: () => void
-    onCreated?: (created: Store) => Promise<void>
+    onCreated?: (created: Store) => void
   } = $props()
 </script>
 

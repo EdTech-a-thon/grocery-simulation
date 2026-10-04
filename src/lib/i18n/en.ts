@@ -5,9 +5,9 @@ import type { LanguagePack } from './types'
  * the right-hand side translated — the keys never change.
  *
  * A few things are deliberately *not* translated, because they are names rather
- * than words: "ClassGrocery", "CG Value", the store codes teachers hand out, and
- * the dollar amounts, which stay in US dollars in every language so a class
- * doing the same money lesson sees the same prices.
+ * than words: "ClassGrocery", "CG Value", and the dollar amounts, which stay in
+ * US dollars in every language so a class doing the same money lesson sees the
+ * same prices.
  *
  * Two bits of markup are allowed inside a string, for the places where a
  * sentence has something emphasised or linked inside it. They only work where a
@@ -53,17 +53,17 @@ const en: LanguagePack = {
     'landing.kicker': 'Real-life grocery shopping',
     'landing.intro':
       'A grocery store you run for your class. Teachers set the prices and the coupons. Students shop on a budget and read the receipt.',
-    'landing.storeCode': 'Store code',
-    'landing.join': 'Join store',
-    'landing.codeHint': 'Type the code your teacher gives you. The dash is optional.',
-    'landing.codeNotFound': 'That store code was not found. Check the code with your teacher.',
-    'landing.teacherSignIn': 'Teacher sign in',
+    'landing.studentsTitle': 'Shopping with your class?',
+    'landing.linkHint':
+      'Open the store link your teacher shares, and you will go straight into your class store.',
+    'landing.backTo': 'Back to {name}',
+    'landing.teacherLink': 'Teachers: set up a store, no account needed',
 
     'landing.howTitle': 'How it works',
     'landing.step1.title': 'Build the store',
     'landing.step1.body': 'Choose what it stocks, what it charges, and which coupons it prints.',
-    'landing.step2.title': 'Share the code',
-    'landing.step2.body': 'Each class gets a code like **{code}**, and a link that opens it.',
+    'landing.step2.title': 'Share the link',
+    'landing.step2.body': "Copy the store's link and post it wherever your class will see it.",
     'landing.step3.title': 'Shop the aisles',
     'landing.step3.body': 'Students fill a cart, clip coupons and check out with a receipt.',
 
@@ -78,12 +78,11 @@ const en: LanguagePack = {
     'landing.teachers.cta': 'Set up a store',
     'landing.students.eyebrow': 'For students',
     'landing.students.title': 'They do the shopping',
-    'landing.students.point1': 'Join with a code — no account needed',
+    'landing.students.point1': "Open the teacher's link — no account needed",
     'landing.students.point2': 'Shop {aisles} aisles of {products} groceries',
     'landing.students.point3': 'Compare brands right on the shelf',
     'landing.students.point4': 'Type in a coupon code',
     'landing.students.point5': 'Check out with an itemized receipt',
-    'landing.students.cta': 'Enter a store code',
 
     // ------------------------------------------------------ student dashboard
     'student.kicker': 'Welcome to your class store',
@@ -91,7 +90,6 @@ const en: LanguagePack = {
     'student.storeTitle': 'Grocery Store',
     'student.intro':
       'Plan what you want to make, walk the aisles, and compare prices before anything goes in your cart. Coupons stretch your budget, so bring the ones your teacher printed.',
-    'student.storeCode': 'Store code: {code}',
     'student.enter': 'Enter the store',
     'student.cartWaiting.one': 'Your cart has {count} item waiting.',
     'student.cartWaiting.other': 'Your cart has {count} items waiting.',
@@ -102,7 +100,7 @@ const en: LanguagePack = {
     'join.opening': 'Opening your class store…',
     'join.failedTitle': 'That store link did not work',
     'join.failedBody':
-      'The link may be out of date, or the store may have been deleted. Ask your teacher for the store code and type it on the front page.',
+      'The link may have been cut short when it was copied. Ask your teacher to share it again.',
     'join.goHome': 'Go to the front page',
 
     // ------------------------------------------------------ the shop floor
@@ -110,7 +108,6 @@ const en: LanguagePack = {
     'store.emptyTeacher': 'Stock some items in Prices & stock.',
     'store.emptyStudent': 'Check back with your teacher.',
     'store.shoppingAt': 'Shopping at:',
-    'store.refreshPrices': 'Refresh store prices',
 
     'shelf.aisleHeading': 'Aisle {number}: {title}',
     'shelf.aisleOption': 'Aisle {number}: {title}',
@@ -149,14 +146,11 @@ const en: LanguagePack = {
     'coupon.limitReached': 'You can apply up to {max} class coupons.',
     'coupon.alreadyApplied': 'That coupon has already been applied.',
     'coupon.applied': '{code} applied!',
-    'coupon.notActiveYet': 'This coupon is not active yet.',
-    'coupon.expired': 'This coupon has expired.',
     'coupon.needsItem': 'Add {name} to the cart first.',
     'coupon.theItem': 'the coupon item',
     'coupon.entirePurchase': 'entire purchase',
     'coupon.percentOff': '{amount}% off',
     'coupon.dollarsOff': '{amount} off',
-    'coupon.noLimit': 'No limit',
     // What a coupon offers, said as one phrase. The two halves cannot simply be
     // stuck together with a space in every language — Spanish and French both
     // want a preposition between them — so the joining is part of the sentence.
@@ -192,61 +186,29 @@ const en: LanguagePack = {
     'print.couponOff': 'OFF',
     'print.couponCode': 'COUPON CODE',
 
-    // ------------------------------------------------------ teacher sign in
-    'login.kicker': 'Teacher area',
-    'login.signupTitle': 'Create your account',
-    'login.signupBody': 'You will use this to sign in and pick up your stores on any computer.',
-    'login.signinTitle': 'Sign in to your stores',
-    'login.signinBody': 'Your stores, prices and coupons are saved to your account. Only you can see them.',
-    'login.name': 'Your name',
-    'login.namePlaceholder': 'Ms. Rivera',
-    'login.email': 'School email',
-    'login.emailPlaceholder': 'you@school.org',
-    'login.password': 'Password',
-    'login.passwordNew': 'At least 8 characters',
-    'login.passwordCurrent': 'Your password',
-    'login.createAccount': 'Create account',
-    'login.signIn': 'Sign in',
-    'login.haveAccount': 'I already have an account',
-    'login.needAccount': 'Create a teacher account',
-    'login.backHome': 'Back to student sign in',
-    'login.signupFailed': 'That account could not be created. Try a different email.',
-    'login.signinFailed': 'That email and password did not match.',
-
-    // ------------------------------------------------------ class identifier
-    'identity.kicker': 'One quick thing',
-    'identity.title': 'Choose your class identifier',
-    'identity.body':
-      'This goes at the front of every store code you hand out, so all of your classes share it and you can spot your own codes at a glance. Pick something your students can read off the board — your room, your name, your school.',
-    'identity.label': 'Your identifier',
-    'identity.suggest': 'Suggest one for me',
-    'identity.preview': 'Your class codes will look like **{first}** and **{second}**.',
-    'identity.hint': 'Between 3 and 12 letters or numbers.',
-    'identity.warning':
-      'This cannot be changed later: every store code and join link you share is built from it.',
-    'identity.invalid': 'Use 3 to 12 letters or numbers.',
-    'identity.taken': 'That identifier is already taken. Try another one.',
-    'identity.save': 'Save and continue',
-
     // ------------------------------------------------------ teacher chrome
     'teacher.myStores': 'My stores',
     'teacher.pricesTitle': 'Prices and stock',
     'teacher.couponsTitle': 'Coupons',
     'teacher.settingsTitle': 'Store settings',
-    'teacher.signOut': 'Sign out',
+    'teacher.leaveUnsaved':
+      'This store is not saved in this browser. Leave it anyway? To keep it, choose "Save in this browser" or bookmark this page first.',
     'teacher.studentView': 'Student View',
     'teacher.exitStudentView': 'Exit student view',
 
     'store.workspace': 'Store workspace',
     'store.workspaceLede': 'Manage what students see and use in this store.',
-    'store.joinWith': 'Students join with',
-    'store.copyJoinCode': 'Copy join code',
-    'store.copyJoinCodeLabel': 'Copy join code {code}',
-    'store.copyJoinCodePrompt': 'Copy the join code:',
-    'store.joinCodeCopied': 'Join code {code} copied.',
-    'store.copyJoinLink': 'Copy join link',
-    'store.joinLinkCopied': 'Join link copied. Paste it wherever your class will see it.',
-    'store.joinLinkFallback': 'Join link: {link}',
+    'store.copyLink': 'Copy student link',
+    'store.linkCopied':
+      'Student link copied. Paste it wherever your class will see it. If you change the store later, share a new link.',
+    'store.linkFallback': 'Student link: {link}',
+    'store.saveHere': 'Save in this browser',
+    'store.savedBadge': 'Saved in this browser',
+    'store.savedHere': '{name} is saved in this browser. You will find it under My stores.',
+    'store.keepNote':
+      'Not saved yet. Bookmark this page to keep this store for good, or save it in this browser.',
+    'store.keepNoteSaved':
+      'Changes are saved in this browser as you go. Bookmark this page to keep the store for good, or to open it on another computer.',
     'store.viewAsStudent': 'View as Student',
     'store.tabsLabel': 'Store pages',
 
@@ -254,15 +216,16 @@ const en: LanguagePack = {
     'stores.eyebrow': 'Teacher controls',
     'stores.title': 'Set up a store for each class',
     'stores.body':
-      'Every store keeps its own prices, its own stocked items and its own coupons. Duplicate one to reuse it with another class.',
-    'stores.prefixNote': 'Your class codes all start with **{prefix}**.',
+      'No accounts and nothing to sign up for. Build a store, copy its student link, and share it with your class. Each store keeps its own prices, stocked items and coupons.',
     'stores.create': 'Create New Store',
     'stores.yours': 'Your stores',
     'stores.count.one': '{count} store',
     'stores.count.other': '{count} stores',
-    'stores.joinWith': 'Students join with',
+    'stores.browserOnly':
+      "These stores are saved in this browser only, and we never see them. Clearing your browser's data removes them, so bookmark a store's page to keep it for good or to open it on another computer.",
+    'stores.savedOn': 'Last changed {date}',
     'stores.edit': 'Edit Store',
-    'stores.copyLink': 'Copy join link',
+    'stores.copyLink': 'Copy student link',
     'stores.duplicate': 'Duplicate',
     'stores.settings': 'Settings',
     'stores.delete': 'Delete store',
@@ -270,22 +233,16 @@ const en: LanguagePack = {
     'stores.empty': 'Create your first store to get started.',
     'stores.copyNamePrompt': 'Name for the copy',
     'stores.copyNameDefault': '{name} (copy)',
-    'stores.copyColorPrompt': 'Color for the copy ({colors})',
-    'stores.copyCodePrompt': 'Class code for the copy, after {prefix}-',
-    'stores.duplicated':
-      '{name} created with the same prices, stock and coupons. Students join with {code}.',
-    'stores.duplicateFailed': 'That store could not be duplicated.',
-    'stores.deleteConfirm':
-      'Delete {name}? Its prices and coupons are deleted too. This cannot be undone.',
-    'stores.deleted': '{name} deleted.',
-    'stores.deleteFailed': 'That store could not be deleted.',
-    'stores.linkCopied': 'Join link for {name} copied. Paste it wherever your class will see it.',
-    'stores.linkFallback': 'Join link for {name}: {link}',
+    'stores.duplicated': '{name} saved with the same prices, stock and coupons.',
+    'stores.deleteConfirm': 'Remove {name} from this browser? Student links you already shared keep working.',
+    'stores.deleted': '{name} removed from this browser.',
+    'stores.linkCopied': 'Student link for {name} copied. Paste it wherever your class will see it.',
+    'stores.linkFallback': 'Student link for {name}: {link}',
+    'stores.badLink': 'That store link did not work. It may have been cut short when it was copied.',
 
     // ------------------------------------------------------ store settings
     'settings.pageTitle': 'Set up how this store works',
-    'settings.pageLede':
-      'The name and code your class sees, which brands are on the shelves, sales tax and coupons.',
+    'settings.pageLede': 'The name your class sees, which brands are on the shelves, sales tax and coupons.',
     'settings.eyebrowEdit': 'Store settings',
     'settings.eyebrowNew': 'New store',
     'settings.editTitle': 'Edit {name}',
@@ -293,10 +250,6 @@ const en: LanguagePack = {
     'settings.name': 'Store name',
     'settings.namePlaceholder': 'Room 204 Market',
     'settings.color': 'Store color',
-    'settings.code': 'Store code',
-    'settings.codePreview': 'Students will join with **{code}**',
-    'settings.codeHint':
-      'Your identifier is **{prefix}**. Add a short code of up to 6 letters or numbers, such as P3 or FRESH.',
     'settings.sells': 'This store sells',
     'settings.brandName': 'Name brands',
     'settings.brandStore': 'CG Value store brand',
@@ -311,12 +264,8 @@ const en: LanguagePack = {
     'settings.noCoupons': 'No coupons',
     'settings.save': 'Save changes',
     'settings.create': 'Create store',
-    'settings.badCode':
-      'Give the class a short code of 1 to 6 letters or numbers, such as P3 or FRESH.',
-    'settings.created': '{name} is ready. Students join with {code}.',
-    'settings.createFailed': 'That store could not be created.',
-    'settings.updated': '{name} updated. Students join with {code}.',
-    'settings.updateFailed': 'That store could not be updated.',
+    'settings.created': '{name} is ready.',
+    'settings.updated': '{name} updated.',
 
     'color.green': 'Green',
     'color.blue': 'Blue',
@@ -346,11 +295,8 @@ const en: LanguagePack = {
     'prices.priceLabel': 'Price for {name}',
     'prices.stockLabel': 'Stock {name} in this store',
     'prices.inStore': 'In this store',
-    'prices.saved': 'Saved.',
-    'prices.saveFailed': 'That change could not be saved.',
     'prices.aisleStocked': '{aisle} fully stocked.',
     'prices.aisleCleared': '{aisle} taken off the shelves.',
-    'prices.bulkFailed': 'Those changes could not be saved.',
 
     // ------------------------------------------------------ coupon studio
     'coupons.pageTitle': 'Give your class something to budget with',
@@ -380,13 +326,11 @@ const en: LanguagePack = {
     'coupons.empty': 'Your created coupons will appear here.',
     'coupons.badCode':
       'Use 3 to 20 letters, numbers, spaces, or simple punctuation for the coupon code.',
+    'coupons.codeTaken': 'This store already has a coupon with the code {code}.',
     'coupons.badAmount': 'Enter a discount greater than zero.',
     'coupons.created': '{code} created.',
-    'coupons.createFailed': 'That coupon could not be created.',
     'coupons.randomCreated.one': '{count} random coupon design created.',
     'coupons.randomCreated.other': '{count} random coupon designs created.',
-    'coupons.randomFailed': 'Those coupons could not be created.',
-    'coupons.deleteFailed': 'That coupon could not be deleted.',
     'coupons.printEyebrow': 'Print coupons',
     'coupons.printAllTitle': 'Print all coupons',
     'coupons.printOneTitle': 'Print coupon',
@@ -417,26 +361,13 @@ const en: LanguagePack = {
     'privacy.title': 'Privacy',
     'privacy.lede': "What we collect, what we don't, and why.",
     'privacy.students':
-      'ClassGrocery does not collect personal information from students. A class joins a store with a code — there is no student account, no name and no email. A teacher who signs up gives an email address and a password, and that is used only to sign them in and to keep their stores their own.',
+      'ClassGrocery has no accounts and collects no personal information from teachers or students. A store — its name, prices and coupons — travels inside its own link, in the part after the # sign. Browsers never send that part to any server, so we never see it.',
     'privacy.analytics':
       "We use Cloudflare Web Analytics to anonymously count the number of visits, which helps us understand how ClassGrocery is being used in classrooms. Cloudflare Web Analytics is cookieless, does not fingerprint visitors, and does not track users across other sites; see Cloudflare's [privacy policy](cloudflare) for details. We do not share, sell, or otherwise transfer any visitor data to third parties.",
     'privacy.storage':
-      "ClassGrocery stores the store code a student joined with and what is in their cart in their browser's local storage, and that information never leaves their device.",
+      "ClassGrocery keeps a few things in your browser's local storage: the stores a teacher chooses to save, the last store a student opened, what is in their cart, and the language you picked. That information never leaves your device.",
     'privacy.contact':
       'Questions or concerns? Email [support@classgrocery.com](support).',
-
-    // ------------------------------------------------------ refusals from the server
-    // Each of these answers a `reason` the hooks in pb_hooks send back. They are
-    // the only server replies a teacher ever reads; everything else is the
-    // database talking about itself, and stays in the console.
-    'server.join-label-taken': 'You already have a class called {label}. Give this one a different code.',
-    'server.join-label-invalid': 'Give the class a short code of 1 to 6 letters or numbers, such as P3.',
-    'server.identifier-missing': 'Choose your class identifier before creating a store.',
-    'server.store-name-missing': 'Give the new store a name.',
-    'server.store-not-found': 'That store could not be found.',
-    'server.brand-mode-invalid': 'Choose which brands to stock.',
-    'server.nothing-to-stock': 'There is nothing to put on the shelves.',
-    'server.coupon-code-unavailable': 'A coupon code could not be generated. Try again.',
   },
 
   aisles: {

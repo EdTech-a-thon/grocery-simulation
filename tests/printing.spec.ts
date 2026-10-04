@@ -1,8 +1,5 @@
 import { test, expect } from '@playwright/test'
 
-// A fresh teacher and identifier per run, so repeated runs never collide.
-const run = `S${Date.now().toString(36).toUpperCase().slice(-6)}`
-
 test('coupons print in sheets, and printing never loses the page underneath', async ({ page }) => {
   const problems: string[] = []
   page.on('console', (m) => { if (m.type() === 'error') problems.push(m.text()) })
@@ -20,21 +17,11 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   await expect(page.locator('.landing-hero')).toBeVisible()
   await expect(page.locator('.student-store-scene')).toBeVisible()
 
-  await page.getByRole('button', { name: 'Teacher sign in' }).click()
+  await page.getByRole('button', { name: 'Teachers: set up a store, no account needed' }).click()
   await expect(page).toHaveURL(/\/teacher$/)
 
-  await page.getByRole('button', { name: 'Create a teacher account' }).click()
-  await page.getByLabel('Your name').fill('Ms. Smoke')
-  await page.getByLabel('School email').fill(`smoke-${run}@school.test`)
-  await page.getByLabel('Password').fill('classgrocery1234')
-  await page.getByRole('button', { name: 'Create account' }).click()
-
-  await page.getByLabel('Your identifier').fill(run)
-  await page.getByRole('button', { name: 'Save and continue' }).click()
-
   await page.getByRole('button', { name: 'Create New Store' }).click()
-  await page.getByLabel('Store name').fill(`Smoke ${run}`)
-  await page.getByLabel('Store code').fill('P1')
+  await page.getByLabel('Store name').fill('Smoke Test Market')
   await page.getByRole('button', { name: 'Create store' }).click()
   await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
 
@@ -77,13 +64,10 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   await expect(page.locator('[data-discount-amount]')).toHaveValue('1.00')
   await expect(page.locator('.field-suffix')).toHaveText('$')
 
-  await page.getByRole('button', { name: 'Sign out' }).click()
-  await expect(page).toHaveURL(/\/$/)
-  await expect(page.locator('.landing-hero')).toBeVisible()
-
-  // A reload lands back on the welcome screen, signed out.
-  await page.reload()
-  await expect(page.locator('.landing-hero')).toBeVisible()
+  // The store was never saved, so leaving it asks first.
+  page.once('dialog', (dialog) => dialog.accept())
+  await page.getByRole('button', { name: 'My stores' }).click()
+  await expect(page.locator('.store-list')).toContainText('0 stores')
 
   expect(problems).toEqual([])
 })

@@ -15,7 +15,7 @@
         <span class="receipt-item-count">{line.item.quantity} &times; {money(line.item.price)}</span>
         <strong>{money(line.lineTotal)}</strong>
       </div>
-      {#each line.coupons as entry (entry.coupon.id)}
+      {#each line.coupons as entry (entry.coupon.code)}
         <div class="receipt-row receipt-item-coupon coupon-saving">
           <span>&#8627; {entry.coupon.code} &middot; {couponDiscountLabel(entry.coupon)}</span>
           <strong>-{money(entry.amount)}</strong>
@@ -28,7 +28,7 @@
 </div>
 <div class="receipt-rule"></div>
 <div class="receipt-row"><span>{t('receipt.listTotal')}</span><strong>{money(receipt.totalPrice)}</strong></div>
-{#each receipt.purchaseCoupons as entry (entry.coupon.id)}
+{#each receipt.purchaseCoupons as entry (entry.coupon.code)}
   <div class="receipt-row coupon-saving">
     <span>{t('receipt.entirePurchase')} &middot; {entry.coupon.code} &middot; {couponDiscountLabel(entry.coupon)}</span>
     <strong>-{money(entry.amount)}</strong>

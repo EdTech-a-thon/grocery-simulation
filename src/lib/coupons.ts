@@ -1,16 +1,10 @@
 import { cart } from './cart.svelte'
 import { money } from './catalog'
-import { current, productName, t } from './i18n/index.svelte'
-import type { Coupon } from './pocketbase'
+import { productName, t } from './i18n/index.svelte'
+import type { Coupon } from './store'
 
 export function formatCouponItem(coupon: Coupon) {
   return coupon.productId === 'all' ? t('coupon.entirePurchase') : productName(coupon.productId)
-}
-
-export function formatDate(value: string) {
-  return value
-    ? new Date(value).toLocaleString(current().locale, { dateStyle: 'medium', timeStyle: 'short' })
-    : t('coupon.noLimit')
 }
 
 export function couponCopies(coupon: Coupon) {
@@ -38,9 +32,6 @@ export function discountFor(coupon: Coupon, eligibleTotal: number) {
 
 /** Why this coupon cannot be used right now, or '' when it can. */
 export function couponStatus(coupon: Coupon) {
-  const now = Date.now()
-  if (coupon.startsAt && now < new Date(coupon.startsAt).getTime()) return t('coupon.notActiveYet')
-  if (coupon.endsAt && now > new Date(coupon.endsAt).getTime()) return t('coupon.expired')
   if (coupon.productId !== 'all' && !cart.lines.some((line) => line.id === coupon.productId)) {
     return t('coupon.needsItem', { name: productName(coupon.productId) || t('coupon.theItem') })
   }

@@ -3,10 +3,9 @@
   import StoreHeader from '$lib/components/StoreHeader.svelte'
   import { aisles } from '$lib/catalog'
   import { aisleTitle, productName, t } from '$lib/i18n/index.svelte'
-  import { errorMessage, saveStoreItem } from '$lib/pocketbase'
   import { isStoreBrand, priceEndingInNine, productById } from '$lib/products'
-  import { isStocked, priceFor, shop } from '$lib/shop.svelte'
-  import { teacher, withBusy, type StorePage } from '$lib/teacher.svelte'
+  import { isStocked, priceFor, setStocked, shop } from '$lib/shop.svelte'
+  import { teacher, type StorePage } from '$lib/teacher.svelte'
 
   let { header, onGo, onViewAsStudent }: {
     header: Snippet
@@ -36,45 +35,21 @@
   const visibleItems = $derived(aisle.items.filter((item) => inThisStoresBrandLine(item.id)))
   const stockedInAisle = $derived(visibleItems.filter((item) => isStocked(item.id)).length)
 
-  /** Saves through the store's id, which is always set on this screen. */
-  function save(productId: string, changes: { price: number; hidden?: boolean }) {
-    const storeId = shop.store?.id
-    if (!storeId) return Promise.resolve()
-    return saveStoreItem(storeId, shop.items, productId, changes)
-      .then(() => { teacher.message = t('prices.saved') })
-      .catch((error) => { teacher.message = errorMessage(error, t('prices.saveFailed')) })
-  }
-
   function changePrice(productId: string, value: string) {
     const price = Number(value)
-    if (!Number.isFinite(price) || price < 0) return
+    if (!shop.store || !Number.isFinite(price) || price < 0) return
     // A CG Value price always ends in 9 cents, so whatever a teacher types is
-    // snapped to the nearest one before it is saved.
-    void save(productId, {
-      price: isStoreBrand(productId) ? priceEndingInNine(price) : Math.round(price * 100) / 100,
-    })
-  }
-
-  function changeStock(productId: string, stocked: boolean) {
-    const item = aisle.items.find((entry) => entry.id === productId)
-    void save(productId, { price: item ? priceFor(item) : 0, hidden: !stocked })
+    // snapped to the nearest one.
+    shop.store.prices[productId] = isStoreBrand(productId) ? priceEndingInNine(price) : Math.round(price * 100) / 100
   }
 
   /** Stocks or clears the cards the teacher can see, never the hidden brand line. */
-  function stockWholeAisle(hidden: boolean) {
-    const storeId = shop.store?.id
-    if (!storeId) return
-    const items = visibleItems
-    void withBusy(async () => {
-      try {
-        await Promise.all(items.map((item) => saveStoreItem(storeId, shop.items, item.id, { price: priceFor(item), hidden })))
-        teacher.message = hidden
-          ? t('prices.aisleCleared', { aisle: aisleTitle(aisle.title) })
-          : t('prices.aisleStocked', { aisle: aisleTitle(aisle.title) })
-      } catch (error) {
-        teacher.message = errorMessage(error, t('prices.bulkFailed'))
-      }
-    })
+  function stockWholeAisle(stocked: boolean) {
+    if (!shop.store) return
+    for (const item of visibleItems) setStocked(item.id, stocked)
+    teacher.message = stocked
+      ? t('prices.aisleStocked', { aisle: aisleTitle(aisle.title) })
+      : t('prices.aisleCleared', { aisle: aisleTitle(aisle.title) })
   }
 </script>
 
@@ -110,8 +85,8 @@
               {t('prices.alsoShow', { brands: otherBrandLabel })}
             </label>
           {/if}
-          <button type="button" onclick={() => stockWholeAisle(false)}>{t('prices.stockAll')}</button>
-          <button type="button" onclick={() => stockWholeAisle(true)}>{t('prices.stockNone')}</button>
+          <button type="button" onclick={() => stockWholeAisle(true)}>{t('prices.stockAll')}</button>
+          <button type="button" onclick={() => stockWholeAisle(false)}>{t('prices.stockNone')}</button>
         </div>
       </div>
       <p class="helper-text">
@@ -149,7 +124,7 @@
                 type="checkbox"
                 checked={isStocked(item.id)}
                 aria-label={t('prices.stockLabel', { name })}
-                onchange={(event) => changeStock(item.id, event.currentTarget.checked)}
+                onchange={(event) => setStocked(item.id, event.currentTarget.checked)}
               /> {t('prices.inStore')}
             </span>
           </label>

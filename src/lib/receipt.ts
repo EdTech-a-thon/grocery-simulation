@@ -2,7 +2,7 @@ import { cart, type CartLine } from './cart.svelte'
 import { money } from './catalog'
 import { couponDiscountLabel, discountFor } from './coupons'
 import { productName, t } from './i18n/index.svelte'
-import type { Coupon } from './pocketbase'
+import type { Coupon } from './store'
 
 export type ReceiptCoupon = { coupon: Coupon; amount: number }
 export type ReceiptLine = { item: CartLine; lineTotal: number; coupons: ReceiptCoupon[] }

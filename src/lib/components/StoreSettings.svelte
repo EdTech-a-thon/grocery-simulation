@@ -24,8 +24,6 @@
   />
   {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
   <section class="store-settings-workspace">
-    {#key shop.store?.id}
-      <StoreSettingsForm store={shop.store ?? null} />
-    {/key}
+    <StoreSettingsForm store={shop.store ?? null} />
   </section>
 </main>

@@ -1,6 +1,6 @@
 import { browser } from '$app/environment'
 import type { ShelfItem } from './catalog'
-import type { Coupon } from './pocketbase'
+import type { Coupon } from './store'
 
 export type CartLine = ShelfItem & { key: string; quantity: number }
 

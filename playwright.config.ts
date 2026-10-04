@@ -1,8 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 
-// Both servers must be running:
-//   ./pocketbase serve --hooksDir=pb_hooks --migrationsDir=pb_migrations
-//   bun run dev
+// The web app must already be running; point BASE_URL at it.
 export default defineConfig({
   testDir: './tests',
   timeout: 60_000,

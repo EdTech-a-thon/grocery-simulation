@@ -31,19 +31,18 @@ const fr: LanguagePack = {
     'landing.kicker': 'Les courses comme dans la vraie vie',
     'landing.intro':
       'Un magasin d’alimentation que vous tenez pour votre classe. L’enseignant fixe les prix et les bons de réduction. Les élèves font leurs courses avec un budget et lisent le ticket de caisse.',
-    'landing.storeCode': 'Code du magasin',
-    'landing.join': 'Entrer dans le magasin',
-    'landing.codeHint': 'Tape le code que ton enseignant te donne. Le tiret est facultatif.',
-    'landing.codeNotFound': 'Ce code de magasin est introuvable. Vérifie-le avec ton enseignant.',
-    'landing.teacherSignIn': 'Connexion enseignant',
+    'landing.studentsTitle': 'Tu fais les courses avec ta classe ?',
+    'landing.linkHint':
+      'Ouvre le lien du magasin que ton enseignant te partage, et tu arriveras directement dans le magasin de ta classe.',
+    'landing.backTo': 'Retour à {name}',
+    'landing.teacherLink': 'Enseignants : créez un magasin, sans compte',
 
     'landing.howTitle': 'Comment ça marche',
     'landing.step1.title': 'Montez le magasin',
     'landing.step1.body':
       'Choisissez ce qu’il vend, ce qu’il facture et les bons qu’il imprime.',
-    'landing.step2.title': 'Partagez le code',
-    'landing.step2.body':
-      'Chaque classe reçoit un code comme **{code}**, et un lien qui l’ouvre.',
+    'landing.step2.title': 'Partager le lien',
+    'landing.step2.body': 'Copiez le lien du magasin et publiez-le là où votre classe le verra.',
     'landing.step3.title': 'Parcourez les rayons',
     'landing.step3.body':
       'Les élèves remplissent un panier, utilisent des bons et passent en caisse avec un ticket.',
@@ -59,19 +58,17 @@ const fr: LanguagePack = {
     'landing.teachers.cta': 'Créer un magasin',
     'landing.students.eyebrow': 'Pour les élèves',
     'landing.students.title': 'Ce sont eux qui font les courses',
-    'landing.students.point1': 'Entre avec un code, sans créer de compte',
+    'landing.students.point1': 'Ils ouvrent le lien de l’enseignant, sans compte',
     'landing.students.point2': 'Parcours {aisles} rayons et {products} produits',
     'landing.students.point3': 'Compare les marques directement en rayon',
     'landing.students.point4': 'Saisis un code de bon de réduction',
     'landing.students.point5': 'Passe en caisse avec un ticket détaillé',
-    'landing.students.cta': 'Saisir un code de magasin',
 
     'student.kicker': 'Bienvenue dans le magasin de ta classe',
     'student.defaultStoreName': 'Classe',
     'student.storeTitle': 'Magasin d’alimentation',
     'student.intro':
       'Réfléchis à ce que tu veux préparer, parcours les rayons et compare les prix avant de mettre quoi que ce soit dans ton panier. Les bons de réduction allongent ton budget : apporte ceux que ton enseignant a imprimés.',
-    'student.storeCode': 'Code du magasin : {code}',
     'student.enter': 'Entrer dans le magasin',
     'student.cartWaiting.one': 'Ton panier contient déjà {count} article.',
     'student.cartWaiting.other': 'Ton panier contient déjà {count} articles.',
@@ -81,14 +78,13 @@ const fr: LanguagePack = {
     'join.opening': 'Ouverture du magasin de ta classe…',
     'join.failedTitle': 'Ce lien de magasin n’a pas fonctionné',
     'join.failedBody':
-      'Le lien n’est peut-être plus à jour, ou le magasin a été supprimé. Demande le code du magasin à ton enseignant et tape-le sur la page d’accueil.',
+      'Le lien a peut-être été coupé lors de la copie. Demande à ton enseignant de le partager à nouveau.',
     'join.goHome': 'Aller à la page d’accueil',
 
     'store.empty': 'Ce magasin n’a encore rien dans ses rayons.',
     'store.emptyTeacher': 'Approvisionnez des produits dans Prix et stock.',
     'store.emptyStudent': 'Reviens voir ton enseignant.',
     'store.shoppingAt': 'Courses chez :',
-    'store.refreshPrices': 'Actualiser les prix du magasin',
 
     'shelf.aisleHeading': 'Rayon {number} : {title}',
     'shelf.aisleOption': 'Rayon {number} : {title}',
@@ -126,14 +122,11 @@ const fr: LanguagePack = {
     'coupon.limitReached': 'Tu peux utiliser jusqu’à {max} bons de la classe.',
     'coupon.alreadyApplied': 'Ce bon a déjà été utilisé.',
     'coupon.applied': '{code} appliqué !',
-    'coupon.notActiveYet': 'Ce bon n’est pas encore valable.',
-    'coupon.expired': 'Ce bon a expiré.',
     'coupon.needsItem': 'Ajoute d’abord {name} au panier.',
     'coupon.theItem': 'le produit du bon',
     'coupon.entirePurchase': 'tout l’achat',
     'coupon.percentOff': '{amount} % de réduction',
     'coupon.dollarsOff': '{amount} de réduction',
-    'coupon.noLimit': 'Sans limite',
     'coupon.offer': '{discount} sur {item}',
 
     'receipt.kicker': 'Ticket de caisse',
@@ -168,75 +161,46 @@ const fr: LanguagePack = {
     'print.couponOff': 'DE RÉDUCTION',
     'print.couponCode': 'CODE DU BON',
 
-    'login.kicker': 'Espace enseignant',
-    'login.signupTitle': 'Créez votre compte',
-    'login.signupBody':
-      'Il vous servira à vous connecter et à retrouver vos magasins sur n’importe quel ordinateur.',
-    'login.signinTitle': 'Connectez-vous à vos magasins',
-    'login.signinBody':
-      'Vos magasins, vos prix et vos bons sont enregistrés sur votre compte. Vous seul pouvez les voir.',
-    'login.name': 'Votre nom',
-    'login.namePlaceholder': 'Mme Rivera',
-    'login.email': 'Adresse e-mail de l’école',
-    'login.emailPlaceholder': 'vous@ecole.org',
-    'login.password': 'Mot de passe',
-    'login.passwordNew': 'Au moins 8 caractères',
-    'login.passwordCurrent': 'Votre mot de passe',
-    'login.createAccount': 'Créer le compte',
-    'login.signIn': 'Se connecter',
-    'login.haveAccount': 'J’ai déjà un compte',
-    'login.needAccount': 'Créer un compte enseignant',
-    'login.backHome': 'Retour à la connexion élève',
-    'login.signupFailed': 'Ce compte n’a pas pu être créé. Essayez une autre adresse e-mail.',
-    'login.signinFailed': 'Cette adresse e-mail et ce mot de passe ne correspondent pas.',
 
-    'identity.kicker': 'Une petite chose',
-    'identity.title': 'Choisissez l’identifiant de vos classes',
-    'identity.body':
-      'Il se place au début de chaque code de magasin que vous distribuez : toutes vos classes le partagent et vous reconnaissez vos codes d’un coup d’œil. Choisissez quelque chose que vos élèves peuvent lire au tableau — votre salle, votre nom, votre école.',
-    'identity.label': 'Votre identifiant',
-    'identity.suggest': 'Proposez-m’en un',
-    'identity.preview': 'Vos codes de classe ressembleront à **{first}** et **{second}**.',
-    'identity.hint': 'Entre 3 et 12 lettres ou chiffres.',
-    'identity.warning':
-      'Cela ne pourra plus être modifié : chaque code de magasin et chaque lien que vous partagez en découle.',
-    'identity.invalid': 'Utilisez 3 à 12 lettres ou chiffres.',
-    'identity.taken': 'Cet identifiant est déjà pris. Essayez-en un autre.',
-    'identity.save': 'Enregistrer et continuer',
 
     'teacher.myStores': 'Mes magasins',
     'teacher.pricesTitle': 'Prix et stock',
     'teacher.couponsTitle': 'Bons de réduction',
     'teacher.settingsTitle': 'Paramètres du magasin',
-    'teacher.signOut': 'Se déconnecter',
+    'teacher.leaveUnsaved':
+      'Ce magasin n’est pas enregistré dans ce navigateur. Le quitter quand même ? Pour le garder, choisissez « Enregistrer dans ce navigateur » ou ajoutez d’abord cette page à vos favoris.',
     'teacher.studentView': 'Vue élève',
     'teacher.exitStudentView': 'Quitter la vue élève',
 
     'store.workspace': 'Espace du magasin',
     'store.workspaceLede': 'Gérez ce que les élèves voient et utilisent dans ce magasin.',
-    'store.joinWith': 'Les élèves entrent avec',
-    'store.copyJoinCode': 'Copier le code d’accès',
-    'store.copyJoinCodeLabel': 'Copier le code d’accès {code}',
-    'store.copyJoinCodePrompt': 'Copiez le code d’accès :',
-    'store.joinCodeCopied': 'Code d’accès {code} copié.',
-    'store.copyJoinLink': 'Copier le lien d’accès',
-    'store.joinLinkCopied': 'Lien copié. Collez-le là où votre classe le verra.',
-    'store.joinLinkFallback': 'Lien d’accès : {link}',
+    'store.copyLink': 'Copier le lien élèves',
+    'store.linkCopied':
+      'Lien élèves copié. Collez-le là où votre classe le verra. Si vous modifiez le magasin plus tard, partagez un nouveau lien.',
+    'store.linkFallback': 'Lien élèves : {link}',
+    'store.saveHere': 'Enregistrer dans ce navigateur',
+    'store.savedBadge': 'Enregistré dans ce navigateur',
+    'store.savedHere': '{name} est enregistré dans ce navigateur. Vous le trouverez dans Mes magasins.',
+    'store.keepNote':
+      'Pas encore enregistré. Ajoutez cette page à vos favoris pour garder ce magasin pour de bon, ou enregistrez-le dans ce navigateur.',
+    'store.keepNoteSaved':
+      'Les modifications sont enregistrées dans ce navigateur au fur et à mesure. Ajoutez cette page à vos favoris pour garder le magasin pour de bon, ou pour l’ouvrir sur un autre ordinateur.',
     'store.viewAsStudent': 'Voir comme un élève',
     'store.tabsLabel': 'Pages du magasin',
 
     'stores.eyebrow': 'Commandes de l’enseignant',
     'stores.title': 'Créez un magasin par classe',
     'stores.body':
-      'Chaque magasin garde ses propres prix, ses propres produits en rayon et ses propres bons. Dupliquez-en un pour le réutiliser avec une autre classe.',
-    'stores.prefixNote': 'Tous vos codes de classe commencent par **{prefix}**.',
+      'Pas de compte, aucune inscription. Créez un magasin, copiez son lien élèves et partagez-le avec votre classe. Chaque magasin a ses propres prix, ses produits en rayon et ses coupons.',
     'stores.create': 'Créer un magasin',
     'stores.yours': 'Vos magasins',
     'stores.count.one': '{count} magasin',
     'stores.count.other': '{count} magasins',
-    'stores.joinWith': 'Les élèves entrent avec',
+    'stores.browserOnly':
+      'Ces magasins sont enregistrés uniquement dans ce navigateur, et nous ne les voyons jamais. Effacer les données du navigateur les supprime : ajoutez la page d’un magasin à vos favoris pour le garder pour de bon ou l’ouvrir sur un autre ordinateur.',
+    'stores.savedOn': 'Modifié le {date}',
     'stores.edit': 'Modifier le magasin',
-    'stores.copyLink': 'Copier le lien d’accès',
+    'stores.copyLink': 'Copier le lien élèves',
     'stores.duplicate': 'Dupliquer',
     'stores.settings': 'Paramètres',
     'stores.delete': 'Supprimer le magasin',
@@ -244,21 +208,17 @@ const fr: LanguagePack = {
     'stores.empty': 'Créez votre premier magasin pour commencer.',
     'stores.copyNamePrompt': 'Nom de la copie',
     'stores.copyNameDefault': '{name} (copie)',
-    'stores.copyColorPrompt': 'Couleur de la copie ({colors})',
-    'stores.copyCodePrompt': 'Code de classe pour la copie, après {prefix}-',
-    'stores.duplicated':
-      '{name} a été créé avec les mêmes prix, le même stock et les mêmes bons. Les élèves entrent avec {code}.',
-    'stores.duplicateFailed': 'Ce magasin n’a pas pu être dupliqué.',
+    'stores.duplicated': '{name} enregistré avec les mêmes prix, produits et coupons.',
     'stores.deleteConfirm':
-      'Supprimer {name} ? Ses prix et ses bons seront supprimés aussi. C’est irréversible.',
-    'stores.deleted': '{name} supprimé.',
-    'stores.deleteFailed': 'Ce magasin n’a pas pu être supprimé.',
-    'stores.linkCopied': 'Lien de {name} copié. Collez-le là où votre classe le verra.',
-    'stores.linkFallback': 'Lien d’accès de {name} : {link}',
+      'Retirer {name} de ce navigateur ? Les liens déjà partagés avec les élèves continueront de fonctionner.',
+    'stores.deleted': '{name} a été retiré de ce navigateur.',
+    'stores.linkCopied': 'Lien élèves de {name} copié. Collez-le là où votre classe le verra.',
+    'stores.linkFallback': 'Lien élèves de {name} : {link}',
+    'stores.badLink': 'Ce lien de magasin n’a pas fonctionné. Il a peut-être été coupé lors de la copie.',
 
     'settings.pageTitle': 'Réglez le fonctionnement de ce magasin',
     'settings.pageLede':
-      'Le nom et le code que votre classe voit, les marques en rayon, la taxe de vente et les bons.',
+      'Le nom que voit votre classe, les marques en rayon, la taxe de vente et les coupons.',
     'settings.eyebrowEdit': 'Paramètres du magasin',
     'settings.eyebrowNew': 'Nouveau magasin',
     'settings.editTitle': 'Modifier {name}',
@@ -266,10 +226,6 @@ const fr: LanguagePack = {
     'settings.name': 'Nom du magasin',
     'settings.namePlaceholder': 'Épicerie de la salle 204',
     'settings.color': 'Couleur du magasin',
-    'settings.code': 'Code du magasin',
-    'settings.codePreview': 'Les élèves entreront avec **{code}**',
-    'settings.codeHint':
-      'Votre identifiant est **{prefix}**. Ajoutez un code court d’au plus 6 lettres ou chiffres, comme P3 ou FRESH.',
     'settings.sells': 'Ce magasin vend',
     'settings.brandName': 'Les grandes marques',
     'settings.brandStore': 'La marque maison CG Value',
@@ -285,12 +241,8 @@ const fr: LanguagePack = {
     'settings.noCoupons': 'Pas de bons',
     'settings.save': 'Enregistrer',
     'settings.create': 'Créer le magasin',
-    'settings.badCode':
-      'Donnez à la classe un code court de 1 à 6 lettres ou chiffres, comme P3 ou FRESH.',
-    'settings.created': '{name} est prêt. Les élèves entrent avec {code}.',
-    'settings.createFailed': 'Ce magasin n’a pas pu être créé.',
-    'settings.updated': '{name} a été mis à jour. Les élèves entrent avec {code}.',
-    'settings.updateFailed': 'Ce magasin n’a pas pu être mis à jour.',
+    'settings.created': '{name} est prêt.',
+    'settings.updated': '{name} a été mis à jour.',
 
     'color.green': 'Vert',
     'color.blue': 'Bleu',
@@ -319,11 +271,8 @@ const fr: LanguagePack = {
     'prices.priceLabel': 'Prix de {name}',
     'prices.stockLabel': 'Mettre {name} en rayon dans ce magasin',
     'prices.inStore': 'Dans ce magasin',
-    'prices.saved': 'Enregistré.',
-    'prices.saveFailed': 'Cette modification n’a pas pu être enregistrée.',
     'prices.aisleStocked': 'Rayon {aisle} entièrement approvisionné.',
     'prices.aisleCleared': 'Rayon {aisle} retiré des étagères.',
-    'prices.bulkFailed': 'Ces modifications n’ont pas pu être enregistrées.',
 
     'coupons.pageTitle': 'Donnez à votre classe de quoi gérer un budget',
     'coupons.pageLede':
@@ -352,13 +301,11 @@ const fr: LanguagePack = {
     'coupons.empty': 'Les bons que vous créez apparaîtront ici.',
     'coupons.badCode':
       'Utilisez 3 à 20 lettres, chiffres, espaces ou signes simples pour le code du bon.',
+    'coupons.codeTaken': 'Ce magasin a déjà un coupon avec le code {code}.',
     'coupons.badAmount': 'Saisissez une réduction supérieure à zéro.',
     'coupons.created': '{code} créé.',
-    'coupons.createFailed': 'Ce bon n’a pas pu être créé.',
     'coupons.randomCreated.one': '{count} modèle de bon créé au hasard.',
     'coupons.randomCreated.other': '{count} modèles de bons créés au hasard.',
-    'coupons.randomFailed': 'Ces bons n’ont pas pu être créés.',
-    'coupons.deleteFailed': 'Ce bon n’a pas pu être supprimé.',
     'coupons.printEyebrow': 'Imprimer des bons',
     'coupons.printAllTitle': 'Imprimer tous les bons',
     'coupons.printOneTitle': 'Imprimer le bon',
@@ -388,23 +335,13 @@ const fr: LanguagePack = {
     'privacy.title': 'Confidentialité',
     'privacy.lede': 'Ce que nous collectons, ce que nous ne collectons pas, et pourquoi.',
     'privacy.students':
-      'ClassGrocery ne collecte aucune information personnelle sur les élèves. Une classe rejoint un magasin avec un code : pas de compte élève, pas de nom, pas d’adresse e-mail. L’enseignant qui s’inscrit donne une adresse e-mail et un mot de passe, utilisés uniquement pour le connecter et pour que ses magasins restent les siens.',
+      'ClassGrocery n’a pas de comptes et ne recueille aucune information personnelle, ni sur les enseignants ni sur les élèves. Un magasin (son nom, ses prix et ses coupons) voyage dans son propre lien, dans la partie qui suit le signe #. Les navigateurs n’envoient jamais cette partie à un serveur, donc nous ne la voyons jamais.',
     'privacy.analytics':
       'Nous utilisons Cloudflare Web Analytics pour compter anonymement les visites, ce qui nous aide à comprendre comment ClassGrocery est utilisé en classe. Cloudflare Web Analytics n’utilise pas de cookies, ne crée pas d’empreinte des visiteurs et ne les suit pas sur d’autres sites ; voir la [politique de confidentialité](cloudflare) de Cloudflare pour le détail. Nous ne partageons, ne vendons ni ne transférons aucune donnée de visiteur à des tiers.',
     'privacy.storage':
-      'ClassGrocery enregistre le code du magasin rejoint par un élève et le contenu de son panier dans le stockage local de son navigateur ; ces informations ne quittent jamais son appareil.',
+      'ClassGrocery garde quelques informations dans le stockage local de votre navigateur : les magasins qu’un enseignant choisit d’enregistrer, le dernier magasin ouvert par un élève, le contenu de son panier et la langue choisie. Ces informations ne quittent jamais votre appareil.',
     'privacy.contact':
       'Des questions ou des inquiétudes ? Écrivez à [support@classgrocery.com](support).',
-
-    // Réponses du serveur. Voir en.ts.
-    'server.join-label-taken': 'Vous avez déjà une classe avec le code {label}. Donnez-en un autre à celle-ci.',
-    'server.join-label-invalid': 'Donnez à la classe un code court de 1 à 6 lettres ou chiffres, comme P3.',
-    'server.identifier-missing': 'Choisissez l’identifiant de vos classes avant de créer un magasin.',
-    'server.store-name-missing': 'Donnez un nom au nouveau magasin.',
-    'server.store-not-found': 'Ce magasin est introuvable.',
-    'server.brand-mode-invalid': 'Choisissez les marques à mettre en rayon.',
-    'server.nothing-to-stock': 'Il n’y a rien à mettre en rayon.',
-    'server.coupon-code-unavailable': 'Un code de bon n’a pas pu être généré. Réessayez.',
   },
 
   aisles: {

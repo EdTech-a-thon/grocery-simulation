@@ -3,7 +3,7 @@
   import Cart from './Cart.svelte'
   import Shelf from './Shelf.svelte'
   import { t } from '$lib/i18n/index.svelte'
-  import { refreshJoinedStore, shop, shoppableAisles } from '$lib/shop.svelte'
+  import { shop, shoppableAisles } from '$lib/shop.svelte'
 
   let { asTeacher = false, header }: { asTeacher?: boolean; header: Snippet } = $props()
 
@@ -19,13 +19,6 @@
   function selectAisle(index: number) {
     if (index >= 0 && index < shoppable.length) shop.aisleIndex = index
   }
-
-  // Students see price changes their teacher makes while the class is shopping.
-  $effect(() => {
-    if (asTeacher || !shop.studentJoinCode) return
-    const timer = window.setInterval(() => void refreshJoinedStore(), 10_000)
-    return () => window.clearInterval(timer)
-  })
 </script>
 
 <main class="storefront-shell">
@@ -38,11 +31,8 @@
           {asTeacher ? t('store.emptyTeacher') : t('store.emptyStudent')}
         </div>
       {:else}
-        {#if !asTeacher && shop.studentJoinCode}
-          <p class="class-status">
-            {t('store.shoppingAt')} <strong>{shop.store?.name ?? shop.studentJoinCode}</strong>
-            <button type="button" disabled={shop.refreshing} onclick={() => void refreshJoinedStore()}>{t('store.refreshPrices')}</button>
-          </p>
+        {#if !asTeacher && shop.store}
+          <p class="class-status">{t('store.shoppingAt')} <strong>{shop.store.name}</strong></p>
         {/if}
         <Shelf
           aisle={shoppable[currentIndex]}

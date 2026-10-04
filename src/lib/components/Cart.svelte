@@ -20,7 +20,7 @@
 
   function applyCouponCode(rawCode: string) {
     const code = rawCode.trim().toUpperCase()
-    const coupon = shop.coupons.find((item) => item.code === code)
+    const coupon = shop.store?.coupons.find((item) => item.code === code)
     if (!coupon) {
       message = t('coupon.notFound')
       return
@@ -75,7 +75,7 @@
             {line.quantity} x {money(line.price)} =
             {#if lineSavings > 0}<s>{money(line.price * line.quantity)}</s> <strong>{money(line.price * line.quantity - lineSavings)}</strong>{:else}{money(line.price * line.quantity)}{/if}
           </span>
-          {#each receiptLine?.coupons ?? [] as entry (entry.coupon.id)}
+          {#each receiptLine?.coupons ?? [] as entry (entry.coupon.code)}
             <span class="cart-line-coupon">{entry.coupon.code} · {couponDiscountLabel(entry.coupon)} · -{money(entry.amount)}</span>
           {/each}
         </div>
@@ -93,7 +93,7 @@
   <div class="cart-totals">
     {#if receipt.discount > 0}
       <div><span>{t('cart.listTotal')}</span><strong>{money(receipt.totalPrice)}</strong></div>
-      {#each receipt.purchaseCoupons as entry (entry.coupon.id)}
+      {#each receipt.purchaseCoupons as entry (entry.coupon.code)}
         <div class="cart-purchase-coupon"><span>{entry.coupon.code} · {couponDiscountLabel(entry.coupon)}</span><strong>-{money(entry.amount)}</strong></div>
       {/each}
       <div class="cart-savings"><span>{t('cart.savings')}</span><strong>-{money(receipt.discount)}</strong></div>

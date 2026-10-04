@@ -3,74 +3,64 @@
 A grocery-store simulation for practicing real-life grocery shopping: planning
 meals, sticking to a budget, clipping coupons and comparing prices. Teachers set
 up a store for each class — its prices, which products it stocks, and its printable
-coupons. Students join with a store code and shop, then read an itemized receipt.
+coupons. Students open the store's link and shop, then read an itemized receipt.
+
+There are no accounts and no database. A store travels inside its own link, so
+ClassGrocery collects nothing about the teachers or students who use it.
 
 ## Running it locally
 
-You need two processes: PocketBase (the database) and the web app.
-
 ```bash
-# once, to fetch the pinned PocketBase build and install packages
-./deploy/install-pocketbase.sh
 bun install
-
-# terminal 1 — the database
-./pocketbase serve --hooksDir=pb_hooks --migrationsDir=pb_migrations
-
-# terminal 2 — the web app on http://localhost:8000
-bun run dev
+bun run dev    # the web app on http://localhost:8000
 ```
 
-The first time PocketBase starts it prints a link for creating an admin account,
-and it applies everything in `pb_migrations/` on its own — there is no separate
-"run the migrations" step.
+Teachers build stores at `/teacher`. Students arrive through a store's link.
 
-Point the app at the database with `.env.local` (copy `.env.example`):
+## Store links
 
-```
-VITE_POCKETBASE_URL=http://127.0.0.1:8090
-```
-
-Teachers sign up at `/teacher`. Students join at `/` with a store code, or by
-following a join link.
-
-## Join codes
-
-A store code is two halves — the teacher's class identifier, chosen once when
-they sign up, and a short label they give each class:
+A store is a small object — its name, colour, brand line, tax and coupon
+settings, plus only the prices and stocking choices the teacher changed (see
+`src/lib/store.ts`). To share it, that object is packed into one-letter keys,
+compressed, and written into the link after the `#`:
 
 ```
-OTTER  -  P3
-^ the identifier, unique across the whole site
-          ^ the label, unique only within that teacher
+https://classgrocery.com/shop#q1YqU7Iy1FHKU7JSCsrPz1UwMjBR8E0syk4tUaoFAA
+                              ^ the whole store
 ```
 
-Making the identifier unique is what lets the label be something a teacher
-already has in their head: a period number, a room, a class name. Two teachers
-can both run a `P3` without ever knowing about each other, which the old
-site-wide codes could not manage — the first teacher to claim `ROOM-204` claimed
-it for everybody.
+Browsers never send the part after a `#` to any server, which is what lets the
+site promise it never sees a store. A fresh store makes a link of about 70
+characters; every changed price adds a few more.
 
-The dash is decoration. Codes are matched on `joinKey`, the two halves run
-together in upper case, so `OTTER-P3`, `otterp3` and `Otter P3` all open the
-same store. Teachers can also hand out a link — `/j/OTTERP3` — which opens the
-store without the class typing anything.
+- `/shop#…` is the **student link**. It opens the store and remembers it in the
+  student's browser, so the front page takes them back to it next time.
+- `/teacher#…` is the **teacher's page** for the same store. The address bar is
+  kept up to date with every change, so bookmarking the page keeps the store for
+  good, on any computer.
+- **Saved stores** are an optional list kept in the teacher's own browser
+  (`src/lib/savedStores.svelte.ts`). A saved store saves itself again on every
+  change. Clearing browser data empties the list, which is why the pages
+  recommend a bookmark too.
 
-The identifier cannot be changed once it is set, because every code and link
-already given out is built from it. The `teachers` update rule enforces that, so
-it holds even if the screen is bypassed.
+A student link is a snapshot. When a teacher changes prices after sharing, they
+share a new link; students who opened the old one keep shopping the old store.
+
+Links are untrusted input: `unpackStore()` drops unknown products, clamps
+numbers and ignores anything malformed. A link that cannot be read at all shows
+"That store link did not work".
 
 ## How the code is laid out
 
 The app is SvelteKit, but it has no server of its own: `bun run build` writes a
-plain folder of files to `dist/`, and the browser talks to PocketBase directly.
+plain folder of files to `dist/`, and everything happens in the browser.
 
 | Path                  | What lives there                                                    |
 | --------------------- | ------------------------------------------------------------------- |
-| `src/routes/`         | The two pages: `/` for students, `/teacher` for teachers.            |
+| `src/routes/`         | `/` and `/shop` for students, `/teacher` for teachers.               |
 | `src/lib/components/` | The screens and pieces they share — shelves, cart, print sheets.     |
-| `src/lib/*.svelte.ts` | Shared state: the open store, the cart, the teacher's stores.        |
-| `src/lib/*.ts`        | Plain logic with no screen attached: prices, coupons, join codes.    |
+| `src/lib/*.svelte.ts` | Shared state: the open store, the cart, the saved stores.            |
+| `src/lib/*.ts`        | Plain logic with no screen attached: stores, links, coupons.         |
 | `src/app.css`         | Every style in the app, in one file.                                 |
 | `art/references/`     | One verified drawing per package format, adapted to draw products.   |
 | `art/masters/`        | The layered source drawing for each product.                         |
@@ -125,37 +115,24 @@ stronger model and redrawing rejects with the criticism attached.
 
 ## How the pieces fit together
 
-The browser talks to PocketBase directly through its JS SDK — there is no backend
-of our own in between. Who may read or change what is decided by PocketBase's
-collection API Rules, not by checks in the app code, so a teacher can only ever
-see their own stores.
+**The 175-product catalog lives in the code** — `src/lib/products.ts` for the
+products and `src/lib/aisles/*.json` for which aisle each one sits on. A store
+records only what differs from it:
 
-**The 175-product catalog lives in the code, not the database** —
-`src/lib/products.ts` for the products and `src/lib/aisles/*.json` for which aisle
-each one sits on. PocketBase stores only what differs per store:
+| Field      | What it holds                                                          |
+| ---------- | ---------------------------------------------------------------------- |
+| `prices`   | Prices the teacher changed. A CG item with no price follows its name brand. |
+| `stocked`  | Products put on or taken off the shelves against what the brand line stocks. |
+| `coupons`  | Code, percent or dollars off, and the product (or `all`) it applies to. |
 
-| Collection    | What it holds                                                        |
-| ------------- | -------------------------------------------------------------------- |
-| `teachers`    | Teacher accounts (email, password, and their class identifier).       |
-| `stores`      | One per class: name, color, and the label half of its join code.     |
-| `store_items` | Per-store price and stocking changes. No row means "stocked, at the catalog price". |
-| `coupons`     | Per-store coupons. Codes are unique so they can be scanned as barcodes. |
-
-Three things API Rules cannot express live in `pb_hooks/classgrocery.pb.js`:
-
-- `GET /api/classgrocery/store/{joinCode}` — students have no account, so this is
-  the one public read. Rules correctly hide every store from a signed-out visitor.
-- `POST /api/classgrocery/stores/{id}/duplicate` — copies a store's items and
-  coupons in a single transaction. The copy gets **new** coupon codes, so sheets
-  printed for last term's class cannot be spent in the new one.
-- Create and update hooks on `stores` work out `joinKey` from the owner's
-  identifier and overwrite whatever the browser sent, so a teacher cannot claim a
-  code outside their own identifier.
+Changing the brand line forgets the hand-stocked choices and keeps the prices.
+Loose food — fruit, raw cuts, the bakery — has no CG twin, so it stays on the
+shelves whichever line is stocked.
 
 ## Tests
 
-`bun run test` drives a real browser through the whole thing. Both servers above
-must already be running.
+`bun run test` drives a real browser through the whole thing. The web app must
+already be running; point `BASE_URL` at it.
 
 ```bash
 bun run typecheck   # svelte-check

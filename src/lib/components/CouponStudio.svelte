@@ -2,13 +2,11 @@
   import type { Snippet } from 'svelte'
   import StoreHeader from '$lib/components/StoreHeader.svelte'
   import { couponOffer } from '$lib/coupons'
-  import {
-    createCoupon, deleteCoupon, errorMessage, newCouponCode,
-  } from '$lib/pocketbase'
   import { plural, productName, t } from '$lib/i18n/index.svelte'
   import { printCoupons } from '$lib/printing.svelte'
   import { shop, stockedProductIds } from '$lib/shop.svelte'
-  import { teacher, withBusy, type StorePage } from '$lib/teacher.svelte'
+  import { newCouponCode, type Coupon } from '$lib/store'
+  import { teacher, type StorePage } from '$lib/teacher.svelte'
 
   let { header, onGo, onViewAsStudent }: {
     header: Snippet
@@ -24,21 +22,22 @@
   let printTarget = $state<'all' | string | null>(null)
   let printCopies = $state<Record<string, string>>({})
 
+  const coupons = $derived(shop.store?.coupons ?? [])
   const inDollars = $derived(discountType === 'dollars')
   const couponsToPrint = $derived(
     printTarget === 'all'
-      ? shop.coupons
-      : shop.coupons.filter((coupon) => coupon.id === printTarget),
+      ? coupons
+      : coupons.filter((coupon) => coupon.code === printTarget),
   )
 
-  function copiesFor(couponId: string) {
-    return Math.min(100, Math.max(1, Number(printCopies[couponId]) || 1))
+  function copiesFor(code: string) {
+    return Math.min(100, Math.max(1, Number(printCopies[code]) || 1))
   }
 
   function choosePrint(target: 'all' | string) {
     printTarget = target
-    for (const coupon of target === 'all' ? shop.coupons : shop.coupons.filter((item) => item.id === target)) {
-      printCopies[coupon.id] ??= '1'
+    for (const coupon of target === 'all' ? coupons : coupons.filter((item) => item.code === target)) {
+      printCopies[coupon.code] ??= '1'
     }
   }
 
@@ -51,7 +50,7 @@
   }
 
   function openPrintPreview() {
-    printCoupons(couponsToPrint.map((coupon) => ({ ...coupon, copies: copiesFor(coupon.id) })))
+    printCoupons(couponsToPrint.map((coupon) => ({ ...coupon, copies: copiesFor(coupon.code) })))
     printTarget = null
   }
 
@@ -61,13 +60,19 @@
     discountAmount = discountType === 'dollars' ? '1.00' : '10'
   }
 
+  function add(coupon: Coupon) {
+    shop.store?.coupons.push(coupon)
+  }
+
   function create(event: SubmitEvent) {
     event.preventDefault()
-    const storeId = shop.store?.id
-    if (!storeId) return
     const code = couponCode.trim().toUpperCase()
     if (!/^[A-Z0-9 .$/+%-]{3,20}$/.test(code)) {
       teacher.message = t('coupons.badCode')
+      return
+    }
+    if (coupons.some((coupon) => coupon.code === code)) {
+      teacher.message = t('coupons.codeTaken', { code })
       return
     }
     const amount = Number(discountAmount)
@@ -75,61 +80,29 @@
       teacher.message = t('coupons.badAmount')
       return
     }
-    void withBusy(async () => {
-      try {
-        const coupon = await createCoupon(storeId, {
-          code,
-          discountType,
-          discountAmount: amount,
-          productId,
-          startsAt: '',
-          endsAt: '',
-          copies: 1,
-        })
-        shop.coupons.push(coupon)
-        teacher.message = t('coupons.created', { code: coupon.code })
-        couponCode = ''
-      } catch (error) {
-        teacher.message = errorMessage(error, t('coupons.createFailed'))
-      }
-    })
+    add({ code, discountType, discountAmount: amount, productId, copies: 1 })
+    teacher.message = t('coupons.created', { code })
+    couponCode = ''
   }
 
   function createRandomCoupons() {
-    const storeId = shop.store?.id
-    if (!storeId) return
     const designs = Math.min(10, Math.max(1, Number(randomDesigns) || 1))
     const percents = [5, 10, 15, 20, 25, 30, 40, 50]
     const productIds = ['all', ...stockedProductIds()]
-    void withBusy(async () => {
-      try {
-        for (let index = 0; index < designs; index++) {
-          shop.coupons.push(await createCoupon(storeId, {
-            code: newCouponCode(),
-            discountType: 'percent',
-            discountAmount: percents[Math.floor(Math.random() * percents.length)],
-            productId: productIds[Math.floor(Math.random() * productIds.length)],
-            startsAt: '',
-            endsAt: '',
-            copies: 1,
-          }))
-        }
-        teacher.message = plural('coupons.randomCreated', designs)
-      } catch (error) {
-        teacher.message = errorMessage(error, t('coupons.randomFailed'))
-      }
-    })
+    for (let index = 0; index < designs; index++) {
+      add({
+        code: newCouponCode(),
+        discountType: 'percent',
+        discountAmount: percents[Math.floor(Math.random() * percents.length)],
+        productId: productIds[Math.floor(Math.random() * productIds.length)],
+        copies: 1,
+      })
+    }
+    teacher.message = plural('coupons.randomCreated', designs)
   }
 
-  function remove(couponId: string) {
-    void withBusy(async () => {
-      try {
-        await deleteCoupon(couponId)
-        shop.coupons = shop.coupons.filter((coupon) => coupon.id !== couponId)
-      } catch (error) {
-        teacher.message = errorMessage(error, t('coupons.deleteFailed'))
-      }
-    })
+  function remove(code: string) {
+    if (shop.store) shop.store.coupons = shop.store.coupons.filter((coupon) => coupon.code !== code)
   }
 </script>
 
@@ -182,28 +155,28 @@
         <input required bind:value={couponCode} minlength="3" maxlength="20" pattern="[A-Za-z0-9 .$/+%\-]+" placeholder={t('coupons.codePlaceholder')} />
         <span class="field-help">{t('coupons.codeHelp')}</span>
       </label>
-      <button class="primary-button" type="submit" disabled={teacher.busy}>{t('coupons.create')}</button>
+      <button class="primary-button" type="submit">{t('coupons.create')}</button>
       <div class="random-coupon-box">
         <div><p class="eyebrow">{t('coupons.quickSet')}</p><h3>{t('coupons.randomTitle')}</h3></div>
         <label>{t('coupons.designs')}<input bind:value={randomDesigns} type="number" min="1" max="10" step="1" /></label>
-        <button class="randomize-button" type="button" disabled={teacher.busy} onclick={createRandomCoupons}>{t('coupons.generate')}</button>
+        <button class="randomize-button" type="button" onclick={createRandomCoupons}>{t('coupons.generate')}</button>
       </div>
     </form>
     <section class="coupon-list">
       <div class="section-heading">
-        <div><p class="eyebrow">{t('coupons.listEyebrow')}</p><h2>{t('coupons.ready', { count: shop.coupons.length })}</h2></div>
-        {#if shop.coupons.length}
+        <div><p class="eyebrow">{t('coupons.listEyebrow')}</p><h2>{t('coupons.ready', { count: coupons.length })}</h2></div>
+        {#if coupons.length}
           <button class="primary-button" type="button" onclick={() => choosePrint('all')}>{t('coupons.printAll')}</button>
         {/if}
       </div>
-      {#each shop.coupons as coupon (coupon.id)}
+      {#each coupons as coupon (coupon.code)}
         <article class="coupon-summary">
           <div>
             <strong>{couponOffer(coupon)}</strong>
             <span>{coupon.code}</span>
           </div>
-          <button data-print-one-coupon type="button" onclick={() => choosePrint(coupon.id)}>{t('coupons.print')}</button>
-          <button type="button" aria-label={t('coupons.deleteLabel', { code: coupon.code })} onclick={() => remove(coupon.id)}>{t('coupons.delete')}</button>
+          <button data-print-one-coupon type="button" onclick={() => choosePrint(coupon.code)}>{t('coupons.print')}</button>
+          <button type="button" aria-label={t('coupons.deleteLabel', { code: coupon.code })} onclick={() => remove(coupon.code)}>{t('coupons.delete')}</button>
         </article>
       {:else}
         <div class="empty-coupons">{t('coupons.empty')}</div>
@@ -224,11 +197,11 @@
       </div>
       <p class="helper-text">{t('coupons.printHelp')}</p>
       <div class="print-copy-list">
-        {#each couponsToPrint as coupon (coupon.id)}
+        {#each couponsToPrint as coupon (coupon.code)}
           <label class="coupon-copy-control">
             <span><strong>{couponOffer(coupon)}</strong><small>{coupon.code}</small></span>
             {t('coupons.copies')}
-            <input type="number" min="1" max="100" step="1" bind:value={printCopies[coupon.id]} />
+            <input type="number" min="1" max="100" step="1" bind:value={printCopies[coupon.code]} />
           </label>
         {/each}
       </div>
