@@ -210,7 +210,7 @@ const en: LanguagePack = {
     'store.linkSnapshot':
       'Links do not update. After any change, copy the student link again and share the new one.',
     'store.linkOutdated':
-      'You changed this store after copying its student link. Students will not see these changes until you share a new link.',
+      'This store has changed since its student link was made. Students will not see these changes until you share a new link.',
     'store.copyNewLink': 'Copy new student link',
     'store.saveHere': 'Save in this browser',
     'store.savedBadge': 'Saved in this browser',
@@ -250,6 +250,13 @@ const en: LanguagePack = {
       'Student link for {name} copied. If you change this store later, you will need to share a new link.',
     'stores.linkFallback': 'Student link for {name}: {link}',
     'stores.badLink': 'That store link did not work. It may have been cut short when it was copied.',
+    'stores.openLinkTitle': 'Edit a store from its link',
+    'stores.openLinkBody':
+      'Paste a student link to open that store here. Change what you need, then copy the new student link and share it.',
+    'stores.openLinkLabel': 'Student link',
+    'stores.openLinkButton': 'Open for editing',
+    'stores.openedFromLink':
+      'Opened {name} from its link. When you are done, copy the new student link and share it with your class.',
 
     // ------------------------------------------------------ store settings
     'settings.pageTitle': 'Set up how this store works',

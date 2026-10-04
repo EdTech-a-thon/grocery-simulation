@@ -186,7 +186,7 @@ const es: LanguagePack = {
     'store.linkSnapshot':
       'Los enlaces no se actualizan. Después de cualquier cambio, vuelve a copiar el enlace para estudiantes y comparte el nuevo.',
     'store.linkOutdated':
-      'Cambiaste esta tienda después de copiar su enlace para estudiantes. Los estudiantes no verán estos cambios hasta que compartas un enlace nuevo.',
+      'Esta tienda cambió desde que se creó su enlace para estudiantes. Los estudiantes no verán estos cambios hasta que compartas un enlace nuevo.',
     'store.copyNewLink': 'Copiar enlace nuevo para estudiantes',
     'store.saveHere': 'Guardar en este navegador',
     'store.savedBadge': 'Guardada en este navegador',
@@ -226,6 +226,13 @@ const es: LanguagePack = {
       'Enlace para estudiantes de {name} copiado. Si cambias esta tienda después, tendrás que compartir un enlace nuevo.',
     'stores.linkFallback': 'Enlace para estudiantes de {name}: {link}',
     'stores.badLink': 'Ese enlace de tienda no funcionó. Es posible que se haya cortado al copiarlo.',
+    'stores.openLinkTitle': 'Editar una tienda desde su enlace',
+    'stores.openLinkBody':
+      'Pega un enlace para estudiantes para abrir esa tienda aquí. Cambia lo que necesites, luego copia el enlace nuevo para estudiantes y compártelo.',
+    'stores.openLinkLabel': 'Enlace para estudiantes',
+    'stores.openLinkButton': 'Abrir para editar',
+    'stores.openedFromLink':
+      'Se abrió {name} desde su enlace. Cuando termines, copia el enlace nuevo para estudiantes y compártelo con tu clase.',
 
     'settings.pageTitle': 'Configura cómo funciona esta tienda',
     'settings.pageLede':

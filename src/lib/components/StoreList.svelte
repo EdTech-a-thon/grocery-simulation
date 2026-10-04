@@ -3,14 +3,16 @@
   import StoreSettingsModal from '$lib/components/StoreSettingsModal.svelte'
   import { current, plural, t } from '$lib/i18n/index.svelte'
   import { forgetSavedStore, saveStore, saved, type SavedStore } from '$lib/savedStores.svelte'
-  import { copyText, encodeStore, studentLink } from '$lib/sharing'
+  import { copyText, decodeStore, encodeStore, encodedFromLink, studentLink } from '$lib/sharing'
   import type { Store } from '$lib/store'
   import { teacher, type StorePage } from '$lib/teacher.svelte'
 
   let { header, onOpenStore }: {
     header: Snippet
-    onOpenStore: (store: Store, savedId: string | null, page?: StorePage) => void
+    onOpenStore: (store: Store, savedId: string | null, page?: StorePage, fromStudentLink?: boolean) => void
   } = $props()
+
+  let pastedLink = $state('')
 
   // A store that already exists edits its settings on its own page; the modal is
   // only for a store that does not exist yet, and so has no page to open.
@@ -22,6 +24,22 @@
   /** Opens a copy, so nothing reaches the saved list until it is saved again. */
   function edit(entry: SavedStore, page?: StorePage) {
     onOpenStore($state.snapshot(entry.store) as Store, entry.id, page)
+  }
+
+  /**
+   * Opens a store from a link the class already has. Nothing is saved: the
+   * teacher edits a copy and hands out a new link, and the old one keeps
+   * working as it was.
+   */
+  async function openPastedLink(event: SubmitEvent) {
+    event.preventDefault()
+    const store = await decodeStore(encodedFromLink(pastedLink))
+    if (!store) {
+      teacher.message = t('stores.badLink')
+      return
+    }
+    onOpenStore(store, null, 'prices', true)
+    teacher.message = t('stores.openedFromLink', { name: store.name })
   }
 
   function savedOn(entry: SavedStore) {
@@ -61,6 +79,17 @@
   </section>
   {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
   <section class="store-workspace">
+    <form class="open-link-form" onsubmit={openPastedLink}>
+      <div>
+        <h2>{t('stores.openLinkTitle')}</h2>
+        <p>{t('stores.openLinkBody')}</p>
+      </div>
+      <label>
+        <span>{t('stores.openLinkLabel')}</span>
+        <input required bind:value={pastedLink} type="text" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://…/shop#…" />
+      </label>
+      <button class="teacher-secondary-button" type="submit">{t('stores.openLinkButton')}</button>
+    </form>
     <section class="store-list">
       <div class="section-heading">
         <div>

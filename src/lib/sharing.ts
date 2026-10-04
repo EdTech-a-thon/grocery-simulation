@@ -26,6 +26,16 @@ export async function decodeStore(encoded: string): Promise<Store | null> {
   }
 }
 
+/**
+ * The store string out of anything a teacher pastes: a student link, their own
+ * store page's link, or just the part after the #. Stray spaces from copying
+ * out of an email or a class page are ignored.
+ */
+export function encodedFromLink(pasted: string) {
+  const text = pasted.trim()
+  return text.includes('#') ? text.slice(text.indexOf('#') + 1).trim() : text
+}
+
 /** The link students open. It drops them straight into the store. */
 export function studentLink(encoded: string) {
   return `${origin()}/shop#${encoded}`

@@ -187,7 +187,7 @@ const fr: LanguagePack = {
     'store.linkSnapshot':
       'Les liens ne se mettent pas à jour. Après chaque modification, copiez à nouveau le lien élèves et partagez le nouveau.',
     'store.linkOutdated':
-      'Vous avez modifié ce magasin après avoir copié son lien élèves. Les élèves ne verront pas ces modifications tant que vous n’aurez pas partagé un nouveau lien.',
+      'Ce magasin a changé depuis la création de son lien élèves. Les élèves ne verront pas ces modifications tant que vous n’aurez pas partagé un nouveau lien.',
     'store.copyNewLink': 'Copier le nouveau lien élèves',
     'store.saveHere': 'Enregistrer dans ce navigateur',
     'store.savedBadge': 'Enregistré dans ce navigateur',
@@ -227,6 +227,13 @@ const fr: LanguagePack = {
       'Lien élèves de {name} copié. Si vous modifiez ce magasin plus tard, il faudra partager un nouveau lien.',
     'stores.linkFallback': 'Lien élèves de {name} : {link}',
     'stores.badLink': 'Ce lien de magasin n’a pas fonctionné. Il a peut-être été coupé lors de la copie.',
+    'stores.openLinkTitle': 'Modifier un magasin à partir de son lien',
+    'stores.openLinkBody':
+      'Collez un lien élèves pour ouvrir ce magasin ici. Modifiez ce qu’il faut, puis copiez le nouveau lien élèves et partagez-le.',
+    'stores.openLinkLabel': 'Lien élèves',
+    'stores.openLinkButton': 'Ouvrir pour modifier',
+    'stores.openedFromLink':
+      '{name} a été ouvert à partir de son lien. Quand vous avez fini, copiez le nouveau lien élèves et partagez-le avec votre classe.',
 
     'settings.pageTitle': 'Réglez le fonctionnement de ce magasin',
     'settings.pageLede':

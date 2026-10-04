@@ -20,6 +20,9 @@
 
   let screen = $state<Screen>('stores')
   let loading = $state(true)
+  // Set when a store is opened from a student link the class already has, so
+  // the first version written to the address counts as the one they were given.
+  let openedFromStudentLink = false
 
   // A teacher's own store link — a bookmark, or one pasted into the address
   // bar — opens that store for editing.
@@ -38,10 +41,11 @@
     }
   }
 
-  function open(store: Store, savedId: string | null, page: StorePage = 'prices') {
+  function open(store: Store, savedId: string | null, page: StorePage = 'prices', fromStudentLink = false) {
     openStore(store)
     teacher.savedId = savedId
     teacher.sharedEncoded = ''
+    openedFromStudentLink = fromStudentLink
     teacher.message = ''
     screen = page
   }
@@ -57,6 +61,10 @@
     void encodeStore(snapshot).then((encoded) => {
       if (shop.store !== store) return // another store was opened in the meantime
       teacher.encoded = encoded
+      if (openedFromStudentLink) {
+        teacher.sharedEncoded = encoded
+        openedFromStudentLink = false
+      }
       replaceState(`/teacher#${encoded}`, {})
       if (isSaved(savedId)) saveStore(snapshot, savedId)
     })
