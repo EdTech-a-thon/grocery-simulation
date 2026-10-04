@@ -43,7 +43,7 @@ const nameBrandSizes: Record<string, string> = {
   // Dairy and eggs
   'whipped-cream': '13 oz', 'refrigerated-biscuits': '8 ct', 'cheese-sticks': '12 ct',
   'cottage-cheese': '16 oz', 'margarine': '45 oz', 'almond-milk': '64 fl oz', 'milk': '1 gal',
-  'soymilk': '64 fl oz', 'cheddar-cheese-slices': '8 oz', 'mozzarella-cheese': '8 oz',
+  'soymilk': '32 fl oz', 'cheddar-cheese-slices': '8 oz', 'mozzarella-cheese': '8 oz',
   'yogurt': '6 oz', 'eggs': '12 ct', 'sour-cream': '16 oz', 'cream-cheese': '8 oz', 'butter': '8 oz',
 
   // Frozen foods
@@ -77,8 +77,8 @@ const nameBrandSizes: Record<string, string> = {
 
   // Beverages
   'orangejuice': '52 fl oz', 'soda-can': '12 ct', 'soda-2l-bottle': '67.6 fl oz', 'water': '24 ct',
-  'flavored-water': '16.9 fl oz', 'sparkling-water': '33.8 fl oz', 'apple-juice': '64 fl oz',
-  'lemonade': '52 fl oz', 'cranberry-juice': '64 fl oz', 'energy-drink': '16 fl oz', 'coffee': '12 oz',
+  'flavored-water': '16.9 fl oz', 'sparkling-water': '16.9 fl oz', 'apple-juice': '64 fl oz',
+  'lemonade': '52 fl oz', 'cranberry-juice': '32 fl oz', 'energy-drink': '16 fl oz', 'coffee': '12 oz',
   'tea': '20 ct', 'sports-drink': '28 fl oz', 'drink-mix-powder': '10 ct', 'protein-shakes': '11 fl oz',
 
   // Snacks
@@ -111,7 +111,7 @@ const storeBrandSizes: Record<string, string> = {
   'tortillas': '8 ct', 'sausage-patties': '6 ct', 'deli-meat': '7 oz', 'ham': '2 lb', 'meatballs': '26 oz',
   'soda-can': '8 ct', 'apple-juice': '46 fl oz', 'coffee': '10 oz', 'potato-chips': '6 oz',
   'crackers': '9 oz', 'cookies': '11 oz', 'cheese-crackers': '7 oz', 'sugar': '2 lb',
-  'chocolate-chips': '10 oz', 'oil': '32 fl oz', 'vanilla-extract': '1 fl oz',
+  'chocolate-chips': '9 oz', 'oil': '32 fl oz', 'vanilla-extract': '1 fl oz',
 }
 
 /** '12.5 fl oz' -> { amount: 12.5, unit: 'fl oz' } */
@@ -137,14 +137,7 @@ export function unitPrice(price: number, size: PackageSize) {
   return size.amount > 0 ? price / size.amount : 0
 }
 
-/**
- * Real shelf tags show a unit price under a dollar to a tenth of a cent
- * ($0.266), because two brands are often only that far apart. A dollar or more
- * is shown in plain cents ($4.10). Always US dollars, like every other price.
- */
+/** A unit price in dollars and cents ($0.27), like every other price. */
 export function formatUnitPrice(value: number) {
-  const digits = value < 1 ? 3 : 2
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency', currency: 'USD', minimumFractionDigits: digits, maximumFractionDigits: digits,
-  }).format(value)
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
 }

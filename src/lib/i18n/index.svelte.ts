@@ -111,9 +111,9 @@ export function productNote(productId: string) {
 }
 
 /**
- * The unit price on a shelf tag: "$0.266/oz", or "$0.40 each" for things
+ * The unit price on a shelf tag: "$0.27/oz", or "$0.40 each" for things
  * counted rather than weighed. `spoken` gives the screen-reader wording,
- * "$0.266 per oz", which the tag has no room for on a phone. The unit itself is
+ * "$0.27 per oz", which the tag has no room for on a phone. The unit itself is
  * not translated — like the dollars, it is the US measure the lesson is about.
  */
 export function unitPriceText(price: number, size: PackageSize, spoken = false) {

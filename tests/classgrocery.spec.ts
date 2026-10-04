@@ -374,8 +374,8 @@ test('a teacher changes a package size, and students compare unit prices', async
 
   // Half the eggs for $0.20 less: cheaper on the sticker, dearer per egg.
   const student = await studentInDairy()
-  await expect(student.getByRole('button', { name: 'Add Eggs for $1.59, 12 ct, $0.133 each' })).toBeVisible()
-  await expect(student.getByRole('button', { name: 'Add CG Eggs for $1.39, 6 ct, $0.232 each' })).toBeVisible()
+  await expect(student.getByRole('button', { name: 'Add Eggs for $1.59, 12 ct, $0.13 each' })).toBeVisible()
+  await expect(student.getByRole('button', { name: 'Add CG Eggs for $1.39, 6 ct, $0.23 each' })).toBeVisible()
   await student.close()
 
   // Sizes only: the class works the unit price out for itself.
