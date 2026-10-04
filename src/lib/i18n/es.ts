@@ -56,14 +56,7 @@ const es: LanguagePack = {
     'landing.students.point4': 'Escribe un código de cupón',
     'landing.students.point5': 'Paga y recibe un recibo detallado',
 
-    'student.kicker': 'Bienvenido a la tienda de tu clase',
-    'student.defaultStoreName': 'Clase',
-    'student.storeTitle': 'Supermercado',
-    'student.intro':
-      'Piensa qué quieres preparar, recorre los pasillos y compara precios antes de poner algo en el carrito. Los cupones estiran tu presupuesto, así que trae los que imprimió tu maestro.',
-    'student.enter': 'Entrar a la tienda',
-    'student.cartWaiting.one': 'Tu carrito tiene {count} producto esperando.',
-    'student.cartWaiting.other': 'Tu carrito tiene {count} productos esperando.',
+    'student.enter': 'Entrar',
     'student.headerTitle': 'Reto de compras de la clase',
     'student.switchRole': 'Cambiar de vista',
 
@@ -223,6 +216,7 @@ const es: LanguagePack = {
     'color.blue': 'Azul',
     'color.purple': 'Morado',
     'color.orange': 'Naranja',
+    'color.yellow': 'Amarillo',
     'color.pink': 'Rosa',
     'color.red': 'Rojo',
 

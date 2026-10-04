@@ -3,24 +3,22 @@
   import { goto } from '$app/navigation'
   import AppHeader from '$lib/components/AppHeader.svelte'
   import LanguagePicker from '$lib/components/LanguagePicker.svelte'
+  import StoreEntrance from '$lib/components/StoreEntrance.svelte'
   import StoreFront from '$lib/components/StoreFront.svelte'
   import StoreScene from '$lib/components/StoreScene.svelte'
   import SiteFooter from '$lib/components/SiteFooter.svelte'
-  import { cartTotals } from '$lib/cart.svelte'
   import { aisles } from '$lib/catalog'
-  import { plural, t } from '$lib/i18n/index.svelte'
+  import { t } from '$lib/i18n/index.svelte'
   import { products } from '$lib/products'
   import { decodeStore } from '$lib/sharing'
   import { openStore, shop } from '$lib/shop.svelte'
   import type { Store } from '$lib/store'
 
-  type Screen = 'welcome' | 'dashboard' | 'store'
+  type Screen = 'welcome' | 'entrance' | 'store'
 
   let screen = $state<Screen>('welcome')
   /** The store this browser last opened from a teacher's link, if any. */
   let lastStore = $state<Store | null>(null)
-
-  const itemCount = $derived(cartTotals().totalItems)
 
   // A student who arrived through a store link comes straight into that store,
   // and comes back to it on a later visit.
@@ -32,7 +30,7 @@
 
   function enter(store: Store) {
     openStore(store)
-    screen = 'dashboard'
+    screen = 'entrance'
   }
 </script>
 
@@ -116,29 +114,14 @@
 
     <SiteFooter />
   </main>
-{:else if screen === 'dashboard'}
-  <main class="student-dashboard-page">
-    <section class="student-dashboard-card" aria-labelledby="student-dashboard-title">
-      <div class="student-dashboard-copy">
-        <p class="welcome-kicker">{t('student.kicker')}</p>
-        <h1 id="student-dashboard-title">{shop.store?.name ?? t('student.defaultStoreName')}<br />{t('student.storeTitle')}</h1>
-        <p>{t('student.intro')}</p>
-        <button class="student-shop-button" type="button" onclick={() => (screen = 'store')}>
-          {t('student.enter')} <span aria-hidden="true">&rarr;</span>
-        </button>
-        {#if itemCount}
-          <p class="saved-cart-note">{plural('student.cartWaiting', itemCount)}</p>
-        {/if}
-      </div>
-      <StoreScene />
-    </section>
-  </main>
+{:else if screen === 'entrance' && shop.store}
+  <StoreEntrance store={shop.store} onEnter={() => (screen = 'store')} />
 {:else}
-  <StoreFront header={studentHeader} />
+  <div class="store-arrive"><StoreFront header={studentHeader} /></div>
 {/if}
 
 {#snippet studentHeader()}
-  <AppHeader title={t('student.headerTitle')} onHome={() => (screen = 'dashboard')}>
+  <AppHeader title={t('student.headerTitle')} onHome={() => (screen = 'entrance')}>
     {#snippet nav()}
       <button type="button" onclick={() => (screen = 'welcome')}>{t('student.switchRole')}</button>
     {/snippet}

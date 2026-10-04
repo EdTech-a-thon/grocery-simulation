@@ -6,7 +6,7 @@ import { test, expect, type Page } from '@playwright/test'
 /** Opens a student link and returns the shelf button for milk at the given price. */
 async function milkOnTheShelf(page: Page, link: string, price: string) {
   await page.goto(link)
-  await page.getByRole('button', { name: 'Enter the store' }).click()
+  await page.getByRole('button', { name: 'Enter', exact: true }).click()
   for (let attempt = 0; attempt < 14; attempt++) {
     if ((await page.locator('.shelf-topline h2').innerText()).includes('Dairy and Eggs')) break
     await page.getByRole('button', { name: 'Next aisle' }).click()

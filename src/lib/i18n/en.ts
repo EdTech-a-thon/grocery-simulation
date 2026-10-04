@@ -77,15 +77,8 @@ const en: LanguagePack = {
     'landing.students.point4': 'Type in a coupon code',
     'landing.students.point5': 'Check out with an itemized receipt',
 
-    // ------------------------------------------------------ student dashboard
-    'student.kicker': 'Welcome to your class store',
-    'student.defaultStoreName': 'Class',
-    'student.storeTitle': 'Grocery Store',
-    'student.intro':
-      'Plan what you want to make, walk the aisles, and compare prices before anything goes in your cart. Coupons stretch your budget, so bring the ones your teacher printed.',
-    'student.enter': 'Enter the store',
-    'student.cartWaiting.one': 'Your cart has {count} item waiting.',
-    'student.cartWaiting.other': 'Your cart has {count} items waiting.',
+    // ------------------------------------------------------ student store
+    'student.enter': 'Enter',
     'student.headerTitle': 'Class grocery challenge',
     'student.switchRole': 'Switch role',
 
@@ -250,6 +243,7 @@ const en: LanguagePack = {
     'color.blue': 'Blue',
     'color.purple': 'Purple',
     'color.orange': 'Orange',
+    'color.yellow': 'Yellow',
     'color.pink': 'Pink',
     'color.red': 'Red',
 

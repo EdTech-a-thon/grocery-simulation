@@ -54,8 +54,8 @@ async function stock(page: Page, aisle: string, products: string[]) {
 /** Opens the store the way a student does: by following the link. */
 async function openAsStudent(page: Page, link = studentUrl()) {
   await page.goto(link)
-  await expect(page.getByRole('heading', { name: /Grocery Store/ })).toBeVisible()
-  await page.getByRole('button', { name: 'Enter the store' }).click()
+  await expect(page.getByRole('heading', { name: store.name })).toBeVisible()
+  await page.getByRole('button', { name: 'Enter', exact: true }).click()
   await expect(page.locator('.shelf-stage')).toBeVisible()
 }
 
@@ -265,10 +265,10 @@ test('a student comes back to the same store on a later visit', async ({ page })
   await expect(page.getByRole('heading', { name: new RegExp(store.name) })).toBeVisible()
 
   // The welcome screen offers the way back in too.
-  await page.getByRole('button', { name: 'Enter the store' }).click()
+  await page.getByRole('button', { name: 'Enter', exact: true }).click()
   await page.getByRole('button', { name: 'Switch role' }).click()
   await page.getByRole('button', { name: `Back to ${store.name}` }).click()
-  await expect(page.getByRole('button', { name: 'Enter the store' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Enter', exact: true })).toBeVisible()
 })
 
 test('a damaged link explains itself', async ({ page }) => {

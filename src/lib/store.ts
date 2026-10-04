@@ -6,7 +6,7 @@ import { isPackagedProduct } from './unbranded'
 // database: a teacher builds one in the browser, and it travels to the class
 // inside a link (see sharing.ts). Everything here is plain data so that it can.
 
-export const storeColors = ['green', 'blue', 'purple', 'orange', 'pink', 'red'] as const
+export const storeColors = ['green', 'blue', 'purple', 'orange', 'yellow', 'pink', 'red'] as const
 export type StoreColor = (typeof storeColors)[number]
 
 /** Which brand line the shelves carry: the name brands, the CG Value line, or both. */

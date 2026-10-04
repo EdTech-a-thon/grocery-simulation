@@ -57,14 +57,7 @@ const fr: LanguagePack = {
     'landing.students.point4': 'Saisis un code de bon de réduction',
     'landing.students.point5': 'Passe en caisse avec un ticket détaillé',
 
-    'student.kicker': 'Bienvenue dans le magasin de ta classe',
-    'student.defaultStoreName': 'Classe',
-    'student.storeTitle': 'Magasin d’alimentation',
-    'student.intro':
-      'Réfléchis à ce que tu veux préparer, parcours les rayons et compare les prix avant de mettre quoi que ce soit dans ton panier. Les bons de réduction allongent ton budget : apporte ceux que ton enseignant a imprimés.',
-    'student.enter': 'Entrer dans le magasin',
-    'student.cartWaiting.one': 'Ton panier contient déjà {count} article.',
-    'student.cartWaiting.other': 'Ton panier contient déjà {count} articles.',
+    'student.enter': 'Entrer',
     'student.headerTitle': 'Défi courses de la classe',
     'student.switchRole': 'Changer de vue',
 
@@ -224,6 +217,7 @@ const fr: LanguagePack = {
     'color.blue': 'Bleu',
     'color.purple': 'Violet',
     'color.orange': 'Orange',
+    'color.yellow': 'Jaune',
     'color.pink': 'Rose',
     'color.red': 'Rouge',
 

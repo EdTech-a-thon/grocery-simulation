@@ -177,14 +177,6 @@ button {
 .welcome-cart { position: absolute; z-index: 5; bottom: 22px; left: 49%; width: 116px; height: 71px; transform: rotate(-7deg); border: 7px solid #ffffff; border-top: 0; border-radius: 0 0 16px 16px; background: #22a052; }
 .welcome-cart::before { content: ''; position: absolute; width: 53px; height: 7px; top: -17px; left: -27px; border-radius: 8px; background: #ffffff; transform: rotate(28deg); }.welcome-cart span { position: absolute; bottom: -18px; width: 18px; height: 18px; border-radius: 50%; background: #14532d; }.welcome-cart span:first-child { left: 12px; }.welcome-cart span:nth-child(2) { right: 12px; }.welcome-cart img { position: absolute; width: 42px; height: 54px; object-fit: contain; bottom: 35px; }.welcome-cart img:nth-of-type(1) { left: 13px; }.welcome-cart img:nth-of-type(2) { right: 9px; }
 
-.student-dashboard-page { min-height: 100vh; padding: clamp(14px,3vw,40px); display: grid; place-items: center; background: #eaf8ee; }
-.student-dashboard-card { width: min(1180px,100%); min-height: min(700px,calc(100vh - 40px)); overflow: hidden; border-radius: var(--radius-xl); background: #fff; box-shadow: var(--shadow-lg); display: grid; grid-template-columns: minmax(0,1fr) minmax(420px,1.05fr); }
-.student-dashboard-copy { padding: clamp(38px,7vw,90px); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
-.student-dashboard-copy h1 { margin: 13px 0 17px; color: #14532d; font-size: clamp(2.5rem,5vw,5rem); line-height: .93; letter-spacing: -.06em; }
-.student-dashboard-copy > p:not(.welcome-kicker) { max-width: 32rem; color: #4b6354; font-size: 1.08rem; line-height: 1.6; }
-.student-shop-button { margin-top: 29px; border: 0; border-radius: var(--radius-md); padding: 15px 22px; background: #15803d; color: #fff; cursor: pointer; font: inherit; font-weight: 900; box-shadow: var(--shadow-sm); }
-.student-shop-button span { margin-left: 8px; font-size: 1.2rem; }.student-shop-button:hover { background: #166534; transform: translateY(-1px); }
-.saved-cart-note { margin-top: 15px; color: #64748b !important; font-size: .86rem !important; }
 .student-store-scene { position: relative; min-height: 560px; overflow: hidden; background: linear-gradient(180deg,#a9ddf5 0 68%,#4baa63 68% 100%); }
 .welcome-card > .student-store-scene { min-height: 550px; }
 .student-sun { position:absolute;top:48px;right:62px;width:72px;height:72px;border:8px solid rgba(255,255,255,.55);border-radius:50%;background:#fef3a5; }.student-cloud { position:absolute;width:96px;height:23px;border-radius:99px;background:rgba(255,255,255,.86); }.student-cloud::before,.student-cloud::after { content:'';position:absolute;border-radius:50%;background:inherit; }.student-cloud::before { width:40px;height:40px;left:16px;bottom:0; }.student-cloud::after { width:28px;height:28px;right:14px;bottom:0; }.student-cloud-one { top:98px;left:42px; }.student-cloud-two { top:153px;right:30px;transform:scale(.63); }.student-ground { position:absolute;z-index:1;left:-10%;right:-10%;bottom:-80px;height:210px;border-radius:50% 50% 0 0;background:#399554; }
@@ -1421,12 +1413,6 @@ p {
 }
 
 @media (max-width: 700px) {
-  .student-dashboard-page { padding: 12px; }
-
-  .student-dashboard-card { min-height: calc(100vh - 24px); grid-template-columns: 1fr; grid-template-rows: auto minmax(390px,1fr); border-radius: var(--radius-xl); }
-
-  .student-dashboard-copy { padding: 42px 30px 32px; }
-
   .student-store-scene { min-height: 390px; }
 
   .student-market-building { left: 8%; right: 8%; bottom: 66px; transform: scale(.9); transform-origin: bottom center; }
@@ -1560,7 +1546,16 @@ p {
 [data-color="purple"], [data-store-color="purple"] { --store-color: #a855f7; }
 [data-color="orange"], [data-store-color="orange"] { --store-color: #f97316; }
 [data-color="pink"], [data-store-color="pink"] { --store-color: #ec4899; }
-[data-color="red"], [data-store-color="red"] { --store-color: #ef4444; }
+[data-color="green"], [data-store-color="green"] { --store-color-dark: #15803d; }
+[data-color="blue"], [data-store-color="blue"] { --store-color-dark: #1d4ed8; }
+[data-color="purple"], [data-store-color="purple"] { --store-color-dark: #7e22ce; }
+[data-color="orange"], [data-store-color="orange"] { --store-color-dark: #c2410c; }
+[data-color="pink"], [data-store-color="pink"] { --store-color-dark: #be185d; }
+[data-color="red"], [data-store-color="red"] { --store-color: #ef4444; --store-color-dark: #b91c1c; }
+/* Yellow is too light for white lettering, so its signs and buttons are
+   written in brown. (Every other colour's button uses its darker shade, which
+   white text can be read on.) */
+[data-color="yellow"], [data-store-color="yellow"] { --store-color: #facc15; --store-color-dark: #a16207; --store-ink: #422006; --store-ink-shadow: none; --store-button: #facc15; }
 
 /* ------------------------------------------------------- product workspace
    The landing page is intentionally open and bright. The working screens use
@@ -1922,7 +1917,7 @@ p {
 .store-sidebar .sidebar-storefront:hover { background: linear-gradient(180deg, #a9ddf5 0 86%, #4baa63 86%); border-color: #86c79a; transform: translateY(-1px); }
 .store-sidebar .sidebar-storefront.active { border-color: #15803d; }
 .sidebar-storefront-sign, .sidebar-storefront-window { display: block; }
-.sidebar-storefront-sign { position: relative; z-index: 1; max-width: 100%; margin-bottom: -8px; border: 4px solid #fff; border-radius: 10px; padding: 6px 12px; background: var(--store-color); color: #fff; font-size: .95rem; font-weight: 1000; line-height: 1.15; text-align: center; text-shadow: 0 1px 2px rgba(0,0,0,.25); overflow-wrap: anywhere; }
+.sidebar-storefront-sign { position: relative; z-index: 1; max-width: 100%; margin-bottom: -8px; border: 4px solid #fff; border-radius: 10px; padding: 6px 12px; background: var(--store-color); color: var(--store-ink, #fff); font-size: .95rem; font-weight: 1000; line-height: 1.15; text-align: center; text-shadow: var(--store-ink-shadow, 0 1px 2px rgba(0,0,0,.25)); overflow-wrap: anywhere; }
 .sidebar-storefront-awning { width: 100%; height: 26px; display: flex; overflow: hidden; border-radius: 8px 8px 0 0; background: #fff; }
 .sidebar-storefront-awning i { flex: 1; background: var(--store-color); transform: skewX(-13deg); }
 .sidebar-storefront-awning i:nth-child(even) { background: #fff; }
@@ -2040,7 +2035,7 @@ p {
 .store-preview { position: sticky; top: 24px; margin: 0; border: 1px solid #d7e7da; border-radius: var(--radius-lg); overflow: hidden; background: #a9ddf5; }
 .store-preview figcaption { position: absolute; top: 10px; left: 12px; z-index: 1; border-radius: var(--radius-sm); padding: 3px 8px; background: rgba(255,255,255,.85); color: #31533b; font-size: .7rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
 .store-preview-front { padding: 46px 28px 0; display: grid; justify-items: center; }
-.store-preview-sign { position: relative; z-index: 1; max-width: 100%; margin-bottom: -10px; border: 5px solid #fff; border-radius: 12px; padding: 8px 18px; background: var(--store-color); color: #fff; font-size: clamp(1rem, 2vw, 1.35rem); font-weight: 1000; line-height: 1.1; text-align: center; text-shadow: 0 1px 2px rgba(0,0,0,.25); box-shadow: 0 6px 0 rgba(0,0,0,.12); overflow-wrap: anywhere; }
+.store-preview-sign { position: relative; z-index: 1; max-width: 100%; margin-bottom: -10px; border: 5px solid #fff; border-radius: 12px; padding: 8px 18px; background: var(--store-color); color: var(--store-ink, #fff); font-size: clamp(1rem, 2vw, 1.35rem); font-weight: 1000; line-height: 1.1; text-align: center; text-shadow: var(--store-ink-shadow, 0 1px 2px rgba(0,0,0,.25)); box-shadow: 0 6px 0 rgba(0,0,0,.12); overflow-wrap: anywhere; }
 .store-preview-awning { width: 100%; height: 40px; display: flex; overflow: hidden; border-radius: 10px 10px 0 0; background: #fff; }
 .store-preview-awning i { flex: 1; background: var(--store-color); transform: skewX(-13deg); }
 .store-preview-awning i:nth-child(even) { background: #fff; }
@@ -2066,4 +2061,79 @@ p {
   .store-sidebar-actions { flex: 1 0 100%; margin-top: 0; padding-top: 10px; display: flex; flex-wrap: wrap; }
   .store-settings-page { grid-template-columns: 1fr; }
   .store-preview { position: relative; top: 0; }
+}
+
+/* ------------------------------------------------------- store entrance
+   Where a student's link lands: their store, full screen, on a sunny day. The
+   sign and stripes are in the store's colour. Pressing Enter opens the doors
+   (--doors-open), then walks the camera in through them (--walk-in) while the
+   picture fades into the aisles' own background. */
+.entrance { position: relative; height: 100vh; height: 100dvh; min-height: 480px; overflow: hidden; background: #f4faf5; }
+.entrance-scene { position: absolute; inset: 0; background: linear-gradient(180deg, #6ec1ec, #bfe7fa 74%); }
+
+.entrance-sun { position: absolute; top: 7vh; left: 9vw; width: clamp(64px, 9vw, 120px); aspect-ratio: 1; border: 10px solid rgba(255,255,255,.5); border-radius: 50%; background: #fde68a; box-shadow: 0 0 60px 20px rgba(254,240,138,.55); }
+.entrance-cloud { position: absolute; width: 140px; height: 34px; border-radius: 99px; background: rgba(255,255,255,.92); animation: entrance-drift 40s linear infinite alternate; }
+.entrance-cloud::before, .entrance-cloud::after { content: ''; position: absolute; bottom: 0; border-radius: 50%; background: inherit; }
+.entrance-cloud::before { left: 24px; width: 60px; height: 60px; }
+.entrance-cloud::after { right: 22px; width: 42px; height: 42px; }
+.entrance-cloud-one { top: 12vh; left: 26vw; }
+.entrance-cloud-two { top: 8vh; right: 14vw; transform: scale(.8); animation-duration: 55s; animation-direction: alternate-reverse; }
+.entrance-cloud-three { top: 25vh; right: 4vw; transform: scale(.55); animation-duration: 34s; }
+@keyframes entrance-drift { to { translate: 6vw 0; } }
+
+/* The grass, with a pavement running along the front of the shop. */
+.entrance-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 26%; background: linear-gradient(180deg, #d6d3d1 0 14px, #a8a29e 14px 18px, #5dbb72 18px, #3f9c56); }
+
+.entrance-building { position: absolute; left: 50%; bottom: calc(26% - 4px); width: min(860px, 92vw); height: clamp(230px, 44vh, 420px); translate: -50% 0; border: 8px solid var(--store-color-dark); border-bottom: 0; border-radius: 22px 22px 0 0; padding: clamp(58px, 11%, 86px) 6% 0; background: #fff; display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 6%; align-items: end; box-shadow: 0 24px 50px rgba(15,60,30,.18); }
+/* A roof band behind the sign. */
+.entrance-building::before { content: ''; position: absolute; left: 6%; right: 6%; top: -40px; height: 48px; border-radius: 18px 18px 0 0; background: var(--store-color-dark); }
+
+.entrance-sign { position: absolute; z-index: 2; top: 0; left: 0; right: 0; width: fit-content; max-width: 86%; translate: 0 -78%; margin: 0 auto; border: 7px solid #fff; border-radius: 16px; padding: .28em .8em; background: var(--store-color); color: var(--store-ink, #fff); font-size: clamp(1.5rem, 4.4vw, 3.2rem); font-weight: 1000; letter-spacing: .01em; line-height: 1.05; text-align: center; text-shadow: var(--store-ink-shadow, 0 2px 3px rgba(0,0,0,.25)); box-shadow: 0 8px 0 rgba(0,0,0,.14); overflow-wrap: anywhere; }
+
+.entrance-awning { position: absolute; top: 0; left: -8px; right: -8px; height: clamp(34px, 9%, 52px); display: flex; overflow: hidden; border-radius: 12px 12px 0 0; border-bottom: 6px solid var(--store-color-dark); background: #fff; }
+.entrance-awning i { flex: 1; background: var(--store-color); transform: skewX(-13deg); }
+.entrance-awning i:nth-child(even) { background: #fff; }
+
+/* Shop windows with shelves of colourful groceries behind the glass. */
+.entrance-window { align-self: center; height: 62%; border: 7px solid var(--store-color-dark); border-radius: 10px; padding: 10% 8% 0; background: linear-gradient(135deg, #f0f9ff, #d4ecfa); display: grid; align-content: start; gap: 14%; overflow: hidden; }
+.entrance-window i { display: block; height: 18px; border-bottom: 5px solid #cbd5e1; background: repeating-linear-gradient(90deg, #f87171 0 14px, transparent 14px 18px, #fbbf24 18px 32px, transparent 32px 36px, #4ade80 36px 50px, transparent 50px 54px, #60a5fa 54px 68px, transparent 68px 72px); }
+
+/* The doorway: a lit shop floor behind two glass doors that swing inwards. */
+.entrance-doorway { position: relative; height: 82%; border: 8px solid var(--store-color-dark); border-bottom: 0; border-radius: 12px 12px 0 0; perspective: 900px; overflow: hidden; }
+.entrance-inside { position: absolute; inset: 0; padding: 14% 10% 0; background: linear-gradient(180deg, #fffdf5 0 64%, #e7e5e4 64%); display: grid; grid-template-columns: repeat(3, 1fr); gap: 12%; align-items: start; }
+.entrance-inside i { height: 56%; border-radius: 4px; background: repeating-linear-gradient(180deg, #fca5a5 0 10px, #fde68a 10px 20px, #94a3b8 20px 23px, #86efac 23px 33px, #93c5fd 33px 43px, #94a3b8 43px 46px); }
+.entrance-door { position: absolute; top: 0; bottom: 0; width: 50%; border: 6px solid var(--store-color-dark); background: linear-gradient(160deg, rgba(224,242,254,.96), rgba(186,230,253,.9)); transition: transform var(--doors-open) cubic-bezier(.3,.7,.4,1); }
+.entrance-door::after { content: ''; position: absolute; top: 42%; width: 6px; height: 22%; border-radius: 3px; background: var(--store-color-dark); }
+.entrance-door-left { left: 0; border-left: 0; transform-origin: left center; }
+.entrance-door-left::after { right: 10px; }
+.entrance-door-right { right: 0; border-right: 0; transform-origin: right center; }
+.entrance-door-right::after { left: 10px; }
+
+.entrance-button { position: absolute; z-index: 3; left: 50%; bottom: 13%; translate: -50% 50%; min-width: min(320px, 80vw); border: 6px solid #fff; border-radius: 999px; padding: .45em 1.6em; background: var(--store-button, var(--store-color-dark)); color: var(--store-ink, #fff); cursor: pointer; font: inherit; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 1000; letter-spacing: .02em; box-shadow: 0 8px 0 rgba(0,0,0,.22), 0 20px 40px rgba(0,0,0,.22); transition: transform .15s, box-shadow .15s, opacity .25s; animation: entrance-beckon 2.4s ease-in-out infinite; }
+.entrance-button:hover { transform: translateY(-3px); box-shadow: 0 11px 0 rgba(0,0,0,.22), 0 24px 44px rgba(0,0,0,.24); }
+.entrance-button:active { transform: translateY(4px); box-shadow: 0 4px 0 rgba(0,0,0,.22), 0 12px 24px rgba(0,0,0,.2); }
+.entrance-button:focus-visible { animation: none; outline: 5px solid #1e293b; outline-offset: 4px; }
+/* A soft ring that pulses out of the button, so it is clearly the thing to press. */
+@keyframes entrance-beckon { 0% { outline: 0 solid rgba(255,255,255,.75); } 100% { outline: 22px solid rgba(255,255,255,0); } }
+
+/* Entering: doors open, then the camera walks in and the scene fades to the aisles. */
+.entering .entrance-button { opacity: 0; animation: none; pointer-events: none; }
+.entering .entrance-door-left { transform: rotateY(80deg); }
+.entering .entrance-door-right { transform: rotateY(-80deg); }
+.entering .entrance-scene { transform: scale(var(--walk-in-scale, 12)); transition: transform var(--walk-in) cubic-bezier(.55,0,.75,.35) var(--doors-open); }
+.entrance::after { content: ''; position: absolute; inset: 0; z-index: 4; background: inherit; opacity: 0; pointer-events: none; }
+.entering::after { opacity: 1; transition: opacity calc(var(--walk-in) * .35) ease-in calc(var(--doors-open) + var(--walk-in) * .65); }
+
+/* The aisles fade in after the walk-in, so the hand-over has no hard cut. */
+.store-arrive { animation: store-arrive .35s ease-out; }
+@keyframes store-arrive { from { opacity: 0; } }
+
+@media (max-width: 700px) {
+  .entrance-building { width: 96vw; grid-template-columns: .8fr 1.3fr .8fr; gap: 5%; padding-left: 4%; padding-right: 4%; }
+  .entrance-window { border-width: 5px; }
+  .entrance-window i { height: 12px; border-bottom-width: 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entrance-cloud, .entrance-button, .store-arrive { animation: none; }
 }
