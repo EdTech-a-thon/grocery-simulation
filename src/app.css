@@ -1967,7 +1967,9 @@ p {
 .cg-tooltip { display: none; position: absolute; right: 0; bottom: calc(100% + 8px); z-index: 30; width: 210px; border-radius: var(--radius-md); padding: 10px 12px; background: #14532d; color: #fff; font-size: .76rem; font-weight: 600; line-height: 1.45; box-shadow: var(--shadow-lg); }
 .cg-info-wrap:hover .cg-tooltip, .cg-info-wrap:focus-within .cg-tooltip { display: block; }
 .store-main .aisle-picker h3 { color: #4b6354; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
-.price-edit-card { position: relative; cursor: pointer; }
+.price-edit-card { position: relative; cursor: pointer; user-select: none; }
+.price-edit-card input, .price-edit-card select { user-select: text; }
+.shift-click-hint { margin-right: 6px; color: #64748b; font-size: .78rem; font-weight: 600; }
 .price-edit-card:hover { background: #f7fbf8; }
 .price-edit-card-hidden:hover { opacity: .8; }
 .stock-checkbox { position: absolute; top: 10px; left: 10px; width: 18px; height: 18px; margin: 0; accent-color: #16a34a; cursor: pointer; }

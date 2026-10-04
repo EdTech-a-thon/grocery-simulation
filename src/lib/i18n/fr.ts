@@ -250,6 +250,11 @@ const fr: LanguagePack = {
     'prices.stockLabel': 'Mettre {name} en rayon dans ce magasin',
     'prices.aisleStocked': 'Rayon {aisle} entièrement approvisionné.',
     'prices.aisleCleared': 'Rayon {aisle} retiré des étagères.',
+    'prices.shiftClickHint': 'Maj + clic change toute une série de produits.',
+    'prices.runStocked.one': '{count} produit mis en rayon.',
+    'prices.runStocked.other': '{count} produits mis en rayon.',
+    'prices.runCleared.one': '{count} produit retiré des rayons.',
+    'prices.runCleared.other': '{count} produits retirés des rayons.',
     'prices.sizeLabel': 'Taille du paquet : {name}',
     'prices.sizeUnitLabel': 'Unité : {name}',
 

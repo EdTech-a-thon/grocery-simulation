@@ -276,6 +276,11 @@ const en: LanguagePack = {
     'prices.stockLabel': 'Stock {name} in this store',
     'prices.aisleStocked': '{aisle} fully stocked.',
     'prices.aisleCleared': '{aisle} taken off the shelves.',
+    'prices.shiftClickHint': 'Shift-click to change a run of products.',
+    'prices.runStocked.one': '{count} product put on the shelves.',
+    'prices.runStocked.other': '{count} products put on the shelves.',
+    'prices.runCleared.one': '{count} product taken off the shelves.',
+    'prices.runCleared.other': '{count} products taken off the shelves.',
     'prices.sizeLabel': 'Package size for {name}',
     'prices.sizeUnitLabel': 'Unit for {name}',
 

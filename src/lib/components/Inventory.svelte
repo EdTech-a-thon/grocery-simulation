@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from '$lib/components/Icon.svelte'
   import { aisles, type AisleItem } from '$lib/catalog'
-  import { aisleTitle, productName, t, unitPriceText } from '$lib/i18n/index.svelte'
+  import { aisleTitle, plural, productName, t, unitPriceText } from '$lib/i18n/index.svelte'
   import { isStoreBrand, priceEndingInNine, productById } from '$lib/products'
   import { isStocked, priceFor, setStocked, shop, sizeFor } from '$lib/shop.svelte'
   import { catalogSize, isSizeUnit, sizeUnits, type PackageSize } from '$lib/sizes'
@@ -64,13 +64,34 @@
     document.querySelector('.store-main')?.scrollTo({ top: 0 })
   }
 
+  /** The product last clicked on or off, where a shift-click's run starts. */
+  let anchorId: string | null = null
+
   /**
-   * A click anywhere on a card, picture included, puts the product on or off
-   * the shelves, unless it landed in one of the card's own fields.
+   * Puts a product on or off the shelves. With shift held, every product from
+   * the last one clicked to this one goes the same way, as in a file list.
+   */
+  function toggle(productId: string, shiftKey: boolean) {
+    const stocked = !isStocked(productId)
+    const from = visibleItems.findIndex((item) => item.id === anchorId)
+    const to = visibleItems.findIndex((item) => item.id === productId)
+    anchorId = productId
+    if (!shiftKey || from === -1 || from === to) {
+      setStocked(productId, stocked)
+      return
+    }
+    const run = visibleItems.slice(Math.min(from, to), Math.max(from, to) + 1)
+    for (const item of run) setStocked(item.id, stocked)
+    teacher.message = plural(stocked ? 'prices.runStocked' : 'prices.runCleared', run.length)
+  }
+
+  /**
+   * A click anywhere on a card, picture included, does what its checkbox does,
+   * unless it landed in one of the card's own fields.
    */
   function toggleFromCard(event: MouseEvent, productId: string) {
     if ((event.target as HTMLElement).closest('input, select, button, .teacher-money-input, .teacher-size-input')) return
-    setStocked(productId, !isStocked(productId))
+    toggle(productId, event.shiftKey)
   }
 </script>
 
@@ -104,6 +125,7 @@
           <h2>{aisleTitle(aisle.title)}</h2>
         </div>
         <div class="stock-bulk-actions">
+          <span class="shift-click-hint">{t('prices.shiftClickHint')}</span>
           <button type="button" onclick={() => stockWholeAisle(true)}>{t('prices.stockAll')}</button>
           <button type="button" onclick={() => stockWholeAisle(false)}>{t('prices.stockNone')}</button>
         </div>
@@ -126,7 +148,7 @@
               type="checkbox"
               checked={isStocked(item.id)}
               aria-label={t('prices.stockLabel', { name })}
-              onchange={(event) => setStocked(item.id, event.currentTarget.checked)}
+              onclick={(event) => toggle(item.id, event.shiftKey)}
             />
             {#if isStoreBrand(item.id)}
               <button class="brand-tag" type="button" popovertarget="cg-info"><Icon name="dollar" />{t('prices.cgTag')}</button>

@@ -249,6 +249,11 @@ const es: LanguagePack = {
     'prices.stockLabel': 'Tener {name} en esta tienda',
     'prices.aisleStocked': '{aisle} totalmente surtido.',
     'prices.aisleCleared': '{aisle} se quitó de los estantes.',
+    'prices.shiftClickHint': 'Mayúsculas + clic cambia varios productos seguidos.',
+    'prices.runStocked.one': '{count} producto puesto en los estantes.',
+    'prices.runStocked.other': '{count} productos puestos en los estantes.',
+    'prices.runCleared.one': '{count} producto quitado de los estantes.',
+    'prices.runCleared.other': '{count} productos quitados de los estantes.',
     'prices.sizeLabel': 'Tamaño del paquete de {name}',
     'prices.sizeUnitLabel': 'Unidad de {name}',
 

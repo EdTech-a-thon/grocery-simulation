@@ -417,6 +417,31 @@ test('clicking anywhere on a product card puts it on or off the shelves', async 
   await expect(page.getByRole('button', { name: /^Add Apple for/ })).toBeVisible()
 })
 
+test('shift-click puts a whole run of products on or off the shelves', async ({ page }) => {
+  await openTeacherPage(page)
+  await page.getByRole('button', { name: /^Bakery/ }).click()
+  const stockBox = (name: string) => page.getByLabel(`Stock ${name} in this store`, { exact: true })
+  const card = (name: string) => page.locator('.price-edit-card', { has: stockBox(name) })
+  const names = await page.locator('.price-edit-card .stock-checkbox').evaluateAll((boxes) =>
+    boxes.map((box) => (box.getAttribute('aria-label') ?? '').replace(/^Stock (.*) in this store$/, '$1')),
+  )
+  const [first, , , fourth, fifth] = names
+
+  // Click the first card off, then shift-click the fourth: the whole run goes off with it.
+  await expect(stockBox(first)).toBeChecked()
+  const fifthBefore = await stockBox(fifth).isChecked()
+  await card(first).locator('img').click()
+  await card(fourth).locator('img').click({ modifiers: ['Shift'] })
+  for (const name of names.slice(0, 4)) await expect(stockBox(name)).toBeChecked({ checked: false })
+  await expect(page.locator('.status-message')).toHaveText('4 products taken off the shelves.')
+  // The run stops where the shift-click landed.
+  await expect(stockBox(fifth)).toBeChecked({ checked: fifthBefore })
+
+  // A shift-click on a checkbox works the same way, back from the fourth to the first.
+  await stockBox(first).click({ modifiers: ['Shift'] })
+  for (const name of names.slice(0, 4)) await expect(stockBox(name)).toBeChecked()
+})
+
 // -------------------------------------------------------- settings pages
 //
 // A new store opens on its settings page, where it is named, coloured and
