@@ -35,7 +35,7 @@ test('a teacher opens a student link, edits the store and gets a new link', asyn
   await other.getByLabel('Store link').fill(`  ${oldLink}  `)
   await other.locator('.import-modal').getByRole('button', { name: 'Import' }).click()
   await expect(other.getByRole('heading', { name: 'Inventory' })).toBeVisible()
-  await expect(other.locator('.store-sidebar-name')).toHaveText('Shared Market')
+  await expect(other.locator('.sidebar-storefront-sign')).toHaveText('Shared Market')
   await expect(other.locator('.status-message')).toContainText('Opened Shared Market from its link.')
   await other.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await expect(other.getByLabel('Price for Milk')).toHaveValue('9.99')
@@ -86,7 +86,7 @@ test('a store downloaded as a file imports again, on any computer', async ({ pag
   await other.goto('/teacher')
   await other.locator('.store-list-heading').getByRole('button', { name: 'Import' }).click()
   await other.locator('.import-file-button input').setInputFiles(file)
-  await expect(other.locator('.store-sidebar-name')).toHaveText('File Market')
+  await expect(other.locator('.sidebar-storefront-sign')).toHaveText('File Market')
   await other.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await expect(other.getByLabel('Price for Milk')).toHaveValue('7.77')
 

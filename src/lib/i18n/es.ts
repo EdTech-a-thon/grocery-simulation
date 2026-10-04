@@ -176,6 +176,7 @@ const es: LanguagePack = {
     'store.copyNewLink': 'Copiar enlace nuevo para estudiantes',
     'store.viewAsStudent': 'Vista previa como estudiante',
     'store.pagesLabel': 'Páginas de la tienda',
+    'store.welcomeIn': 'Bienvenidos',
 
     'stores.create': 'Crear',
     'stores.newName': 'Tienda nueva',

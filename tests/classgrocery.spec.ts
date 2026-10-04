@@ -142,7 +142,7 @@ test('a teacher builds a store without signing up for anything', async ({ page }
 
 test('the teacher page reopens from its address, like a bookmark', async ({ page }) => {
   await openTeacherPage(page)
-  await expect(page.locator('.store-sidebar-name')).toHaveText(store.name)
+  await expect(page.locator('.sidebar-storefront-sign')).toHaveText(store.name)
   await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await expect(page.getByLabel('Price for Milk')).toHaveValue('9.99')
 })
@@ -419,7 +419,7 @@ test('a new store is set up on its settings and coupons pages', async ({ page })
   await page.getByLabel('Price only').check()
   await expect(page.locator('.store-preview-sign')).toHaveText('Settings Store')
   await expect(page.locator('.store-preview .price-tag-size')).toHaveCount(0)
-  await expect(page.locator('.store-sidebar-name')).toHaveText('Settings Store')
+  await expect(page.locator('.sidebar-storefront-sign')).toHaveText('Settings Store')
 
   await page.getByRole('button', { name: 'Coupons' }).click()
   await page.getByLabel('Use sales tax').check()

@@ -201,6 +201,7 @@ const en: LanguagePack = {
     'store.copyNewLink': 'Copy new student link',
     'store.viewAsStudent': 'Preview as student',
     'store.pagesLabel': 'Store pages',
+    'store.welcomeIn': 'Welcome in',
 
     // ------------------------------------------------------ store list
     'stores.create': 'Create',
