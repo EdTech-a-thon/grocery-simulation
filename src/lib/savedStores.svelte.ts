@@ -2,7 +2,7 @@ import { browser } from '$app/environment'
 import { packStore, unpackStore, type PackedStore, type Store } from './store'
 
 /**
- * Stores a teacher chose to keep in this browser. This is a convenience, not a
+ * The teacher's list of stores, kept in this browser. This is a convenience, not a
  * safe: clearing site data, a private window or a different computer all start
  * with an empty list, which is why the teacher pages suggest bookmarking a
  * store's page to keep it for good.
@@ -64,4 +64,12 @@ export function forgetSavedStore(id: string) {
 
 export function isSaved(id: string | null) {
   return id !== null && saved.stores.some((entry) => entry.id === id)
+}
+
+/**
+ * The list entry holding exactly this store, if there is one. A bookmark
+ * opened twice finds the copy it made the first time rather than adding another.
+ */
+export function savedIdFor(store: Store) {
+  return saved.stores.find((entry) => sameStore(entry.store, store))?.id ?? null
 }

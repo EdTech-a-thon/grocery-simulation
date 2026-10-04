@@ -22,8 +22,7 @@ test('coupons print in sheets, and printing never loses the page underneath', as
 
   await page.locator('.store-list-heading').getByRole('button', { name: 'Create' }).click()
   await page.getByLabel('Store name').fill('Smoke Test Market')
-  await page.locator('.store-modal').getByRole('button', { name: 'Create store' }).click()
-  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
+  await page.getByRole('button', { name: 'Inventory' }).click()
 
   // Random coupons, then the print-all sheet.
   await page.getByRole('button', { name: 'Coupons' }).click()
@@ -47,7 +46,7 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   await expect(page.getByText('2 ready to use')).toBeVisible()
 
   // Student view: shop, then come back to the same aisle after printing.
-  await page.getByRole('button', { name: 'View as Student' }).click()
+  await page.getByRole('button', { name: 'Preview as student' }).click()
   await page.getByRole('button', { name: 'Next aisle' }).click()
   const aisle = (await page.locator('.shelf-topline h2').innerText()).trim()
   await page.locator('.shelf-product').first().click()

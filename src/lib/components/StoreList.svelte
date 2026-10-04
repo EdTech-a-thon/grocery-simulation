@@ -1,21 +1,19 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
+  import Icon from '$lib/components/Icon.svelte'
   import ImportStoreModal from '$lib/components/ImportStoreModal.svelte'
-  import StoreSettingsModal from '$lib/components/StoreSettingsModal.svelte'
   import { current, t } from '$lib/i18n/index.svelte'
   import { forgetSavedStore, saveStore, saved, type SavedStore } from '$lib/savedStores.svelte'
   import { copyText, downloadStoreFile, encodeStore, studentLink } from '$lib/sharing'
   import type { Store } from '$lib/store'
   import { teacher, type StorePage } from '$lib/teacher.svelte'
 
-  let { header, onOpenStore }: {
+  let { header, onOpenStore, onCreate }: {
     header: Snippet
-    onOpenStore: (store: Store, savedId: string | null, page?: StorePage, fromStudentLink?: boolean) => void
+    onOpenStore: (store: Store, savedId: string, page?: StorePage, fromStudentLink?: boolean) => void
+    onCreate: () => void
   } = $props()
 
-  // A store that already exists edits its settings on its own page; the modal is
-  // only for a store that does not exist yet, and so has no page to open.
-  let creating = $state(false)
   let importing = $state(false)
 
   /** Newest first: the store a teacher was just working on is the one they want. */
@@ -26,17 +24,10 @@
     onOpenStore($state.snapshot(entry.store) as Store, entry.id, page)
   }
 
-  /**
-   * Every store a teacher makes or brings in goes straight onto their list, so
-   * there is nothing to remember to save.
-   */
-  function openNew(store: Store, fromLink = false) {
-    onOpenStore(store, saveStore(store), 'prices', fromLink)
-  }
-
+  /** An imported store goes straight onto the list, so there is nothing to remember to save. */
   function imported(store: Store, fromLink: boolean) {
     importing = false
-    openNew(store, fromLink)
+    onOpenStore(store, saveStore(store), 'inventory', fromLink)
     teacher.message = t(fromLink ? 'stores.openedFromLink' : 'import.done', { name: store.name })
   }
 
@@ -74,18 +65,8 @@
         <p>{t('stores.definition')}</p>
       </div>
       <div class="store-list-actions">
-        <button class="teacher-secondary-button" type="button" onclick={() => (importing = true)}>
-          {t('stores.import')}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 3v12" /><path d="m7 10 5 5 5-5" /><path d="M5 21h14" />
-          </svg>
-        </button>
-        <button class="primary-button" type="button" onclick={() => (creating = true)}>
-          {t('stores.create')}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
-            <path d="M12 5v14" /><path d="M5 12h14" />
-          </svg>
-        </button>
+        <button class="teacher-secondary-button" type="button" onclick={() => (importing = true)}>{t('stores.import')}<Icon name="import" /></button>
+        <button class="primary-button" type="button" onclick={onCreate}>{t('stores.create')}<Icon name="plus" /></button>
       </div>
     </div>
     {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
@@ -103,21 +84,16 @@
           <button type="button" onclick={() => downloadStoreFile(entry.store)}>{t('stores.download')}</button>
           <button type="button" onclick={() => edit(entry, 'settings')}>{t('stores.settings')}</button>
           <button class="icon-button" data-delete-store type="button" title={t('stores.delete')} aria-label={t('stores.deleteLabel', { name: entry.store.name })} onclick={() => remove(entry)}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M3 6h18" /><path d="M8 6V4h8v2" /><path d="M6 6l1 14h10l1-14" /><path d="M10 11v5" /><path d="M14 11v5" />
-            </svg>
+            <Icon name="trash" />
           </button>
         </div>
       </article>
     {:else}
-      <button class="store-list-empty" type="button" onclick={() => (creating = true)}>{t('stores.empty')}</button>
+      <button class="store-list-empty" type="button" onclick={onCreate}>{t('stores.empty')}</button>
     {/each}
   </section>
 </main>
 
-{#if creating}
-  <StoreSettingsModal store={null} onClose={() => (creating = false)} onCreated={(store) => openNew(store)} />
-{/if}
 {#if importing}
   <ImportStoreModal onClose={() => (importing = false)} onImported={imported} />
 {/if}

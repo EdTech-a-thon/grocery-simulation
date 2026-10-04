@@ -1,18 +1,10 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte'
-  import StoreHeader from '$lib/components/StoreHeader.svelte'
   import { couponOffer } from '$lib/coupons'
   import { plural, productName, t } from '$lib/i18n/index.svelte'
   import { printCoupons } from '$lib/printing.svelte'
-  import { shop, stockedProductIds } from '$lib/shop.svelte'
+  import { shop, stockedProductIds, syncCartToStore } from '$lib/shop.svelte'
   import { newCouponCode, type Coupon } from '$lib/store'
-  import { teacher, type StorePage } from '$lib/teacher.svelte'
-
-  let { header, onGo, onViewAsStudent }: {
-    header: Snippet
-    onGo: (next: StorePage) => void
-    onViewAsStudent: () => void
-  } = $props()
+  import { teacher } from '$lib/teacher.svelte'
 
   let discountType = $state<'percent' | 'dollars'>('percent')
   let discountAmount = $state('10')
@@ -111,6 +103,21 @@
     teacher.message = plural('coupons.randomCreated', designs)
   }
 
+  // Coupons and sales tax are both settled at the checkout, so they are set
+  // here, beside the coupons themselves, and take effect straight away.
+  function setCouponsEnabled(enabled: boolean) {
+    if (!shop.store) return
+    shop.store.couponsEnabled = enabled
+    syncCartToStore(shop.store)
+  }
+
+  function setTax(enabled: boolean, rateText = String(shop.store?.salesTax ?? 0)) {
+    if (!shop.store) return
+    shop.store.taxEnabled = enabled
+    shop.store.salesTax = enabled ? Math.min(100, Math.max(0, Number(rateText) || 0)) : 0
+    syncCartToStore(shop.store)
+  }
+
   function remove(code: string) {
     if (shop.store) shop.store.coupons = shop.store.coupons.filter((coupon) => coupon.code !== code)
   }
@@ -118,16 +125,28 @@
 
 <svelte:window onkeydown={handlePrintModalKeydown} />
 
-<main class="teacher-shell">
-  {@render header()}
-  <StoreHeader
-    page="coupons"
-    title={t('coupons.pageTitle')}
-    lede={t('coupons.pageLede')}
-    {onGo}
-    {onViewAsStudent}
-  />
-  {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
+<section class="checkout-settings" aria-label={t('coupons.checkoutLabel')}>
+  <fieldset>
+    <legend>{t('settings.coupons')}</legend>
+    <label><input type="radio" name="coupons" checked={shop.store?.couponsEnabled} onchange={() => setCouponsEnabled(true)} /> {t('settings.allowCoupons')}</label>
+    <label><input type="radio" name="coupons" checked={!shop.store?.couponsEnabled} onchange={() => setCouponsEnabled(false)} /> {t('settings.noCoupons')}</label>
+  </fieldset>
+  <fieldset>
+    <legend>{t('settings.tax')}</legend>
+    <label><input type="radio" name="tax" checked={!shop.store?.taxEnabled} onchange={() => setTax(false)} /> {t('settings.noTax')}</label>
+    <label><input type="radio" name="tax" checked={shop.store?.taxEnabled} onchange={() => setTax(true)} /> {t('settings.useTax')}</label>
+    {#if shop.store?.taxEnabled}
+      <label class="tax-rate">
+        {t('settings.taxRate')}
+        <input type="number" min="0" max="100" step="0.01" value={shop.store.salesTax} onchange={(event) => setTax(true, event.currentTarget.value)} />
+      </label>
+    {/if}
+  </fieldset>
+</section>
+
+{#if !shop.store?.couponsEnabled}
+  <p class="empty-coupons">{t('coupons.off')}</p>
+{:else}
   <section class="coupon-workspace">
     <form class="coupon-form" onsubmit={create}>
       <div><p class="eyebrow">{t('coupons.newEyebrow')}</p><h2>{t('coupons.detailsTitle')}</h2></div>
@@ -193,7 +212,7 @@
       {/each}
     </section>
   </section>
-</main>
+{/if}
 
 {#if printTarget}
   <div class="modal-backdrop" role="presentation" onclick={(event) => event.target === event.currentTarget && closePrintModal()}>

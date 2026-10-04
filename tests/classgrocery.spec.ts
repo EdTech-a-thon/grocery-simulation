@@ -41,15 +41,14 @@ async function readStore(page: Page): Promise<PackedStore> {
 
 async function openTeacherPage(page: Page) {
   await page.goto(teacherUrl)
-  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Inventory' })).toBeVisible()
 }
 
-/** Brands on the shelves are a store setting, so switching lines goes through that page. */
-async function setBrandMode(page: Page, label: string) {
-  await page.getByRole('button', { name: 'Store settings' }).click()
-  await page.getByLabel(label).check()
-  await page.getByRole('button', { name: 'Save changes' }).click()
-  await expect(page.locator('.status-message')).toContainText('updated.')
+/** Puts products on the shelves by ticking their cards on the inventory page. */
+async function stock(page: Page, aisle: string, products: string[]) {
+  await page.getByRole('button', { name: 'Inventory' }).click()
+  await page.getByRole('button', { name: aisle }).click()
+  for (const product of products) await page.getByLabel(`Stock ${product} in this store`).check()
 }
 
 /** Opens the store the way a student does: by following the link. */
@@ -96,9 +95,8 @@ test('a teacher builds a store without signing up for anything', async ({ page }
 
   await page.locator('.store-list-heading').getByRole('button', { name: 'Create' }).click()
   await page.getByLabel('Store name').fill(store.name)
-  await page.getByLabel('Store color').selectOption('blue')
-  await page.locator('.store-modal').getByRole('button', { name: 'Create store' }).click()
-  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
+  await page.locator('.color-choice[data-color="blue"]').click()
+  await page.getByRole('button', { name: 'Inventory' }).click()
 
   await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await page.getByLabel('Price for Milk').fill('9.99')
@@ -144,58 +142,49 @@ test('a teacher builds a store without signing up for anything', async ({ page }
 
 test('the teacher page reopens from its address, like a bookmark', async ({ page }) => {
   await openTeacherPage(page)
-  await expect(page.locator('.teacher-hero h2')).toHaveText(store.name)
+  await expect(page.locator('.store-sidebar-name')).toHaveText(store.name)
   await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await expect(page.getByLabel('Price for Milk')).toHaveValue('9.99')
-  await expect(page.locator('.keep-store-note')).toContainText('Bookmark this page')
 })
 
-test('changing a store after copying its student link warns that the link is out of date', async ({ page }) => {
+test('changing a store after copying its student link asks for a new link', async ({ page }) => {
   await openTeacherPage(page)
-  await expect(page.locator('.link-snapshot-note')).toHaveText('Links do not update. After any change, copy the student link again and share the new one.')
-
-  await page.getByRole('button', { name: 'Copy student link' }).click()
-  await expect(page.locator('.link-outdated-warning')).toHaveCount(0)
+  const copy = page.locator('.store-sidebar-actions .primary-button')
+  await expect(copy).toHaveText('Copy student link')
+  await copy.click()
 
   await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await page.getByLabel('Price for Milk').fill('3.50')
   await page.getByLabel('Price for Milk').blur()
-  const warning = page.locator('.link-outdated-warning')
-  await expect(warning).toContainText('Students will not see these changes until you share a new link.')
+  await expect(copy).toHaveText('Copy new student link')
 
-  // The warning follows the teacher onto every page of the store.
+  // The side panel is on every page of the store, so the reminder is too.
   await page.getByRole('button', { name: 'Coupons' }).click()
-  await expect(warning).toBeVisible()
-
-  await warning.getByRole('button', { name: 'Copy new student link' }).click()
-  await expect(warning).toHaveCount(0)
+  await expect(copy).toHaveText('Copy new student link')
+  await copy.click()
+  await expect(copy).toHaveText('Copy student link')
 })
 
-test('leaving a store that is not saved anywhere asks first', async ({ page }) => {
+test('a bookmarked store goes onto the list, once', async ({ page }) => {
   await openTeacherPage(page)
-
-  page.once('dialog', (dialog) => dialog.dismiss())
   await page.getByRole('button', { name: 'My stores' }).click()
-  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
+  await expect(page.locator('.store-summary')).toHaveCount(1)
 
-  page.once('dialog', (dialog) => dialog.accept())
+  await openTeacherPage(page)
   await page.getByRole('button', { name: 'My stores' }).click()
-  await expect(page.locator('.store-summary')).toHaveCount(0)
+  await expect(page.locator('.store-summary')).toHaveCount(1)
   await expect(page).toHaveURL(/\/teacher$/)
 })
 
 test('a store saved in this browser is listed, kept up to date, duplicated and removed', async ({ page }) => {
   await openTeacherPage(page)
-  await page.getByRole('button', { name: 'Save in this browser' }).click()
-  await expect(page.locator('.saved-here-badge')).toHaveText('Saved in this browser')
 
-  // A saved store saves itself again on every change.
+  // A store on the list saves itself again on every change.
   await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await page.getByLabel('Price for Milk').fill('4.25')
   await page.getByLabel('Price for Milk').blur()
   await expect.poll(async () => (await readStore(page)).p?.milk).toBe(4.25)
 
-  // Nothing is unsaved, so leaving does not ask.
   await page.getByRole('button', { name: 'My stores' }).click()
   await expect(page.locator('.store-summary')).toHaveCount(1)
 
@@ -219,7 +208,7 @@ test('a store saved in this browser is listed, kept up to date, duplicated and r
 
 test('an emptied aisle disappears from the student view', async ({ page }) => {
   await openTeacherPage(page)
-  await page.getByRole('button', { name: 'View as Student' }).click()
+  await page.getByRole('button', { name: 'Preview as student' }).click()
 
   const titles = await visibleAisleTitles(page)
   expect(titles.some((title) => title.includes('Seafood'))).toBe(false)
@@ -228,7 +217,7 @@ test('an emptied aisle disappears from the student view', async ({ page }) => {
 
 test('viewing as a student swaps the header for the Student View banner', async ({ page }) => {
   await openTeacherPage(page)
-  await page.getByRole('button', { name: 'View as Student' }).click()
+  await page.getByRole('button', { name: 'Preview as student' }).click()
 
   const banner = page.locator('.student-view-header')
   await expect(banner).toBeVisible()
@@ -238,7 +227,7 @@ test('viewing as a student swaps the header for the Student View banner', async 
   await expect(page.locator('.shelf-stage')).toBeVisible()
 
   await banner.getByRole('button', { name: 'Exit student view' }).click()
-  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Inventory' })).toBeVisible()
   await expect(page.locator('.app-header')).toBeVisible()
   await expect(page.locator('.student-view-header')).toHaveCount(0)
 })
@@ -335,10 +324,10 @@ test('the receipt prints with its items, coupons and total saved', async ({ page
 
 // ------------------------------------------------------- name brands vs CG
 
-test('stocking both brands puts the CG line on the shelves, priced off this store', async ({ page }) => {
+test('stocking CG products puts them beside the name brands, priced off this store', async ({ page }) => {
   await openTeacherPage(page)
-  await setBrandMode(page, 'Both')
-  await expect.poll(async () => (await readStore(page)).b).toBe('both')
+  await stock(page, 'Dairy and Eggs', ['CG Eggs', 'CG Milk'])
+  await expect.poll(async () => (await readStore(page)).s).toMatchObject({ 'eggs-cg': 1, 'milk-cg': 1 })
 
   await openAsStudent(page, studentLinkFrom(page))
   await goToAisle(page, 'Dairy and Eggs')
@@ -363,13 +352,11 @@ test('a teacher changes a package size, and students compare unit prices', async
   }
 
   await openTeacherPage(page)
-  await setBrandMode(page, 'Both')
-  await page.getByRole('button', { name: 'Prices and stock' }).click()
-  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  await stock(page, 'Dairy and Eggs', ['CG Eggs'])
   await expect(page.getByLabel('Package size for CG Eggs')).toHaveValue('12')
   await page.getByLabel('Package size for CG Eggs').fill('6')
   await page.getByLabel('Package size for CG Eggs').blur()
-  await expect.poll(() => readStore(page)).toMatchObject({ b: 'both', z: { 'eggs-cg': [6, 'ct'] } })
+  await expect.poll(() => readStore(page)).toMatchObject({ z: { 'eggs-cg': [6, 'ct'] } })
   expect((await readStore(page)).u).toBeUndefined()
 
   // Half the eggs for $0.20 less: cheaper on the sticker, dearer per egg.
@@ -380,9 +367,7 @@ test('a teacher changes a package size, and students compare unit prices', async
 
   // Sizes only: the class works the unit price out for itself.
   await page.getByRole('button', { name: 'Store settings' }).click()
-  await page.getByLabel('Price and size — students work out the unit price').check()
-  await page.getByRole('button', { name: 'Save changes' }).click()
-  await expect(page.locator('.status-message')).toContainText('updated.')
+  await page.getByLabel('Price and size', { exact: true }).check()
   await expect.poll(async () => (await readStore(page)).u).toBe('size')
   const sizesOnly = await studentInDairy()
   await expect(sizesOnly.getByRole('button', { name: 'Add CG Eggs for $1.39, 6 ct', exact: true })).toBeVisible()
@@ -390,7 +375,7 @@ test('a teacher changes a package size, and students compare unit prices', async
   await sizesOnly.close()
 
   // Clearing the size goes back to the usual dozen.
-  await page.getByRole('button', { name: 'Prices and stock' }).click()
+  await page.getByRole('button', { name: 'Inventory' }).click()
   await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await page.getByLabel('Package size for CG Eggs').fill('')
   await page.getByLabel('Package size for CG Eggs').blur()
@@ -398,58 +383,57 @@ test('a teacher changes a package size, and students compare unit prices', async
   await expect.poll(async () => (await readStore(page)).z).toBeUndefined()
 })
 
-test('stocking only the CG line puts the name brands away but keeps loose food', async ({ page }) => {
+test('clicking anywhere on a product card puts it on or off the shelves', async ({ page }) => {
   await openTeacherPage(page)
-  await setBrandMode(page, 'CG Value store brand')
-  await expect.poll(async () => (await readStore(page)).b).toBe('store')
+  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  const card = (name: string) => page.locator('.price-edit-card', { has: page.getByLabel(`Stock ${name} in this store`) })
+
+  // The picture swaps a name brand for its CG twin; typing a price changes nothing.
+  await card('CG Eggs').locator('img').click()
+  await card('Eggs').locator('img').click()
+  await card('CG Eggs').getByLabel('Price for CG Eggs').click()
+  await expect(page.getByLabel('Stock CG Eggs in this store')).toBeChecked()
+  await expect(page.getByLabel('Stock Eggs in this store')).not.toBeChecked()
 
   await openAsStudent(page, studentLinkFrom(page))
   await goToAisle(page, 'Dairy and Eggs')
   await expect(page.getByRole('button', { name: /^Add CG Eggs for/ })).toBeVisible()
   await expect(page.getByRole('button', { name: /^Add Eggs for/ })).toHaveCount(0)
-  // Fruit has no CG twin, so a CG-only store still sells it.
+  // Fruit has no CG twin, and is on the shelves from the start.
   await goToAisle(page, 'Produce')
   await expect(page.getByRole('button', { name: /^Add Apple for/ })).toBeVisible()
 })
 
-// --------------------------------------------------- settings after the fact
+// -------------------------------------------------------- settings pages
 //
-// The create form and the Edit form are the same form: what a teacher chooses
-// when a store is built can be chosen again at any point afterwards.
+// A new store opens on its settings page, named and coloured there, and the
+// checkout's coupons and tax are set on the coupons page.
 
-test('a teacher changes a store settings after it is built', async ({ page }) => {
+test('a new store is set up on its settings and coupons pages', async ({ page }) => {
   await page.goto('/teacher')
   await page.locator('.store-list-heading').getByRole('button', { name: 'Create' }).click()
-  const form = page.locator('.store-modal')
-  await form.getByLabel('Store name').fill('Settings Store')
-  await form.getByLabel('CG Value store brand').check()
-  await form.getByLabel('Use sales tax').check()
-  await form.getByLabel('Default sales tax (%)').fill('8.25')
-  await form.getByLabel('No coupons').check()
-  await page.locator('.store-modal').getByRole('button', { name: 'Create store' }).click()
-  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
 
-  // Coupons are off, so the teacher is not offered the coupon workshop at all.
-  await expect(page.getByRole('button', { name: 'Coupons' })).toHaveCount(0)
-  await expect.poll(() => readStore(page)).toMatchObject({ n: 'Settings Store', b: 'store', t: 8.25, x: 1 })
+  // The placeholder name is selected, so typing replaces it.
+  await page.keyboard.type('Settings Store')
+  await page.locator('.color-choice[data-color="purple"]').click()
+  await page.getByLabel('Price only').check()
+  await expect(page.locator('.store-preview-sign')).toHaveText('Settings Store')
+  await expect(page.locator('.store-preview .price-tag-size')).toHaveCount(0)
+  await expect(page.locator('.store-sidebar-name')).toHaveText('Settings Store')
 
-  // A hand-stocked product is forgotten when the brand line changes.
-  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
-  await page.getByLabel('Stock CG Eggs in this store').uncheck()
-  await expect.poll(async () => (await readStore(page)).s).toEqual({ 'eggs-cg': 0 })
+  await page.getByRole('button', { name: 'Coupons' }).click()
+  await page.getByLabel('Use sales tax').check()
+  await page.getByLabel('Default sales tax (%)').fill('8.25')
+  await page.getByLabel('Default sales tax (%)').blur()
+  await page.getByLabel('No coupons').check()
+  await expect(page.getByRole('button', { name: 'Create coupon' })).toHaveCount(0)
+  await expect.poll(() => readStore(page)).toMatchObject({ n: 'Settings Store', c: 'purple', u: 'off', t: 8.25, x: 1 })
 
-  await page.getByRole('button', { name: 'Store settings' }).click()
-  const settingsPage = page.locator('.store-settings-workspace')
-  await expect(settingsPage.getByRole('heading', { name: 'Edit Settings Store' })).toBeVisible()
-  await expect(settingsPage.getByLabel('Default sales tax (%)')).toHaveValue('8.25')
-  await settingsPage.getByLabel('Name brands').check()
-  await settingsPage.getByLabel('No sales tax').check()
-  await settingsPage.getByLabel('Allow coupons').check()
-  await page.getByRole('button', { name: 'Save changes' }).click()
-  await expect(page.locator('.status-message')).toContainText('Settings Store updated.')
-
+  await page.getByLabel('No sales tax').check()
+  await page.getByLabel('Allow coupons').check()
+  await expect(page.getByRole('button', { name: 'Create coupon' })).toBeVisible()
   await expect.poll(async () => {
     const packed = await readStore(page)
-    return { b: packed.b, t: packed.t, x: packed.x, s: packed.s }
-  }).toEqual({ b: undefined, t: undefined, x: undefined, s: undefined })
+    return { t: packed.t, x: packed.x }
+  }).toEqual({ t: undefined, x: undefined })
 })

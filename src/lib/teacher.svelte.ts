@@ -1,12 +1,12 @@
-/** The three pages a teacher works through inside one open store. */
-export type StorePage = 'prices' | 'coupons' | 'settings'
+/** The three pages a teacher works through inside one open store, in the side panel's order. */
+export type StorePage = 'inventory' | 'coupons' | 'settings'
 
 /** What every teacher screen shares while one store is open. */
 export const teacher = $state({
-  /** The one-line status message under the header. */
+  /** The one-line status message at the top of the page. */
   message: '',
-  /** Which aisle the price studio is showing, kept while the teacher switches screens. */
-  priceAisleIndex: 0,
+  /** Which aisle the inventory page is showing, kept while the teacher switches pages. */
+  inventoryAisleIndex: 0,
   /** The open store as a link-ready string, kept current as the teacher edits. */
   encoded: '',
   /**
@@ -14,9 +14,6 @@ export const teacher = $state({
    * before they have. When the two differ, the class has an out-of-date link.
    */
   sharedEncoded: '',
-  /**
-   * Which saved store in this browser the open store is, or null when it is
-   * not saved. A saved store saves itself again on every change.
-   */
+  /** Which store on the teacher's list the open store is. It saves itself again on every change. */
   savedId: null as string | null,
 })

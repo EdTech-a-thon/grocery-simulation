@@ -189,36 +189,22 @@ const en: LanguagePack = {
 
     // ------------------------------------------------------ teacher chrome
     'teacher.myStores': 'My stores',
-    'teacher.pricesTitle': 'Prices and stock',
+    'teacher.inventoryTitle': 'Inventory',
     'teacher.couponsTitle': 'Coupons',
     'teacher.settingsTitle': 'Store settings',
-    'teacher.leaveUnsaved':
-      'This store is not saved in this browser. Leave it anyway? To keep it, choose "Save in this browser" or bookmark this page first.',
     'teacher.studentView': 'Student View',
     'teacher.exitStudentView': 'Exit student view',
 
-    'store.workspace': 'Store workspace',
-    'store.workspaceLede': 'Manage what students see and use in this store.',
     'store.copyLink': 'Copy student link',
     'store.linkCopied': 'Student link copied. Students will see this store exactly as it is right now.',
     'store.linkFallback': 'Student link: {link}',
-    'store.linkSnapshot':
-      'Links do not update. After any change, copy the student link again and share the new one.',
-    'store.linkOutdated':
-      'This store has changed since its student link was made. Students will not see these changes until you share a new link.',
     'store.copyNewLink': 'Copy new student link',
-    'store.saveHere': 'Save in this browser',
-    'store.savedBadge': 'Saved in this browser',
-    'store.savedHere': '{name} is saved in this browser. You will find it under My stores.',
-    'store.keepNote':
-      'Not saved yet. Bookmark this page to keep this store for good, or save it in this browser.',
-    'store.keepNoteSaved':
-      'Changes are saved in this browser as you go. Bookmark this page to keep the store for good, or to open it on another computer.',
-    'store.viewAsStudent': 'View as Student',
-    'store.tabsLabel': 'Store pages',
+    'store.viewAsStudent': 'Preview as student',
+    'store.pagesLabel': 'Store pages',
 
     // ------------------------------------------------------ store list
     'stores.create': 'Create',
+    'stores.newName': 'New store',
     'stores.definition': 'Each store has its own prices, products and coupons, and its own link for students.',
     'stores.import': 'Import',
     'stores.download': 'Download file',
@@ -252,35 +238,22 @@ const en: LanguagePack = {
     'import.done': '{name} imported.',
 
     // ------------------------------------------------------ store settings
-    'settings.pageTitle': 'Set up how this store works',
-    'settings.pageLede': 'The name your class sees, which brands are on the shelves, sales tax and coupons.',
-    'settings.eyebrowEdit': 'Store settings',
-    'settings.eyebrowNew': 'New store',
-    'settings.editTitle': 'Edit {name}',
-    'settings.newTitle': 'Create a store',
     'settings.name': 'Store name',
     'settings.namePlaceholder': 'Room 204 Market',
     'settings.color': 'Store color',
-    'settings.sells': 'This store sells',
-    'settings.brandName': 'Name brands',
-    'settings.brandStore': 'CG Value store brand',
-    'settings.brandBoth': 'Both',
-    'settings.restockNote': 'Saving restocks every aisle to match. Your prices stay as you set them.',
     'settings.tax': 'Sales tax',
     'settings.noTax': 'No sales tax',
     'settings.useTax': 'Use sales tax',
     'settings.taxRate': 'Default sales tax (%)',
+    'settings.previewTitle': 'Preview',
+    'settings.previewLabel': 'How students see this store',
     'settings.coupons': 'Coupons',
     'settings.allowCoupons': 'Allow coupons',
     'settings.noCoupons': 'No coupons',
     'settings.unitPricing': 'Shelf tags show',
     'settings.unitPricingUnit': 'Price, size and unit price',
-    'settings.unitPricingSize': 'Price and size — students work out the unit price',
+    'settings.unitPricingSize': 'Price and size',
     'settings.unitPricingOff': 'Price only',
-    'settings.save': 'Save changes',
-    'settings.create': 'Create store',
-    'settings.created': '{name} is ready.',
-    'settings.updated': '{name} updated.',
 
     'color.green': 'Green',
     'color.blue': 'Blue',
@@ -290,29 +263,23 @@ const en: LanguagePack = {
     'color.red': 'Red',
 
     // ------------------------------------------------------ prices and stock
-    'prices.pageTitle': 'Choose what this store sells',
-    'prices.pageLede':
-      'Uncheck an item to take it off the shelves for this store only. Prices save as you type.',
-    'prices.aisleListTitle': 'Food class',
+    'prices.aisleListTitle': 'Aisles',
     'prices.summary': 'Aisle {number} · {stocked} of {total} stocked',
-    'prices.alsoShow': 'Also show {brands}',
-    'prices.otherBrandsName': 'the name brands',
-    'prices.otherBrandsStore': 'the CG Value store brands',
     'prices.stockAll': 'Stock all',
     'prices.stockNone': 'Stock none',
     'prices.cgTag': 'CG Value',
+    'prices.cgInfoButton': 'What is CG Value?',
+    'prices.cgInfoTitle': 'CG Value: the Class Grocery store brand',
+    'prices.cgInfoBody': 'CG stands for Class Grocery. Like a supermarket’s own brand, each CG Value product is a cheaper version of a name-brand product, so students can compare the two and decide whether the brand is worth paying for.',
+    'prices.cgInfoClose': 'Got it',
     'prices.priceLabel': 'Price for {name}',
     'prices.stockLabel': 'Stock {name} in this store',
-    'prices.inStore': 'In this store',
     'prices.aisleStocked': '{aisle} fully stocked.',
     'prices.aisleCleared': '{aisle} taken off the shelves.',
     'prices.sizeLabel': 'Package size for {name}',
     'prices.sizeUnitLabel': 'Unit for {name}',
 
     // ------------------------------------------------------ coupon studio
-    'coupons.pageTitle': 'Give your class something to budget with',
-    'coupons.pageLede':
-      'Hand these out so students practice clipping and comparing before they shop. Create coupons one at a time or generate a random set. Printable sheets hold 10 coupons per page.',
     'coupons.newEyebrow': 'New coupon',
     'coupons.detailsTitle': 'Discount details',
     'coupons.type': 'Discount type',
@@ -335,6 +302,8 @@ const en: LanguagePack = {
     'coupons.delete': 'Delete',
     'coupons.deleteLabel': 'Delete coupon {code}',
     'coupons.empty': 'Your created coupons will appear here.',
+    'coupons.checkoutLabel': 'Checkout settings',
+    'coupons.off': 'Coupons are off for this store. Choose Allow coupons to make some.',
     'coupons.badCode':
       'Use 3 to 20 letters, numbers, spaces, or simple punctuation for the coupon code.',
     'coupons.codeTaken': 'This store already has a coupon with the code {code}.',
