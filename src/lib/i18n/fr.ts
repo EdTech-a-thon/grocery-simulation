@@ -15,7 +15,7 @@ const fr: LanguagePack = {
     'action.close': 'Fermer',
     'action.cancel': 'Annuler',
 
-    'footer.builtBy': 'Créé par l’EdTech-a-thon',
+    'footer.builtBy': 'Créé par teacher.dev',
     'footer.about': 'à propos',
     'footer.privacy': 'confidentialité',
     'page.back': 'Retour à ClassGrocery',

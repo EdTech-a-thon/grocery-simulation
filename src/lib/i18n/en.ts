@@ -36,7 +36,7 @@ const en: LanguagePack = {
     'action.close': 'Close',
     'action.cancel': 'Cancel',
 
-    'footer.builtBy': 'Built by the EdTech-a-thon',
+    'footer.builtBy': 'Built by teacher.dev',
     'footer.about': 'about',
     'footer.privacy': 'privacy',
     'page.back': 'Back to ClassGrocery',
