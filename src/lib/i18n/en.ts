@@ -262,6 +262,7 @@ const en: LanguagePack = {
 
     // ------------------------------------------------------ prices and stock
     'prices.aisleListTitle': 'Aisles',
+    'prices.aisleCount': '{stocked} of {total} stocked',
     'prices.summary': 'Aisle {number} · {stocked} of {total} stocked',
     'prices.stockAll': 'Stock all',
     'prices.stockNone': 'Stock none',

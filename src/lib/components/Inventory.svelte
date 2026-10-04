@@ -1,16 +1,29 @@
 <script lang="ts">
   import Icon from '$lib/components/Icon.svelte'
-  import { aisles } from '$lib/catalog'
+  import { aisles, type AisleItem } from '$lib/catalog'
   import { aisleTitle, productName, t, unitPriceText } from '$lib/i18n/index.svelte'
   import { isStoreBrand, priceEndingInNine, productById } from '$lib/products'
   import { isStocked, priceFor, setStocked, shop, sizeFor } from '$lib/shop.svelte'
   import { catalogSize, isSizeUnit, sizeUnits, type PackageSize } from '$lib/sizes'
   import { teacher } from '$lib/teacher.svelte'
 
-  // Every product is listed, name brand and CG Value alike: what is on the
-  // shelves is decided card by card, or a whole aisle at a time.
+  // Name brands and CG Value products are listed side by side, unless the
+  // teacher hides the CG line. What is on the shelves is decided card by card,
+  // or a whole aisle at a time.
   const aisle = $derived(aisles[teacher.inventoryAisleIndex])
-  const stockedInAisle = $derived(aisle.items.filter((item) => isStocked(item.id)).length)
+  const visibleItems = $derived(listed(aisle.items))
+
+  function listed(items: AisleItem[]) {
+    return teacher.showStoreBrand ? items : items.filter((item) => !isStoreBrand(item.id))
+  }
+
+  /** How many of an aisle's listed products are on the shelves. */
+  function stockCount(items: AisleItem[]) {
+    const shown = listed(items)
+    return { stocked: shown.filter((item) => isStocked(item.id)).length, total: shown.length }
+  }
+
+  const count = $derived(stockCount(aisle.items))
 
   function changePrice(productId: string, value: string) {
     const price = Number(value)
@@ -39,7 +52,7 @@
 
   function stockWholeAisle(stocked: boolean) {
     if (!shop.store) return
-    for (const item of aisle.items) setStocked(item.id, stocked)
+    for (const item of visibleItems) setStocked(item.id, stocked)
     teacher.message = stocked
       ? t('prices.aisleStocked', { aisle: aisleTitle(aisle.title) })
       : t('prices.aisleCleared', { aisle: aisleTitle(aisle.title) })
@@ -65,19 +78,32 @@
     <aside class="aisle-picker">
       <h3>{t('prices.aisleListTitle')}</h3>
       {#each aisles as item, index (item.title)}
+        {@const aisleCount = stockCount(item.items)}
         <button class:active={index === teacher.inventoryAisleIndex} type="button" onclick={() => chooseAisle(index)}>
-          {aisleTitle(item.title)}
+          <span>{aisleTitle(item.title)}</span>
+          <span class="aisle-count" title={t('prices.aisleCount', aisleCount)}><strong>{aisleCount.stocked}</strong>/{aisleCount.total}</span>
         </button>
       {/each}
+
+      <!-- The CG Value line can be hidden to see the name brands alone; the
+           i explains what CG Value is, on hover or with a click. -->
+      <div class="cg-controls">
+        <button class="cg-toggle" type="button" aria-pressed={teacher.showStoreBrand} onclick={() => (teacher.showStoreBrand = !teacher.showStoreBrand)}>
+          <Icon name="dollar" />{t('prices.cgTag')}
+        </button>
+        <span class="cg-info-wrap">
+          <button class="cg-info-icon" type="button" aria-label={t('prices.cgInfoButton')} popovertarget="cg-info"><Icon name="info" /></button>
+          <span class="cg-tooltip" aria-hidden="true">{t('prices.cgInfoBody')}</span>
+        </span>
+      </div>
     </aside>
     <section class="price-editor">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">{t('prices.summary', { number: teacher.inventoryAisleIndex + 1, stocked: stockedInAisle, total: aisle.items.length })}</p>
+          <p class="eyebrow">{t('prices.summary', { number: teacher.inventoryAisleIndex + 1, ...count })}</p>
           <h2>{aisleTitle(aisle.title)}</h2>
         </div>
         <div class="stock-bulk-actions">
-          <button class="cg-info-button" type="button" popovertarget="cg-info"><Icon name="info" />{t('prices.cgInfoButton')}</button>
           <button type="button" onclick={() => stockWholeAisle(true)}>{t('prices.stockAll')}</button>
           <button type="button" onclick={() => stockWholeAisle(false)}>{t('prices.stockNone')}</button>
         </div>
@@ -88,7 +114,7 @@
         <button class="primary-button" type="button" popovertarget="cg-info" popovertargetaction="hide">{t('prices.cgInfoClose')}</button>
       </div>
       <div class="price-grid">
-        {#each aisle.items as item (item.id)}
+        {#each visibleItems as item (item.id)}
           {@const product = productById[item.id]}
           {@const name = productName(item.id)}
           {@const size = sizeFor(item.id)}

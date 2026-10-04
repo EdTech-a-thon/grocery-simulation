@@ -7,6 +7,8 @@ export const teacher = $state({
   message: '',
   /** Which aisle the inventory page is showing, kept while the teacher switches pages. */
   inventoryAisleIndex: 0,
+  /** Whether the inventory page lists the CG Value products beside the name brands. */
+  showStoreBrand: true,
   /** The open store as a link-ready string, kept current as the teacher edits. */
   encoded: '',
   /**

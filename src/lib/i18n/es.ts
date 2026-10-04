@@ -235,6 +235,7 @@ const es: LanguagePack = {
     'color.red': 'Rojo',
 
     'prices.aisleListTitle': 'Pasillos',
+    'prices.aisleCount': '{stocked} de {total} en existencia',
     'prices.summary': 'Pasillo {number} · {stocked} de {total} en existencia',
     'prices.stockAll': 'Surtir todo',
     'prices.stockNone': 'Vaciar todo',

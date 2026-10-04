@@ -1951,8 +1951,24 @@ p {
 .store-main .teacher-workspace { max-width: none; padding: 0; }
 /* The aisle list stays in view while the products scroll past it, and
    scrolls by itself if there are more aisles than fit. */
-.store-main .teacher-workspace > .aisle-picker { position: sticky; top: 0; align-self: start; max-height: calc(100vh - 66px - 48px); overflow-y: auto; padding-top: 0; }
-.store-main .price-editor { padding-top: 0; }
+.store-main .teacher-workspace > .aisle-picker { position: sticky; top: 0; align-self: start; max-height: calc(100vh - 66px - 48px); overflow-y: auto; padding-top: 0; border-right: 0; }
+/* The dividing line belongs to the products, so it runs as far down as they do. */
+.store-main .price-editor { min-height: calc(100vh - 66px - 72px); padding-top: 0; border-left: 1px solid #d7e7da; }
+.store-main .aisle-picker button { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.aisle-count { flex: none; color: #94a3b8; font-size: .76rem; font-variant-numeric: tabular-nums; }
+.aisle-count strong { color: #15803d; font-size: .84rem; font-weight: 900; }
+.aisle-picker button.active .aisle-count { color: #4b8a60; }
+
+/* The CG Value switch at the foot of the aisle list, lit while CG products are listed. */
+.cg-controls { margin-top: 12px; padding-top: 14px; border-top: 1px solid #e4ece6; display: flex; align-items: center; gap: 8px; }
+.store-main .aisle-picker .cg-toggle { flex: 1; justify-content: center; align-items: center; gap: 6px; border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 8px 12px; background: #fff; color: #475569; font-weight: 800; }
+.store-main .aisle-picker .cg-toggle .icon { width: 15px; height: 15px; }
+.store-main .aisle-picker .cg-toggle[aria-pressed="true"] { border-color: #86c79a; background: #dcfce7; color: #14532d; }
+.cg-info-wrap { position: relative; display: inline-flex; }
+.store-main .aisle-picker .cg-info-icon { width: 34px; height: 34px; justify-content: center; align-items: center; padding: 0; border-radius: 50%; color: #15803d; }
+.store-main .aisle-picker .cg-info-icon:hover { background: #f0f8f2; }
+.cg-tooltip { display: none; position: absolute; right: 0; bottom: calc(100% + 8px); z-index: 30; width: 210px; border-radius: var(--radius-md); padding: 10px 12px; background: #14532d; color: #fff; font-size: .76rem; font-weight: 600; line-height: 1.45; box-shadow: var(--shadow-lg); }
+.cg-info-wrap:hover .cg-tooltip, .cg-info-wrap:focus-within .cg-tooltip { display: block; }
 .store-main .aisle-picker h3 { color: #4b6354; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
 .price-edit-card { position: relative; cursor: pointer; }
 .price-edit-card:hover { background: #f7fbf8; }
@@ -1964,9 +1980,6 @@ p {
 .price-edit-card .brand-tag:hover { background: #bbf7d0; }
 .price-edit-card .brand-tag .icon { width: 12px; height: 12px; }
 
-.cg-info-button { display: inline-flex !important; align-items: center; gap: 6px; border-color: transparent !important; background: transparent !important; color: #15803d !important; }
-.cg-info-button .icon { width: 16px; height: 16px; }
-.cg-info-button:hover { text-decoration: underline; }
 .cg-info { width: min(420px, calc(100vw - 32px)); border: 0; border-radius: var(--radius-lg); padding: 24px; background: #fff; color: #172033; box-shadow: 0 24px 70px rgba(15,23,42,.28); }
 .cg-info::backdrop { background: rgba(15,23,42,.35); }
 .cg-info h3 { color: #14532d; font-size: 1.1rem; }
@@ -2040,6 +2053,8 @@ p {
   .store-layout { grid-template-columns: 1fr; }
   .store-main { overflow: visible; }
   .store-main .teacher-workspace > .aisle-picker { position: static; max-height: none; }
+  .store-main .price-editor { min-height: 0; border-left: 0; }
+  .cg-tooltip { right: auto; left: 0; }
   .coupon-editor-manual { grid-template-columns: 1fr; }
   .store-sidebar { position: static; height: auto; overflow: visible; border-right: 0; border-bottom: 1px solid #d7e7da; flex-direction: row; flex-wrap: wrap; align-items: center; }
   .store-sidebar button { width: auto; }
