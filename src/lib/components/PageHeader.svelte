@@ -11,7 +11,7 @@
 
 <header class="page-header">
   <a class="page-header-brand" href="/">
-    <img src="/logo.svg" alt="" width="26" height="26" />ClassGrocery
+    <img src="/logo.svg" alt="" width="26" height="26" />Class Grocery
   </a>
   <a class="page-header-back" href={back}><span aria-hidden="true">&larr;</span> {label}</a>
   <LanguagePicker />

@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-  <title>{t('about.title')} &middot; ClassGrocery</title>
+  <title>{t('about.title')} &middot; Class Grocery</title>
 </svelte:head>
 
 <div class="info-page">

@@ -15,7 +15,7 @@
 <header class="app-header">
   <div>
     <button class="brand-button" type="button" onclick={onHome}>
-      <img src="/logo.svg" alt="" width="20" height="20" />ClassGrocery
+      <img src="/logo.svg" alt="" width="20" height="20" />Class Grocery
     </button>
     <span class="role-chip">{t(`role.${role}`)}</span>
     {#if shop.store}

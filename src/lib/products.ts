@@ -387,7 +387,7 @@ const nameBrands: Product[] = [
 
 // --------------------------------------------------- the CG store brand line
 //
-// Every name brand has a ClassGrocery twin: the same product, in the same
+// Every name brand has a Class Grocery twin: the same product, in the same
 // packaging, carrying the green CG band along the bottom and priced a little
 // lower. It is a separate product with its own id, so a store can carry one
 // brand, the other, or both side by side, and a receipt can tell them apart.

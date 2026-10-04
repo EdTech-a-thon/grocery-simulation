@@ -1,4 +1,4 @@
-# ClassGrocery
+# Class Grocery
 
 A grocery-store simulation for practicing real-life grocery shopping: planning
 meals, sticking to a budget, clipping coupons and comparing prices. Teachers set
@@ -6,7 +6,7 @@ up a store for each class — its prices, which products it stocks, and its prin
 coupons. Students open the store's link and shop, then read an itemized receipt.
 
 There are no accounts and no database. A store travels inside its own link, so
-ClassGrocery collects nothing about the teachers or students who use it.
+Class Grocery collects nothing about the teachers or students who use it.
 
 ## Running it locally
 
@@ -74,7 +74,7 @@ A **master** in `art/masters/` is a layered drawing: `#item` is the package or t
 bare food, `#label` is the blank printed panel, and `#brand` and `#brand-cg` are
 two alternative faces for that panel. The two shipped files are cut from that one
 drawing — `static/images/<id>.svg` keeps `#brand`, `static/images/cg/<id>.svg`
-keeps `#brand-cg` — so a product and its ClassGrocery twin share a silhouette
+keeps `#brand-cg` — so a product and its Class Grocery twin share a silhouette
 because they are literally the same paths. That is the point: an own-label package
 is the same package printed more plainly, not a different product, and not the
 name brand with a green stripe stacked under it.

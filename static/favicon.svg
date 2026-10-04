@@ -2,7 +2,7 @@
      nudged up 12% so it fills the tile once the browser shrinks it, and the
      calyx is a lighter green than the tile so the leaves do not dissolve into
      the background at favicon size. -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ClassGrocery">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Class Grocery">
   <rect width="64" height="64" rx="14" fill="#166534"/>
   <g transform="translate(0 -4)">
     <g transform="translate(32 39) scale(1.12) translate(-32 -39)">

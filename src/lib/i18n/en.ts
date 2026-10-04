@@ -5,7 +5,7 @@ import type { LanguagePack } from './types'
  * the right-hand side translated — the keys never change.
  *
  * A few things are deliberately *not* translated, because they are names rather
- * than words: "ClassGrocery", "CG Value", and the dollar amounts, which stay in
+ * than words: "Class Grocery", "CG Value", and the dollar amounts, which stay in
  * US dollars in every language so a class doing the same money lesson sees the
  * same prices.
  *
@@ -39,7 +39,7 @@ const en: LanguagePack = {
     'footer.builtBy': 'Built by teacher.dev',
     'footer.about': 'about',
     'footer.privacy': 'privacy',
-    'page.back': 'Back to ClassGrocery',
+    'page.back': 'Back to Class Grocery',
 
     'support.label': 'Help and support',
     'support.eyebrow': 'Need a hand?',
@@ -183,7 +183,7 @@ const en: LanguagePack = {
     'print.receiptSheet': 'Choose **Save to PDF** in the print window to keep a copy.',
     'print.button': 'Print / Save PDF',
     'print.defaultStore': 'Classroom store',
-    'print.thanks': 'Thank you for shopping at ClassGrocery!',
+    'print.thanks': 'Thank you for shopping at Class Grocery!',
     'print.couponHeading': 'COUPON',
     'print.couponOff': 'OFF',
     'print.couponCode': 'COUPON CODE',
@@ -362,7 +362,7 @@ const en: LanguagePack = {
       'A grocery store simulation built for teachers and their classes, free for anyone to use.',
     'about.community.title': 'From the EdTech-a-thon',
     'about.community.body':
-      "ClassGrocery is a project from the [EdTech-a-thon](edtechathon), a community of builders making free tools for classrooms. Learn more about who we are and what else we're building at [edtechathon.com](edtechathon).",
+      "Class Grocery is a project from the [EdTech-a-thon](edtechathon), a community of builders making free tools for classrooms. Learn more about who we are and what else we're building at [edtechathon.com](edtechathon).",
     'about.community.photo': 'Participants of the 2026 EdTech-a-thon',
     'about.community.caption': 'EdTech-a-thon 2026',
     'about.promise.title': 'Our promise',
@@ -378,11 +378,11 @@ const en: LanguagePack = {
     'privacy.title': 'Privacy',
     'privacy.lede': "What we collect, what we don't, and why.",
     'privacy.students':
-      'ClassGrocery has no accounts and collects no personal information from teachers or students. A store — its name, prices and coupons — travels inside its own link, in the part after the # sign. Browsers never send that part to any server, so we never see it.',
+      'Class Grocery has no accounts and collects no personal information from teachers or students. A store — its name, prices and coupons — travels inside its own link, in the part after the # sign. Browsers never send that part to any server, so we never see it.',
     'privacy.analytics':
-      "We use Cloudflare Web Analytics to anonymously count the number of visits, which helps us understand how ClassGrocery is being used in classrooms. Cloudflare Web Analytics is cookieless, does not fingerprint visitors, and does not track users across other sites; see Cloudflare's [privacy policy](cloudflare) for details. We do not share, sell, or otherwise transfer any visitor data to third parties.",
+      "We use Cloudflare Web Analytics to anonymously count the number of visits, which helps us understand how Class Grocery is being used in classrooms. Cloudflare Web Analytics is cookieless, does not fingerprint visitors, and does not track users across other sites; see Cloudflare's [privacy policy](cloudflare) for details. We do not share, sell, or otherwise transfer any visitor data to third parties.",
     'privacy.storage':
-      "ClassGrocery keeps a few things in your browser's local storage: the stores a teacher chooses to save, the last store a student opened, what is in their cart, and the language you picked. That information never leaves your device.",
+      "Class Grocery keeps a few things in your browser's local storage: the stores a teacher chooses to save, the last store a student opened, what is in their cart, and the language you picked. That information never leaves your device.",
     'privacy.contact':
       'Questions or concerns? Email [support@classgrocery.com](support).',
   },

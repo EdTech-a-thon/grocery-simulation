@@ -11,7 +11,7 @@
 </script>
 
 <svelte:head>
-  <title>{t('privacy.title')} &middot; ClassGrocery</title>
+  <title>{t('privacy.title')} &middot; Class Grocery</title>
 </svelte:head>
 
 <div class="info-page">

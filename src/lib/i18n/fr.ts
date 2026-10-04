@@ -18,7 +18,7 @@ const fr: LanguagePack = {
     'footer.builtBy': 'Créé par teacher.dev',
     'footer.about': 'à propos',
     'footer.privacy': 'confidentialité',
-    'page.back': 'Retour à ClassGrocery',
+    'page.back': 'Retour à Class Grocery',
 
     'support.label': 'Aide et assistance',
     'support.eyebrow': 'Besoin d’un coup de main ?',
@@ -158,7 +158,7 @@ const fr: LanguagePack = {
       'Choisissez **Enregistrer au format PDF** dans la fenêtre d’impression pour en garder une copie.',
     'print.button': 'Imprimer / Enregistrer en PDF',
     'print.defaultStore': 'Magasin de la classe',
-    'print.thanks': 'Merci d’avoir fait vos courses chez ClassGrocery !',
+    'print.thanks': 'Merci d’avoir fait vos courses chez Class Grocery !',
     'print.couponHeading': 'BON DE RÉDUCTION',
     'print.couponOff': 'DE RÉDUCTION',
     'print.couponCode': 'CODE DU BON',
@@ -337,7 +337,7 @@ const fr: LanguagePack = {
       'Une simulation de magasin d’alimentation conçue pour les enseignants et leurs classes, gratuite pour tout le monde.',
     'about.community.title': 'De l’EdTech-a-thon',
     'about.community.body':
-      'ClassGrocery est un projet de l’[EdTech-a-thon](edtechathon), une communauté de créateurs qui fabriquent des outils gratuits pour les classes. Découvrez qui nous sommes et ce que nous construisons sur [edtechathon.com](edtechathon).',
+      'Class Grocery est un projet de l’[EdTech-a-thon](edtechathon), une communauté de créateurs qui fabriquent des outils gratuits pour les classes. Découvrez qui nous sommes et ce que nous construisons sur [edtechathon.com](edtechathon).',
     'about.community.photo': 'Participants de l’EdTech-a-thon 2026',
     'about.community.caption': 'EdTech-a-thon 2026',
     'about.promise.title': 'Notre promesse',
@@ -352,11 +352,11 @@ const fr: LanguagePack = {
     'privacy.title': 'Confidentialité',
     'privacy.lede': 'Ce que nous collectons, ce que nous ne collectons pas, et pourquoi.',
     'privacy.students':
-      'ClassGrocery n’a pas de comptes et ne recueille aucune information personnelle, ni sur les enseignants ni sur les élèves. Un magasin (son nom, ses prix et ses coupons) voyage dans son propre lien, dans la partie qui suit le signe #. Les navigateurs n’envoient jamais cette partie à un serveur, donc nous ne la voyons jamais.',
+      'Class Grocery n’a pas de comptes et ne recueille aucune information personnelle, ni sur les enseignants ni sur les élèves. Un magasin (son nom, ses prix et ses coupons) voyage dans son propre lien, dans la partie qui suit le signe #. Les navigateurs n’envoient jamais cette partie à un serveur, donc nous ne la voyons jamais.',
     'privacy.analytics':
-      'Nous utilisons Cloudflare Web Analytics pour compter anonymement les visites, ce qui nous aide à comprendre comment ClassGrocery est utilisé en classe. Cloudflare Web Analytics n’utilise pas de cookies, ne crée pas d’empreinte des visiteurs et ne les suit pas sur d’autres sites ; voir la [politique de confidentialité](cloudflare) de Cloudflare pour le détail. Nous ne partageons, ne vendons ni ne transférons aucune donnée de visiteur à des tiers.',
+      'Nous utilisons Cloudflare Web Analytics pour compter anonymement les visites, ce qui nous aide à comprendre comment Class Grocery est utilisé en classe. Cloudflare Web Analytics n’utilise pas de cookies, ne crée pas d’empreinte des visiteurs et ne les suit pas sur d’autres sites ; voir la [politique de confidentialité](cloudflare) de Cloudflare pour le détail. Nous ne partageons, ne vendons ni ne transférons aucune donnée de visiteur à des tiers.',
     'privacy.storage':
-      'ClassGrocery garde quelques informations dans le stockage local de votre navigateur : les magasins qu’un enseignant choisit d’enregistrer, le dernier magasin ouvert par un élève, le contenu de son panier et la langue choisie. Ces informations ne quittent jamais votre appareil.',
+      'Class Grocery garde quelques informations dans le stockage local de votre navigateur : les magasins qu’un enseignant choisit d’enregistrer, le dernier magasin ouvert par un élève, le contenu de son panier et la langue choisie. Ces informations ne quittent jamais votre appareil.',
     'privacy.contact':
       'Des questions ou des inquiétudes ? Écrivez à [support@classgrocery.com](support).',
   },

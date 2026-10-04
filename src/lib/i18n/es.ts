@@ -18,7 +18,7 @@ const es: LanguagePack = {
     'footer.builtBy': 'Creado por teacher.dev',
     'footer.about': 'acerca de',
     'footer.privacy': 'privacidad',
-    'page.back': 'Volver a ClassGrocery',
+    'page.back': 'Volver a Class Grocery',
 
     'support.label': 'Ayuda y soporte',
     'support.eyebrow': '¿Necesitas ayuda?',
@@ -157,7 +157,7 @@ const es: LanguagePack = {
       'Elige **Guardar como PDF** en la ventana de impresión para conservar una copia.',
     'print.button': 'Imprimir / Guardar PDF',
     'print.defaultStore': 'Tienda del salón',
-    'print.thanks': '¡Gracias por comprar en ClassGrocery!',
+    'print.thanks': '¡Gracias por comprar en Class Grocery!',
     'print.couponHeading': 'CUPÓN',
     'print.couponOff': 'DE DESCUENTO',
     'print.couponCode': 'CÓDIGO DEL CUPÓN',
@@ -335,7 +335,7 @@ const es: LanguagePack = {
       'Una simulación de supermercado creada para docentes y sus clases, gratis para todo el mundo.',
     'about.community.title': 'Del EdTech-a-thon',
     'about.community.body':
-      'ClassGrocery es un proyecto del [EdTech-a-thon](edtechathon), una comunidad de creadores que hacen herramientas gratuitas para las aulas. Conoce quiénes somos y qué más estamos construyendo en [edtechathon.com](edtechathon).',
+      'Class Grocery es un proyecto del [EdTech-a-thon](edtechathon), una comunidad de creadores que hacen herramientas gratuitas para las aulas. Conoce quiénes somos y qué más estamos construyendo en [edtechathon.com](edtechathon).',
     'about.community.photo': 'Participantes del EdTech-a-thon 2026',
     'about.community.caption': 'EdTech-a-thon 2026',
     'about.promise.title': 'Nuestra promesa',
@@ -350,11 +350,11 @@ const es: LanguagePack = {
     'privacy.title': 'Privacidad',
     'privacy.lede': 'Qué recopilamos, qué no, y por qué.',
     'privacy.students':
-      'ClassGrocery no tiene cuentas y no recopila información personal de maestros ni de estudiantes. Una tienda (su nombre, sus precios y sus cupones) viaja dentro de su propio enlace, en la parte que va después del signo #. Los navegadores nunca envían esa parte a ningún servidor, así que nosotros nunca la vemos.',
+      'Class Grocery no tiene cuentas y no recopila información personal de maestros ni de estudiantes. Una tienda (su nombre, sus precios y sus cupones) viaja dentro de su propio enlace, en la parte que va después del signo #. Los navegadores nunca envían esa parte a ningún servidor, así que nosotros nunca la vemos.',
     'privacy.analytics':
-      'Usamos Cloudflare Web Analytics para contar las visitas de forma anónima, lo que nos ayuda a entender cómo se usa ClassGrocery en las aulas. Cloudflare Web Analytics no usa cookies, no crea huellas digitales de los visitantes y no los rastrea en otros sitios; consulta la [política de privacidad](cloudflare) de Cloudflare para más detalles. No compartimos, vendemos ni transferimos los datos de los visitantes a terceros.',
+      'Usamos Cloudflare Web Analytics para contar las visitas de forma anónima, lo que nos ayuda a entender cómo se usa Class Grocery en las aulas. Cloudflare Web Analytics no usa cookies, no crea huellas digitales de los visitantes y no los rastrea en otros sitios; consulta la [política de privacidad](cloudflare) de Cloudflare para más detalles. No compartimos, vendemos ni transferimos los datos de los visitantes a terceros.',
     'privacy.storage':
-      'ClassGrocery guarda algunas cosas en el almacenamiento local de tu navegador: las tiendas que un maestro decide guardar, la última tienda que abrió un estudiante, lo que hay en su carrito y el idioma que elegiste. Esa información nunca sale de tu dispositivo.',
+      'Class Grocery guarda algunas cosas en el almacenamiento local de tu navegador: las tiendas que un maestro decide guardar, la última tienda que abrió un estudiante, lo que hay en su carrito y el idioma que elegiste. Esa información nunca sale de tu dispositivo.',
     'privacy.contact':
       '¿Dudas o inquietudes? Escribe a [support@classgrocery.com](support).',
   },
