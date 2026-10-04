@@ -9,7 +9,7 @@
 <footer class="site-footer">
   <a
     class="site-footer-brand"
-    href="https://edtechathon.com"
+    href="https://teacher.dev"
     target="_blank"
     rel="noopener noreferrer"
   >
