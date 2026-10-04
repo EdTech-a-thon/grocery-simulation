@@ -218,9 +218,9 @@ const en: LanguagePack = {
     'store.tabsLabel': 'Store pages',
 
     // ------------------------------------------------------ store list
-    'stores.create': 'Create store',
+    'stores.create': 'Create',
     'stores.definition': 'Each store has its own prices, products and coupons, and its own link for students.',
-    'stores.import': 'Import store',
+    'stores.import': 'Import',
     'stores.download': 'Download file',
     'stores.yours': 'Your stores',
     'stores.savedOn': 'Last changed {date}',

@@ -193,9 +193,9 @@ const fr: LanguagePack = {
     'store.viewAsStudent': 'Voir comme un élève',
     'store.tabsLabel': 'Pages du magasin',
 
-    'stores.create': 'Créer un magasin',
+    'stores.create': 'Créer',
     'stores.definition': 'Chaque magasin a ses propres prix, produits et bons de réduction, et son propre lien pour les élèves.',
-    'stores.import': 'Importer un magasin',
+    'stores.import': 'Importer',
     'stores.download': 'Télécharger le fichier',
     'stores.yours': 'Vos magasins',
     'stores.savedOn': 'Modifié le {date}',

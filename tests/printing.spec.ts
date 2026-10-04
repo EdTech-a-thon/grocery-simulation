@@ -20,7 +20,7 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   await page.getByRole('link', { name: 'Get started' }).click()
   await expect(page).toHaveURL(/\/teacher$/)
 
-  await page.locator('.store-list-heading').getByRole('button', { name: 'Create store' }).click()
+  await page.locator('.store-list-heading').getByRole('button', { name: 'Create' }).click()
   await page.getByLabel('Store name').fill('Smoke Test Market')
   await page.locator('.store-modal').getByRole('button', { name: 'Create store' }).click()
   await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()

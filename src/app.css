@@ -1793,6 +1793,8 @@ p {
 .store-list-heading h1 { color: #14532d; font-size: clamp(1.6rem,3vw,2.1rem); line-height: 1.1; }
 .store-list-heading p { max-width: 30rem; margin-top: 6px; color: #4b6354; line-height: 1.5; }
 .store-list-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.store-list-actions button { display: inline-flex; align-items: center; gap: 8px; }
+.store-list-actions svg { width: 17px; height: 17px; }
 .store-list .store-summary-copy { flex: 1; }
 .store-list .store-summary-actions { flex: 1 0 100%; margin-left: 44px; }
 @media (max-width: 600px) { .store-list .store-summary-actions { margin-left: 0; } }

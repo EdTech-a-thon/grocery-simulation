@@ -94,7 +94,7 @@ test('a teacher builds a store without signing up for anything', async ({ page }
   await expect(page).toHaveURL(/\/teacher$/)
   await expect(page.locator('.store-list')).toContainText('Create your first store to get started.')
 
-  await page.locator('.store-list-heading').getByRole('button', { name: 'Create store' }).click()
+  await page.locator('.store-list-heading').getByRole('button', { name: 'Create' }).click()
   await page.getByLabel('Store name').fill(store.name)
   await page.getByLabel('Store color').selectOption('blue')
   await page.locator('.store-modal').getByRole('button', { name: 'Create store' }).click()
@@ -419,7 +419,7 @@ test('stocking only the CG line puts the name brands away but keeps loose food',
 
 test('a teacher changes a store settings after it is built', async ({ page }) => {
   await page.goto('/teacher')
-  await page.locator('.store-list-heading').getByRole('button', { name: 'Create store' }).click()
+  await page.locator('.store-list-heading').getByRole('button', { name: 'Create' }).click()
   const form = page.locator('.store-modal')
   await form.getByLabel('Store name').fill('Settings Store')
   await form.getByLabel('CG Value store brand').check()

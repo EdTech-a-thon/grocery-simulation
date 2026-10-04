@@ -192,9 +192,9 @@ const es: LanguagePack = {
     'store.viewAsStudent': 'Ver como estudiante',
     'store.tabsLabel': 'Páginas de la tienda',
 
-    'stores.create': 'Crear tienda',
+    'stores.create': 'Crear',
     'stores.definition': 'Cada tienda tiene sus propios precios, productos y cupones, y su propio enlace para los estudiantes.',
-    'stores.import': 'Importar tienda',
+    'stores.import': 'Importar',
     'stores.download': 'Descargar archivo',
     'stores.yours': 'Tus tiendas',
     'stores.savedOn': 'Último cambio: {date}',

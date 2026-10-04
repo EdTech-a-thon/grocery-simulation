@@ -74,8 +74,18 @@
         <p>{t('stores.definition')}</p>
       </div>
       <div class="store-list-actions">
-        <button class="teacher-secondary-button" type="button" onclick={() => (importing = true)}>{t('stores.import')}</button>
-        <button class="primary-button" type="button" onclick={() => (creating = true)}>{t('stores.create')}</button>
+        <button class="teacher-secondary-button" type="button" onclick={() => (importing = true)}>
+          {t('stores.import')}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3v12" /><path d="m7 10 5 5 5-5" /><path d="M5 21h14" />
+          </svg>
+        </button>
+        <button class="primary-button" type="button" onclick={() => (creating = true)}>
+          {t('stores.create')}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M12 5v14" /><path d="M5 12h14" />
+          </svg>
+        </button>
       </div>
     </div>
     {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
