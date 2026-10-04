@@ -30,9 +30,6 @@ const en: LanguagePack = {
   ui: {
     // ------------------------------------------------------ everywhere
     'language.change': 'Change language',
-    'role.teacher': 'teacher view',
-    'role.student': 'student view',
-    'role.class': 'class view',
     'action.close': 'Close',
     'action.cancel': 'Cancel',
 
@@ -221,16 +218,11 @@ const en: LanguagePack = {
     'store.tabsLabel': 'Store pages',
 
     // ------------------------------------------------------ store list
-    'stores.eyebrow': 'Teacher controls',
-    'stores.title': 'Set up a store for each class',
-    'stores.body':
-      'No accounts and nothing to sign up for. Build a store, copy its student link, and share it with your class. Each store keeps its own prices, stocked items and coupons.',
-    'stores.create': 'Create New Store',
+    'stores.create': 'Create store',
+    'stores.definition': 'Each store has its own prices, products and coupons, and its own link for students.',
+    'stores.import': 'Import store',
+    'stores.download': 'Download file',
     'stores.yours': 'Your stores',
-    'stores.count.one': '{count} store',
-    'stores.count.other': '{count} stores',
-    'stores.browserOnly':
-      "These stores are saved in this browser only, and we never see them. Clearing your browser's data removes them, so bookmark a store's page to keep it for good or to open it on another computer.",
     'stores.savedOn': 'Last changed {date}',
     'stores.edit': 'Edit Store',
     'stores.copyLink': 'Copy student link',
@@ -248,13 +240,16 @@ const en: LanguagePack = {
       'Student link for {name} copied. If you change this store later, you will need to share a new link.',
     'stores.linkFallback': 'Student link for {name}: {link}',
     'stores.badLink': 'That store link did not work. It may have been cut short when it was copied.',
-    'stores.openLinkTitle': 'Edit a store from its link',
-    'stores.openLinkBody':
-      'Paste a student link to open that store here. Change what you need, then copy the new student link and share it.',
-    'stores.openLinkLabel': 'Student link',
-    'stores.openLinkButton': 'Open for editing',
     'stores.openedFromLink':
       'Opened {name} from its link. When you are done, copy the new student link and share it with your class.',
+
+    'import.title': 'Import a store',
+    'import.linkLabel': 'Store link',
+    'import.linkButton': 'Import',
+    'import.or': 'or',
+    'import.fileButton': 'Choose a store file',
+    'import.badFile': 'That file is not a Class Grocery store. Choose a file made with Download file.',
+    'import.done': '{name} imported.',
 
     // ------------------------------------------------------ store settings
     'settings.pageTitle': 'Set up how this store works',
@@ -262,7 +257,7 @@ const en: LanguagePack = {
     'settings.eyebrowEdit': 'Store settings',
     'settings.eyebrowNew': 'New store',
     'settings.editTitle': 'Edit {name}',
-    'settings.newTitle': 'Create New Store',
+    'settings.newTitle': 'Create a store',
     'settings.name': 'Store name',
     'settings.namePlaceholder': 'Room 204 Market',
     'settings.color': 'Store color',
@@ -382,7 +377,7 @@ const en: LanguagePack = {
     'privacy.analytics':
       "We use Cloudflare Web Analytics to anonymously count the number of visits, which helps us understand how Class Grocery is being used in classrooms. Cloudflare Web Analytics is cookieless, does not fingerprint visitors, and does not track users across other sites; see Cloudflare's [privacy policy](cloudflare) for details. We do not share, sell, or otherwise transfer any visitor data to third parties.",
     'privacy.storage':
-      "Class Grocery keeps a few things in your browser's local storage: the stores a teacher chooses to save, the last store a student opened, what is in their cart, and the language you picked. That information never leaves your device.",
+      "Class Grocery keeps a few things in your browser's local storage: the stores on a teacher's list, the last store a student opened, what is in their cart, and the language you picked. That information never leaves your device.",
     'privacy.contact':
       'Questions or concerns? Email [support@classgrocery.com](support).',
   },

@@ -112,7 +112,7 @@
   <StoreList header={storesHeader} onOpenStore={open} />
 {/if}
 
-{#snippet storesHeader()}{@render teacherHeader(t('teacher.myStores'))}{/snippet}
+{#snippet storesHeader()}{@render teacherHeader('')}{/snippet}
 {#snippet pricesHeader()}{@render teacherHeader(t('teacher.pricesTitle'))}{/snippet}
 {#snippet couponsHeader()}{@render teacherHeader(t('teacher.couponsTitle'))}{/snippet}
 {#snippet settingsHeader()}{@render teacherHeader(t('teacher.settingsTitle'))}{/snippet}
@@ -126,11 +126,14 @@
   changes a store lives in that store's green header instead.
 -->
 {#snippet teacherHeader(title: string)}
-  <AppHeader {title} role="teacher" onHome={showStores}>
+  <AppHeader {title} onHome={showStores}>
     {#snippet nav()}
-      <span class="header-pages">
-        <button class:active={screen === 'stores'} type="button" onclick={showStores}>{t('teacher.myStores')}</button>
-      </span>
+      <!-- The store list names itself, so it only needs a way back once a store is open. -->
+      {#if screen !== 'stores'}
+        <span class="header-pages">
+          <button type="button" onclick={showStores}>{t('teacher.myStores')}</button>
+        </span>
+      {/if}
     {/snippet}
   </AppHeader>
 {/snippet}

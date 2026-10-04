@@ -138,7 +138,7 @@
 {/if}
 
 {#snippet studentHeader()}
-  <AppHeader title={t('student.headerTitle')} role="student" onHome={() => (screen = 'dashboard')}>
+  <AppHeader title={t('student.headerTitle')} onHome={() => (screen = 'dashboard')}>
     {#snippet nav()}
       <button type="button" onclick={() => (screen = 'welcome')}>{t('student.switchRole')}</button>
     {/snippet}

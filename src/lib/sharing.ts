@@ -46,6 +46,28 @@ export function teacherLink(encoded: string) {
   return `${origin()}/teacher#${encoded}`
 }
 
+/**
+ * Saves a store as a file the teacher can keep or send to a colleague. It is
+ * the same packed store a link carries, just not compressed, so it can be read.
+ */
+export function downloadStoreFile(store: Store) {
+  const contents = JSON.stringify({ classGroceryStore: packStore(store) }, null, 2)
+  const link = document.createElement('a')
+  link.href = URL.createObjectURL(new Blob([contents], { type: 'application/json' }))
+  link.download = `${store.name.replace(/[^\p{L}\p{N} _-]+/gu, '').trim() || 'store'}.json`
+  link.click()
+  setTimeout(() => URL.revokeObjectURL(link.href)) // once the download has started
+}
+
+/** The store in a file from downloadStoreFile(), or null when it is not one. */
+export function storeFromFile(contents: string): Store | null {
+  try {
+    return unpackStore(JSON.parse(contents)?.classGroceryStore)
+  } catch {
+    return null
+  }
+}
+
 /** Copies text, and says whether the clipboard accepted it. */
 export async function copyText(value: string) {
   try {

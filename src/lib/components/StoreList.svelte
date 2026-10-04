@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
+  import ImportStoreModal from '$lib/components/ImportStoreModal.svelte'
   import StoreSettingsModal from '$lib/components/StoreSettingsModal.svelte'
-  import { current, plural, t } from '$lib/i18n/index.svelte'
+  import { current, t } from '$lib/i18n/index.svelte'
   import { forgetSavedStore, saveStore, saved, type SavedStore } from '$lib/savedStores.svelte'
-  import { copyText, decodeStore, encodeStore, encodedFromLink, studentLink } from '$lib/sharing'
+  import { copyText, downloadStoreFile, encodeStore, studentLink } from '$lib/sharing'
   import type { Store } from '$lib/store'
   import { teacher, type StorePage } from '$lib/teacher.svelte'
 
@@ -12,11 +13,10 @@
     onOpenStore: (store: Store, savedId: string | null, page?: StorePage, fromStudentLink?: boolean) => void
   } = $props()
 
-  let pastedLink = $state('')
-
   // A store that already exists edits its settings on its own page; the modal is
   // only for a store that does not exist yet, and so has no page to open.
   let creating = $state(false)
+  let importing = $state(false)
 
   /** Newest first: the store a teacher was just working on is the one they want. */
   const stores = $derived([...saved.stores].sort((a, b) => b.savedAt.localeCompare(a.savedAt)))
@@ -27,19 +27,17 @@
   }
 
   /**
-   * Opens a store from a link the class already has. Nothing is saved: the
-   * teacher edits a copy and hands out a new link, and the old one keeps
-   * working as it was.
+   * Every store a teacher makes or brings in goes straight onto their list, so
+   * there is nothing to remember to save.
    */
-  async function openPastedLink(event: SubmitEvent) {
-    event.preventDefault()
-    const store = await decodeStore(encodedFromLink(pastedLink))
-    if (!store) {
-      teacher.message = t('stores.badLink')
-      return
-    }
-    onOpenStore(store, null, 'prices', true)
-    teacher.message = t('stores.openedFromLink', { name: store.name })
+  function openNew(store: Store, fromLink = false) {
+    onOpenStore(store, saveStore(store), 'prices', fromLink)
+  }
+
+  function imported(store: Store, fromLink: boolean) {
+    importing = false
+    openNew(store, fromLink)
+    teacher.message = t(fromLink ? 'stores.openedFromLink' : 'import.done', { name: store.name })
   }
 
   function savedOn(entry: SavedStore) {
@@ -69,61 +67,47 @@
 
 <main class="teacher-shell">
   {@render header()}
-  <section class="teacher-hero">
-    <div>
-      <p class="eyebrow">{t('stores.eyebrow')}</p>
-      <h2>{t('stores.title')}</h2>
-      <p>{t('stores.body')}</p>
-      <button class="primary-button create-store-button" type="button" onclick={() => (creating = true)}>{t('stores.create')}</button>
-    </div>
-  </section>
-  {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
-  <section class="store-workspace">
-    <form class="open-link-form" onsubmit={openPastedLink}>
+  <section class="store-list">
+    <div class="store-list-heading">
       <div>
-        <h2>{t('stores.openLinkTitle')}</h2>
-        <p>{t('stores.openLinkBody')}</p>
+        <h1>{t('stores.yours')}</h1>
+        <p>{t('stores.definition')}</p>
       </div>
-      <label>
-        <span>{t('stores.openLinkLabel')}</span>
-        <input required bind:value={pastedLink} type="text" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://…/shop#…" />
-      </label>
-      <button class="teacher-secondary-button" type="submit">{t('stores.openLinkButton')}</button>
-    </form>
-    <section class="store-list">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">{t('stores.yours')}</p>
-          <h2>{plural('stores.count', stores.length)}</h2>
+      <div class="store-list-actions">
+        <button class="teacher-secondary-button" type="button" onclick={() => (importing = true)}>{t('stores.import')}</button>
+        <button class="primary-button" type="button" onclick={() => (creating = true)}>{t('stores.create')}</button>
+      </div>
+    </div>
+    {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
+    {#each stores as entry (entry.id)}
+      <article class="store-summary" data-color={entry.store.color}>
+        <span class="store-swatch" aria-hidden="true"></span>
+        <div class="store-summary-copy">
+          <button class="store-name-button" type="button" onclick={() => edit(entry)}>{entry.store.name}</button>
+          <span>{t('stores.savedOn', { date: savedOn(entry) })}</span>
         </div>
-      </div>
-      <p class="helper-text saved-stores-note">{t('stores.browserOnly')}</p>
-      {#each stores as entry (entry.id)}
-        <article class="store-summary" data-color={entry.store.color}>
-          <span class="store-swatch" aria-hidden="true"></span>
-          <div class="store-summary-copy">
-            <button class="store-name-button" type="button" onclick={() => edit(entry)}>{entry.store.name}</button>
-            <span>{t('stores.savedOn', { date: savedOn(entry) })}</span>
-          </div>
-          <button class="primary-button store-open-button" type="button" onclick={() => edit(entry)}>{t('stores.edit')}</button>
-          <div class="store-summary-actions">
-            <button type="button" onclick={() => void share(entry)}>{t('stores.copyLink')}</button>
-            <button type="button" onclick={() => duplicate(entry)}>{t('stores.duplicate')}</button>
-            <button type="button" onclick={() => edit(entry, 'settings')}>{t('stores.settings')}</button>
-            <button class="icon-button" data-delete-store type="button" title={t('stores.delete')} aria-label={t('stores.deleteLabel', { name: entry.store.name })} onclick={() => remove(entry)}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M3 6h18" /><path d="M8 6V4h8v2" /><path d="M6 6l1 14h10l1-14" /><path d="M10 11v5" /><path d="M14 11v5" />
-              </svg>
-            </button>
-          </div>
-        </article>
-      {:else}
-        <div class="empty-coupons">{t('stores.empty')}</div>
-      {/each}
-    </section>
+        <button class="primary-button store-open-button" type="button" onclick={() => edit(entry)}>{t('stores.edit')}</button>
+        <div class="store-summary-actions">
+          <button type="button" onclick={() => void share(entry)}>{t('stores.copyLink')}</button>
+          <button type="button" onclick={() => duplicate(entry)}>{t('stores.duplicate')}</button>
+          <button type="button" onclick={() => downloadStoreFile(entry.store)}>{t('stores.download')}</button>
+          <button type="button" onclick={() => edit(entry, 'settings')}>{t('stores.settings')}</button>
+          <button class="icon-button" data-delete-store type="button" title={t('stores.delete')} aria-label={t('stores.deleteLabel', { name: entry.store.name })} onclick={() => remove(entry)}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 6h18" /><path d="M8 6V4h8v2" /><path d="M6 6l1 14h10l1-14" /><path d="M10 11v5" /><path d="M14 11v5" />
+            </svg>
+          </button>
+        </div>
+      </article>
+    {:else}
+      <button class="store-list-empty" type="button" onclick={() => (creating = true)}>{t('stores.empty')}</button>
+    {/each}
   </section>
 </main>
 
 {#if creating}
-  <StoreSettingsModal store={null} onClose={() => (creating = false)} onCreated={(store) => onOpenStore(store, null)} />
+  <StoreSettingsModal store={null} onClose={() => (creating = false)} onCreated={(store) => openNew(store)} />
+{/if}
+{#if importing}
+  <ImportStoreModal onClose={() => (importing = false)} onImported={imported} />
 {/if}

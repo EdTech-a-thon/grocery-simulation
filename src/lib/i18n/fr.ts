@@ -9,9 +9,6 @@ const fr: LanguagePack = {
 
   ui: {
     'language.change': 'Changer de langue',
-    'role.teacher': 'vue enseignant',
-    'role.student': 'vue élève',
-    'role.class': 'vue classe',
     'action.close': 'Fermer',
     'action.cancel': 'Annuler',
 
@@ -196,16 +193,11 @@ const fr: LanguagePack = {
     'store.viewAsStudent': 'Voir comme un élève',
     'store.tabsLabel': 'Pages du magasin',
 
-    'stores.eyebrow': 'Commandes de l’enseignant',
-    'stores.title': 'Créez un magasin par classe',
-    'stores.body':
-      'Pas de compte, aucune inscription. Créez un magasin, copiez son lien élèves et partagez-le avec votre classe. Chaque magasin a ses propres prix, ses produits en rayon et ses coupons.',
     'stores.create': 'Créer un magasin',
+    'stores.definition': 'Chaque magasin a ses propres prix, produits et bons de réduction, et son propre lien pour les élèves.',
+    'stores.import': 'Importer un magasin',
+    'stores.download': 'Télécharger le fichier',
     'stores.yours': 'Vos magasins',
-    'stores.count.one': '{count} magasin',
-    'stores.count.other': '{count} magasins',
-    'stores.browserOnly':
-      'Ces magasins sont enregistrés uniquement dans ce navigateur, et nous ne les voyons jamais. Effacer les données du navigateur les supprime : ajoutez la page d’un magasin à vos favoris pour le garder pour de bon ou l’ouvrir sur un autre ordinateur.',
     'stores.savedOn': 'Modifié le {date}',
     'stores.edit': 'Modifier le magasin',
     'stores.copyLink': 'Copier le lien élèves',
@@ -224,13 +216,16 @@ const fr: LanguagePack = {
       'Lien élèves de {name} copié. Si vous modifiez ce magasin plus tard, il faudra partager un nouveau lien.',
     'stores.linkFallback': 'Lien élèves de {name} : {link}',
     'stores.badLink': 'Ce lien de magasin n’a pas fonctionné. Il a peut-être été coupé lors de la copie.',
-    'stores.openLinkTitle': 'Modifier un magasin à partir de son lien',
-    'stores.openLinkBody':
-      'Collez un lien élèves pour ouvrir ce magasin ici. Modifiez ce qu’il faut, puis copiez le nouveau lien élèves et partagez-le.',
-    'stores.openLinkLabel': 'Lien élèves',
-    'stores.openLinkButton': 'Ouvrir pour modifier',
     'stores.openedFromLink':
       '{name} a été ouvert à partir de son lien. Quand vous avez fini, copiez le nouveau lien élèves et partagez-le avec votre classe.',
+
+    'import.title': 'Importer un magasin',
+    'import.linkLabel': 'Lien du magasin',
+    'import.linkButton': 'Importer',
+    'import.or': 'ou',
+    'import.fileButton': 'Choisir un fichier de magasin',
+    'import.badFile': 'Ce fichier n’est pas un magasin Class Grocery. Choisissez un fichier créé avec Télécharger le fichier.',
+    'import.done': '{name} importé.',
 
     'settings.pageTitle': 'Réglez le fonctionnement de ce magasin',
     'settings.pageLede':
@@ -356,7 +351,7 @@ const fr: LanguagePack = {
     'privacy.analytics':
       'Nous utilisons Cloudflare Web Analytics pour compter anonymement les visites, ce qui nous aide à comprendre comment Class Grocery est utilisé en classe. Cloudflare Web Analytics n’utilise pas de cookies, ne crée pas d’empreinte des visiteurs et ne les suit pas sur d’autres sites ; voir la [politique de confidentialité](cloudflare) de Cloudflare pour le détail. Nous ne partageons, ne vendons ni ne transférons aucune donnée de visiteur à des tiers.',
     'privacy.storage':
-      'Class Grocery garde quelques informations dans le stockage local de votre navigateur : les magasins qu’un enseignant choisit d’enregistrer, le dernier magasin ouvert par un élève, le contenu de son panier et la langue choisie. Ces informations ne quittent jamais votre appareil.',
+      'Class Grocery garde quelques informations dans le stockage local de votre navigateur : les magasins de la liste d’un enseignant, le dernier magasin ouvert par un élève, le contenu de son panier et la langue choisie. Ces informations ne quittent jamais votre appareil.',
     'privacy.contact':
       'Des questions ou des inquiétudes ? Écrivez à [support@classgrocery.com](support).',
   },

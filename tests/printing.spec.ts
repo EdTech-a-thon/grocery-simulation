@@ -20,9 +20,9 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   await page.getByRole('link', { name: 'Get started' }).click()
   await expect(page).toHaveURL(/\/teacher$/)
 
-  await page.getByRole('button', { name: 'Create New Store' }).click()
+  await page.locator('.store-list-heading').getByRole('button', { name: 'Create store' }).click()
   await page.getByLabel('Store name').fill('Smoke Test Market')
-  await page.getByRole('button', { name: 'Create store' }).click()
+  await page.locator('.store-modal').getByRole('button', { name: 'Create store' }).click()
   await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
 
   // Random coupons, then the print-all sheet.
@@ -66,10 +66,9 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   await expect(page.locator('[data-discount-amount]')).toHaveValue('1.00')
   await expect(page.locator('.field-suffix')).toHaveText('$')
 
-  // The store was never saved, so leaving it asks first.
-  page.once('dialog', (dialog) => dialog.accept())
+  // A new store is on the list from the start, so leaving it asks nothing.
   await page.getByRole('button', { name: 'My stores' }).click()
-  await expect(page.locator('.store-list')).toContainText('0 stores')
+  await expect(page.locator('.store-summary').filter({ hasText: 'Smoke Test Market' })).toHaveCount(1)
 
   expect(problems).toEqual([])
 })

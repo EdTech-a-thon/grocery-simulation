@@ -9,9 +9,6 @@ const es: LanguagePack = {
 
   ui: {
     'language.change': 'Cambiar de idioma',
-    'role.teacher': 'vista de docente',
-    'role.student': 'vista de estudiante',
-    'role.class': 'vista de la clase',
     'action.close': 'Cerrar',
     'action.cancel': 'Cancelar',
 
@@ -195,16 +192,11 @@ const es: LanguagePack = {
     'store.viewAsStudent': 'Ver como estudiante',
     'store.tabsLabel': 'Páginas de la tienda',
 
-    'stores.eyebrow': 'Controles del docente',
-    'stores.title': 'Crea una tienda para cada clase',
-    'stores.body':
-      'Sin cuentas y sin registrarse. Crea una tienda, copia su enlace para estudiantes y compártelo con tu clase. Cada tienda tiene sus propios precios, productos y cupones.',
-    'stores.create': 'Crear tienda nueva',
+    'stores.create': 'Crear tienda',
+    'stores.definition': 'Cada tienda tiene sus propios precios, productos y cupones, y su propio enlace para los estudiantes.',
+    'stores.import': 'Importar tienda',
+    'stores.download': 'Descargar archivo',
     'stores.yours': 'Tus tiendas',
-    'stores.count.one': '{count} tienda',
-    'stores.count.other': '{count} tiendas',
-    'stores.browserOnly':
-      'Estas tiendas se guardan solo en este navegador y nosotros nunca las vemos. Si borras los datos del navegador, desaparecen; agrega a marcadores la página de una tienda para conservarla para siempre o abrirla en otra computadora.',
     'stores.savedOn': 'Último cambio: {date}',
     'stores.edit': 'Editar tienda',
     'stores.copyLink': 'Copiar enlace para estudiantes',
@@ -223,13 +215,16 @@ const es: LanguagePack = {
       'Enlace para estudiantes de {name} copiado. Si cambias esta tienda después, tendrás que compartir un enlace nuevo.',
     'stores.linkFallback': 'Enlace para estudiantes de {name}: {link}',
     'stores.badLink': 'Ese enlace de tienda no funcionó. Es posible que se haya cortado al copiarlo.',
-    'stores.openLinkTitle': 'Editar una tienda desde su enlace',
-    'stores.openLinkBody':
-      'Pega un enlace para estudiantes para abrir esa tienda aquí. Cambia lo que necesites, luego copia el enlace nuevo para estudiantes y compártelo.',
-    'stores.openLinkLabel': 'Enlace para estudiantes',
-    'stores.openLinkButton': 'Abrir para editar',
     'stores.openedFromLink':
       'Se abrió {name} desde su enlace. Cuando termines, copia el enlace nuevo para estudiantes y compártelo con tu clase.',
+
+    'import.title': 'Importar una tienda',
+    'import.linkLabel': 'Enlace de la tienda',
+    'import.linkButton': 'Importar',
+    'import.or': 'o',
+    'import.fileButton': 'Elegir un archivo de tienda',
+    'import.badFile': 'Ese archivo no es una tienda de Class Grocery. Elige un archivo hecho con Descargar archivo.',
+    'import.done': '{name} importada.',
 
     'settings.pageTitle': 'Configura cómo funciona esta tienda',
     'settings.pageLede':
@@ -237,7 +232,7 @@ const es: LanguagePack = {
     'settings.eyebrowEdit': 'Configuración de la tienda',
     'settings.eyebrowNew': 'Tienda nueva',
     'settings.editTitle': 'Editar {name}',
-    'settings.newTitle': 'Crear tienda nueva',
+    'settings.newTitle': 'Crear una tienda',
     'settings.name': 'Nombre de la tienda',
     'settings.namePlaceholder': 'Mercado del salón 204',
     'settings.color': 'Color de la tienda',
@@ -354,7 +349,7 @@ const es: LanguagePack = {
     'privacy.analytics':
       'Usamos Cloudflare Web Analytics para contar las visitas de forma anónima, lo que nos ayuda a entender cómo se usa Class Grocery en las aulas. Cloudflare Web Analytics no usa cookies, no crea huellas digitales de los visitantes y no los rastrea en otros sitios; consulta la [política de privacidad](cloudflare) de Cloudflare para más detalles. No compartimos, vendemos ni transferimos los datos de los visitantes a terceros.',
     'privacy.storage':
-      'Class Grocery guarda algunas cosas en el almacenamiento local de tu navegador: las tiendas que un maestro decide guardar, la última tienda que abrió un estudiante, lo que hay en su carrito y el idioma que elegiste. Esa información nunca sale de tu dispositivo.',
+      'Class Grocery guarda algunas cosas en el almacenamiento local de tu navegador: las tiendas de la lista de un maestro, la última tienda que abrió un estudiante, lo que hay en su carrito y el idioma que elegiste. Esa información nunca sale de tu dispositivo.',
     'privacy.contact':
       '¿Dudas o inquietudes? Escribe a [support@classgrocery.com](support).',
   },

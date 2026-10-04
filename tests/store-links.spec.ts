@@ -17,9 +17,9 @@ async function milkOnTheShelf(page: Page, link: string, price: string) {
 test('a teacher opens a student link, edits the store and gets a new link', async ({ page, browser }) => {
   // Someone builds a store and hands out its student link.
   await page.goto('/teacher')
-  await page.getByRole('button', { name: 'Create New Store' }).click()
+  await page.locator('.store-list-heading').getByRole('button', { name: 'Create store' }).click()
   await page.getByLabel('Store name').fill('Shared Market')
-  await page.getByRole('button', { name: 'Create store' }).click()
+  await page.locator('.store-modal').getByRole('button', { name: 'Create store' }).click()
   await expect.poll(() => page.url()).toContain('#')
   const before = page.url()
   await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
@@ -31,8 +31,9 @@ test('a teacher opens a student link, edits the store and gets a new link', asyn
   // Another teacher, on another computer, has nothing but that link.
   const other = await (await browser.newContext({ baseURL: test.info().project.use.baseURL })).newPage()
   await other.goto('/teacher')
-  await other.getByLabel('Student link').fill(`  ${oldLink}  `)
-  await other.getByRole('button', { name: 'Open for editing' }).click()
+  await other.getByRole('button', { name: 'Import store' }).click()
+  await other.getByLabel('Store link').fill(`  ${oldLink}  `)
+  await other.getByRole('button', { name: 'Import', exact: true }).click()
   await expect(other.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
   await expect(other.locator('.teacher-hero h2')).toHaveText('Shared Market')
   await expect(other.locator('.status-message')).toContainText('Opened Shared Market from its link.')
@@ -59,8 +60,42 @@ test('a teacher opens a student link, edits the store and gets a new link', asyn
 
 test('pasting something that is not a store link says so', async ({ page }) => {
   await page.goto('/teacher')
-  await page.getByLabel('Student link').fill('https://example.com/not-a-store')
-  await page.getByRole('button', { name: 'Open for editing' }).click()
-  await expect(page.locator('.status-message')).toHaveText('That store link did not work. It may have been cut short when it was copied.')
-  await expect(page.getByRole('heading', { name: 'Set up a store for each class' })).toBeVisible()
+  await page.getByRole('button', { name: 'Import store' }).click()
+  await page.getByLabel('Store link').fill('https://example.com/not-a-store')
+  await page.getByRole('button', { name: 'Import', exact: true }).click()
+  await expect(page.locator('.import-problem')).toHaveText('That store link did not work. It may have been cut short when it was copied.')
+})
+
+test('a store downloaded as a file imports again, on any computer', async ({ page, browser }) => {
+  await page.goto('/teacher')
+  await page.locator('.store-list-heading').getByRole('button', { name: 'Create store' }).click()
+  await page.getByLabel('Store name').fill('File Market')
+  await page.locator('.store-modal').getByRole('button', { name: 'Create store' }).click()
+  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  await page.getByLabel('Price for Milk').fill('7.77')
+  await page.getByLabel('Price for Milk').blur()
+  await page.getByRole('button', { name: 'My stores' }).click()
+
+  const downloading = page.waitForEvent('download')
+  await page.getByRole('button', { name: 'Download file' }).click()
+  const download = await downloading
+  expect(download.suggestedFilename()).toBe('File Market.json')
+  const file = await download.path()
+
+  const other = await (await browser.newContext({ baseURL: test.info().project.use.baseURL })).newPage()
+  await other.goto('/teacher')
+  await other.getByRole('button', { name: 'Import store' }).click()
+  await other.locator('.import-file-button input').setInputFiles(file)
+  await expect(other.locator('.teacher-hero h2')).toHaveText('File Market')
+  await other.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  await expect(other.getByLabel('Price for Milk')).toHaveValue('7.77')
+
+  // An imported store is on the list straight away.
+  await other.getByRole('button', { name: 'My stores' }).click()
+  await expect(other.locator('.store-summary')).toHaveCount(1)
+
+  // Anything else is turned away.
+  await other.getByRole('button', { name: 'Import store' }).click()
+  await other.locator('.import-file-button input').setInputFiles({ name: 'notes.json', mimeType: 'application/json', buffer: Buffer.from('{"hello": 1}') })
+  await expect(other.locator('.import-problem')).toContainText('That file is not a Class Grocery store.')
 })

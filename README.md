@@ -38,10 +38,12 @@ characters; every changed price adds a few more.
 - `/teacher#…` is the **teacher's page** for the same store. The address bar is
   kept up to date with every change, so bookmarking the page keeps the store for
   good, on any computer.
-- **Saved stores** are an optional list kept in the teacher's own browser
-  (`src/lib/savedStores.svelte.ts`). A saved store saves itself again on every
-  change. Clearing browser data empties the list, which is why the pages
-  recommend a bookmark too.
+- **Your stores** is the list kept in the teacher's own browser
+  (`src/lib/savedStores.svelte.ts`). Every store a teacher creates or imports
+  goes on it, and saves itself again on every change. Clearing browser data
+  empties the list, which is why the pages recommend a bookmark too.
+- **Import store** takes a store link, or a file made with **Download file**
+  (the packed store as JSON, `downloadStoreFile()` in `src/lib/sharing.ts`).
 
 A student link is a snapshot. When a teacher changes prices after sharing, they
 share a new link; students who opened the old one keep shopping the old store.

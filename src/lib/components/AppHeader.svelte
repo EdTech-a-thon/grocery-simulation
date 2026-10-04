@@ -1,12 +1,11 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
   import LanguagePicker from './LanguagePicker.svelte'
-  import { t } from '$lib/i18n/index.svelte'
   import { shop } from '$lib/shop.svelte'
 
-  let { title, role, onHome, nav }: {
-    title: string
-    role: 'teacher' | 'student' | 'class'
+  /** `title` is left out on a page that names itself in its own heading. */
+  let { title = '', onHome, nav }: {
+    title?: string
     onHome: () => void
     nav: Snippet
   } = $props()
@@ -17,11 +16,10 @@
     <button class="brand-button" type="button" onclick={onHome}>
       <img src="/logo.svg" alt="" width="20" height="20" />Class Grocery
     </button>
-    <span class="role-chip">{t(`role.${role}`)}</span>
     {#if shop.store}
       <span class="store-chip" data-color={shop.store.color}>{shop.store.name}</span>
     {/if}
   </div>
-  <h1>{title}</h1>
+  {#if title}<h1>{title}</h1>{:else}<span></span>{/if}
   <nav>{@render nav()}<LanguagePicker /></nav>
 </header>
