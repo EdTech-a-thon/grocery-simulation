@@ -40,7 +40,7 @@
     if (store) open(store, savedIdFor(store) ?? saveStore(store))
     else {
       show('stores')
-      teacher.message = t('stores.badLink')
+      teacher.problem = t('stores.badLink')
     }
   }
 
@@ -49,7 +49,7 @@
     teacher.savedId = savedId
     teacher.sharedEncoded = ''
     openedFromStudentLink = fromStudentLink
-    teacher.message = ''
+    teacher.problem = ''
     justCreated = false
     screen = page
   }
@@ -90,7 +90,7 @@
   })
 
   function show(next: Screen) {
-    teacher.message = ''
+    teacher.problem = ''
     if (next !== 'settings') justCreated = false
     screen = next
   }
@@ -125,7 +125,6 @@
       <div class="store-main">
         <!-- The side panel shows which page this is; the heading says it to a screen reader. -->
         <h1 class="visually-hidden">{t(`teacher.${screen}Title`)}</h1>
-        {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
         {#if screen === 'inventory'}
           <Inventory />
         {:else if screen === 'coupons'}

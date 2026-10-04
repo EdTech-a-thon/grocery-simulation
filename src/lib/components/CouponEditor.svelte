@@ -4,7 +4,6 @@
   import { productName, t } from '$lib/i18n/index.svelte'
   import { shop, stockedProductIds } from '$lib/shop.svelte'
   import { addCoupon, type Coupon } from '$lib/store'
-  import { teacher } from '$lib/teacher.svelte'
 
   /**
    * The window for making a coupon by hand, or changing one. `editing` is the
@@ -58,10 +57,8 @@
     const coupon: Coupon = { code, discountType, discountAmount: amount, productId, copies: 1 }
     if (editing) {
       shop.store.coupons = shop.store.coupons.map((existing) => (existing.code === editing.code ? coupon : existing))
-      teacher.message = t('coupons.updated', { code })
     } else {
       addCoupon(shop.store, coupon)
-      teacher.message = t('coupons.created', { code })
     }
     onClose()
   }

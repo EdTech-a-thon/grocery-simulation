@@ -10,6 +10,8 @@ export default defineConfig({
   use: {
     baseURL: process.env.BASE_URL || 'http://127.0.0.1:8000',
     trace: 'retain-on-failure',
+    // Copy buttons write to the clipboard, which a test browser blocks unless asked.
+    permissions: ['clipboard-read', 'clipboard-write'],
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
 })

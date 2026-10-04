@@ -4,7 +4,7 @@
   import ImportStoreModal from '$lib/components/ImportStoreModal.svelte'
   import { current, t } from '$lib/i18n/index.svelte'
   import { forgetSavedStore, saveStore, saved, type SavedStore } from '$lib/savedStores.svelte'
-  import { copyText, downloadStoreFile, encodeStore, studentLink } from '$lib/sharing'
+  import { copyLink, downloadStoreFile, encodeStore, studentLink } from '$lib/sharing'
   import type { Store } from '$lib/store'
   import { teacher, type StorePage } from '$lib/teacher.svelte'
 
@@ -17,6 +17,8 @@
   let importing = $state(false)
   /** The store whose ⋯ menu is open, if any. */
   let menuFor = $state<string | null>(null)
+  /** The store whose link was just copied, while its button shows a tick. */
+  let copiedFor = $state<string | null>(null)
 
   /** Newest first: the store a teacher was just working on is the one they want. */
   const stores = $derived([...saved.stores].sort((a, b) => b.savedAt.localeCompare(a.savedAt)))
@@ -30,7 +32,6 @@
   function imported(store: Store, fromLink: boolean) {
     importing = false
     onOpenStore(store, saveStore(store), 'inventory', fromLink)
-    teacher.message = t(fromLink ? 'stores.openedFromLink' : 'import.done', { name: store.name })
   }
 
   function savedOn(entry: SavedStore) {
@@ -38,17 +39,15 @@
   }
 
   async function share(entry: SavedStore) {
-    const link = studentLink(await encodeStore(entry.store))
-    teacher.message = (await copyText(link))
-      ? t('stores.linkCopied', { name: entry.store.name })
-      : t('stores.linkFallback', { name: entry.store.name, link })
+    if (!(await copyLink(studentLink(await encodeStore(entry.store)), t('store.copyPrompt')))) return
+    copiedFor = entry.id
+    setTimeout(() => (copiedFor = copiedFor === entry.id ? null : copiedFor), 2000)
   }
 
   function duplicate(entry: SavedStore) {
     const name = window.prompt(t('stores.copyNamePrompt'), t('stores.copyNameDefault', { name: entry.store.name }))?.trim()
     if (!name) return
     saveStore({ ...($state.snapshot(entry.store) as Store), name: name.slice(0, 60) })
-    teacher.message = t('stores.duplicated', { name })
   }
 
   /** Runs a ⋯ menu choice and closes the menu. */
@@ -65,7 +64,6 @@
   function remove(entry: SavedStore) {
     if (!window.confirm(t('stores.deleteConfirm', { name: entry.store.name }))) return
     forgetSavedStore(entry.id)
-    teacher.message = t('stores.deleted', { name: entry.store.name })
   }
 </script>
 
@@ -84,7 +82,7 @@
         <button class="primary-button" type="button" onclick={onCreate}>{t('stores.create')}<Icon name="plus" /></button>
       </div>
     </div>
-    {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
+    {#if teacher.problem}<p class="status-message" role="alert">{teacher.problem}</p>{/if}
     <div class="store-cards">
       {#each stores as entry (entry.id)}
         <!-- The whole card opens the store; its two buttons sit on top of it. -->
@@ -107,7 +105,7 @@
               {/if}
             </div>
             <button class="store-card-icon" type="button" title={t('stores.copyLink')} aria-label={t('stores.copyLinkLabel', { name: entry.store.name })} onclick={() => void share(entry)}>
-              <Icon name="copy" />
+              <Icon name={copiedFor === entry.id ? 'check' : 'copy'} />
             </button>
           </div>
         </article>

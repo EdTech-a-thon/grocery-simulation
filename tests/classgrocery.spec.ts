@@ -107,7 +107,9 @@ test('a teacher builds a store without signing up for anything', async ({ page }
   // Empty one whole aisle, which should drop out of the shopper's view entirely.
   await page.getByRole('button', { name: 'Seafood' }).click()
   await page.getByRole('button', { name: 'Stock none' }).click()
-  await expect(page.locator('.status-message')).toHaveText('Seafood taken off the shelves.')
+  // Nothing announces it: the aisle's count says so.
+  await expect(page.getByRole('button', { name: /^Seafood/ }).locator('.aisle-count')).toHaveText(/^0\//)
+  await expect(page.locator('.status-message')).toHaveCount(0)
 
   await page.getByRole('button', { name: 'Coupons' }).click()
   await page.getByRole('button', { name: 'Add coupon' }).click()
@@ -162,6 +164,7 @@ test('changing a store after copying its student link asks for a new link', asyn
   const copy = page.locator('.store-sidebar-actions .primary-button')
   await expect(copy).toHaveText('Copy student link')
   await copy.click()
+  await expect(copy).toHaveText('Copied')
 
   await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await page.getByLabel('Price for Milk').fill('3.50')
@@ -433,7 +436,6 @@ test('shift-click puts a whole run of products on or off the shelves', async ({ 
   await card(first).locator('img').click()
   await card(fourth).locator('img').click({ modifiers: ['Shift'] })
   for (const name of names.slice(0, 4)) await expect(stockBox(name)).toBeChecked({ checked: false })
-  await expect(page.locator('.status-message')).toHaveText('4 products taken off the shelves.')
   // The run stops where the shift-click landed.
   await expect(stockBox(fifth)).toBeChecked({ checked: fifthBefore })
 

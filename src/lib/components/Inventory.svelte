@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from '$lib/components/Icon.svelte'
   import { aisles, type AisleItem } from '$lib/catalog'
-  import { aisleTitle, plural, productName, t, unitPriceText } from '$lib/i18n/index.svelte'
+  import { aisleTitle, productName, t, unitPriceText } from '$lib/i18n/index.svelte'
   import { isStoreBrand, priceEndingInNine, productById } from '$lib/products'
   import { isStocked, priceFor, setStocked, shop, sizeFor } from '$lib/shop.svelte'
   import { catalogSize, isSizeUnit, sizeUnits, type PackageSize } from '$lib/sizes'
@@ -53,9 +53,6 @@
   function stockWholeAisle(stocked: boolean) {
     if (!shop.store) return
     for (const item of visibleItems) setStocked(item.id, stocked)
-    teacher.message = stocked
-      ? t('prices.aisleStocked', { aisle: aisleTitle(aisle.title) })
-      : t('prices.aisleCleared', { aisle: aisleTitle(aisle.title) })
   }
 
   /** A new aisle starts at its first products, wherever the last one was scrolled to. */
@@ -82,7 +79,6 @@
     }
     const run = visibleItems.slice(Math.min(from, to), Math.max(from, to) + 1)
     for (const item of run) setStocked(item.id, stocked)
-    teacher.message = plural(stocked ? 'prices.runStocked' : 'prices.runCleared', run.length)
   }
 
   /**

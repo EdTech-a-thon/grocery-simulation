@@ -170,10 +170,9 @@ const es: LanguagePack = {
     'teacher.exitStudentView': 'Salir de la vista de estudiante',
 
     'store.copyLink': 'Copiar enlace para estudiantes',
-    'store.linkCopied':
-      'Enlace para estudiantes copiado. Los estudiantes verán esta tienda exactamente como está ahora.',
-    'store.linkFallback': 'Enlace para estudiantes: {link}',
     'store.copyNewLink': 'Copiar enlace nuevo para estudiantes',
+    'store.copied': 'Copiado',
+    'store.copyPrompt': 'Copia este enlace para estudiantes:',
     'store.viewAsStudent': 'Vista previa como estudiante',
     'store.pagesLabel': 'Páginas de la tienda',
     'store.welcomeIn': 'Bienvenidos',
@@ -195,16 +194,9 @@ const es: LanguagePack = {
     'stores.empty': 'Crea tu primera tienda para empezar.',
     'stores.copyNamePrompt': 'Nombre de la copia',
     'stores.copyNameDefault': '{name} (copia)',
-    'stores.duplicated': '{name} guardada con los mismos precios, productos y cupones.',
     'stores.deleteConfirm':
       '¿Quitar {name} de este navegador? Los enlaces que ya compartiste con estudiantes seguirán funcionando.',
-    'stores.deleted': '{name} se quitó de este navegador.',
-    'stores.linkCopied':
-      'Enlace para estudiantes de {name} copiado. Si cambias esta tienda después, tendrás que compartir un enlace nuevo.',
-    'stores.linkFallback': 'Enlace para estudiantes de {name}: {link}',
     'stores.badLink': 'Ese enlace de tienda no funcionó. Es posible que se haya cortado al copiarlo.',
-    'stores.openedFromLink':
-      'Se abrió {name} desde su enlace. Cuando termines, copia el enlace nuevo para estudiantes y compártelo con tu clase.',
 
     'import.title': 'Importar una tienda',
     'import.linkLabel': 'Enlace de la tienda',
@@ -212,7 +204,6 @@ const es: LanguagePack = {
     'import.or': 'o',
     'import.fileButton': 'Elegir un archivo de tienda',
     'import.badFile': 'Ese archivo no es una tienda de Class Grocery. Elige un archivo hecho con Exportar.',
-    'import.done': '{name} importada.',
 
     'settings.name': 'Nombre de la tienda',
     'settings.namePlaceholder': 'Mercado del salón 204',
@@ -247,13 +238,7 @@ const es: LanguagePack = {
     'prices.cgInfoClose': 'Entendido',
     'prices.priceLabel': 'Precio de {name}',
     'prices.stockLabel': 'Tener {name} en esta tienda',
-    'prices.aisleStocked': '{aisle} totalmente surtido.',
-    'prices.aisleCleared': '{aisle} se quitó de los estantes.',
     'prices.shiftClickHint': 'Mayúsculas + clic cambia varios productos seguidos.',
-    'prices.runStocked.one': '{count} producto puesto en los estantes.',
-    'prices.runStocked.other': '{count} productos puestos en los estantes.',
-    'prices.runCleared.one': '{count} producto quitado de los estantes.',
-    'prices.runCleared.other': '{count} productos quitados de los estantes.',
     'prices.sizeLabel': 'Tamaño del paquete de {name}',
     'prices.sizeUnitLabel': 'Unidad de {name}',
 
@@ -288,8 +273,6 @@ const es: LanguagePack = {
       'Usa de 3 a 20 letras, números, espacios o signos sencillos para el código del cupón.',
     'coupons.codeTaken': 'Esta tienda ya tiene un cupón con el código {code}.',
     'coupons.badAmount': 'Escribe un descuento mayor que cero.',
-    'coupons.created': '{code} creado.',
-    'coupons.updated': '{code} actualizado.',
     'coupons.printEyebrow': 'Imprimir cupones',
     'coupons.printAllTitle': 'Imprimir todos los cupones',
     'coupons.printOneTitle': 'Imprimir el cupón',

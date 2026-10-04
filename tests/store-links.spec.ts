@@ -36,7 +36,6 @@ test('a teacher opens a student link, edits the store and gets a new link', asyn
   await other.locator('.import-modal').getByRole('button', { name: 'Import' }).click()
   await expect(other.getByRole('heading', { name: 'Inventory' })).toBeVisible()
   await expect(other.locator('.sidebar-storefront-sign')).toHaveText('Shared Market')
-  await expect(other.locator('.status-message')).toContainText('Opened Shared Market from its link.')
   await other.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await expect(other.getByLabel('Price for Milk')).toHaveValue('9.99')
 

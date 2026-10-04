@@ -196,9 +196,9 @@ const en: LanguagePack = {
     'teacher.exitStudentView': 'Exit student view',
 
     'store.copyLink': 'Copy student link',
-    'store.linkCopied': 'Student link copied. Students will see this store exactly as it is right now.',
-    'store.linkFallback': 'Student link: {link}',
     'store.copyNewLink': 'Copy new student link',
+    'store.copied': 'Copied',
+    'store.copyPrompt': 'Copy this student link:',
     'store.viewAsStudent': 'Preview as student',
     'store.pagesLabel': 'Store pages',
     'store.welcomeIn': 'Welcome in',
@@ -221,15 +221,8 @@ const en: LanguagePack = {
     'stores.empty': 'Create your first store to get started.',
     'stores.copyNamePrompt': 'Name for the copy',
     'stores.copyNameDefault': '{name} (copy)',
-    'stores.duplicated': '{name} saved with the same prices, stock and coupons.',
     'stores.deleteConfirm': 'Remove {name} from this browser? Student links you already shared keep working.',
-    'stores.deleted': '{name} removed from this browser.',
-    'stores.linkCopied':
-      'Student link for {name} copied. If you change this store later, you will need to share a new link.',
-    'stores.linkFallback': 'Student link for {name}: {link}',
     'stores.badLink': 'That store link did not work. It may have been cut short when it was copied.',
-    'stores.openedFromLink':
-      'Opened {name} from its link. When you are done, copy the new student link and share it with your class.',
 
     'import.title': 'Import a store',
     'import.linkLabel': 'Store link',
@@ -237,7 +230,6 @@ const en: LanguagePack = {
     'import.or': 'or',
     'import.fileButton': 'Choose a store file',
     'import.badFile': 'That file is not a Class Grocery store. Choose a file made with Export.',
-    'import.done': '{name} imported.',
 
     // ------------------------------------------------------ store settings
     'settings.name': 'Store name',
@@ -274,13 +266,7 @@ const en: LanguagePack = {
     'prices.cgInfoClose': 'Got it',
     'prices.priceLabel': 'Price for {name}',
     'prices.stockLabel': 'Stock {name} in this store',
-    'prices.aisleStocked': '{aisle} fully stocked.',
-    'prices.aisleCleared': '{aisle} taken off the shelves.',
     'prices.shiftClickHint': 'Shift-click to change a run of products.',
-    'prices.runStocked.one': '{count} product put on the shelves.',
-    'prices.runStocked.other': '{count} products put on the shelves.',
-    'prices.runCleared.one': '{count} product taken off the shelves.',
-    'prices.runCleared.other': '{count} products taken off the shelves.',
     'prices.sizeLabel': 'Package size for {name}',
     'prices.sizeUnitLabel': 'Unit for {name}',
 
@@ -316,8 +302,6 @@ const en: LanguagePack = {
       'Use 3 to 20 letters, numbers, spaces, or simple punctuation for the coupon code.',
     'coupons.codeTaken': 'This store already has a coupon with the code {code}.',
     'coupons.badAmount': 'Enter a discount greater than zero.',
-    'coupons.created': '{code} created.',
-    'coupons.updated': '{code} updated.',
     'coupons.printEyebrow': 'Print coupons',
     'coupons.printAllTitle': 'Print all coupons',
     'coupons.printOneTitle': 'Print coupon',

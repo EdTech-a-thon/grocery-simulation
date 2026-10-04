@@ -68,6 +68,17 @@ export function storeFromFile(contents: string): Store | null {
   }
 }
 
+/**
+ * Copies a link for the teacher. If the browser will not let the page use the
+ * clipboard, the link is shown in a box instead, to be copied by hand. Says
+ * whether it reached the clipboard.
+ */
+export async function copyLink(link: string, promptText: string) {
+  if (await copyText(link)) return true
+  window.prompt(promptText, link)
+  return false
+}
+
 /** Copies text, and says whether the clipboard accepted it. */
 export async function copyText(value: string) {
   try {

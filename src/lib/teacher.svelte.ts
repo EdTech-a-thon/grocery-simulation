@@ -3,8 +3,12 @@ export type StorePage = 'inventory' | 'coupons' | 'settings'
 
 /** What every teacher screen shares while one store is open. */
 export const teacher = $state({
-  /** The one-line status message at the top of the page. */
-  message: '',
+  /**
+   * A problem the teacher could not otherwise see, such as a store link that
+   * did not work, shown above the store list. Everything that went right shows
+   * for itself, so it gets no message.
+   */
+  problem: '',
   /** Which aisle the inventory page is showing, kept while the teacher switches pages. */
   inventoryAisleIndex: 0,
   /** Whether the inventory page lists the CG Value products beside the name brands. */

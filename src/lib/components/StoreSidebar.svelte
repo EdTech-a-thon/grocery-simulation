@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from '$lib/components/Icon.svelte'
   import { t } from '$lib/i18n/index.svelte'
-  import { copyText, studentLink } from '$lib/sharing'
+  import { copyLink, studentLink } from '$lib/sharing'
   import { shop } from '$lib/shop.svelte'
   import { teacher, type StorePage } from '$lib/teacher.svelte'
 
@@ -26,11 +26,15 @@
   // reaches the class. The button says so by asking for a new link.
   const linkOutdated = $derived(teacher.sharedEncoded !== '' && teacher.encoded !== teacher.sharedEncoded)
 
+  /** True for a moment after a copy, while the button says Copied. */
+  let copied = $state(false)
+
   async function copyStudentLink() {
     if (!teacher.encoded) return
-    const link = studentLink(teacher.encoded)
     teacher.sharedEncoded = teacher.encoded
-    teacher.message = (await copyText(link)) ? t('store.linkCopied') : t('store.linkFallback', { link })
+    if (!(await copyLink(studentLink(teacher.encoded), t('store.copyPrompt')))) return
+    copied = true
+    setTimeout(() => (copied = false), 2000)
   }
 </script>
 
@@ -67,7 +71,11 @@
   <div class="store-sidebar-actions">
     <button class="preview-button" type="button" onclick={onViewAsStudent}><Icon name="preview" />{t('store.viewAsStudent')}</button>
     <button class="primary-button" class:link-outdated={linkOutdated} type="button" disabled={!teacher.encoded} onclick={copyStudentLink}>
-      <Icon name="link" />{linkOutdated ? t('store.copyNewLink') : t('store.copyLink')}
+      {#if copied}
+        <Icon name="check" />{t('store.copied')}
+      {:else}
+        <Icon name="link" />{linkOutdated ? t('store.copyNewLink') : t('store.copyLink')}
+      {/if}
     </button>
   </div>
 </aside>

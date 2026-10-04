@@ -171,10 +171,9 @@ const fr: LanguagePack = {
     'teacher.exitStudentView': 'Quitter la vue élève',
 
     'store.copyLink': 'Copier le lien élèves',
-    'store.linkCopied':
-      'Lien élèves copié. Les élèves verront ce magasin exactement tel qu’il est maintenant.',
-    'store.linkFallback': 'Lien élèves : {link}',
     'store.copyNewLink': 'Copier le nouveau lien élèves',
+    'store.copied': 'Copié',
+    'store.copyPrompt': 'Copiez ce lien élèves :',
     'store.viewAsStudent': 'Aperçu côté élève',
     'store.pagesLabel': 'Pages du magasin',
     'store.welcomeIn': 'Entrez',
@@ -196,16 +195,9 @@ const fr: LanguagePack = {
     'stores.empty': 'Créez votre premier magasin pour commencer.',
     'stores.copyNamePrompt': 'Nom de la copie',
     'stores.copyNameDefault': '{name} (copie)',
-    'stores.duplicated': '{name} enregistré avec les mêmes prix, produits et coupons.',
     'stores.deleteConfirm':
       'Retirer {name} de ce navigateur ? Les liens déjà partagés avec les élèves continueront de fonctionner.',
-    'stores.deleted': '{name} a été retiré de ce navigateur.',
-    'stores.linkCopied':
-      'Lien élèves de {name} copié. Si vous modifiez ce magasin plus tard, il faudra partager un nouveau lien.',
-    'stores.linkFallback': 'Lien élèves de {name} : {link}',
     'stores.badLink': 'Ce lien de magasin n’a pas fonctionné. Il a peut-être été coupé lors de la copie.',
-    'stores.openedFromLink':
-      '{name} a été ouvert à partir de son lien. Quand vous avez fini, copiez le nouveau lien élèves et partagez-le avec votre classe.',
 
     'import.title': 'Importer un magasin',
     'import.linkLabel': 'Lien du magasin',
@@ -213,7 +205,6 @@ const fr: LanguagePack = {
     'import.or': 'ou',
     'import.fileButton': 'Choisir un fichier de magasin',
     'import.badFile': 'Ce fichier n’est pas un magasin Class Grocery. Choisissez un fichier créé avec Exporter.',
-    'import.done': '{name} importé.',
 
     'settings.name': 'Nom du magasin',
     'settings.namePlaceholder': 'Épicerie de la salle 204',
@@ -248,13 +239,7 @@ const fr: LanguagePack = {
     'prices.cgInfoClose': 'Compris',
     'prices.priceLabel': 'Prix de {name}',
     'prices.stockLabel': 'Mettre {name} en rayon dans ce magasin',
-    'prices.aisleStocked': 'Rayon {aisle} entièrement approvisionné.',
-    'prices.aisleCleared': 'Rayon {aisle} retiré des étagères.',
     'prices.shiftClickHint': 'Maj + clic change toute une série de produits.',
-    'prices.runStocked.one': '{count} produit mis en rayon.',
-    'prices.runStocked.other': '{count} produits mis en rayon.',
-    'prices.runCleared.one': '{count} produit retiré des rayons.',
-    'prices.runCleared.other': '{count} produits retirés des rayons.',
     'prices.sizeLabel': 'Taille du paquet : {name}',
     'prices.sizeUnitLabel': 'Unité : {name}',
 
@@ -289,8 +274,6 @@ const fr: LanguagePack = {
       'Utilisez 3 à 20 lettres, chiffres, espaces ou signes simples pour le code du bon.',
     'coupons.codeTaken': 'Ce magasin a déjà un coupon avec le code {code}.',
     'coupons.badAmount': 'Saisissez une réduction supérieure à zéro.',
-    'coupons.created': '{code} créé.',
-    'coupons.updated': '{code} mis à jour.',
     'coupons.printEyebrow': 'Imprimer des bons',
     'coupons.printAllTitle': 'Imprimer tous les bons',
     'coupons.printOneTitle': 'Imprimer le bon',

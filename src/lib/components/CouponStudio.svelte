@@ -7,7 +7,6 @@
   import { printCoupons } from '$lib/printing.svelte'
   import { shop, stockedProductIds } from '$lib/shop.svelte'
   import { addCoupon, randomCoupon, type Coupon } from '$lib/store'
-  import { teacher } from '$lib/teacher.svelte'
 
   /**
    * The store's coupons, each drawn exactly as it prints. They are added and
@@ -67,9 +66,7 @@
   function addRandom() {
     addMenuOpen = false
     if (!shop.store) return
-    const coupon = randomCoupon(stockedProductIds())
-    addCoupon(shop.store, coupon)
-    teacher.message = t('coupons.created', { code: coupon.code })
+    addCoupon(shop.store, randomCoupon(stockedProductIds()))
   }
 
   /** The add menu closes when the teacher clicks anywhere outside it. */
