@@ -254,6 +254,8 @@ test('a student opens the link and sees only what the store stocks', async ({ pa
   await expect(page.locator('.app-header')).toHaveCount(0)
   await expect(page.locator('.student-view-header')).toHaveCount(0)
   await expect(page.locator('.store-thumbnail')).toContainText(store.name)
+  // ...but they can still change the language, from the button above Help.
+  await expect(page.locator('.floating-language').getByLabel('Change language')).toBeAttached()
 
   await goToAisle(page, 'Dairy and Eggs')
   await expect(page.getByRole('button', { name: /Add Milk for \$9\.99/ })).toBeVisible()

@@ -118,3 +118,8 @@
 {:else}
   <div class="store-arrive"><StoreFront /></div>
 {/if}
+
+<!-- Students have no top bar, so the language control floats just above the help button. -->
+{#if screen !== 'welcome'}
+  <div class="floating-language"><LanguagePicker /></div>
+{/if}
