@@ -1,6 +1,7 @@
 <script lang="ts">
   // About and privacy are read by people who are not mid-shop, so they get a
   // plain masthead rather than the app's dark bar of role chips and tools.
+  import BuiltBy from './BuiltBy.svelte'
   import LanguagePicker from './LanguagePicker.svelte'
   import SupportButton from './SupportButton.svelte'
   import { t } from '$lib/i18n/index.svelte'
@@ -15,5 +16,5 @@
     <img src="/logo.svg" alt="" width="30" height="30" />Class Grocery
   </a>
   <a class="page-header-back" href={back}><span aria-hidden="true">&larr;</span> {label}</a>
-  <span class="page-header-tools"><LanguagePicker /><SupportButton inHeader /></span>
+  <span class="page-header-tools"><BuiltBy size={20} /><LanguagePicker /><SupportButton inHeader /></span>
 </header>

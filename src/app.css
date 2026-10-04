@@ -259,8 +259,11 @@ button {
 .site-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 18px; padding: 26px 20px 30px; border-top: 1px solid #dcf0e2; background: #fff; text-align: center; }
 .site-footer a { color: #5e7163; font-size: .88rem; font-weight: 700; text-decoration: none; }
 .site-footer a:hover { color: #15803d; }
-.site-footer-brand { display: inline-flex; align-items: center; gap: 8px; }
-.site-footer-brand img { display: block; }
+.built-by { display: inline-flex; align-items: center; gap: 8px; }
+.built-by img { display: block; }
+/* In a top bar it is a quiet credit, not one of the bar's buttons. */
+.app-header a.built-by, .page-header .built-by { margin-right: 4px; border: 0; padding: 0; background: transparent; color: #4b6354; font-size: .8rem; font-weight: 700; text-decoration: none; }
+.app-header a.built-by:hover, .page-header .built-by:hover { background: transparent; color: #14532d; text-decoration: underline; }
 
 /* About and privacy: a column of plain reading, so they borrow nothing from the
    store's chrome beyond its colours. */
@@ -1950,7 +1953,9 @@ p {
 .store-main .teacher-workspace > .aisle-picker { position: sticky; top: 0; align-self: start; max-height: calc(100vh - 66px - 48px); overflow-y: auto; padding-top: 0; border-right: 0; }
 /* The dividing line belongs to the products, so it runs as far down as they do. */
 .store-main .price-editor { min-height: calc(100vh - 66px - 72px); padding-top: 0; border-left: 1px solid #d7e7da; }
-.store-main .aisle-picker button { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.store-main .aisle-picker button { display: flex; align-items: center; gap: 10px; }
+.aisle-icon { width: 28px; height: 28px; flex: none; object-fit: contain; }
+.aisle-name { flex: 1; }
 .aisle-count { flex: none; color: #94a3b8; font-size: .76rem; font-variant-numeric: tabular-nums; }
 .aisle-count strong { color: #15803d; font-size: .84rem; font-weight: 900; }
 .aisle-picker button.active .aisle-count { color: #4b8a60; }

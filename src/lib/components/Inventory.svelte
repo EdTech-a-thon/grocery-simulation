@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from '$lib/components/Icon.svelte'
-  import { aisles, type AisleItem } from '$lib/catalog'
+  import { aisleImage, aisles, type AisleItem } from '$lib/catalog'
   import { aisleTitle, productName, t, unitPriceText } from '$lib/i18n/index.svelte'
   import { isStoreBrand, priceEndingInNine, productById } from '$lib/products'
   import { isStocked, priceFor, setStocked, shop, sizeFor } from '$lib/shop.svelte'
@@ -97,7 +97,8 @@
       {#each aisles as item, index (item.title)}
         {@const aisleCount = stockCount(item.items)}
         <button class:active={index === teacher.inventoryAisleIndex} type="button" onclick={() => chooseAisle(index)}>
-          <span>{aisleTitle(item.title)}</span>
+          <img class="aisle-icon" src={aisleImage(item.title)} alt="" />
+          <span class="aisle-name">{aisleTitle(item.title)}</span>
           <span class="aisle-count" title={t('prices.aisleCount', aisleCount)}><strong>{aisleCount.stocked}</strong>/{aisleCount.total}</span>
         </button>
       {/each}

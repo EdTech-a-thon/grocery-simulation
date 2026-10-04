@@ -60,6 +60,27 @@ export const aisles: AisleConfig[] = catalogAisles.map((aisle) => ({
   ),
 }))
 
+/** The product whose picture stands for each aisle, keyed by the aisle's English title. */
+const aisleIconProduct: Record<string, string> = {
+  'Dried Goods': 'rice',
+  'Canned Goods': 'soup',
+  'Sauces and Condiments': 'ketchup',
+  'Dairy and Eggs': 'milk',
+  'Frozen foods': 'popsicles',
+  Bakery: 'bread',
+  Produce: 'apple',
+  Meat: 'steak',
+  Seafood: 'shrimp',
+  Beverages: 'lemonade',
+  Snacks: 'popcorn',
+  'Baking Essentials': 'flour',
+}
+
+/** A picture for an aisle, drawn from one of its own products. */
+export function aisleImage(title: string) {
+  return productById[aisleIconProduct[title]]?.image ?? ''
+}
+
 /** How many products fit on one shelf unit (four across and three rows). */
 export const shelfCapacity = 12
 
