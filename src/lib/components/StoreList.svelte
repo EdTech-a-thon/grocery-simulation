@@ -15,6 +15,8 @@
   } = $props()
 
   let importing = $state(false)
+  /** The store whose ⋯ menu is open, if any. */
+  let menuFor = $state<string | null>(null)
 
   /** Newest first: the store a teacher was just working on is the one they want. */
   const stores = $derived([...saved.stores].sort((a, b) => b.savedAt.localeCompare(a.savedAt)))
@@ -49,12 +51,25 @@
     teacher.message = t('stores.duplicated', { name })
   }
 
+  /** Runs a ⋯ menu choice and closes the menu. */
+  function choose(action: () => void) {
+    menuFor = null
+    action()
+  }
+
+  /** A menu closes when the teacher clicks anywhere outside it. */
+  function closeMenuOutside(event: MouseEvent) {
+    if (menuFor && !(event.target as HTMLElement).closest('.store-card-menu')) menuFor = null
+  }
+
   function remove(entry: SavedStore) {
     if (!window.confirm(t('stores.deleteConfirm', { name: entry.store.name }))) return
     forgetSavedStore(entry.id)
     teacher.message = t('stores.deleted', { name: entry.store.name })
   }
 </script>
+
+<svelte:window onclick={closeMenuOutside} onkeydown={(event) => { if (event.key === 'Escape') menuFor = null }} />
 
 <main class="teacher-shell">
   {@render header()}
@@ -70,27 +85,36 @@
       </div>
     </div>
     {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
-    {#each stores as entry (entry.id)}
-      <article class="store-summary" data-color={entry.store.color}>
-        <span class="store-swatch" aria-hidden="true"></span>
-        <div class="store-summary-copy">
-          <button class="store-name-button" type="button" onclick={() => edit(entry)}>{entry.store.name}</button>
-          <span>{t('stores.savedOn', { date: savedOn(entry) })}</span>
-        </div>
-        <button class="primary-button store-open-button" type="button" onclick={() => edit(entry)}>{t('stores.edit')}</button>
-        <div class="store-summary-actions">
-          <button type="button" onclick={() => void share(entry)}>{t('stores.copyLink')}</button>
-          <button type="button" onclick={() => duplicate(entry)}>{t('stores.duplicate')}</button>
-          <button type="button" onclick={() => downloadStoreFile(entry.store)}>{t('stores.download')}</button>
-          <button type="button" onclick={() => edit(entry, 'settings')}>{t('stores.settings')}</button>
-          <button class="icon-button" data-delete-store type="button" title={t('stores.delete')} aria-label={t('stores.deleteLabel', { name: entry.store.name })} onclick={() => remove(entry)}>
-            <Icon name="trash" />
-          </button>
-        </div>
-      </article>
-    {:else}
-      <button class="store-list-empty" type="button" onclick={onCreate}>{t('stores.empty')}</button>
-    {/each}
+    <div class="store-cards">
+      {#each stores as entry (entry.id)}
+        <!-- The whole card opens the store; its two buttons sit on top of it. -->
+        <article class="store-card" data-color={entry.store.color}>
+          <button class="store-card-open" type="button" aria-label={t('stores.openLabel', { name: entry.store.name })} onclick={() => edit(entry)}></button>
+          <h2>{entry.store.name}</h2>
+          <p>{t('stores.savedOn', { date: savedOn(entry) })}</p>
+          <div class="store-card-tools">
+            <div class="store-card-menu">
+              <button class="store-card-icon" type="button" aria-haspopup="menu" aria-expanded={menuFor === entry.id} aria-label={t('stores.moreLabel', { name: entry.store.name })} onclick={() => (menuFor = menuFor === entry.id ? null : entry.id)}>
+                <Icon name="more" />
+              </button>
+              {#if menuFor === entry.id}
+                <div class="store-card-options" role="menu">
+                  <button role="menuitem" type="button" onclick={() => choose(() => duplicate(entry))}>{t('stores.duplicate')}</button>
+                  <button role="menuitem" type="button" onclick={() => choose(() => downloadStoreFile(entry.store))}>{t('stores.download')}</button>
+                  <button role="menuitem" type="button" onclick={() => choose(() => edit(entry, 'settings'))}>{t('stores.settings')}</button>
+                  <button role="menuitem" class="store-card-delete" type="button" onclick={() => choose(() => remove(entry))}>{t('stores.delete')}</button>
+                </div>
+              {/if}
+            </div>
+            <button class="store-card-icon" type="button" title={t('stores.copyLink')} aria-label={t('stores.copyLinkLabel', { name: entry.store.name })} onclick={() => void share(entry)}>
+              <Icon name="copy" />
+            </button>
+          </div>
+        </article>
+      {:else}
+        <button class="store-list-empty" type="button" onclick={onCreate}>{t('stores.empty')}</button>
+      {/each}
+    </div>
   </section>
 </main>
 

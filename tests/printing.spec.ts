@@ -73,7 +73,7 @@ test('coupons print in sheets, and printing never loses the page underneath', as
 
   // A new store is on the list from the start, so leaving it asks nothing.
   await page.getByRole('button', { name: 'My stores' }).click()
-  await expect(page.locator('.store-summary').filter({ hasText: 'Smoke Test Market' })).toHaveCount(1)
+  await expect(page.locator('.store-card').filter({ hasText: 'Smoke Test Market' })).toHaveCount(1)
 
   expect(problems).toEqual([])
 })

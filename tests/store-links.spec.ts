@@ -77,7 +77,8 @@ test('a store downloaded as a file imports again, on any computer', async ({ pag
   await page.getByRole('button', { name: 'My stores' }).click()
 
   const downloading = page.waitForEvent('download')
-  await page.getByRole('button', { name: 'Download file' }).click()
+  await page.getByRole('button', { name: 'More for File Market' }).click()
+  await page.getByRole('menuitem', { name: 'Export' }).click()
   const download = await downloading
   expect(download.suggestedFilename()).toBe('File Market.json')
   const file = await download.path()
@@ -92,7 +93,7 @@ test('a store downloaded as a file imports again, on any computer', async ({ pag
 
   // An imported store is on the list straight away.
   await other.getByRole('button', { name: 'My stores' }).click()
-  await expect(other.locator('.store-summary')).toHaveCount(1)
+  await expect(other.locator('.store-card')).toHaveCount(1)
 
   // Anything else is turned away.
   await other.locator('.store-list-heading').getByRole('button', { name: 'Import' }).click()

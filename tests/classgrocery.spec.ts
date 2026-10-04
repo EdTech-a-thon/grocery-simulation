@@ -178,11 +178,11 @@ test('changing a store after copying its student link asks for a new link', asyn
 test('a bookmarked store goes onto the list, once', async ({ page }) => {
   await openTeacherPage(page)
   await page.getByRole('button', { name: 'My stores' }).click()
-  await expect(page.locator('.store-summary')).toHaveCount(1)
+  await expect(page.locator('.store-card')).toHaveCount(1)
 
   await openTeacherPage(page)
   await page.getByRole('button', { name: 'My stores' }).click()
-  await expect(page.locator('.store-summary')).toHaveCount(1)
+  await expect(page.locator('.store-card')).toHaveCount(1)
   await expect(page).toHaveURL(/\/teacher$/)
 })
 
@@ -196,24 +196,27 @@ test('a store saved in this browser is listed, kept up to date, duplicated and r
   await expect.poll(async () => (await readStore(page)).p?.milk).toBe(4.25)
 
   await page.getByRole('button', { name: 'My stores' }).click()
-  await expect(page.locator('.store-summary')).toHaveCount(1)
+  await expect(page.locator('.store-card')).toHaveCount(1)
 
   await page.reload()
-  const card = page.locator('.store-summary').filter({ hasText: store.name })
+  const card = page.locator('.store-card').filter({ hasText: store.name })
   await expect(card).toHaveCount(1)
-  await card.getByRole('button', { name: 'Edit Store' }).click()
+  // Anywhere on the card opens the store.
+  await card.click()
   await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await expect(page.getByLabel('Price for Milk')).toHaveValue('4.25')
   await page.getByRole('button', { name: 'My stores' }).click()
 
   page.once('dialog', (dialog) => dialog.accept(`${store.name} Period 4`))
-  await card.getByRole('button', { name: 'Duplicate' }).click()
-  await expect(page.locator('.store-summary')).toHaveCount(2)
-  await expect(page.locator('.store-summary').filter({ hasText: `${store.name} Period 4` })).toHaveCount(1)
+  await card.getByRole('button', { name: `More for ${store.name}` }).click()
+  await page.getByRole('menuitem', { name: 'Duplicate' }).click()
+  await expect(page.locator('.store-card')).toHaveCount(2)
+  await expect(page.locator('.store-card').filter({ hasText: `${store.name} Period 4` })).toHaveCount(1)
 
   page.once('dialog', (dialog) => dialog.accept())
-  await page.getByRole('button', { name: `Delete ${store.name} Period 4` }).click()
-  await expect(page.locator('.store-summary')).toHaveCount(1)
+  await page.getByRole('button', { name: `More for ${store.name} Period 4` }).click()
+  await page.getByRole('menuitem', { name: 'Delete store' }).click()
+  await expect(page.locator('.store-card')).toHaveCount(1)
 })
 
 test('an emptied aisle disappears from the student view', async ({ page }) => {
