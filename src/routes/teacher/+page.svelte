@@ -41,6 +41,7 @@
   function open(store: Store, savedId: string | null, page: StorePage = 'prices') {
     openStore(store)
     teacher.savedId = savedId
+    teacher.sharedEncoded = ''
     teacher.message = ''
     screen = page
   }
@@ -80,6 +81,7 @@
     if (shop.store && !isSaved(teacher.savedId) && !window.confirm(t('teacher.leaveUnsaved'))) return
     forgetStore()
     teacher.encoded = ''
+    teacher.sharedEncoded = ''
     teacher.savedId = null
     replaceState('/teacher', {})
     show('stores')

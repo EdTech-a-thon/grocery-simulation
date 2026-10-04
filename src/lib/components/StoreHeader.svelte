@@ -20,10 +20,14 @@
   } = $props()
 
   const savedHere = $derived(isSaved(teacher.savedId))
+  // A student link is a snapshot, so a change made after copying it never
+  // reaches the class. That is easy to forget, so it is said loudly.
+  const linkOutdated = $derived(teacher.sharedEncoded !== '' && teacher.encoded !== teacher.sharedEncoded)
 
   async function copyStudentLink() {
     if (!teacher.encoded) return
     const link = studentLink(teacher.encoded)
+    teacher.sharedEncoded = teacher.encoded
     teacher.message = (await copyText(link)) ? t('store.linkCopied') : t('store.linkFallback', { link })
   }
 
@@ -52,9 +56,17 @@
         <button class="teacher-secondary-button" type="button" onclick={saveHere}>{t('store.saveHere')}</button>
       {/if}
     </div>
+    <p class="link-snapshot-note">{t('store.linkSnapshot')}</p>
     <p class="keep-store-note">{savedHere ? t('store.keepNoteSaved') : t('store.keepNote')}</p>
   </div>
 </section>
+
+{#if linkOutdated}
+  <div class="link-outdated-warning" role="alert">
+    <p>{t('store.linkOutdated')}</p>
+    <button class="primary-button" type="button" onclick={copyStudentLink}>{t('store.copyNewLink')}</button>
+  </div>
+{/if}
 
 <nav class="store-tabs" aria-label={t('store.tabsLabel')}>
   <div class="store-tab-list">

@@ -331,6 +331,10 @@ button {
 .class-code-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
 .saved-here-badge { display: inline-flex; align-items: center; border-radius: var(--radius-sm); padding: 11px 14px; background: #dcfce7; color: #166534; font-weight: 900; }
 .saved-here-badge::before { content: "\2713"; margin-right: 6px; }
+.teacher-access-panel .link-snapshot-note { max-width: 420px; color: #9a3412; font-size: .9rem; font-weight: 900; line-height: 1.45; }
+.link-outdated-warning { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; border-top: 3px solid #ea580c; border-bottom: 3px solid #ea580c; padding: 16px max(20px, calc((100vw - 1400px) / 2)); background: #ffedd5; color: #7c2d12; }
+.link-outdated-warning p { flex: 1 1 320px; font-size: 1.05rem; font-weight: 900; line-height: 1.4; }
+.link-outdated-warning p::before { content: "\26A0"; margin-right: 8px; }
 .teacher-access-panel .keep-store-note { max-width: 420px; font-size: .84rem; line-height: 1.45; }
 .teacher-secondary-button { border: 1px solid rgba(255,255,255,.35); border-radius: var(--radius-md); padding: 11px 14px; background: transparent; color: #fff; cursor: pointer; font-weight: 900; }
 .primary-button:disabled { cursor: not-allowed; opacity: .55; }

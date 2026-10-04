@@ -205,9 +205,13 @@ const en: LanguagePack = {
     'store.workspace': 'Store workspace',
     'store.workspaceLede': 'Manage what students see and use in this store.',
     'store.copyLink': 'Copy student link',
-    'store.linkCopied':
-      'Student link copied. Paste it wherever your class will see it. If you change the store later, share a new link.',
+    'store.linkCopied': 'Student link copied. Students will see this store exactly as it is right now.',
     'store.linkFallback': 'Student link: {link}',
+    'store.linkSnapshot':
+      'Links do not update. After any change, copy the student link again and share the new one.',
+    'store.linkOutdated':
+      'You changed this store after copying its student link. Students will not see these changes until you share a new link.',
+    'store.copyNewLink': 'Copy new student link',
     'store.saveHere': 'Save in this browser',
     'store.savedBadge': 'Saved in this browser',
     'store.savedHere': '{name} is saved in this browser. You will find it under My stores.',
@@ -242,7 +246,8 @@ const en: LanguagePack = {
     'stores.duplicated': '{name} saved with the same prices, stock and coupons.',
     'stores.deleteConfirm': 'Remove {name} from this browser? Student links you already shared keep working.',
     'stores.deleted': '{name} removed from this browser.',
-    'stores.linkCopied': 'Student link for {name} copied. Paste it wherever your class will see it.',
+    'stores.linkCopied':
+      'Student link for {name} copied. If you change this store later, you will need to share a new link.',
     'stores.linkFallback': 'Student link for {name}: {link}',
     'stores.badLink': 'That store link did not work. It may have been cut short when it was copied.',
 
@@ -295,20 +300,12 @@ const en: LanguagePack = {
     'prices.otherBrandsStore': 'the CG Value store brands',
     'prices.stockAll': 'Stock all',
     'prices.stockNone': 'Stock none',
-    'prices.helpBoth':
-      "Every product comes in two brands: the name brand, and the CG Value store brand beside it, which costs less but sometimes comes in a smaller package. Edit any price, or uncheck an item to remove it from this store's shelves.",
-    'prices.helpOne':
-      "This store sells {brands} only, so that is what this aisle shows. Edit any price, or uncheck an item to remove it from this store's shelves.",
-    'prices.brandStoreOnly': 'the CG Value store brand',
-    'prices.brandNameOnly': 'the name brands',
     'prices.cgTag': 'CG Value',
     'prices.priceLabel': 'Price for {name}',
     'prices.stockLabel': 'Stock {name} in this store',
     'prices.inStore': 'In this store',
     'prices.aisleStocked': '{aisle} fully stocked.',
     'prices.aisleCleared': '{aisle} taken off the shelves.',
-    'prices.sizeHelp':
-      'Each item has a package size so students can compare unit prices. Some CG Value packages are smaller, so the lower price is not always the better buy. Change any size to suit your lesson, or clear it to go back to the usual size.',
     'prices.sizeLabel': 'Package size for {name}',
     'prices.sizeUnitLabel': 'Unit for {name}',
 

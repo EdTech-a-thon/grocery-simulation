@@ -150,6 +150,27 @@ test('the teacher page reopens from its address, like a bookmark', async ({ page
   await expect(page.locator('.keep-store-note')).toContainText('Bookmark this page')
 })
 
+test('changing a store after copying its student link warns that the link is out of date', async ({ page }) => {
+  await openTeacherPage(page)
+  await expect(page.locator('.link-snapshot-note')).toHaveText('Links do not update. After any change, copy the student link again and share the new one.')
+
+  await page.getByRole('button', { name: 'Copy student link' }).click()
+  await expect(page.locator('.link-outdated-warning')).toHaveCount(0)
+
+  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  await page.getByLabel('Price for Milk').fill('3.50')
+  await page.getByLabel('Price for Milk').blur()
+  const warning = page.locator('.link-outdated-warning')
+  await expect(warning).toContainText('Students will not see these changes until you share a new link.')
+
+  // The warning follows the teacher onto every page of the store.
+  await page.getByRole('button', { name: 'Coupons' }).click()
+  await expect(warning).toBeVisible()
+
+  await warning.getByRole('button', { name: 'Copy new student link' }).click()
+  await expect(warning).toHaveCount(0)
+})
+
 test('leaving a store that is not saved anywhere asks first', async ({ page }) => {
   await openTeacherPage(page)
 

@@ -10,6 +10,11 @@ export const teacher = $state({
   /** The open store as a link-ready string, kept current as the teacher edits. */
   encoded: '',
   /**
+   * `encoded` as it was when the teacher last copied the student link, or ''
+   * before they have. When the two differ, the class has an out-of-date link.
+   */
+  sharedEncoded: '',
+  /**
    * Which saved store in this browser the open store is, or null when it is
    * not saved. A saved store saves itself again on every change.
    */

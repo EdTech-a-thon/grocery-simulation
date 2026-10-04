@@ -107,16 +107,6 @@
           <button type="button" onclick={() => stockWholeAisle(false)}>{t('prices.stockNone')}</button>
         </div>
       </div>
-      <p class="helper-text">
-        {#if brandMode === 'both' || showOtherBrands}
-          {t('prices.helpBoth')}
-        {:else}
-          {t('prices.helpOne', {
-            brands: brandMode === 'store' ? t('prices.brandStoreOnly') : t('prices.brandNameOnly'),
-          })}
-        {/if}
-      </p>
-      <p class="helper-text">{t('prices.sizeHelp')}</p>
       <div class="price-grid">
         {#each visibleItems as item (item.id)}
           {@const product = productById[item.id]}

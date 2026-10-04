@@ -181,8 +181,13 @@ const es: LanguagePack = {
     'store.workspaceLede': 'Administra lo que los estudiantes ven y usan en esta tienda.',
     'store.copyLink': 'Copiar enlace para estudiantes',
     'store.linkCopied':
-      'Enlace para estudiantes copiado. Pégalo donde tu clase lo vea. Si cambias la tienda después, comparte un enlace nuevo.',
+      'Enlace para estudiantes copiado. Los estudiantes verán esta tienda exactamente como está ahora.',
     'store.linkFallback': 'Enlace para estudiantes: {link}',
+    'store.linkSnapshot':
+      'Los enlaces no se actualizan. Después de cualquier cambio, vuelve a copiar el enlace para estudiantes y comparte el nuevo.',
+    'store.linkOutdated':
+      'Cambiaste esta tienda después de copiar su enlace para estudiantes. Los estudiantes no verán estos cambios hasta que compartas un enlace nuevo.',
+    'store.copyNewLink': 'Copiar enlace nuevo para estudiantes',
     'store.saveHere': 'Guardar en este navegador',
     'store.savedBadge': 'Guardada en este navegador',
     'store.savedHere': '{name} está guardada en este navegador. La encontrarás en Mis tiendas.',
@@ -217,7 +222,8 @@ const es: LanguagePack = {
     'stores.deleteConfirm':
       '¿Quitar {name} de este navegador? Los enlaces que ya compartiste con estudiantes seguirán funcionando.',
     'stores.deleted': '{name} se quitó de este navegador.',
-    'stores.linkCopied': 'Enlace para estudiantes de {name} copiado. Pégalo donde tu clase lo vea.',
+    'stores.linkCopied':
+      'Enlace para estudiantes de {name} copiado. Si cambias esta tienda después, tendrás que compartir un enlace nuevo.',
     'stores.linkFallback': 'Enlace para estudiantes de {name}: {link}',
     'stores.badLink': 'Ese enlace de tienda no funcionó. Es posible que se haya cortado al copiarlo.',
 
@@ -270,20 +276,12 @@ const es: LanguagePack = {
     'prices.otherBrandsStore': 'las marcas propias CG Value',
     'prices.stockAll': 'Surtir todo',
     'prices.stockNone': 'Vaciar todo',
-    'prices.helpBoth':
-      'Cada producto viene en dos marcas: la marca conocida y, a su lado, la marca propia CG Value, que cuesta menos pero a veces viene en un paquete más pequeño. Cambia cualquier precio, o desmarca un producto para quitarlo de los estantes de esta tienda.',
-    'prices.helpOne':
-      'Esta tienda vende solo {brands}, así que eso es lo que muestra el pasillo. Cambia cualquier precio, o desmarca un producto para quitarlo de los estantes de esta tienda.',
-    'prices.brandStoreOnly': 'la marca propia CG Value',
-    'prices.brandNameOnly': 'las marcas conocidas',
     'prices.cgTag': 'CG Value',
     'prices.priceLabel': 'Precio de {name}',
     'prices.stockLabel': 'Tener {name} en esta tienda',
     'prices.inStore': 'En esta tienda',
     'prices.aisleStocked': '{aisle} totalmente surtido.',
     'prices.aisleCleared': '{aisle} se quitó de los estantes.',
-    'prices.sizeHelp':
-      'Cada producto tiene un tamaño de paquete para que los estudiantes comparen precios por unidad. Algunos paquetes CG Value son más pequeños, así que el precio más bajo no siempre es la mejor compra. Cambia cualquier tamaño según tu clase, o bórralo para volver al tamaño habitual.',
     'prices.sizeLabel': 'Tamaño del paquete de {name}',
     'prices.sizeUnitLabel': 'Unidad de {name}',
 
