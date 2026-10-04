@@ -15,9 +15,9 @@ const pocketbaseUrl = process.env.VITE_POCKETBASE_URL || 'http://127.0.0.1:8090'
 type PublicStore = {
   store: {
     name: string; color: string; joinLabel: string; joinCode: string
-    brandMode: string; couponsEnabled: boolean; taxEnabled: boolean; salesTax: number
+    brandMode: string; unitPricing: string; couponsEnabled: boolean; taxEnabled: boolean; salesTax: number
   }
-  items: Record<string, { price?: number; hidden?: boolean }>
+  items: Record<string, { price?: number; hidden?: boolean; sizeAmount?: number; sizeUnit?: string }>
   coupons: Array<{ code: string; discountType: string; discountAmount: number; productId: string }>
 }
 
@@ -390,6 +390,62 @@ test('a student can compare a name brand with its CG twin', async ({ page }) => 
 
   await expect(page.getByRole('button', { name: /^Add Eggs for \$1\.59/ })).toBeVisible()
   await expect(page.getByRole('button', { name: /^Add CG Eggs for \$1\.39/ })).toBeVisible()
+})
+
+// Every product has a package size, so a cheaper sticker is not always the
+// better buy. The teacher can change a size, and choose how much of the unit
+// price arithmetic the shelf tag does for the class.
+test('a teacher changes a package size, and students compare unit prices', async ({ page, request, browser }) => {
+  /** A student's own browser, so it joins fresh rather than reopening a remembered store. */
+  async function studentInDairy() {
+    const student = await (await browser.newContext({ baseURL: test.info().project.use.baseURL })).newPage()
+    await joinAsStudent(student, store.joinCode)
+    await goToAisle(student, 'Dairy and Eggs')
+    return student
+  }
+
+  await openStore(page)
+  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  await expect(page.getByLabel('Package size for CG Eggs')).toHaveValue('12')
+  await page.getByLabel('Package size for CG Eggs').fill('6')
+  await page.getByLabel('Package size for CG Eggs').blur()
+  await expect(page.locator('.status-message')).toHaveText('Saved.')
+
+  const published = await readStore(request, store.joinCode)
+  expect(published.store.unitPricing).toBe('unit')
+  expect(published.items['eggs-cg'].sizeAmount).toBe(6)
+  expect(published.items['eggs-cg'].sizeUnit).toBe('ct')
+
+  // Half the eggs for $0.20 less: cheaper on the sticker, dearer per egg.
+  const student = await studentInDairy()
+  await expect(student.getByRole('button', { name: 'Add Eggs for $1.59, 12 ct, $0.133 each' })).toBeVisible()
+  await expect(student.getByRole('button', { name: 'Add CG Eggs for $1.39, 6 ct, $0.232 each' })).toBeVisible()
+  await student.close()
+
+  // Sizes only: the class works the unit price out for itself.
+  await page.getByRole('button', { name: 'Store settings' }).click()
+  await page.getByLabel('Price and size — students work out the unit price').check()
+  await page.getByRole('button', { name: 'Save changes' }).click()
+  await expect(page.locator('.status-message')).toContainText('updated. Students join with')
+  expect((await readStore(request, store.joinCode)).store.unitPricing).toBe('size')
+  const sizesOnly = await studentInDairy()
+  await expect(sizesOnly.getByRole('button', { name: 'Add CG Eggs for $1.39, 6 ct', exact: true })).toBeVisible()
+  await expect(sizesOnly.locator('.price-tag-unit')).toHaveCount(0)
+  await sizesOnly.close()
+
+  // Clearing the size goes back to the usual dozen.
+  await page.getByRole('button', { name: 'Prices and stock' }).click()
+  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  await page.getByLabel('Package size for CG Eggs').fill('')
+  await page.getByLabel('Package size for CG Eggs').blur()
+  await expect(page.getByLabel('Package size for CG Eggs')).toHaveValue('12')
+  await expect.poll(async () => (await readStore(request, store.joinCode)).items['eggs-cg'].sizeAmount).toBeUndefined()
+
+  // Back to full unit pricing for the rest of the run.
+  await page.getByRole('button', { name: 'Store settings' }).click()
+  await page.getByLabel('Price, size and unit price').check()
+  await page.getByRole('button', { name: 'Save changes' }).click()
+  await expect(page.locator('.status-message')).toContainText('updated. Students join with')
 })
 
 test('stocking the name brands puts the CG line away again', async ({ page, request }) => {

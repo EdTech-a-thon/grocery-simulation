@@ -123,6 +123,12 @@ const en: LanguagePack = {
     'product.addOne': 'Add one more {name}',
     'product.removeOne': 'Remove one {name}',
     'product.inCart': '{count} in cart',
+    'product.addSized': 'Add {name} for {price}, {size}',
+    'product.addUnitPriced': 'Add {name} for {price}, {size}, {unitPrice}',
+    'product.unitPrice': '{price}/{unit}',
+    'product.unitPriceEach': '{price} each',
+    'product.unitPriceSpoken': '{price} per {unit}',
+    'product.unitPriceEachSpoken': '{price} each',
 
     // ------------------------------------------------------ cart
     'cart.title': 'Shopping cart',
@@ -309,6 +315,10 @@ const en: LanguagePack = {
     'settings.coupons': 'Coupons',
     'settings.allowCoupons': 'Allow coupons',
     'settings.noCoupons': 'No coupons',
+    'settings.unitPricing': 'Shelf tags show',
+    'settings.unitPricingUnit': 'Price, size and unit price',
+    'settings.unitPricingSize': 'Price and size — students work out the unit price',
+    'settings.unitPricingOff': 'Price only',
     'settings.save': 'Save changes',
     'settings.create': 'Create store',
     'settings.badCode':
@@ -337,7 +347,7 @@ const en: LanguagePack = {
     'prices.stockAll': 'Stock all',
     'prices.stockNone': 'Stock none',
     'prices.helpBoth':
-      "Every product comes in two brands: the name brand, and the cheaper CG Value store brand beside it. Edit any price, or uncheck an item to remove it from this store's shelves.",
+      "Every product comes in two brands: the name brand, and the CG Value store brand beside it, which costs less but sometimes comes in a smaller package. Edit any price, or uncheck an item to remove it from this store's shelves.",
     'prices.helpOne':
       "This store sells {brands} only, so that is what this aisle shows. Edit any price, or uncheck an item to remove it from this store's shelves.",
     'prices.brandStoreOnly': 'the CG Value store brand',
@@ -351,6 +361,10 @@ const en: LanguagePack = {
     'prices.aisleStocked': '{aisle} fully stocked.',
     'prices.aisleCleared': '{aisle} taken off the shelves.',
     'prices.bulkFailed': 'Those changes could not be saved.',
+    'prices.sizeHelp':
+      'Each item has a package size so students can compare unit prices. Some CG Value packages are smaller, so the lower price is not always the better buy. Change any size to suit your lesson, or clear it to go back to the usual size.',
+    'prices.sizeLabel': 'Package size for {name}',
+    'prices.sizeUnitLabel': 'Unit for {name}',
 
     // ------------------------------------------------------ coupon studio
     'coupons.pageTitle': 'Give your class something to budget with',

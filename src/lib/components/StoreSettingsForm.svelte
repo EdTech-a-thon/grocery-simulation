@@ -5,7 +5,7 @@
   import { joinLabelPattern, normalizeJoinLabel } from '$lib/joincodes'
   import {
     createStore, errorMessage, loadStoreItems, stockBrands, storeColors, teacherJoinPrefix,
-    updateStore, type BrandMode, type Store, type StoreColor,
+    updateStore, type BrandMode, type Store, type StoreColor, type UnitPricing,
   } from '$lib/pocketbase'
   import { everyProductWithItsPrice, shop, syncCartToStore } from '$lib/shop.svelte'
   import { refreshStores, teacher, withBusy } from '$lib/teacher.svelte'
@@ -30,6 +30,7 @@
   let color = $state<StoreColor>(seed?.color ?? 'green')
   let joinLabel = $state(seed?.joinLabel ?? '')
   let brandMode = $state<BrandMode>(seed?.brandMode ?? 'name')
+  let unitPricing = $state<UnitPricing>(seed?.unitPricing ?? 'unit')
   let couponsEnabled = $state(seed?.couponsEnabled ?? true)
   let taxEnabled = $state(seed?.taxEnabled ?? false)
   let salesTax = $state(seed?.salesTax ?? 0)
@@ -43,6 +44,7 @@
       color,
       joinLabel: label,
       brandMode,
+      unitPricing,
       couponsEnabled,
       taxEnabled,
       salesTax: taxEnabled ? Math.min(100, Math.max(0, Number(salesTax) || 0)) : 0,
@@ -120,6 +122,12 @@
     {#if store && brandMode !== store.brandMode}
       <p class="helper-text">{t('settings.restockNote')}</p>
     {/if}
+  </fieldset>
+  <fieldset>
+    <legend>{t('settings.unitPricing')}</legend>
+    <label><input type="radio" bind:group={unitPricing} value="unit" /> {t('settings.unitPricingUnit')}</label>
+    <label><input type="radio" bind:group={unitPricing} value="size" /> {t('settings.unitPricingSize')}</label>
+    <label><input type="radio" bind:group={unitPricing} value="off" /> {t('settings.unitPricingOff')}</label>
   </fieldset>
   <div class="store-options-grid">
     <fieldset>

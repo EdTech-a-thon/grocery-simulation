@@ -101,6 +101,12 @@ const fr: LanguagePack = {
     'product.addOne': 'Ajouter un {name} de plus',
     'product.removeOne': 'Retirer un {name}',
     'product.inCart': '{count} dans le panier',
+    'product.addSized': 'Ajouter {name} pour {price}, {size}',
+    'product.addUnitPriced': 'Ajouter {name} pour {price}, {size}, {unitPrice}',
+    'product.unitPrice': '{price}/{unit}',
+    'product.unitPriceEach': '{price}/unité',
+    'product.unitPriceSpoken': '{price} par {unit}',
+    'product.unitPriceEachSpoken': '{price} l’unité',
 
     'cart.title': 'Panier',
     'cart.clear': 'Vider',
@@ -283,6 +289,10 @@ const fr: LanguagePack = {
     'settings.coupons': 'Bons de réduction',
     'settings.allowCoupons': 'Autoriser les bons',
     'settings.noCoupons': 'Pas de bons',
+    'settings.unitPricing': 'Les étiquettes affichent',
+    'settings.unitPricingUnit': 'Le prix, la taille et le prix unitaire',
+    'settings.unitPricingSize': 'Le prix et la taille — les élèves calculent le prix unitaire',
+    'settings.unitPricingOff': 'Le prix seulement',
     'settings.save': 'Enregistrer',
     'settings.create': 'Créer le magasin',
     'settings.badCode':
@@ -310,7 +320,7 @@ const fr: LanguagePack = {
     'prices.stockAll': 'Tout mettre en rayon',
     'prices.stockNone': 'Tout retirer',
     'prices.helpBoth':
-      'Chaque produit existe en deux marques : la grande marque et, juste à côté, la marque maison CG Value, moins chère. Modifiez n’importe quel prix, ou décochez un produit pour le retirer des rayons de ce magasin.',
+      'Chaque produit existe en deux marques : la grande marque et, juste à côté, la marque maison CG Value, moins chère mais parfois vendue en plus petit paquet. Modifiez n’importe quel prix, ou décochez un produit pour le retirer des rayons de ce magasin.',
     'prices.helpOne':
       'Ce magasin vend uniquement {brands} : c’est donc ce que montre ce rayon. Modifiez n’importe quel prix, ou décochez un produit pour le retirer des rayons de ce magasin.',
     'prices.brandStoreOnly': 'la marque maison CG Value',
@@ -324,6 +334,10 @@ const fr: LanguagePack = {
     'prices.aisleStocked': 'Rayon {aisle} entièrement approvisionné.',
     'prices.aisleCleared': 'Rayon {aisle} retiré des étagères.',
     'prices.bulkFailed': 'Ces modifications n’ont pas pu être enregistrées.',
+    'prices.sizeHelp':
+      'Chaque produit a une taille de paquet pour que les élèves comparent les prix unitaires. Certains paquets CG Value sont plus petits : le prix le plus bas n’est donc pas toujours la meilleure affaire. Modifiez une taille selon votre leçon, ou effacez-la pour revenir à la taille habituelle.',
+    'prices.sizeLabel': 'Taille du paquet : {name}',
+    'prices.sizeUnitLabel': 'Unité : {name}',
 
     'coupons.pageTitle': 'Donnez à votre classe de quoi gérer un budget',
     'coupons.pageLede':

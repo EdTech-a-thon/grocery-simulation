@@ -8,6 +8,7 @@ import en from './en'
 import es from './es'
 import fr from './fr'
 import { isStoreBrand, nameBrandIdOf, storeBrandPrefix } from '../products'
+import { formatUnitPrice, unitPrice, type PackageSize } from '../sizes'
 import type { LanguagePack } from './types'
 
 const languages: Record<string, LanguagePack> = { en, es, fr }
@@ -107,6 +108,18 @@ export function productName(productId: string) {
 /** The small print under a product, describing what is in the packet. */
 export function productNote(productId: string) {
   return productEntry(productId)?.note ?? ''
+}
+
+/**
+ * The unit price on a shelf tag: "$0.266/oz", or "$0.40 each" for things
+ * counted rather than weighed. `spoken` gives the screen-reader wording,
+ * "$0.266 per oz", which the tag has no room for on a phone. The unit itself is
+ * not translated — like the dollars, it is the US measure the lesson is about.
+ */
+export function unitPriceText(price: number, size: PackageSize, spoken = false) {
+  const value = formatUnitPrice(unitPrice(price, size))
+  const key = size.unit === 'ct' ? 'product.unitPriceEach' : 'product.unitPrice'
+  return t(spoken ? `${key}Spoken` : key, { price: value, unit: size.unit })
 }
 
 // Prose on the welcome, about and privacy pages has links and emphasis inside a

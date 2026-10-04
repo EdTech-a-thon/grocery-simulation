@@ -4,9 +4,10 @@ import { joinKey } from './joincodes'
 import { isStoreBrand, nameBrandIdOf, storeBrandPrice } from './products'
 import { cart } from './cart.svelte'
 import {
-  fetchStoreByJoinCode, loadCoupons, loadStoreItems,
+  fetchStoreByJoinCode, loadCoupons, loadStoreItems, sizeFromRecord,
   type Coupon, type Store, type StoreItem,
 } from './pocketbase'
+import { catalogSize } from './sizes'
 
 const studentJoinCodeStorageKey = 'classgrocery-student-class-code'
 
@@ -63,6 +64,11 @@ function priceIn(items: Record<string, StoreItem>, item: AisleItem) {
   const override = items[item.id]
   if (override) return override.price
   return item.price ?? catalogPrice(item.id)
+}
+
+/** The store's own package size for a product, else the catalog's. */
+export function sizeFor(productId: string) {
+  return shop.items[productId]?.size ?? catalogSize(productId)
 }
 
 /**
@@ -128,7 +134,13 @@ export async function joinStore(joinCode: string) {
   shop.coupons = joined.coupons
   shop.items = Object.fromEntries(Object.entries(joined.items).map(([productId, entry]) => [
     productId,
-    { id: '', productId, price: entry.price ?? catalogPrice(productId), hidden: Boolean(entry.hidden) },
+    {
+      id: '',
+      productId,
+      price: entry.price ?? catalogPrice(productId),
+      hidden: Boolean(entry.hidden),
+      size: sizeFromRecord(entry.sizeAmount, entry.sizeUnit),
+    },
   ]))
   syncCartToStore(joined.store)
   return true

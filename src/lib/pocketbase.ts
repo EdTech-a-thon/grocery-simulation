@@ -1,6 +1,7 @@
 import { t } from './i18n/index.svelte'
 import PocketBase from 'pocketbase'
 import { joinCodeFor, joinKey, normalizeJoinLabel, normalizeJoinPrefix } from './joincodes'
+import { isSizeUnit, type PackageSize } from './sizes'
 
 // The browser talks to PocketBase directly. There is no backend proxy.
 export const pb = new PocketBase(import.meta.env.VITE_POCKETBASE_URL || 'http://127.0.0.1:8090')
@@ -14,6 +15,12 @@ export type StoreColor = (typeof storeColors)[number]
  * whole thing students are given, their identifier and that label together.
  */
 export type BrandMode = 'name' | 'store' | 'both'
+/**
+ * What the shelf tag under each product shows besides its price: the package
+ * size and the unit price worked out from it, the size alone so students do the
+ * dividing themselves, or neither.
+ */
+export type UnitPricing = 'unit' | 'size' | 'off'
 export type Store = {
   id: string
   name: string
@@ -21,6 +28,7 @@ export type Store = {
   joinLabel: string
   joinCode: string
   brandMode: BrandMode
+  unitPricing: UnitPricing
   couponsEnabled: boolean
   taxEnabled: boolean
   salesTax: number
@@ -32,7 +40,21 @@ export type Store = {
  * field as 0, so a row that left it unset would be indistinguishable from one
  * priced at $0.00. Callers therefore always send the price they want.
  */
-export type StoreItem = { id: string; productId: string; price: number; hidden: boolean }
+export type StoreItem = { id: string; productId: string; price: number; hidden: boolean; size: PackageSize | null }
+
+/**
+ * A size override as PocketBase stores it: an amount of 0 means "no override,
+ * use the catalog size", for the same unset-number reason as `price` above.
+ */
+export function sizeFromRecord(amount: unknown, unit: unknown): PackageSize | null {
+  const value = Number(amount)
+  return value > 0 && isSizeUnit(unit) ? { amount: value, unit } : null
+}
+
+export function unitPricingFrom(value: unknown): UnitPricing {
+  // A store saved before this setting existed shows unit prices.
+  return value === 'size' || value === 'off' ? value : 'unit'
+}
 
 export type Coupon = {
   id: string
@@ -50,7 +72,7 @@ export type Coupon = {
 /** What an anonymous student gets back when they join a store by its code. */
 export type JoinedStore = {
   store: Store
-  items: Record<string, { price?: number; hidden?: boolean }>
+  items: Record<string, { price?: number; hidden?: boolean; sizeAmount?: number; sizeUnit?: string }>
   coupons: Coupon[]
 }
 
@@ -147,6 +169,7 @@ function toStore(record: Record<string, unknown>): Store {
     joinLabel,
     joinCode: joinCodeFor(teacherJoinPrefix(), joinLabel),
     brandMode: record.brandMode === 'store' || record.brandMode === 'both' ? record.brandMode : 'name',
+    unitPricing: unitPricingFrom(record.unitPricing),
     couponsEnabled: !Boolean(record.couponsDisabled),
     taxEnabled: Boolean(record.taxEnabled),
     salesTax: Math.max(0, Number(record.salesTax) || 0),
@@ -165,6 +188,7 @@ export type NewStoreSettings = {
   color: StoreColor
   joinLabel: string
   brandMode: BrandMode
+  unitPricing: UnitPricing
   couponsEnabled: boolean
   taxEnabled: boolean
   salesTax: number
@@ -179,6 +203,7 @@ export async function createStore(settings: NewStoreSettings) {
     color: settings.color,
     joinLabel: normalizeJoinLabel(settings.joinLabel),
     brandMode: settings.brandMode,
+    unitPricing: settings.unitPricing,
     couponsDisabled: !settings.couponsEnabled,
     taxEnabled: settings.taxEnabled,
     salesTax: settings.taxEnabled ? settings.salesTax : 0,
@@ -192,6 +217,7 @@ export async function updateStore(id: string, changes: Partial<NewStoreSettings>
   if (changes.color !== undefined) body.color = changes.color
   if (changes.joinLabel !== undefined) body.joinLabel = normalizeJoinLabel(changes.joinLabel)
   if (changes.brandMode !== undefined) body.brandMode = changes.brandMode
+  if (changes.unitPricing !== undefined) body.unitPricing = changes.unitPricing
   if (changes.couponsEnabled !== undefined) body.couponsDisabled = !changes.couponsEnabled
   if (changes.taxEnabled !== undefined) body.taxEnabled = changes.taxEnabled
   // A store with tax turned off carries no rate, so turning it back on later
@@ -222,6 +248,7 @@ function toStoreItem(record: Record<string, unknown>): StoreItem {
     productId: String(record.productId),
     price: Number(record.price) || 0,
     hidden: Boolean(record.hidden),
+    size: sizeFromRecord(record.sizeAmount, record.sizeUnit),
   }
 }
 
@@ -254,9 +281,16 @@ const pendingItemSaves = new Map<string, Promise<StoreItem | null>>()
 
 /**
  * `price` is the price this store should charge, which callers read off the
- * screen — for an untouched product that is simply the catalog price.
+ * screen — for an untouched product that is simply the catalog price. Leave
+ * `hidden` or `size` out to keep what is saved; a `size` of null goes back to
+ * the catalog size.
  */
-export function saveStoreItem(storeId: string, existing: Record<string, StoreItem>, productId: string, changes: { price: number; hidden?: boolean }) {
+export function saveStoreItem(
+  storeId: string,
+  existing: Record<string, StoreItem>,
+  productId: string,
+  changes: { price: number; hidden?: boolean; size?: PackageSize | null },
+) {
   const previous = pendingItemSaves.get(productId) ?? Promise.resolve(null)
   const next = previous
     .catch(() => null)
@@ -264,8 +298,9 @@ export function saveStoreItem(storeId: string, existing: Record<string, StoreIte
       const current = existing[productId]
       const price = changes.price
       const hidden = changes.hidden !== undefined ? changes.hidden : current?.hidden ?? false
+      const size = changes.size !== undefined ? changes.size : current?.size ?? null
 
-      const body = { store: storeId, productId, price, hidden }
+      const body = { store: storeId, productId, price, hidden, sizeAmount: size?.amount ?? 0, sizeUnit: size?.unit ?? '' }
       const record = current
         ? await pb.collection('store_items').update(current.id, body)
         : await pb.collection('store_items').create(body)

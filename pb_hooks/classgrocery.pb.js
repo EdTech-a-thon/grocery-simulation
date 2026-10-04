@@ -63,6 +63,11 @@ routerAdd('GET', '/api/classgrocery/store/{joinCode}', (e) => {
     // An unset price means "use the catalog price", which is not the same as 0.
     if (record.get('price') !== null && record.get('price') !== '') entry.price = record.getFloat('price')
     if (record.getBool('hidden')) entry.hidden = true
+    // A size of 0 means "use the catalog size", which the browser knows.
+    if (record.getFloat('sizeAmount') > 0) {
+      entry.sizeAmount = record.getFloat('sizeAmount')
+      entry.sizeUnit = record.getString('sizeUnit')
+    }
     items[record.getString('productId')] = entry
   }
 
@@ -78,6 +83,7 @@ routerAdd('GET', '/api/classgrocery/store/{joinCode}', (e) => {
       joinLabel: store.getString('joinLabel'),
       joinCode,
       brandMode: store.getString('brandMode') || 'name',
+      unitPricing: store.getString('unitPricing') || 'unit',
       couponsEnabled: !store.getBool('couponsDisabled'),
       taxEnabled: store.getBool('taxEnabled'),
       salesTax: store.getFloat('salesTax'),
@@ -121,6 +127,7 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/duplicate', (e) => {
     copy.set('joinLabel', resolved.label)
     copy.set('joinKey', resolved.joinKey)
     copy.set('brandMode', source.getString('brandMode'))
+    copy.set('unitPricing', source.getString('unitPricing'))
     copy.set('couponsDisabled', source.getBool('couponsDisabled'))
     copy.set('taxEnabled', source.getBool('taxEnabled'))
     copy.set('salesTax', source.getFloat('salesTax'))
@@ -132,6 +139,8 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/duplicate', (e) => {
       clone.set('productId', item.getString('productId'))
       clone.set('price', item.get('price'))
       clone.set('hidden', item.getBool('hidden'))
+      clone.set('sizeAmount', item.getFloat('sizeAmount'))
+      clone.set('sizeUnit', item.getString('sizeUnit'))
       tx.save(clone)
     }
 
@@ -157,6 +166,7 @@ routerAdd('POST', '/api/classgrocery/stores/{id}/duplicate', (e) => {
       joinLabel: resolved.label,
       joinCode: resolved.joinCode,
       brandMode: copy.getString('brandMode') || 'name',
+      unitPricing: copy.getString('unitPricing') || 'unit',
       couponsEnabled: !copy.getBool('couponsDisabled'),
       taxEnabled: copy.getBool('taxEnabled'),
       salesTax: copy.getFloat('salesTax'),

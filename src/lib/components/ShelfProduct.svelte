@@ -1,25 +1,45 @@
 <script lang="ts">
   import { addToCart, keyInCart, quantityInCart, removeFromCart } from '$lib/cart.svelte'
   import { money, type ShelfItem } from '$lib/catalog'
-  import { productName, t } from '$lib/i18n/index.svelte'
+  import { productName, t, unitPriceText } from '$lib/i18n/index.svelte'
+  import { shop, sizeFor } from '$lib/shop.svelte'
+  import { formatSize } from '$lib/sizes'
 
   let { item }: { item: ShelfItem } = $props()
   const quantity = $derived(quantityInCart(item))
   // The shelf label is looked up rather than read off the item, so the aisle
   // changes language without anything already in the cart having to move.
   const name = $derived(productName(item.id))
+
+  // The teacher decides how much of the arithmetic the tag does for the class.
+  const unitPricing = $derived(shop.store?.unitPricing ?? 'unit')
+  const size = $derived(unitPricing === 'off' ? null : sizeFor(item.id))
+  const sizeText = $derived(size ? formatSize(size) : '')
+  const unitText = $derived(size && unitPricing === 'unit' ? unitPriceText(item.price, size) : '')
+  const label = $derived.by(() => {
+    const price = money(item.price)
+    if (size && unitText) {
+      return t('product.addUnitPriced', { name, size: sizeText, price, unitPrice: unitPriceText(item.price, size, true) })
+    }
+    if (sizeText) return t('product.addSized', { name, size: sizeText, price })
+    return t('product.add', { name, price })
+  })
 </script>
 
 <div class="shelf-product-card">
   <button
     class="shelf-product"
     type="button"
-    aria-label={t('product.add', { name, price: money(item.price) })}
+    aria-label={label}
     onclick={() => addToCart(item)}
   >
     <span class="shelf-product-image" style="background-image:url('{item.image}')"></span>
     <span class="shelf-product-name">{name}</span>
-    <span class="price-tag" class:price-tag-sale={item.sale}>{money(item.price)}</span>
+    <span class="price-tag" class:price-tag-sale={item.sale}>
+      {money(item.price)}
+      {#if sizeText}<span class="price-tag-size">{sizeText}</span>{/if}
+      {#if unitText}<span class="price-tag-unit">{unitText}</span>{/if}
+    </span>
     {#if quantity}
       <span class="shelf-quantity-badge" aria-label={t('product.inCart', { count: quantity })}>{quantity}</span>
     {/if}
