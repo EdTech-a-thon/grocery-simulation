@@ -205,7 +205,7 @@ button {
 
 /* The hero: the sky and grass fill the band, the words sit on the left and the
    shopfront stands on the grass to the right. Phones stack the two instead. */
-.landing-hero { position: relative; min-height: min(720px,90vh); display: grid; align-content: center; padding: clamp(48px,8vh,96px) clamp(20px,5vw,64px) clamp(150px,22vh,200px); overflow: hidden; }
+.landing-hero { position: relative; min-height: min(600px,76vh); display: grid; align-content: center; padding: clamp(40px,6vh,72px) clamp(20px,5vw,64px) clamp(120px,18vh,160px); overflow: hidden; }
 .landing-hero .student-store-scene { position: absolute; inset: 0; min-height: 0; background: linear-gradient(180deg,#a9ddf5 0 78%,#4baa63 78% 100%); }
 /* Lined up with the right edge of the words' 1120px column, however wide the
    screen gets. */
@@ -214,7 +214,9 @@ button {
 .landing-language { position: absolute; top: clamp(14px,3vh,24px); right: clamp(14px,3vw,28px); z-index: 7; color: #14532d; }
 
 .landing-hero-content { position: relative; z-index: 6; width: min(1120px,100%); margin: 0 auto; display: grid; justify-items: start; }
-.landing-hero h1 { margin: 0; color: #0f3f22; font-size: clamp(2.6rem,6.5vw,4.6rem); line-height: .98; letter-spacing: -.045em; }
+.landing-hero h1 { margin: 0; color: #0f3f22; font-size: clamp(2.6rem,6.5vw,4.6rem); line-height: .98; letter-spacing: -.045em; display: flex; align-items: center; gap: .12em; }
+/* The tomato is the logo, so it leads the name. */
+.landing-hero h1 img { width: .9em; height: .9em; flex: none; }
 .landing-hero-intro { max-width: 28rem; margin-top: 18px; color: #1c5033; font-size: clamp(1rem,1.5vw,1.2rem); line-height: 1.55; }
 
 .landing-hero-actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
@@ -298,7 +300,7 @@ button {
      out of the way of the heading, and the clouds sit this one out. */
   .landing-hero { min-height: auto; padding-bottom: 300px; text-align: center; }
 
-  .landing-hero-content, .landing-hero-actions { justify-items: center; justify-content: center; }
+  .landing-hero-content, .landing-hero-actions, .landing-hero h1 { justify-items: center; justify-content: center; }
 
   .landing-hero .student-market-building { left: 50%; right: auto; height: 180px; bottom: 26px; transform: translateX(-50%); }
 
@@ -1923,6 +1925,10 @@ p {
 
 .support-button { position: fixed; z-index: 99; left: 18px; bottom: 18px; width: 44px; height: 44px; border: 0; border-radius: 999px; background: #15803d; color: #fff; cursor: pointer; font-size: 1.35rem; font-weight: 900; line-height: 1; box-shadow: var(--shadow-lg); }
 .support-button:hover { background: #166534; }
+/* In a top bar it sits beside the language control, the same size. */
+.support-button.support-button-in-header { position: static; width: 36px; height: 36px; flex: none; padding: 0; border: 0; border-radius: 50%; background: #15803d; color: #fff; font-size: 1.05rem; box-shadow: none; }
+.support-button.support-button-in-header:hover { background: #166534; }
+.page-header-tools { display: flex; align-items: center; gap: 10px; }
 .support-modal { width: min(420px,100%); padding: clamp(20px,4vw,30px); border-radius: var(--radius-xl); background: #fff; color: #172033; box-shadow: 0 24px 70px rgba(15,23,42,.28); }
 .support-modal p { margin: 14px 0 0; color: #5e7163; line-height: 1.55; }
 .support-modal a { color: #15803d; font-weight: 800; }
@@ -1937,8 +1943,7 @@ p {
 
 .store-layout { display: grid; grid-template-columns: 248px minmax(0, 1fr); min-height: calc(100vh - 66px); }
 
-/* The bottom padding keeps the help button in the corner clear of the panel's own buttons. */
-.store-sidebar { position: sticky; top: 0; height: calc(100vh - 66px); padding: 18px 14px 84px; border-right: 1px solid #d7e7da; background: #fff; display: flex; flex-direction: column; gap: 6px; }
+.store-sidebar { position: sticky; top: 0; height: calc(100vh - 66px); padding: 18px 14px; border-right: 1px solid #d7e7da; background: #fff; display: flex; flex-direction: column; gap: 6px; }
 .store-sidebar button { width: 100%; border: 0; border-radius: var(--radius-md); padding: 10px 12px; background: transparent; color: #31533b; cursor: pointer; font: inherit; font-size: .9rem; font-weight: 800; text-align: left; display: flex; align-items: center; gap: 10px; }
 .store-sidebar button:hover { background: #f0f8f2; }
 .store-sidebar-back { color: #4b6354 !important; font-size: .82rem !important; }
@@ -2021,5 +2026,4 @@ p {
   .store-sidebar-actions { flex: 1 0 100%; margin-top: 0; padding-top: 10px; display: flex; flex-wrap: wrap; }
   .store-settings-page { grid-template-columns: 1fr; }
   .store-preview { position: relative; top: 0; }
-  .store-sidebar { padding-bottom: 14px; }
 }

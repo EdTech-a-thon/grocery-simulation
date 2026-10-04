@@ -1,11 +1,28 @@
+<script lang="ts" module>
+  /**
+   * How many help buttons are sitting in a page header right now. A page with
+   * one there needs no floating button in the corner as well.
+   */
+  export const helpInHeader = $state({ count: 0 })
+</script>
+
 <script lang="ts">
-  // A help affordance that follows the shopper everywhere, parked out of the
-  // way in the corner. There is nothing to troubleshoot in-app, so it hands
-  // over an address and gets out of the way.
+  // A help affordance on every page: in the top bar, right of the language
+  // control, or floating in the corner of a page that has no top bar. There
+  // is nothing to troubleshoot in-app, so it hands over an address.
+  import { onMount } from 'svelte'
   import RichText from './RichText.svelte'
   import { t } from '$lib/i18n/index.svelte'
 
+  let { inHeader = false }: { inHeader?: boolean } = $props()
+
   let open = $state(false)
+
+  onMount(() => {
+    if (!inHeader) return
+    helpInHeader.count++
+    return () => helpInHeader.count--
+  })
 
   const links = { support: 'mailto:support@teacher.dev' }
 </script>
@@ -14,6 +31,7 @@
 
 <button
   class="support-button"
+  class:support-button-in-header={inHeader}
   type="button"
   aria-haspopup="dialog"
   aria-expanded={open}

@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
   import LanguagePicker from './LanguagePicker.svelte'
+  import SupportButton from './SupportButton.svelte'
 
   /** `title` is left out on a page that names itself in its own heading. */
   let { title = '', onHome, nav }: {
@@ -17,5 +18,5 @@
     </button>
   </div>
   {#if title}<h1>{title}</h1>{:else}<span></span>{/if}
-  <nav>{@render nav?.()}<LanguagePicker /></nav>
+  <nav>{@render nav?.()}<LanguagePicker /><SupportButton inHeader /></nav>
 </header>

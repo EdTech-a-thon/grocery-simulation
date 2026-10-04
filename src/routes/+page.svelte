@@ -44,7 +44,7 @@
            footer to change it, so the picker sits above everything else. -->
       <div class="landing-language"><LanguagePicker /></div>
       <div class="landing-hero-content">
-        <h1 id="welcome-title">Class Grocery</h1>
+        <h1 id="welcome-title"><img src="/logo.svg" alt="" />Class Grocery</h1>
         <p class="landing-hero-intro">{t('landing.intro')}</p>
         <div class="landing-hero-actions">
           <a class="landing-get-started" href="/teacher">

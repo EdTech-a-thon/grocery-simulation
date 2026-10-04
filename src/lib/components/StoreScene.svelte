@@ -9,9 +9,9 @@
   <div class="student-cloud student-cloud-two"></div>
   <div class="student-ground"></div>
   <div class="student-market-building">
-    <div class="student-market-sign"><span>FRESH</span> MARKET</div>
+    <div class="student-market-sign"><span>CLASS</span> GROCERY</div>
     <div class="student-market-awning"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="student-market-window student-market-window-left"><p>FRESH<br />MARKET</p></div>
+    <div class="student-market-window student-market-window-left"><p>FRESH<br />FOOD</p></div>
     <div class="student-market-door"><span>OPEN</span><i></i></div>
     <div class="student-market-window student-market-window-right"><p>WELCOME<br />SHOPPERS</p></div>
   </div>

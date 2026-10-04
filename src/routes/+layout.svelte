@@ -1,7 +1,7 @@
 <script lang="ts">
   import '../app.css'
   import PrintOverlay from '$lib/components/PrintOverlay.svelte'
-  import SupportButton from '$lib/components/SupportButton.svelte'
+  import SupportButton, { helpInHeader } from '$lib/components/SupportButton.svelte'
   import { printing } from '$lib/printing.svelte'
   import { shop } from '$lib/shop.svelte'
   import { current } from '$lib/i18n/index.svelte'
@@ -34,5 +34,5 @@
 -->
 <div style:display={printing.job ? 'none' : 'contents'}>
   {@render children()}
-  <SupportButton />
+  {#if !helpInHeader.count}<SupportButton />{/if}
 </div>
