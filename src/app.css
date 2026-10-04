@@ -1962,7 +1962,11 @@ p {
 .store-sidebar-pages { display: grid; gap: 2px; }
 .store-sidebar-pages button.active { background: #dcfce7; color: #14532d; }
 .store-sidebar-actions { margin-top: auto; padding-top: 14px; border-top: 1px solid #e4ece6; display: grid; gap: 6px; }
-.store-sidebar-actions .primary-button { justify-content: center; background: #facc15; color: #713f12; }
+/* The two ways in sit as a matching pair: an outlined button above a filled one. */
+.store-sidebar-actions button { justify-content: center; border: 1px solid transparent; }
+.store-sidebar .store-sidebar-actions .preview-button { border-color: #b7d8c0; background: #fff; }
+.store-sidebar .store-sidebar-actions .preview-button:hover { background: #f0f8f2; }
+.store-sidebar-actions .primary-button { background: #facc15; color: #713f12; }
 .store-sidebar-actions .primary-button:hover { background: #eab308; }
 /* After a change, the class's link is out of date until a new one is copied. */
 .store-sidebar-actions .primary-button.link-outdated { background: #ea580c; color: #fff; }

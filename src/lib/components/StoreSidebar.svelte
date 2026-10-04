@@ -66,7 +66,7 @@
   </nav>
 
   <div class="store-sidebar-actions">
-    <button type="button" onclick={onViewAsStudent}><Icon name="preview" />{t('store.viewAsStudent')}</button>
+    <button class="preview-button" type="button" onclick={onViewAsStudent}><Icon name="preview" />{t('store.viewAsStudent')}</button>
     <button class="primary-button" class:link-outdated={linkOutdated} type="button" disabled={!teacher.encoded} onclick={copyStudentLink}>
       <Icon name="link" />{linkOutdated ? t('store.copyNewLink') : t('store.copyLink')}
     </button>
