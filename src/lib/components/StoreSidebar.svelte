@@ -36,26 +36,25 @@
 
 <aside class="store-sidebar" data-color={shop.store?.color}>
   <button class="store-sidebar-back" type="button" onclick={onBack}><Icon name="back" />{t('teacher.myStores')}</button>
-  <div class="sidebar-storefront">
-    <button
-      class="sidebar-storefront-settings"
-      class:active={page === 'settings'}
-      aria-current={page === 'settings' ? 'page' : undefined}
-      type="button"
-      title={t('teacher.settingsTitle')}
-      aria-label={t('teacher.settingsTitle')}
-      onclick={() => onGo('settings')}
-    >
-      <Icon name="gear" />
-    </button>
-    <p class="sidebar-storefront-sign">{shop.store?.name ?? ''}</p>
-    <div class="sidebar-storefront-awning" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="sidebar-storefront-front" aria-hidden="true">
+  <!-- The whole shopfront is the way into the store's settings; the gear says so. -->
+  <button
+    class="sidebar-storefront"
+    class:active={page === 'settings'}
+    aria-current={page === 'settings' ? 'page' : undefined}
+    type="button"
+    title={t('teacher.settingsTitle')}
+    aria-label={`${t('teacher.settingsTitle')}: ${shop.store?.name ?? ''}`}
+    onclick={() => onGo('settings')}
+  >
+    <span class="sidebar-storefront-gear" aria-hidden="true"><Icon name="gear" /></span>
+    <span class="sidebar-storefront-sign">{shop.store?.name ?? ''}</span>
+    <span class="sidebar-storefront-awning" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    <span class="sidebar-storefront-front" aria-hidden="true">
       <span class="sidebar-storefront-window"></span>
       <span class="sidebar-storefront-door"><span>{t('store.welcomeIn')}</span></span>
       <span class="sidebar-storefront-window"></span>
-    </div>
-  </div>
+    </span>
+  </button>
 
   <nav class="store-sidebar-pages" aria-label={t('store.pagesLabel')}>
     {#each pages as item (item.page)}

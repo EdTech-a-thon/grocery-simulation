@@ -111,6 +111,7 @@ test('a teacher builds a store without signing up for anything', async ({ page }
 
   await page.getByRole('button', { name: 'Coupons' }).click()
   await page.getByRole('button', { name: 'Add coupon' }).click()
+  await page.getByRole('menuitem', { name: /^Manual/ }).click()
   await page.getByLabel('Applies to').selectOption('milk')
   await page.locator('[data-discount-amount]').fill('10')
   await page.getByLabel('Coupon code word').fill('MILK DAY')
@@ -118,6 +119,7 @@ test('a teacher builds a store without signing up for anything', async ({ page }
 
   // A dollars coupon worth far more than the item it applies to.
   await page.getByRole('button', { name: 'Add coupon' }).click()
+  await page.getByRole('menuitem', { name: /^Manual/ }).click()
   await page.getByLabel('Discount type').selectOption('dollars')
   await page.locator('[data-discount-amount]').fill('50')
   await page.getByLabel('Applies to').selectOption('apple')
@@ -130,6 +132,7 @@ test('a teacher builds a store without signing up for anything', async ({ page }
 
   // A code the store already has is refused, so two coupons never share one.
   await page.getByRole('button', { name: 'Add coupon' }).click()
+  await page.getByRole('menuitem', { name: /^Manual/ }).click()
   await page.getByLabel('Coupon code word').fill('apple50')
   await page.getByRole('button', { name: 'Create coupon' }).click()
   await expect(page.locator('.coupon-editor-problem')).toHaveText('This store already has a coupon with the code APPLE50.')

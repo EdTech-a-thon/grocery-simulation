@@ -26,12 +26,13 @@ test('coupons print in sheets, and printing never loses the page underneath', as
 
   // Random coupons, then the print-all sheet.
   await page.getByRole('button', { name: 'Coupons' }).click()
-  await page.getByRole('button', { name: 'Add coupon' }).click()
-  await page.getByLabel('Random').check()
-  await page.getByLabel('Different coupon designs').fill('2')
-  await page.getByRole('button', { name: 'Generate random coupons' }).click()
+  // Random adds one coupon straight away; twice makes two.
+  for (let index = 0; index < 2; index++) {
+    await page.getByRole('button', { name: 'Add coupon' }).click()
+    await page.getByRole('menuitem', { name: /^Random/ }).click()
+  }
   await expect(page.getByText('2 ready to use')).toBeVisible()
-  await page.getByRole('button', { name: 'Print all coupons to PDF' }).click()
+  await page.getByRole('button', { name: 'Print all', exact: true }).click()
   await expect(page.getByRole('dialog', { name: 'Print all coupons' })).toBeVisible()
   await expect(page.getByLabel('Copies to print')).toHaveCount(2)
   // One number sets every coupon's copies at once; each can still be changed after.
@@ -64,6 +65,7 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   await page.getByRole('button', { name: 'Exit student view' }).click()
   await page.getByRole('button', { name: 'Coupons' }).click()
   await page.getByRole('button', { name: 'Add coupon' }).click()
+  await page.getByRole('menuitem', { name: /^Manual/ }).click()
   await page.getByLabel('Discount type').selectOption('dollars')
   await expect(page.locator('[data-discount-amount]')).toHaveValue('1.00')
   await expect(page.locator('.field-suffix')).toHaveText('$')

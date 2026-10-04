@@ -5,14 +5,16 @@
   import { couponOffer } from '$lib/coupons'
   import { t } from '$lib/i18n/index.svelte'
   import { printCoupons } from '$lib/printing.svelte'
-  import { shop } from '$lib/shop.svelte'
-  import type { Coupon } from '$lib/store'
+  import { shop, stockedProductIds } from '$lib/shop.svelte'
+  import { addCoupon, randomCoupon, type Coupon } from '$lib/store'
+  import { teacher } from '$lib/teacher.svelte'
 
   /**
    * The store's coupons, each drawn exactly as it prints. They are added and
    * changed in a window of their own, and printed in sheets of ten.
    */
   let editor = $state<{ editing: Coupon | null } | null>(null)
+  let addMenuOpen = $state(false)
   let printTarget = $state<'all' | string | null>(null)
   let printCopies = $state<Record<string, string>>({})
 
@@ -57,12 +59,36 @@
     printTarget = null
   }
 
+  function addManual() {
+    addMenuOpen = false
+    editor = { editing: null }
+  }
+
+  function addRandom() {
+    addMenuOpen = false
+    if (!shop.store) return
+    const coupon = randomCoupon(stockedProductIds())
+    addCoupon(shop.store, coupon)
+    teacher.message = t('coupons.created', { code: coupon.code })
+  }
+
+  /** The add menu closes when the teacher clicks anywhere outside it. */
+  function closeMenuOutside(event: MouseEvent) {
+    if (addMenuOpen && !(event.target as HTMLElement).closest('.add-coupon-menu')) addMenuOpen = false
+  }
+
   function remove(code: string) {
     if (shop.store) shop.store.coupons = shop.store.coupons.filter((coupon) => coupon.code !== code)
   }
 </script>
 
-<svelte:window onkeydown={handlePrintModalKeydown} />
+<svelte:window
+  onkeydown={(event) => {
+    handlePrintModalKeydown(event)
+    if (event.key === 'Escape') addMenuOpen = false
+  }}
+  onclick={closeMenuOutside}
+/>
 
 <section class="coupons-page">
   <div class="store-list-heading">
@@ -74,7 +100,21 @@
       {#if coupons.length}
         <button class="teacher-secondary-button" type="button" onclick={() => choosePrint('all')}>{t('coupons.printAll')}</button>
       {/if}
-      <button class="primary-button" type="button" onclick={() => (editor = { editing: null })}>{t('coupons.add')}<Icon name="plus" /></button>
+      <div class="add-coupon-menu">
+        <button class="primary-button" type="button" aria-haspopup="menu" aria-expanded={addMenuOpen} onclick={() => (addMenuOpen = !addMenuOpen)}>
+          {t('coupons.add')}<Icon name="plus" />
+        </button>
+        {#if addMenuOpen}
+          <div class="add-coupon-options" role="menu">
+            <button role="menuitem" type="button" onclick={addManual}>
+              <strong>{t('coupons.manual')}</strong><span>{t('coupons.manualHelp')}</span>
+            </button>
+            <button role="menuitem" type="button" onclick={addRandom}>
+              <strong>{t('coupons.random')}</strong><span>{t('coupons.randomHelp')}</span>
+            </button>
+          </div>
+        {/if}
+      </div>
     </div>
   </div>
 
@@ -91,7 +131,7 @@
         </div>
       </article>
     {:else}
-      <button class="store-list-empty" type="button" onclick={() => (editor = { editing: null })}>{t('coupons.empty')}</button>
+      <button class="store-list-empty" type="button" onclick={addManual}>{t('coupons.empty')}</button>
     {/each}
   </div>
 </section>

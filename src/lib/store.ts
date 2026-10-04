@@ -72,6 +72,24 @@ export function newCouponCode() {
   return `CG-${crypto.randomUUID().replace(/[^0-9a-f]/g, '').slice(0, 6).toUpperCase()}`
 }
 
+/** A percent-off coupon with a random amount, on the whole purchase or one of `productIds`. */
+export function randomCoupon(productIds: string[]): Coupon {
+  const pick = <T>(list: T[]) => list[Math.floor(Math.random() * list.length)]
+  return {
+    code: newCouponCode(),
+    discountType: 'percent',
+    discountAmount: pick([5, 10, 15, 20, 25, 30, 40, 50]),
+    productId: pick(['all', ...productIds]),
+    copies: 1,
+  }
+}
+
+/** A store with coupons always shows students the coupon button. */
+export function addCoupon(store: Store, coupon: Coupon) {
+  store.coupons.push(coupon)
+  store.couponsEnabled = true
+}
+
 // ------------------------------------------------------------ packing
 // The short form a store takes inside a link or in browser storage. Every key
 // is one letter and anything at its default is left out, so a store with a few
