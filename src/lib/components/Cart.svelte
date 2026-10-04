@@ -48,6 +48,22 @@
     }
   }
 
+  let cartLines: HTMLDivElement
+
+  // Whatever was just taken off a shelf scrolls into view in the cart (new
+  // items join at the bottom) and glows for a moment. Only the list scrolls,
+  // never the page, so a phone stays on the shelf.
+  $effect(() => {
+    if (!cart.lastAdded.count) return
+    const line = cartLines.querySelector<HTMLElement>(`[data-key="${CSS.escape(cart.lastAdded.key)}"]`)
+    if (!line) return
+    const list = cartLines.getBoundingClientRect()
+    const box = line.getBoundingClientRect()
+    if (box.bottom > list.bottom) cartLines.scrollBy({ top: box.bottom - list.bottom, behavior: 'smooth' })
+    else if (box.top < list.top) cartLines.scrollBy({ top: box.top - list.top, behavior: 'smooth' })
+    line.animate([{ boxShadow: '0 0 0 3px #22c55e', background: '#dcfce7' }, {}], { duration: 1200, easing: 'ease-out' })
+  })
+
   function closeModal() {
     openModal = null
   }
@@ -62,11 +78,11 @@
   </div>
   <p class="cart-summary">{plural('cart.count', totals.totalItems)}</p>
 
-  <div class="cart-lines">
+  <div class="cart-lines" bind:this={cartLines}>
     {#each cart.lines as line (line.key)}
       {@const receiptLine = receipt.lines.find((item) => item.item.key === line.key)}
       {@const lineSavings = receiptLine?.coupons.reduce((sum, entry) => sum + entry.amount, 0) ?? 0}
-      <div class="cart-line">
+      <div class="cart-line" data-key={line.key}>
         <span class="cart-item-image" style="background-image:url('{line.image}')"></span>
         <div class="cart-item-details">
           <strong>{productName(line.id)}</strong>

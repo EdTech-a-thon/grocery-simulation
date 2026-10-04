@@ -2,10 +2,11 @@
   import type { Snippet } from 'svelte'
   import Cart from './Cart.svelte'
   import Shelf from './Shelf.svelte'
+  import StoreThumbnail from './StoreThumbnail.svelte'
   import { t } from '$lib/i18n/index.svelte'
   import { shop, shoppableAisles } from '$lib/shop.svelte'
 
-  let { asTeacher = false, header }: { asTeacher?: boolean; header: Snippet } = $props()
+  let { asTeacher = false, header }: { asTeacher?: boolean; header?: Snippet } = $props()
 
   const shoppable = $derived(shoppableAisles())
   // A teacher can empty the aisle a shopper is standing in, so never index past the end.
@@ -22,7 +23,12 @@
 </script>
 
 <main class="storefront-shell">
-  {@render header()}
+  {#if header}
+    {@render header()}
+  {:else if shop.store}
+    <!-- Students get no header, but a screen reader still needs to hear where they are. -->
+    <h1 class="visually-hidden">{shop.store.name}</h1>
+  {/if}
   <section class="storefront">
     <div class="shelf-column">
       {#if !shoppable.length}
@@ -31,9 +37,6 @@
           {asTeacher ? t('store.emptyTeacher') : t('store.emptyStudent')}
         </div>
       {:else}
-        {#if !asTeacher && shop.store}
-          <p class="class-status">{t('store.shoppingAt')} <strong>{shop.store.name}</strong></p>
-        {/if}
         <Shelf
           aisle={shoppable[currentIndex]}
           aisleNumber={currentIndex + 1}
@@ -43,6 +46,9 @@
         />
       {/if}
     </div>
-    <Cart />
+    <div class="cart-column">
+      {#if shop.store}<StoreThumbnail store={shop.store} />{/if}
+      <Cart />
+    </div>
   </section>
 </main>

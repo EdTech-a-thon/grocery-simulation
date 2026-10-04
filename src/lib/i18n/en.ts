@@ -79,8 +79,6 @@ const en: LanguagePack = {
 
     // ------------------------------------------------------ student store
     'student.enter': 'Enter',
-    'student.headerTitle': 'Class grocery challenge',
-    'student.switchRole': 'Switch role',
 
     // ------------------------------------------------------ join link page
     'join.opening': 'Opening your class store…',
@@ -93,7 +91,6 @@ const en: LanguagePack = {
     'store.empty': 'This store has no items on its shelves yet.',
     'store.emptyTeacher': 'Stock some items in Prices & stock.',
     'store.emptyStudent': 'Check back with your teacher.',
-    'store.shoppingAt': 'Shopping at:',
 
     'shelf.aisleHeading': 'Aisle {number}: {title}',
     'shelf.aisleOption': 'Aisle {number}: {title}',

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { goto } from '$app/navigation'
-  import AppHeader from '$lib/components/AppHeader.svelte'
   import LanguagePicker from '$lib/components/LanguagePicker.svelte'
   import StoreEntrance from '$lib/components/StoreEntrance.svelte'
   import StoreFront from '$lib/components/StoreFront.svelte'
@@ -117,13 +116,5 @@
 {:else if screen === 'entrance' && shop.store}
   <StoreEntrance store={shop.store} onEnter={() => (screen = 'store')} />
 {:else}
-  <div class="store-arrive"><StoreFront header={studentHeader} /></div>
+  <div class="store-arrive"><StoreFront /></div>
 {/if}
-
-{#snippet studentHeader()}
-  <AppHeader title={t('student.headerTitle')} onHome={() => (screen = 'entrance')}>
-    {#snippet nav()}
-      <button type="button" onclick={() => (screen = 'welcome')}>{t('student.switchRole')}</button>
-    {/snippet}
-  </AppHeader>
-{/snippet}

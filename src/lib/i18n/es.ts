@@ -57,8 +57,6 @@ const es: LanguagePack = {
     'landing.students.point5': 'Paga y recibe un recibo detallado',
 
     'student.enter': 'Entrar',
-    'student.headerTitle': 'Reto de compras de la clase',
-    'student.switchRole': 'Cambiar de vista',
 
     'join.opening': 'Abriendo la tienda de tu clase…',
     'join.failedTitle': 'Ese enlace de la tienda no funcionó',
@@ -69,7 +67,6 @@ const es: LanguagePack = {
     'store.empty': 'Esta tienda todavía no tiene nada en los estantes.',
     'store.emptyTeacher': 'Surte productos en Precios y existencias.',
     'store.emptyStudent': 'Vuelve a preguntarle a tu maestro.',
-    'store.shoppingAt': 'Comprando en:',
 
     'shelf.aisleHeading': 'Pasillo {number}: {title}',
     'shelf.aisleOption': 'Pasillo {number}: {title}',

@@ -250,13 +250,24 @@ test('viewing as a student swaps the header for the Student View banner', async 
 
 test('a student opens the link and sees only what the store stocks', async ({ page }) => {
   await openAsStudent(page)
-  await expect(page.locator('.app-header')).toBeVisible()
+  // Students get no header at all: just the aisle, and the store's picture above the cart.
+  await expect(page.locator('.app-header')).toHaveCount(0)
   await expect(page.locator('.student-view-header')).toHaveCount(0)
-  await expect(page.locator('.class-status')).toContainText(store.name)
+  await expect(page.locator('.store-thumbnail')).toContainText(store.name)
 
   await goToAisle(page, 'Dairy and Eggs')
   await expect(page.getByRole('button', { name: /Add Milk for \$9\.99/ })).toBeVisible()
   await expect(page.getByRole('button', { name: /^Add Cottage Cheese/ })).toHaveCount(0)
+})
+
+test('the aisle name opens a list of aisles, and the store fits a laptop screen', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await openAsStudent(page)
+  const secondAisle = await page.getByLabel('Go to aisle').locator('option').nth(1).innerText()
+  await page.getByLabel('Go to aisle').selectOption({ index: 1 })
+  await expect(page.locator('.shelf-topline h2')).toHaveText(secondAisle)
+  const pageHeight = await page.evaluate(() => document.documentElement.scrollHeight)
+  expect(pageHeight).toBeLessThanOrEqual(720)
 })
 
 test('a student comes back to the same store on a later visit', async ({ page }) => {
@@ -264,11 +275,8 @@ test('a student comes back to the same store on a later visit', async ({ page })
   await page.goto('/')
   await expect(page.getByRole('heading', { name: new RegExp(store.name) })).toBeVisible()
 
-  // The welcome screen offers the way back in too.
   await page.getByRole('button', { name: 'Enter', exact: true }).click()
-  await page.getByRole('button', { name: 'Switch role' }).click()
-  await page.getByRole('button', { name: `Back to ${store.name}` }).click()
-  await expect(page.getByRole('button', { name: 'Enter', exact: true })).toBeVisible()
+  await expect(page.locator('.shelf-stage')).toBeVisible()
 })
 
 test('a damaged link explains itself', async ({ page }) => {

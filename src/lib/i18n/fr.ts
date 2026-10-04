@@ -58,8 +58,6 @@ const fr: LanguagePack = {
     'landing.students.point5': 'Passe en caisse avec un ticket détaillé',
 
     'student.enter': 'Entrer',
-    'student.headerTitle': 'Défi courses de la classe',
-    'student.switchRole': 'Changer de vue',
 
     'join.opening': 'Ouverture du magasin de ta classe…',
     'join.failedTitle': 'Ce lien de magasin n’a pas fonctionné',
@@ -70,7 +68,6 @@ const fr: LanguagePack = {
     'store.empty': 'Ce magasin n’a encore rien dans ses rayons.',
     'store.emptyTeacher': 'Approvisionnez des produits dans Prix et stock.',
     'store.emptyStudent': 'Reviens voir ton enseignant.',
-    'store.shoppingAt': 'Courses chez :',
 
     'shelf.aisleHeading': 'Rayon {number} : {title}',
     'shelf.aisleOption': 'Rayon {number} : {title}',

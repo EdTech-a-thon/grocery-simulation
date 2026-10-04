@@ -14,6 +14,8 @@ export const cart = $state({
   lines: [] as CartLine[],
   appliedCoupons: [] as Coupon[],
   salesTax: 0,
+  /** The line a shopper last took off a shelf, and a count that ticks each time, so the cart can show it. */
+  lastAdded: { key: '', count: 0 },
 })
 
 /** The same product at a different price is a separate line on the receipt. */
@@ -43,6 +45,7 @@ export function addToCart(item: ShelfItem) {
   const existing = cart.lines.find((line) => line.key === key)
   if (existing) existing.quantity += 1
   else cart.lines.push({ ...item, key, quantity: 1 })
+  cart.lastAdded = { key, count: cart.lastAdded.count + 1 }
   save()
 }
 
