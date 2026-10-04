@@ -26,6 +26,8 @@ test('coupons print in sheets, and printing never loses the page underneath', as
 
   // Random coupons, then the print-all sheet.
   await page.getByRole('button', { name: 'Coupons' }).click()
+  await page.getByRole('button', { name: 'Add coupon' }).click()
+  await page.getByLabel('Random').check()
   await page.getByLabel('Different coupon designs').fill('2')
   await page.getByRole('button', { name: 'Generate random coupons' }).click()
   await expect(page.getByText('2 ready to use')).toBeVisible()
@@ -40,8 +42,8 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   await expect(page.locator('.print-sheet')).toContainText('12 coupons, 10 per page')
   await expect(page.locator('.coupon-sheet')).toHaveCount(2)
   await expect(page.locator('.coupon-sheet').last()).toHaveCSS('break-after', 'auto')
-  await expect(page.locator('.print-coupon')).toHaveCount(12)
-  await expect(page.locator('.coupon-code strong').first()).toBeVisible()
+  await expect(page.locator('.print-sheet .print-coupon')).toHaveCount(12)
+  await expect(page.locator('.print-sheet .coupon-code strong').first()).toBeVisible()
   await page.getByRole('button', { name: 'Back' }).click()
   await expect(page.getByText('2 ready to use')).toBeVisible()
 
@@ -61,9 +63,11 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   // A dollar-off coupon changes the label and the field suffix.
   await page.getByRole('button', { name: 'Exit student view' }).click()
   await page.getByRole('button', { name: 'Coupons' }).click()
+  await page.getByRole('button', { name: 'Add coupon' }).click()
   await page.getByLabel('Discount type').selectOption('dollars')
   await expect(page.locator('[data-discount-amount]')).toHaveValue('1.00')
   await expect(page.locator('.field-suffix')).toHaveText('$')
+  await page.keyboard.press('Escape')
 
   // A new store is on the list from the start, so leaving it asks nothing.
   await page.getByRole('button', { name: 'My stores' }).click()

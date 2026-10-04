@@ -3,12 +3,11 @@
      the crown of the fruit rather than draping down its face, and its sepals
      are slim, so the fruit stays a clean round shape at small sizes. The stem
      is the same green as the calyx: a darker one sinks into a dark background
-     and looks like a hole rather than a stem. The whole tomato is lifted a
-     little, because the light stem does not carry the weight the fruit does
-     and the mark hangs low without it. This is the mark on its own, for a
-     background the page already provides. -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Class Grocery">
-  <g transform="translate(0 -4)">
+     and looks like a hole rather than a stem. This is the mark on its own, for a
+     background the page already provides, cropped close to the tomato so it
+     fills whatever box it is put in. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="9.5 13 45 45" role="img" aria-label="Class Grocery">
+  <g>
     <path d="M32 23.5V16.5" stroke="#6ec24f" stroke-width="5" stroke-linecap="round"/>
     <path d="M32 21C44 21 51 28.5 51 38.5 51 49.5 42.5 57 32 57 21.5 57 13 49.5 13 38.5 13 28.5 20 21 32 21Z" fill="#e43e35"/>
     <ellipse cx="23" cy="34" rx="4.5" ry="7" transform="rotate(-20 23 34)" fill="#f8a293" opacity=".7"/>

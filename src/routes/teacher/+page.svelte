@@ -118,7 +118,7 @@
 {:else if screen === 'student-view' && shop.store}
   <StoreFront asTeacher header={studentViewHeader} />
 {:else if screen !== 'stores' && screen !== 'student-view' && shop.store}
-  <main class="teacher-shell">
+  <main class="teacher-shell store-shell">
     {@render header()}
     <div class="store-layout">
       <StoreSidebar page={screen} onGo={show} onBack={showStores} {onViewAsStudent} />

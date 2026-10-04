@@ -110,12 +110,14 @@ test('a teacher builds a store without signing up for anything', async ({ page }
   await expect(page.locator('.status-message')).toHaveText('Seafood taken off the shelves.')
 
   await page.getByRole('button', { name: 'Coupons' }).click()
+  await page.getByRole('button', { name: 'Add coupon' }).click()
   await page.getByLabel('Applies to').selectOption('milk')
   await page.locator('[data-discount-amount]').fill('10')
   await page.getByLabel('Coupon code word').fill('MILK DAY')
   await page.getByRole('button', { name: 'Create coupon' }).click()
 
   // A dollars coupon worth far more than the item it applies to.
+  await page.getByRole('button', { name: 'Add coupon' }).click()
   await page.getByLabel('Discount type').selectOption('dollars')
   await page.locator('[data-discount-amount]').fill('50')
   await page.getByLabel('Applies to').selectOption('apple')
@@ -123,10 +125,15 @@ test('a teacher builds a store without signing up for anything', async ({ page }
   await page.getByRole('button', { name: 'Create coupon' }).click()
   await expect(page.getByText('2 ready to use')).toBeVisible()
 
+  // Each coupon is shown as it prints.
+  await expect(page.locator('.coupon-tile .coupon-code strong')).toHaveText(['MILK DAY', 'APPLE50'])
+
   // A code the store already has is refused, so two coupons never share one.
+  await page.getByRole('button', { name: 'Add coupon' }).click()
   await page.getByLabel('Coupon code word').fill('apple50')
   await page.getByRole('button', { name: 'Create coupon' }).click()
-  await expect(page.locator('.status-message')).toHaveText('This store already has a coupon with the code APPLE50.')
+  await expect(page.locator('.coupon-editor-problem')).toHaveText('This store already has a coupon with the code APPLE50.')
+  await page.getByRole('button', { name: 'Cancel' }).click()
   await expect(page.getByText('2 ready to use')).toBeVisible()
 
   // Every change is in the address, so the page is a bookmark of the store.
@@ -313,7 +320,7 @@ test('the receipt prints with its items, coupons and total saved', async ({ page
   await page.getByRole('button', { name: 'Print' }).click()
 
   const printed = page.locator('.print-receipt')
-  await expect(printed.getByText('CLASSGROCERY', { exact: true })).toBeVisible()
+  await expect(printed.getByText('CLASS GROCERY', { exact: true })).toBeVisible()
   await expect(printed.locator('.receipt-item-name', { hasText: 'Apple' })).toBeVisible()
   await expect(printed.locator('.receipt-item-coupon')).toContainText('APPLE50')
   await expect(printed.getByText('Total Amount Saved Today')).toBeVisible()
@@ -406,10 +413,10 @@ test('clicking anywhere on a product card puts it on or off the shelves', async 
 
 // -------------------------------------------------------- settings pages
 //
-// A new store opens on its settings page, named and coloured there, and the
-// checkout's coupons and tax are set on the coupons page.
+// A new store opens on its settings page, where it is named, coloured and
+// given a sales tax, and its coupons are added on the coupons page.
 
-test('a new store is set up on its settings and coupons pages', async ({ page }) => {
+test('a new store is set up on its settings page', async ({ page }) => {
   await page.goto('/teacher')
   await page.locator('.store-list-heading').getByRole('button', { name: 'Create' }).click()
 
@@ -421,19 +428,43 @@ test('a new store is set up on its settings and coupons pages', async ({ page })
   await expect(page.locator('.store-preview .price-tag-size')).toHaveCount(0)
   await expect(page.locator('.sidebar-storefront-sign')).toHaveText('Settings Store')
 
-  await page.getByRole('button', { name: 'Coupons' }).click()
   await page.getByLabel('Use sales tax').check()
   await page.getByLabel('Default sales tax (%)').fill('8.25')
   await page.getByLabel('Default sales tax (%)').blur()
-  await page.getByLabel('No coupons').check()
-  await expect(page.getByRole('button', { name: 'Create coupon' })).toHaveCount(0)
-  await expect.poll(() => readStore(page)).toMatchObject({ n: 'Settings Store', c: 'purple', u: 'off', t: 8.25, x: 1 })
+  await expect.poll(() => readStore(page)).toMatchObject({ n: 'Settings Store', c: 'purple', u: 'off', t: 8.25 })
 
   await page.getByLabel('No sales tax').check()
-  await page.getByLabel('Allow coupons').check()
-  await expect(page.getByRole('button', { name: 'Create coupon' })).toBeVisible()
-  await expect.poll(async () => {
-    const packed = await readStore(page)
-    return { t: packed.t, x: packed.x }
-  }).toEqual({ t: undefined, x: undefined })
+  await expect.poll(async () => (await readStore(page)).t).toBeUndefined()
+})
+
+test('a coupon is edited in place, and students only see coupons when there are some', async ({ page }) => {
+  await page.goto('/teacher')
+  await page.locator('.store-list-heading').getByRole('button', { name: 'Create' }).click()
+  await page.keyboard.type('Coupon Store')
+
+  // No coupons yet, so students have no coupon button to press.
+  await page.getByRole('button', { name: 'Preview as student' }).click()
+  await expect(page.locator('.coupon-action')).toHaveCount(0)
+  await page.getByRole('button', { name: 'Exit student view' }).click()
+
+  await page.getByRole('button', { name: 'Coupons' }).click()
+  await page.getByRole('button', { name: 'Add your first coupon to get started.' }).click()
+  await page.getByLabel('Coupon code word').fill('FIRST')
+  // The preview is the coupon as it will print.
+  await expect(page.locator('.coupon-editor-preview .coupon-code strong')).toHaveText('FIRST')
+  await page.getByRole('button', { name: 'Create coupon' }).click()
+
+  await page.locator('.coupon-tile').getByRole('button', { name: 'Edit' }).click()
+  await expect(page.getByLabel('Coupon code word')).toHaveValue('FIRST')
+  await page.getByLabel('Coupon code word').fill('SECOND')
+  await page.getByRole('button', { name: 'Save coupon' }).click()
+  await expect(page.locator('.coupon-tile .coupon-code strong')).toHaveText(['SECOND'])
+
+  await page.getByRole('button', { name: 'Preview as student' }).click()
+  await expect(page.locator('.coupon-action')).toBeVisible()
+  await page.getByRole('button', { name: 'Exit student view' }).click()
+
+  await page.getByRole('button', { name: 'Coupons' }).click()
+  await page.getByRole('button', { name: 'Delete coupon SECOND' }).click()
+  await expect(page.locator('.coupon-tile')).toHaveCount(0)
 })

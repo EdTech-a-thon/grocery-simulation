@@ -2,12 +2,12 @@
   import { onMount } from 'svelte'
   import StorePreview from '$lib/components/StorePreview.svelte'
   import { t } from '$lib/i18n/index.svelte'
-  import { shop } from '$lib/shop.svelte'
+  import { shop, syncCartToStore } from '$lib/shop.svelte'
   import { storeColors, type UnitPricing } from '$lib/store'
 
   /**
-   * How the store looks: its name, colour and shelf tags, with the store
-   * itself beside the form. Every change applies as it is made, so the
+   * How the store looks and charges: its name, colour, shelf tags and sales
+   * tax, with the store itself beside the form. Every change applies as it is made, so the
    * preview is always the store the class will see.
    */
   let { isNew = false }: { isNew?: boolean } = $props()
@@ -30,6 +30,14 @@
   function rename(value: string) {
     const name = value.trim().slice(0, 60)
     if (shop.store && name) shop.store.name = name
+  }
+
+  /** The rate students practise with at checkout; turning tax off forgets it. */
+  function setTax(enabled: boolean, rateText = String(shop.store?.salesTax ?? 0)) {
+    if (!shop.store) return
+    shop.store.taxEnabled = enabled
+    shop.store.salesTax = enabled ? Math.min(100, Math.max(0, Number(rateText) || 0)) : 0
+    syncCartToStore(shop.store)
   }
 </script>
 
@@ -57,6 +65,18 @@
         {#each tagOptions as option (option.value)}
           <label><input type="radio" name="unit-pricing" value={option.value} bind:group={shop.store.unitPricing} /> {option.label}</label>
         {/each}
+      </fieldset>
+
+      <fieldset>
+        <legend>{t('settings.tax')}</legend>
+        <label><input type="radio" name="tax" checked={!shop.store.taxEnabled} onchange={() => setTax(false)} /> {t('settings.noTax')}</label>
+        <label><input type="radio" name="tax" checked={shop.store.taxEnabled} onchange={() => setTax(true)} /> {t('settings.useTax')}</label>
+        {#if shop.store.taxEnabled}
+          <label class="tax-rate">
+            {t('settings.taxRate')}
+            <input type="number" min="0" max="100" step="0.01" value={shop.store.salesTax} onchange={(event) => setTax(true, event.currentTarget.value)} />
+          </label>
+        {/if}
       </fieldset>
     </form>
 

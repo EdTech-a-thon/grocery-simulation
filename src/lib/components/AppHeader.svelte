@@ -14,7 +14,7 @@
 <header class="app-header">
   <div>
     <button class="brand-button" type="button" onclick={onHome}>
-      <img src="/logo.svg" alt="" width="20" height="20" />Class Grocery
+      <img src="/logo.svg" alt="" width="26" height="26" />Class Grocery
     </button>
   </div>
   {#if title}<h1>{title}</h1>{:else}<span></span>{/if}

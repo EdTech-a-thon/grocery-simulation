@@ -44,7 +44,7 @@
     <section class="receipt-sheet">
       <article class="print-receipt">
         <header class="print-receipt-head">
-          <h1>CLASSGROCERY</h1>
+          <h1>CLASS GROCERY</h1>
           <p>{shop.store?.name ?? t('print.defaultStore')}</p>
           <p>{new Date().toLocaleString(current().locale, { dateStyle: 'medium', timeStyle: 'short' })}</p>
         </header>

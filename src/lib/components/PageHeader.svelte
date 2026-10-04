@@ -12,7 +12,7 @@
 
 <header class="page-header">
   <a class="page-header-brand" href="/">
-    <img src="/logo.svg" alt="" width="26" height="26" />Class Grocery
+    <img src="/logo.svg" alt="" width="30" height="30" />Class Grocery
   </a>
   <a class="page-header-back" href={back}><span aria-hidden="true">&larr;</span> {label}</a>
   <span class="page-header-tools"><LanguagePicker /><SupportButton inHeader /></span>

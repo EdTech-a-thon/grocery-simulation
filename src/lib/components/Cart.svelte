@@ -102,7 +102,7 @@
   </div>
 
   <div class="cart-actions">
-    {#if shop.store?.couponsEnabled}<button class="coupon-action" type="button" onclick={() => { openModal = 'coupon' }}>{t('cart.applyCoupon')}</button>{/if}
+    {#if shop.store?.couponsEnabled && shop.store.coupons.length}<button class="coupon-action" type="button" onclick={() => { openModal = 'coupon' }}>{t('cart.applyCoupon')}</button>{/if}
     <button class="checkout-action" type="button" disabled={cart.lines.length === 0} onclick={() => { openModal = 'checkout' }}>{t('cart.checkout')}</button>
   </div>
 </aside>
