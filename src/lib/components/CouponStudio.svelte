@@ -30,6 +30,16 @@
       : coupons.filter((coupon) => coupon.code === printTarget),
   )
 
+  /** The count every coupon shares, or blank once the teacher has made them differ. */
+  const sharedCopies = $derived.by(() => {
+    const counts = new Set(couponsToPrint.map((coupon) => printCopies[coupon.code]))
+    return counts.size === 1 ? [...counts][0] : ''
+  })
+
+  function setEveryCopies(event: Event & { currentTarget: HTMLInputElement }) {
+    for (const coupon of couponsToPrint) printCopies[coupon.code] = event.currentTarget.value
+  }
+
   function copiesFor(code: string) {
     return Math.min(100, Math.max(1, Number(printCopies[code]) || 1))
   }
@@ -196,6 +206,12 @@
         <button class="modal-close-button" type="button" aria-label={t('coupons.printCloseLabel')} onclick={closePrintModal}>×</button>
       </div>
       <p class="helper-text">{t('coupons.printHelp')}</p>
+      {#if couponsToPrint.length > 1}
+        <label class="coupon-copy-control coupon-copy-every">
+          <span><strong>{t('coupons.copiesEach')}</strong></span>
+          <input type="number" min="1" max="100" step="1" value={sharedCopies} oninput={setEveryCopies} />
+        </label>
+      {/if}
       <div class="print-copy-list">
         {#each couponsToPrint as coupon (coupon.code)}
           <label class="coupon-copy-control">

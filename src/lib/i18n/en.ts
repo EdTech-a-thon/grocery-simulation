@@ -188,9 +188,11 @@ const en: LanguagePack = {
     'print.button': 'Print / Save PDF',
     'print.defaultStore': 'Classroom store',
     'print.thanks': 'Thank you for shopping at ClassGrocery!',
-    'print.couponHeading': 'CLASSGROCERY COUPON',
+    'print.couponHeading': 'COUPON',
     'print.couponOff': 'OFF',
     'print.couponCode': 'COUPON CODE',
+    // What the coupon is good for, under the big amount: "on Milk", "on entire purchase".
+    'print.couponItem': 'on {item}',
 
     // ------------------------------------------------------ teacher chrome
     'teacher.myStores': 'My stores',
@@ -355,6 +357,7 @@ const en: LanguagePack = {
     'coupons.printCloseLabel': 'Close print dialog',
     'coupons.printHelp': 'Choose how many copies you need, then open the print preview.',
     'coupons.copies': 'Copies to print',
+    'coupons.copiesEach': 'Copies of every coupon',
     'coupons.openPreview': 'Open print preview',
 
     // ------------------------------------------------------ about page

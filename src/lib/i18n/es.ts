@@ -162,9 +162,10 @@ const es: LanguagePack = {
     'print.button': 'Imprimir / Guardar PDF',
     'print.defaultStore': 'Tienda del salón',
     'print.thanks': '¡Gracias por comprar en ClassGrocery!',
-    'print.couponHeading': 'CUPÓN DE CLASSGROCERY',
+    'print.couponHeading': 'CUPÓN',
     'print.couponOff': 'DE DESCUENTO',
     'print.couponCode': 'CÓDIGO DEL CUPÓN',
+    'print.couponItem': 'en {item}',
 
 
 
@@ -330,6 +331,7 @@ const es: LanguagePack = {
     'coupons.printCloseLabel': 'Cerrar el diálogo de impresión',
     'coupons.printHelp': 'Elige cuántas copias necesitas y abre la vista previa de impresión.',
     'coupons.copies': 'Copias por imprimir',
+    'coupons.copiesEach': 'Copias de cada cupón',
     'coupons.openPreview': 'Abrir vista previa',
 
     'about.title': 'Acerca de',

@@ -91,9 +91,14 @@ tall, and drawing them upright is wrong.
 
 The printed panel is part of the package, not a replacement for it.
 
-- `#label` covers **at most about half** the front face. The material of the
-  package has to stay visible around it — the tinplate above and below a can's
-  band, the glass shoulders of a jar, the foil at a bag's seals.
+- On a **container** — a can, jar, bottle, jug or tub — `#label` covers **at
+  most about half** the front face. The material of the package has to stay
+  visible around it: the tinplate above and below a can's band, the glass
+  shoulders of a jar, the plastic of a bottle's neck.
+- On a **printed package** — a box, bag, pouch, carton, sleeve or wrapper — the
+  print *is* the package, so `#label` may cover up to about three quarters of
+  the front face. The structural tells stay in `#item` and stay visible: a box's
+  side face and flap seams, a bag's crimped seals, a carton's gable.
 - The motif inside the label is the **largest single thing on it**, filling most
   of the panel's height. A tiny emblem centred in a big empty rectangle is the
   second most common way this job is failed.
@@ -147,14 +152,60 @@ other, and never draw anything in one that the other needs.
   crimp, window, tray, over-wrap. It contains **no** printed decoration.
 - `#label` is the panel the print sits on: a rounded rectangle, a band around a
   can, a die-cut shape. One flat fill. No decoration.
-- `#brand` is the name brand's face: a bold motif of the contents (the ripe
-  tomato on the pasta sauce, the wave of milk, three golden crackers), plus one
-  or two confident graphic gestures — a sweep, a chevron, a colour block. Rich,
-  saturated, four to six colours. This is the package a child recognises.
-- `#brand-cg` is the shop's own line, and it is **deliberately plainer**: the
-  same motif, at the same size and in **its own real colours**, simplified to
-  about two tones instead of four, on a white panel, with a single `#15803d` rule
-  or block somewhere as the house mark.
+- `#brand` is the name brand's face. See *The name brands* below.
+- `#brand-cg` is the shop's own CG Value face. See *The CG Value line* below.
+
+### The name brands
+
+Each name brand is its own company, and the shelf should look like a real
+aisle: every package a different, confident colour.
+
+- **Repaint the whole panel first.** The first shape in `#brand` covers the
+  `#label` panel in the brand's own saturated colour — tomato red, cobalt,
+  royal purple, sunshine yellow, teal, orange, chocolate brown. Never white or
+  cream, and never the house green `#15803d`.
+- A **bold motif** of the contents, the largest thing on the panel, in full
+  three-tone shading (base, shade, highlight).
+- **One or two graphic gestures** that cross the panel: a sweep or wave of a
+  second colour, a diagonal block, a sunburst behind the motif, a ribbon, a
+  round badge. Four to six colours in all.
+- **Never the CG layout.** No thin band across the top, no stripe under it, no
+  rule across the bottom. That arrangement belongs to the shop's own line, and
+  a name brand that uses it reads as the store brand in a costume.
+
+### The CG Value line
+
+The shop's own label is one brand across the whole store, so every CG package
+wears **the same trade dress**, built the same way on whatever panel it gets.
+A child should be able to spot the CG Value items from across the aisle.
+
+For a panel at `x`, `y`, `w` wide and `h` tall, with corner radius `r`, draw
+these, in this order, and nothing else beyond the motif:
+
+1. **The white panel:** the panel's own shape again, filled `#ffffff`.
+2. **The green band:** across the top of the panel, full width, `B` tall, where
+   `B` is `h` × 0.2 rounded, kept between 8 and 14. Fill `#15803d`. Round its
+   top corners to match the panel. On a can's wrap-around band it is a straight
+   rectangle.
+3. **The yellow stripe:** directly under the band, full panel width, 2 tall,
+   fill `#facc15`.
+4. **The price tag:** the CG mark, in white, at the left of the band. With
+   `X` = `x` + 6 and `Y` = `y` + (`B` − 6) ÷ 2:
+   ```svg
+   <path d="MX Yh9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+   <circle cx="X+2" cy="Y+3" r="1" fill="#15803d"/>
+   ```
+   with the numbers worked out — a 14 × 6 tag pointing right, with a hole.
+5. **The motif:** the same subject as the name brand, centred in the white
+   space below the stripe, at least as big as the name brand's, in its real
+   colours but only **two tones** (a base and one shade, at most one small
+   highlight). No sunburst, no sweep, no badge behind it.
+6. **The green rule:** `#15803d`, 3 tall, inset 6 from each side of the panel,
+   its bottom edge 3 above the panel's bottom.
+
+That is the whole CG face: white, green band, yellow stripe, tag, the food, a
+green rule. The package around it (`#item`) is the same package as the name
+brand, so a red jar lid stays red — only the panel changes.
 
   Two things go wrong here, and both are rejections:
 
@@ -189,8 +240,8 @@ Loose produce and fresh-cut meat and fish have no label and no shop brand. Emit
 ## Worked example 1 — a jar of pasta sauce (tall)
 
 Note the proportions, the three tones on the glass, the shade on the side away
-from the light, the contact shadow, and how `#brand-cg` says the same thing as
-`#brand` with a quarter of the ink.
+from the light, the contact shadow, and how `#brand-cg` wears the standard CG Value
+trade dress while `#brand` repaints the whole panel in its own colours.
 
 ```svg
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
@@ -208,21 +259,26 @@ from the light, the contact shadow, and how `#brand-cg` says the same thing as
     <rect x="52" y="92" width="56" height="78" rx="4" fill="#f7efe2"/>
   </g>
   <g id="brand">
-    <path d="M52 92h56v22H52z" fill="#b0261f"/>
-    <circle cx="80" cy="140" r="19" fill="#d13b2a"/>
-    <path d="M80 121a19 19 0 0 1 13 33z" fill="#a82a1c"/>
-    <circle cx="73" cy="133" r="6" fill="#e8705c"/>
-    <path d="M77 122c-4-6 2-9 6-5 3-4 8-1 5 5z" fill="#3f8f4a"/>
-    <path d="M52 160h56v10H52z" fill="#e0b33a"/>
-    <path d="M56 100h30v6H56z" fill="#f7efe2"/>
+    <rect x="52" y="92" width="56" height="78" rx="4" fill="#b0261f"/>
+    <circle cx="80" cy="127" r="24" fill="#e0b33a"/>
+    <path d="M52 150q14-8 28-2t28-4v22a4 4 0 0 1-4 4H56a4 4 0 0 1-4-4z" fill="#f7efe2"/>
+    <circle cx="80" cy="130" r="19" fill="#e04a32"/>
+    <path d="M80 111a19 19 0 0 1 13 33z" fill="#b8321f"/>
+    <circle cx="73" cy="123" r="6" fill="#f08a70"/>
+    <path d="M77 112c-4-6 2-9 6-5 3-4 8-1 5 5z" fill="#3f8f4a"/>
+    <path d="M90 156c6-6 14-4 16 0-6 4-12 4-16 0z" fill="#2f7d3a"/>
+    <path d="M56 156c4-5 10-5 13 0-4 3-9 3-13 0z" fill="#3f8f4a"/>
   </g>
   <g id="brand-cg">
     <rect x="52" y="92" width="56" height="78" rx="4" fill="#ffffff"/>
-    <path d="M52 92h56v7H52z" fill="#15803d"/>
-    <circle cx="80" cy="134" r="14" fill="#d13b2a"/>
-    <path d="M80 120a14 14 0 0 1 10 24z" fill="#a82a1c"/>
-    <path d="M77 121c-3-5 2-7 5-4 2-3 6-1 4 4z" fill="#15803d"/>
-    <path d="M60 158h40v4H60z" fill="#15803d"/>
+    <path d="M56 92h48a4 4 0 0 1 4 4v10H52V96a4 4 0 0 1 4-4z" fill="#15803d"/>
+    <path d="M52 106h56v2H52z" fill="#facc15"/>
+    <path d="M58 96h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="60" cy="99" r="1" fill="#15803d"/>
+    <circle cx="80" cy="137" r="19" fill="#d13b2a"/>
+    <path d="M80 118a19 19 0 0 1 13 33z" fill="#a82a1c"/>
+    <path d="M77 119c-4-6 2-9 6-5 3-4 8-1 5 5z" fill="#3f8f4a"/>
+    <path d="M58 164h44v3H58z" fill="#15803d"/>
   </g>
 </svg>
 ```
@@ -232,8 +288,8 @@ from the light, the contact shadow, and how `#brand-cg` says the same thing as
 The same standard applied to a package that is **broader than it is tall**. Note
 that the carton is 120 units across and only 95 down; that the lid's domed bumps
 and hinge line are what identify the format; that the kraft board stays visible
-all round the printed panel; and that in `#brand-cg` the egg is still an egg, in
-its own brown, beside a green rule — not a green egg, and not an empty panel.
+all round the printed panel; and that in `#brand-cg` the eggs are still eggs, in
+their own brown, under the standard band — not green eggs, and not an empty panel.
 
 ```svg
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
@@ -251,24 +307,30 @@ its own brown, beside a green rule — not a green egg, and not an empty panel.
     <path d="M64 188h32v5q0 3-3 3H67q-3 0-3-3z" fill="#c9b08a"/>
   </g>
   <g id="label">
-    <rect x="30" y="149" width="80" height="32" rx="3" fill="#f7efe2"/>
+    <rect x="26" y="147" width="88" height="38" rx="3" fill="#f7efe2"/>
   </g>
   <g id="brand">
-    <path d="M30 149h80v9H30z" fill="#a8641f"/>
-    <path d="M52 155c8 0 13 9 13 17s-6 13-13 13-13-5-13-13 5-17 13-17z" fill="#dba86a"/>
-    <path d="M52 155c8 0 13 9 13 17s-6 13-13 13z" fill="#b5793f"/>
-    <ellipse cx="47" cy="166" rx="3" ry="4" fill="#f3e0c4"/>
-    <path d="M73 162c6 0 10 7 10 13s-4 10-10 10-10-4-10-10 4-13 10-13z" fill="#c98a4b"/>
-    <path d="M73 162c6 0 10 7 10 13s-4 10-10 10z" fill="#a8641f"/>
-    <path d="M90 168h16v4H90z" fill="#e0b33a"/>
+    <rect x="26" y="147" width="88" height="38" rx="3" fill="#2563a8"/>
+    <path d="M26 176l88-20v26a3 3 0 0 1-3 3H29a3 3 0 0 1-3-3z" fill="#1d4f86"/>
+    <circle cx="70" cy="166" r="16" fill="#f2c230"/>
+    <path d="M60 151c8 0 13 9 13 17s-6 13-13 13-13-5-13-13 5-17 13-17z" fill="#dba86a"/>
+    <path d="M60 151c8 0 13 9 13 17s-6 13-13 13z" fill="#b5793f"/>
+    <ellipse cx="55" cy="162" rx="3" ry="4" fill="#f3e0c4"/>
+    <path d="M82 158c6 0 10 7 10 13s-4 10-10 10-10-4-10-10 4-13 10-13z" fill="#f4f1ec"/>
+    <path d="M82 158c6 0 10 7 10 13s-4 10-10 10z" fill="#d6d1c8"/>
+    <path d="M96 152l14 0-3 4 3 4h-14z" fill="#e04a32"/>
   </g>
   <g id="brand-cg">
-    <rect x="30" y="149" width="80" height="32" rx="3" fill="#ffffff"/>
-    <path d="M30 149h80v6H30z" fill="#15803d"/>
-    <path d="M56 157c8 0 13 9 13 17s-6 13-13 13-13-5-13-13 5-17 13-17z" fill="#dba86a"/>
-    <path d="M56 157c8 0 13 9 13 17s-6 13-13 13z" fill="#b5793f"/>
-    <ellipse cx="51" cy="168" rx="3" ry="4" fill="#f3e0c4"/>
-    <path d="M76 172h26v3H76z" fill="#15803d"/>
+    <rect x="26" y="147" width="88" height="38" rx="3" fill="#ffffff"/>
+    <path d="M29 147h82a3 3 0 0 1 3 3v5H26v-5a3 3 0 0 1 3-3z" fill="#15803d"/>
+    <path d="M26 155h88v2H26z" fill="#facc15"/>
+    <path d="M32 148h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="34" cy="151" r="1" fill="#15803d"/>
+    <path d="M62 159c6 0 10 7 10 12s-4 7-10 7-10-2-10-7 4-12 10-12z" fill="#dba86a"/>
+    <path d="M62 159c6 0 10 7 10 12s-4 7-10 7z" fill="#b5793f"/>
+    <path d="M84 159c6 0 10 7 10 12s-4 7-10 7-10-2-10-7 4-12 10-12z" fill="#dba86a"/>
+    <path d="M84 159c6 0 10 7 10 12s-4 7-10 7z" fill="#b5793f"/>
+    <path d="M32 179h76v3H32z" fill="#15803d"/>
   </g>
 </svg>
 ```

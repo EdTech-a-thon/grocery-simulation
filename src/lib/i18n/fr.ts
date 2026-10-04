@@ -163,9 +163,10 @@ const fr: LanguagePack = {
     'print.button': 'Imprimer / Enregistrer en PDF',
     'print.defaultStore': 'Magasin de la classe',
     'print.thanks': 'Merci d’avoir fait vos courses chez ClassGrocery !',
-    'print.couponHeading': 'BON CLASSGROCERY',
+    'print.couponHeading': 'BON DE RÉDUCTION',
     'print.couponOff': 'DE RÉDUCTION',
     'print.couponCode': 'CODE DU BON',
+    'print.couponItem': 'sur {item}',
 
 
 
@@ -332,6 +333,7 @@ const fr: LanguagePack = {
     'coupons.printHelp':
       'Choisissez le nombre de copies dont vous avez besoin, puis ouvrez l’aperçu avant impression.',
     'coupons.copies': 'Copies à imprimer',
+    'coupons.copiesEach': 'Copies de chaque bon',
     'coupons.openPreview': 'Ouvrir l’aperçu',
 
     'about.title': 'À propos',

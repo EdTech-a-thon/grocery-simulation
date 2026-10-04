@@ -413,6 +413,7 @@ button {
 .coupon-copy-control { border: 1px solid #e2e8f0; border-radius: var(--radius-md); padding: 12px; color: #475569; display: grid; grid-template-columns: minmax(0,1fr) auto 72px; gap: 12px; align-items: center; font-size: .76rem; font-weight: 800; }
 .coupon-copy-control span, .coupon-copy-control small { display: block; }
 .coupon-copy-control small { margin-top: 3px; color: #78716c; }
+.coupon-copy-every { margin-bottom: 10px; border-color: #86efac; background: #f0fdf4; grid-template-columns: minmax(0,1fr) 72px; font-size: .86rem; color: #14532d; }
 .coupon-copy-control input { width: 72px; border: 1px solid #d4a813; border-radius: var(--radius-sm); padding: 8px; text-align: center; }
 .print-modal-actions { margin-top: 22px; display: flex; justify-content: flex-end; gap: 10px; }
 .print-modal-actions > button:not(.primary-button) { border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 11px 16px; background: #fff; color: #475569; cursor: pointer; font-weight: 800; }
@@ -1154,6 +1155,7 @@ p {
 }
 
 .coupon-sheet {
+  position: relative;
   width: 8.5in;
   height: 11in;
   margin: auto;
@@ -1170,113 +1172,189 @@ p {
   break-after: auto;
 }
 
+/* Scissors on the cut line, so the sheet says what to do with it. */
+.coupon-sheet::before {
+  content: '✂';
+  position: absolute;
+  top: calc(0.25in - 0.55em);
+  left: 0.5in;
+  padding: 0 4px;
+  background: #ffffff;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Each cell is the piece a student cuts out. The dashed lines are drawn once
+   between neighbours rather than once per coupon, so they never double up. */
 .print-coupon {
+  --coupon-color: var(--store-color, #22c55e);
+  --coupon-ink: color-mix(in srgb, var(--coupon-color) 40%, #0f172a);
+  --coupon-tint: color-mix(in srgb, var(--coupon-color) 14%, #ffffff);
   min-height: 0;
-  padding: 0.14in;
-  border: 2px dashed #64748b;
+  padding: 0.11in;
+  border-right: 1.5px dashed #94a3b8;
+  border-bottom: 1.5px dashed #94a3b8;
   display: grid;
-  grid-template-columns: 0.78in minmax(0, 1fr);
-  gap: 0.14in;
-  align-items: center;
+}
+
+.print-coupon:nth-child(-n + 2) {
+  border-top: 1.5px dashed #94a3b8;
+}
+
+.print-coupon:nth-child(odd) {
+  border-left: 1.5px dashed #94a3b8;
+}
+
+.coupon-card {
+  min-height: 0;
+  border: 2px solid var(--coupon-color);
+  border-radius: 0.12in;
+  background: #ffffff;
+  color: #0f172a;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   overflow: hidden;
 }
 
-.coupon-burst {
-  width: 0.65in;
-  height: 0.65in;
-  border-radius: 50%;
-  background: #facc15;
-  color: #713f12;
-  display: grid;
-  place-content: center;
-  font-size: 1rem;
-  font-weight: 1000;
-  line-height: 0.8;
-  text-align: center;
-  transform: rotate(-7deg);
-}
-
-.coupon-burst small {
-  margin-top: 5px;
-  font-size: 0.55rem;
-}
-
-.coupon-product-image {
-  width: 0.52in;
-  height: 0.58in;
-  object-fit: contain;
-}
-
-.coupon-cart-icon {
-  width: 0.55in;
-  height: 0.55in;
-  border-radius: 50%;
-  background: #dcfce7;
-  color: #166534;
-  display: grid;
-  place-items: center;
-  font-size: 1.3rem;
-  font-weight: 1000;
-}
-
-.print-coupon-copy {
-  min-width: 0;
-  display: grid;
-  gap: 0.08in;
-}
-
-.coupon-offer {
-  display: grid;
-  grid-template-columns: 0.58in minmax(0, 1fr);
-  gap: 0.1in;
+.coupon-brand {
+  padding: 0.05in 0.14in;
+  background: var(--coupon-tint);
+  color: var(--coupon-ink);
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  gap: 0.1in;
+  font-size: 0.1in;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.coupon-offer p {
-  margin: 0;
-  color: #15803d;
-  font-size: 0.52rem;
-  font-weight: 1000;
+.coupon-brand > span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.coupon-tag {
+  flex: none;
+  border-radius: 999px;
+  padding: 0.02in 0.08in;
+  background: var(--coupon-ink);
+  color: #ffffff;
+  font-size: 0.085in;
   letter-spacing: 0.12em;
 }
 
-.print-coupon h2 {
-  margin: 2px 0;
-  color: #14532d;
-  font-size: 0.8rem;
-  line-height: 1.05;
-}
-
-.coupon-code-block {
-  border-top: 1px solid #bbf7d0;
-  padding-top: 0.06in;
+.coupon-body {
+  min-height: 0;
+  padding: 0.06in 0.14in;
   display: grid;
-  justify-content: center;
+  grid-template-columns: 1in minmax(0, 1fr);
+  gap: 0.14in;
   align-items: center;
 }
 
-.coupon-code-block > div {
-  min-width: 1.05in;
-  text-align: center;
+.coupon-art {
+  width: 1in;
+  height: 0.92in;
+  border-radius: 0.1in;
+  background: var(--coupon-tint);
+  display: grid;
+  place-items: center;
 }
 
-.coupon-code-block small {
+.coupon-art img {
+  width: 0.8in;
+  height: 0.76in;
+  object-fit: contain;
+}
+
+.coupon-art svg {
+  width: 60%;
+  height: 60%;
+  fill: none;
+  stroke: var(--coupon-ink);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.coupon-deal {
+  min-width: 0;
+}
+
+.coupon-amount {
+  margin: 0;
+  color: var(--coupon-ink);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.06in;
+  font-size: 0.46in;
+  font-weight: 1000;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.coupon-amount span {
+  font-size: 0.17in;
+  letter-spacing: 0.04em;
+}
+
+.coupon-item {
+  margin: 0.05in 0 0;
+  color: #1e293b;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  font-size: 0.15in;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.coupon-code-row {
+  margin: 0 0.14in;
+  border-top: 1.5px dashed color-mix(in srgb, var(--coupon-color) 45%, #ffffff);
+  padding: 0.06in 0 0.07in;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.12in;
+}
+
+.coupon-code {
+  min-width: 0;
+}
+
+.coupon-code small {
   display: block;
-  margin-bottom: 2px;
   color: #64748b;
-  font-size: 0.43rem;
+  font-size: 0.075in;
   font-weight: 900;
   letter-spacing: 0.12em;
 }
 
-.coupon-code-block strong {
+.coupon-code strong {
   display: block;
-  color: #172033;
-  font-family: monospace;
-  font-size: 0.9rem;
-  font-weight: 1000;
-  letter-spacing: 0.08em;
-  line-height: 1;
+  color: #0f172a;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 0.2in;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.coupon-barcode {
+  flex: none;
+  width: 1.05in;
+  height: 0.3in;
+  fill: #0f172a;
 }
 
 .ghost {

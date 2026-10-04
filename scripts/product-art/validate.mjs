@@ -41,6 +41,34 @@ const shapeFloor = 15
 const shapeCeiling = 55
 const byteCeiling = 20_000
 
+/** The shop's own colours: the band and rule, and the stripe under the band. */
+const houseGreen = '#15803d'
+const houseYellow = '#facc15'
+/** The price tag that marks every CG package, as house-style.md draws it. */
+const priceTag = /h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"\s+fill="#ffffff"/i
+/** White panel, green band, yellow stripe, tag, tag hole, green rule. */
+const tradeDressShapes = 6
+
+/**
+ * Every CG package wears the same trade dress, and no name brand may borrow it —
+ * that is what lets a child pick the store's own line out of a whole aisle.
+ */
+function tradeDress(brand, cg) {
+  const problems = []
+  const has = (group, colour) => new RegExp(`fill="${colour}"`, 'i').test(group)
+
+  if (!has(cg, '#ffffff')) problems.push('the brand-cg panel must be white #ffffff — see "The CG Value line" in the house style')
+  if (!has(cg, houseGreen)) problems.push(`the brand-cg layer is missing the ${houseGreen} band and rule`)
+  if (!has(cg, houseYellow)) problems.push(`the brand-cg layer is missing the ${houseYellow} stripe under the band`)
+  if (!priceTag.test(cg)) problems.push('the brand-cg layer is missing the white price tag in the band — copy its path from the house style')
+
+  if (new RegExp(houseGreen, 'i').test(brand)) {
+    problems.push(`the brand layer uses the house green ${houseGreen}, which only the CG Value line may wear`)
+  }
+  if (priceTag.test(brand)) problems.push('the brand layer carries the CG price tag, which only the CG Value line may wear')
+  return problems
+}
+
 /**
  * Every way this drawing breaks the contract, as sentences a model can act on.
  * An empty array means it is worth rendering.
@@ -125,19 +153,23 @@ export function validate(svg, { packaged }) {
   }
 
   if (packaged && isPackaged(layers)) {
+    problems.push(...tradeDress(layers['brand'], layers['brand-cg']))
+
     // The shop's own line is meant to be plainer than the name brand, not
-    // emptier. Both extremes are worth catching before a person looks.
+    // emptier. Both extremes are worth catching before a person looks. The
+    // trade dress is the same six shapes on every CG package, so only what is
+    // left after it — the food — is compared.
     const ink = (group) => (group.match(shapes) || []).length
     const brand = ink(layers['brand'])
-    const cg = ink(layers['brand-cg'])
-    if (cg < 3 || cg < Math.ceil(brand * 0.5)) {
+    const motif = ink(layers['brand-cg']) - tradeDressShapes
+    if (motif < 2 || motif < Math.ceil(brand * 0.3)) {
       problems.push(
-        `the brand-cg layer has ${cg} shapes against brand's ${brand} — that is a blank package, not a plainer one.` +
+        `the brand-cg layer has ${motif} shapes of food against brand's ${brand} — that is a blank package, not a plainer one.` +
           ' Keep the same motif at the same size, in its own real colours, with fewer tones.',
       )
     }
-    if (cg > brand) {
-      problems.push('the brand-cg layer has more shapes than brand — the shop\'s own package must be the plainer of the two')
+    if (motif >= brand) {
+      problems.push('the brand-cg motif has as many shapes as the whole brand layer — the shop\'s own package must be the plainer of the two')
     }
   }
 
