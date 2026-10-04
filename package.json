@@ -12,7 +12,8 @@
     "images:art": "bun scripts/make-product-art.mjs",
     "images:icons": "node scripts/make-icons.mjs",
     "test": "playwright test",
-    "check:translations": "bun scripts/check-translations.mjs"
+    "check:translations": "bun scripts/check-translations.mjs",
+    "check:sizes": "bun scripts/unit-price-check.ts"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.127.0",

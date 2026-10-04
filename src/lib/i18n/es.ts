@@ -96,6 +96,12 @@ const es: LanguagePack = {
     'product.addOne': 'Agregar otro {name}',
     'product.removeOne': 'Quitar un {name}',
     'product.inCart': '{count} en el carrito',
+    'product.addSized': 'Agregar {name} por {price}, {size}',
+    'product.addUnitPriced': 'Agregar {name} por {price}, {size}, {unitPrice}',
+    'product.unitPrice': '{price}/{unit}',
+    'product.unitPriceEach': '{price} c/u',
+    'product.unitPriceSpoken': '{price} por {unit}',
+    'product.unitPriceEachSpoken': '{price} por unidad',
 
     'cart.title': 'Carrito de compras',
     'cart.clear': 'Vaciar',
@@ -238,6 +244,10 @@ const es: LanguagePack = {
     'settings.coupons': 'Cupones',
     'settings.allowCoupons': 'Permitir cupones',
     'settings.noCoupons': 'Sin cupones',
+    'settings.unitPricing': 'Las etiquetas del estante muestran',
+    'settings.unitPricingUnit': 'Precio, tamaño y precio por unidad',
+    'settings.unitPricingSize': 'Precio y tamaño — los estudiantes calculan el precio por unidad',
+    'settings.unitPricingOff': 'Solo el precio',
     'settings.save': 'Guardar cambios',
     'settings.create': 'Crear tienda',
     'settings.created': '{name} está lista.',
@@ -261,7 +271,7 @@ const es: LanguagePack = {
     'prices.stockAll': 'Surtir todo',
     'prices.stockNone': 'Vaciar todo',
     'prices.helpBoth':
-      'Cada producto viene en dos marcas: la marca conocida y, a su lado, la marca propia CG Value, más barata. Cambia cualquier precio, o desmarca un producto para quitarlo de los estantes de esta tienda.',
+      'Cada producto viene en dos marcas: la marca conocida y, a su lado, la marca propia CG Value, que cuesta menos pero a veces viene en un paquete más pequeño. Cambia cualquier precio, o desmarca un producto para quitarlo de los estantes de esta tienda.',
     'prices.helpOne':
       'Esta tienda vende solo {brands}, así que eso es lo que muestra el pasillo. Cambia cualquier precio, o desmarca un producto para quitarlo de los estantes de esta tienda.',
     'prices.brandStoreOnly': 'la marca propia CG Value',
@@ -272,6 +282,10 @@ const es: LanguagePack = {
     'prices.inStore': 'En esta tienda',
     'prices.aisleStocked': '{aisle} totalmente surtido.',
     'prices.aisleCleared': '{aisle} se quitó de los estantes.',
+    'prices.sizeHelp':
+      'Cada producto tiene un tamaño de paquete para que los estudiantes comparen precios por unidad. Algunos paquetes CG Value son más pequeños, así que el precio más bajo no siempre es la mejor compra. Cambia cualquier tamaño según tu clase, o bórralo para volver al tamaño habitual.',
+    'prices.sizeLabel': 'Tamaño del paquete de {name}',
+    'prices.sizeUnitLabel': 'Unidad de {name}',
 
     'coupons.pageTitle': 'Dale a tu clase algo con qué hacer presupuesto',
     'coupons.pageLede':

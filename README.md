@@ -19,7 +19,7 @@ Teachers build stores at `/teacher`. Students arrive through a store's link.
 
 ## Store links
 
-A store is a small object — its name, colour, brand line, tax and coupon
+A store is a small object — its name, colour, brand line, shelf-tag, tax and coupon
 settings, plus only the prices and stocking choices the teacher changed (see
 `src/lib/store.ts`). To share it, that object is packed into one-letter keys,
 compressed, and written into the link after the `#`:
@@ -123,6 +123,7 @@ records only what differs from it:
 | ---------- | ---------------------------------------------------------------------- |
 | `prices`   | Prices the teacher changed. A CG item with no price follows its name brand. |
 | `stocked`  | Products put on or taken off the shelves against what the brand line stocks. |
+| `sizes`    | Package sizes the teacher changed. Everything else uses `src/lib/sizes.ts`. |
 | `coupons`  | Code, percent or dollars off, and the product (or `all`) it applies to. |
 
 Changing the brand line forgets the hand-stocked choices and keeps the prices.

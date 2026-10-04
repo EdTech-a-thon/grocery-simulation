@@ -1,4 +1,5 @@
 import { productById, isStoreBrand, nameBrandIdOf } from './products'
+import { isSizeUnit, type PackageSize } from './sizes'
 import { isPackagedProduct } from './unbranded'
 
 // A store is nothing more than this object. There are no accounts and no
@@ -10,6 +11,13 @@ export type StoreColor = (typeof storeColors)[number]
 
 /** Which brand line the shelves carry: the name brands, the CG Value line, or both. */
 export type BrandMode = 'name' | 'store' | 'both'
+
+/**
+ * What the shelf tag under each product shows besides its price: the package
+ * size and the unit price worked out from it, the size alone so students do the
+ * dividing themselves, or neither.
+ */
+export type UnitPricing = 'unit' | 'size' | 'off'
 
 export type Coupon = {
   /** What a student types at the till. Unique within one store. */
@@ -26,6 +34,7 @@ export type Store = {
   name: string
   color: StoreColor
   brandMode: BrandMode
+  unitPricing: UnitPricing
   couponsEnabled: boolean
   taxEnabled: boolean
   salesTax: number
@@ -36,14 +45,16 @@ export type Store = {
    * that is not listed follows the brand setting — see stockedByDefault().
    */
   stocked: Record<string, boolean>
+  /** Package sizes the teacher changed. Everything else comes in its catalog size (sizes.ts). */
+  sizes: Record<string, PackageSize>
   coupons: Coupon[]
 }
 
 /** The settings a teacher fills in on the store form. */
-export type StoreSettings = Pick<Store, 'name' | 'color' | 'brandMode' | 'couponsEnabled' | 'taxEnabled' | 'salesTax'>
+export type StoreSettings = Pick<Store, 'name' | 'color' | 'brandMode' | 'unitPricing' | 'couponsEnabled' | 'taxEnabled' | 'salesTax'>
 
 export function newStore(settings: StoreSettings): Store {
-  return { ...settings, prices: {}, stocked: {}, coupons: [] }
+  return { ...settings, prices: {}, stocked: {}, sizes: {}, coupons: [] }
 }
 
 /**
@@ -76,12 +87,15 @@ export type PackedStore = {
   c?: StoreColor
   /** Omitted for name brands. */
   b?: 'store' | 'both'
+  /** Omitted for unit prices on the shelf tags. */
+  u?: 'size' | 'off'
   /** The sales tax rate; present only when the store charges tax. */
   t?: number
   /** Present only when coupons are turned off. */
   x?: 1
   p?: Record<string, number>
   s?: Record<string, 0 | 1>
+  z?: Record<string, [amount: number, unit: string]>
   q?: PackedCoupon[]
 }
 
@@ -89,11 +103,15 @@ export function packStore(store: Store): PackedStore {
   const packed: PackedStore = { v: 1, n: store.name }
   if (store.color !== 'green') packed.c = store.color
   if (store.brandMode !== 'name') packed.b = store.brandMode
+  if (store.unitPricing !== 'unit') packed.u = store.unitPricing
   if (store.taxEnabled) packed.t = store.salesTax
   if (!store.couponsEnabled) packed.x = 1
   if (Object.keys(store.prices).length) packed.p = { ...store.prices }
   if (Object.keys(store.stocked).length) {
     packed.s = Object.fromEntries(Object.entries(store.stocked).map(([id, on]) => [id, on ? 1 : 0]))
+  }
+  if (Object.keys(store.sizes).length) {
+    packed.z = Object.fromEntries(Object.entries(store.sizes).map(([id, size]) => [id, [size.amount, size.unit]]))
   }
   if (store.coupons.length) {
     packed.q = store.coupons.map((coupon) => [
@@ -127,6 +145,15 @@ export function unpackStore(value: unknown): Store | null {
     }
   }
 
+  const sizes: Record<string, PackageSize> = {}
+  if (isRecord(value.z)) {
+    for (const [id, size] of Object.entries(value.z)) {
+      if (!productById[id] || !Array.isArray(size)) continue
+      const [amount, unit] = size
+      if (typeof amount === 'number' && amount > 0 && amount <= 100000 && isSizeUnit(unit)) sizes[id] = { amount, unit }
+    }
+  }
+
   const coupons: Coupon[] = []
   if (Array.isArray(value.q)) {
     for (const entry of value.q) {
@@ -140,11 +167,13 @@ export function unpackStore(value: unknown): Store | null {
     name,
     color: storeColors.includes(value.c as StoreColor) ? (value.c as StoreColor) : 'green',
     brandMode: value.b === 'store' || value.b === 'both' ? value.b : 'name',
+    unitPricing: value.u === 'size' || value.u === 'off' ? value.u : 'unit',
     couponsEnabled: value.x !== 1,
     taxEnabled: salesTax !== null,
     salesTax: salesTax ?? 0,
     prices,
     stocked,
+    sizes,
     coupons,
   }
 }

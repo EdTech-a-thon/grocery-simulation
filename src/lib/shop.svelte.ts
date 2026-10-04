@@ -2,6 +2,7 @@ import { browser } from '$app/environment'
 import { aisles, catalogPrice, type AisleConfig, type AisleItem } from './catalog'
 import { isStoreBrand, nameBrandIdOf, storeBrandPrice } from './products'
 import { cart } from './cart.svelte'
+import { catalogSize } from './sizes'
 import { stockedByDefault, type Store } from './store'
 
 const studentStoreStorageKey = 'classgrocery-student-store'
@@ -53,6 +54,11 @@ export function isStocked(productId: string) {
   const store = shop.store
   if (store && productId in store.stocked) return store.stocked[productId]
   return stockedByDefault(store?.brandMode ?? 'name', productId)
+}
+
+/** The store's own package size for a product, else the catalog's. */
+export function sizeFor(productId: string) {
+  return shop.store?.sizes[productId] ?? catalogSize(productId)
 }
 
 /**

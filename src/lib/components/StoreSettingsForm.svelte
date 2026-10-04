@@ -2,7 +2,7 @@
   import { untrack } from 'svelte'
   import { t } from '$lib/i18n/index.svelte'
   import { shop, syncCartToStore } from '$lib/shop.svelte'
-  import { newStore, storeColors, type BrandMode, type Store, type StoreColor } from '$lib/store'
+  import { newStore, storeColors, type BrandMode, type Store, type StoreColor, type UnitPricing } from '$lib/store'
   import { teacher } from '$lib/teacher.svelte'
 
   /**
@@ -22,6 +22,7 @@
   let name = $state(seed?.name ?? '')
   let color = $state<StoreColor>(seed?.color ?? 'green')
   let brandMode = $state<BrandMode>(seed?.brandMode ?? 'name')
+  let unitPricing = $state<UnitPricing>(seed?.unitPricing ?? 'unit')
   let couponsEnabled = $state(seed?.couponsEnabled ?? true)
   let taxEnabled = $state(seed?.taxEnabled ?? false)
   let salesTax = $state(seed?.salesTax ?? 0)
@@ -32,6 +33,7 @@
       name: name.trim().slice(0, 60),
       color,
       brandMode,
+      unitPricing,
       couponsEnabled,
       taxEnabled,
       salesTax: taxEnabled ? Math.min(100, Math.max(0, Number(salesTax) || 0)) : 0,
@@ -80,6 +82,12 @@
     {#if store && brandMode !== store.brandMode}
       <p class="helper-text">{t('settings.restockNote')}</p>
     {/if}
+  </fieldset>
+  <fieldset>
+    <legend>{t('settings.unitPricing')}</legend>
+    <label><input type="radio" bind:group={unitPricing} value="unit" /> {t('settings.unitPricingUnit')}</label>
+    <label><input type="radio" bind:group={unitPricing} value="size" /> {t('settings.unitPricingSize')}</label>
+    <label><input type="radio" bind:group={unitPricing} value="off" /> {t('settings.unitPricingOff')}</label>
   </fieldset>
   <div class="store-options-grid">
     <fieldset>

@@ -2,9 +2,10 @@
   import type { Snippet } from 'svelte'
   import StoreHeader from '$lib/components/StoreHeader.svelte'
   import { aisles } from '$lib/catalog'
-  import { aisleTitle, productName, t } from '$lib/i18n/index.svelte'
+  import { aisleTitle, productName, t, unitPriceText } from '$lib/i18n/index.svelte'
   import { isStoreBrand, priceEndingInNine, productById } from '$lib/products'
-  import { isStocked, priceFor, setStocked, shop } from '$lib/shop.svelte'
+  import { isStocked, priceFor, setStocked, shop, sizeFor } from '$lib/shop.svelte'
+  import { catalogSize, isSizeUnit, sizeUnits, type PackageSize } from '$lib/sizes'
   import { teacher, type StorePage } from '$lib/teacher.svelte'
 
   let { header, onGo, onViewAsStudent }: {
@@ -41,6 +42,23 @@
     // A CG Value price always ends in 9 cents, so whatever a teacher types is
     // snapped to the nearest one.
     shop.store.prices[productId] = isStoreBrand(productId) ? priceEndingInNine(price) : Math.round(price * 100) / 100
+  }
+
+  /**
+   * A blank or zero amount goes back to the catalog size, and so does a size
+   * that matches it, so only a teacher's real changes are stored.
+   */
+  function changeSize(productId: string, amountText: string, unitText: string) {
+    const amount = Math.round(Number(amountText) * 100) / 100
+    const usual = catalogSize(productId)
+    let size: PackageSize | null = null
+    if (amountText.trim() && amount > 0 && isSizeUnit(unitText)) size = { amount, unit: unitText }
+    if (size && usual && size.amount === usual.amount && size.unit === usual.unit) size = null
+    if (shop.store) {
+      if (size) shop.store.sizes[productId] = size
+      else delete shop.store.sizes[productId]
+    }
+    return size ?? usual
   }
 
   /** Stocks or clears the cards the teacher can see, never the hidden brand line. */
@@ -98,10 +116,12 @@
           })}
         {/if}
       </p>
+      <p class="helper-text">{t('prices.sizeHelp')}</p>
       <div class="price-grid">
         {#each visibleItems as item (item.id)}
           {@const product = productById[item.id]}
           {@const name = productName(item.id)}
+          {@const size = sizeFor(item.id)}
           <label class="price-edit-card" class:price-edit-card-hidden={!isStocked(item.id)}>
             <img src={product.image} alt="" />
             <span>
@@ -119,6 +139,28 @@
                 onchange={(event) => changePrice(item.id, event.currentTarget.value)}
               />
             </span>
+            <span class="teacher-size-input">
+              <input
+                type="number"
+                min="0"
+                step="any"
+                value={size?.amount ?? ''}
+                aria-label={t('prices.sizeLabel', { name })}
+                onchange={(event) => {
+                  // A cleared box refills with the usual size straight away.
+                  const shown = changeSize(item.id, event.currentTarget.value, size?.unit ?? 'oz')
+                  event.currentTarget.value = String(shown?.amount ?? '')
+                }}
+              />
+              <select
+                value={size?.unit ?? 'oz'}
+                aria-label={t('prices.sizeUnitLabel', { name })}
+                onchange={(event) => changeSize(item.id, String(size?.amount ?? 1), event.currentTarget.value)}
+              >
+                {#each sizeUnits as unit (unit)}<option value={unit}>{unit}</option>{/each}
+              </select>
+            </span>
+            {#if size}<span class="teacher-unit-price">{unitPriceText(priceFor(item), size)}</span>{/if}
             <span class="stock-toggle">
               <input
                 type="checkbox"
