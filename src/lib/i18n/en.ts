@@ -50,14 +50,10 @@ const en: LanguagePack = {
     'scene.label': 'Grocery store illustration',
 
     // ------------------------------------------------------ landing page
-    'landing.kicker': 'Real-life grocery shopping',
     'landing.intro':
-      'A grocery store you run for your class. Teachers set the prices and the coupons. Students shop on a budget and read the receipt.',
-    'landing.studentsTitle': 'Shopping with your class?',
-    'landing.linkHint':
-      'Open the store link your teacher shares, and you will go straight into your class store.',
+      'Simulate a grocery store for your class. Teachers set prices and coupons. Students shop on a budget.',
+    'landing.getStarted': 'Get started',
     'landing.backTo': 'Back to {name}',
-    'landing.teacherLink': 'Teachers: set up a store, no account needed',
 
     'landing.howTitle': 'How it works',
     'landing.step1.title': 'Build the store',

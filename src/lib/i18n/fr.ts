@@ -28,14 +28,10 @@ const fr: LanguagePack = {
 
     'scene.label': 'Illustration d’un magasin d’alimentation',
 
-    'landing.kicker': 'Les courses comme dans la vraie vie',
     'landing.intro':
-      'Un magasin d’alimentation que vous tenez pour votre classe. L’enseignant fixe les prix et les bons de réduction. Les élèves font leurs courses avec un budget et lisent le ticket de caisse.',
-    'landing.studentsTitle': 'Tu fais les courses avec ta classe ?',
-    'landing.linkHint':
-      'Ouvre le lien du magasin que ton enseignant te partage, et tu arriveras directement dans le magasin de ta classe.',
+      'Simulez un magasin d’alimentation pour votre classe. L’enseignant fixe les prix et les bons de réduction. Les élèves font leurs courses avec un budget.',
+    'landing.getStarted': 'Commencer',
     'landing.backTo': 'Retour à {name}',
-    'landing.teacherLink': 'Enseignants : créez un magasin, sans compte',
 
     'landing.howTitle': 'Comment ça marche',
     'landing.step1.title': 'Montez le magasin',

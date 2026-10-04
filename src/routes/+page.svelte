@@ -44,21 +44,19 @@
            footer to change it, so the picker sits above everything else. -->
       <div class="landing-language"><LanguagePicker /></div>
       <div class="landing-hero-content">
-        <p class="landing-hero-kicker">{t('landing.kicker')}</p>
-        <h1 id="welcome-title">ClassGrocery</h1>
+        <h1 id="welcome-title">Class Grocery</h1>
         <p class="landing-hero-intro">{t('landing.intro')}</p>
-        <div class="join-panel">
-          <p class="join-panel-label">{t('landing.studentsTitle')}</p>
-          <p>{t('landing.linkHint')}</p>
+        <div class="landing-hero-actions">
+          <a class="landing-get-started" href="/teacher">
+            {t('landing.getStarted')} <span aria-hidden="true">&rarr;</span>
+          </a>
+          <!-- Only a student who has opened a store link before sees this. -->
           {#if lastStore}
-            <button class="join-panel-button" type="button" onclick={() => lastStore && enter(lastStore)}>
+            <button class="landing-back-to-store" type="button" onclick={() => lastStore && enter(lastStore)}>
               {t('landing.backTo', { name: lastStore.name })} <span aria-hidden="true">&rarr;</span>
             </button>
           {/if}
         </div>
-        <button class="landing-teacher-link" type="button" onclick={() => goto('/teacher')}>
-          {t('landing.teacherLink')} <span aria-hidden="true">&rarr;</span>
-        </button>
       </div>
     </section>
 

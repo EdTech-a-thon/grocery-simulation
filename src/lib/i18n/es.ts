@@ -28,14 +28,10 @@ const es: LanguagePack = {
 
     'scene.label': 'Ilustración de una tienda de comestibles',
 
-    'landing.kicker': 'Compras de supermercado de la vida real',
     'landing.intro':
-      'Un supermercado que tú diriges para tu clase. Los docentes ponen los precios y los cupones. Los estudiantes compran con un presupuesto y leen el recibo.',
-    'landing.studentsTitle': '¿Vas de compras con tu clase?',
-    'landing.linkHint':
-      'Abre el enlace de la tienda que te comparta tu maestro y entrarás directamente a la tienda de tu clase.',
+      'Simula un supermercado para tu clase. Los docentes ponen los precios y los cupones. Los estudiantes compran con un presupuesto.',
+    'landing.getStarted': 'Comenzar',
     'landing.backTo': 'Volver a {name}',
-    'landing.teacherLink': 'Maestros: creen una tienda, sin necesidad de cuenta',
 
     'landing.howTitle': 'Cómo funciona',
     'landing.step1.title': 'Arma la tienda',

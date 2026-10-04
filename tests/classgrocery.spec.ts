@@ -90,7 +90,7 @@ test.describe.configure({ mode: 'serial' })
 
 test('a teacher builds a store without signing up for anything', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: 'Teachers: set up a store, no account needed' }).click()
+  await page.getByRole('link', { name: 'Get started' }).click()
   await expect(page).toHaveURL(/\/teacher$/)
   await expect(page.locator('.store-list')).toContainText('Create your first store to get started.')
 

@@ -17,7 +17,7 @@ test('coupons print in sheets, and printing never loses the page underneath', as
   await expect(page.locator('.landing-hero')).toBeVisible()
   await expect(page.locator('.student-store-scene')).toBeVisible()
 
-  await page.getByRole('button', { name: 'Teachers: set up a store, no account needed' }).click()
+  await page.getByRole('link', { name: 'Get started' }).click()
   await expect(page).toHaveURL(/\/teacher$/)
 
   await page.getByRole('button', { name: 'Create New Store' }).click()
