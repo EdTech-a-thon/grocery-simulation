@@ -338,6 +338,12 @@ button {
 .section-heading { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
 .section-heading .eyebrow { color: #15803d; }
 .section-heading h2 { margin: 4px 0; }
+.aisle-heading { display: flex; align-items: center; gap: 6px; }
+.aisle-rename-button { display: inline-flex; width: 30px; height: 30px; flex: none; align-items: center; justify-content: center; border: 0; border-radius: 50%; padding: 0; background: transparent; color: #94a3b8; cursor: pointer; }
+.aisle-rename-button:hover, .aisle-rename-button:focus-visible { background: #f0f8f2; color: #15803d; }
+.aisle-rename-button .icon { width: 16px; height: 16px; }
+.aisle-rename-input { width: min(100%, 20em); margin: 2px 0; border: 2px solid #86efac; border-radius: var(--radius-md); padding: 3px 8px; color: inherit; font: inherit; font-size: 1.5em; font-weight: 700; }
+.aisle-rename-input:focus { border-color: #15803d; outline: none; }
 .helper-text { margin: 10px 0 22px; color: #64748b; font-size: .88rem; }
 
 .price-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(150px,1fr)); gap: 12px; }

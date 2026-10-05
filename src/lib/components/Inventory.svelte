@@ -3,8 +3,9 @@
   import { aisleImage, aisles, type AisleItem } from '$lib/catalog'
   import { aisleTitle, productName, t, unitPriceText } from '$lib/i18n/index.svelte'
   import { isStoreBrand, priceEndingInNine, productById } from '$lib/products'
-  import { isStocked, priceFor, setStocked, shop, sizeFor } from '$lib/shop.svelte'
+  import { aisleNameFor, isStocked, priceFor, setStocked, shop, sizeFor } from '$lib/shop.svelte'
   import { catalogSize, isSizeUnit, sizeUnits, type PackageSize } from '$lib/sizes'
+  import { maxAisleNameLength } from '$lib/store'
   import { teacher } from '$lib/teacher.svelte'
 
   // Name brands and CG Value products are listed side by side, unless the
@@ -57,8 +58,30 @@
 
   /** A new aisle starts at its first products, wherever the last one was scrolled to. */
   function chooseAisle(index: number) {
+    renaming = false
     teacher.inventoryAisleIndex = index
     document.querySelector('.store-main')?.scrollTo({ top: 0 })
+  }
+
+  /** Whether the aisle's name in the heading is open for typing. */
+  let renaming = $state(false)
+
+  /**
+   * Gives the aisle the teacher's name for it. A blank name, or the catalog's
+   * own, puts the catalog name back, so only real renames are stored.
+   */
+  function renameAisle(value: string) {
+    renaming = false
+    if (!shop.store) return
+    const name = value.trim().slice(0, maxAisleNameLength)
+    if (name && name !== aisleTitle(aisle.title)) shop.store.aisleNames[aisle.title] = name
+    else delete shop.store.aisleNames[aisle.title]
+  }
+
+  /** The field takes the keyboard as soon as it opens, with the old name selected to type over. */
+  function focusAndSelect(input: HTMLInputElement) {
+    input.focus()
+    input.select()
   }
 
   /** The product last clicked on or off, where a shift-click's run starts. */
@@ -98,7 +121,7 @@
         {@const aisleCount = stockCount(item.items)}
         <button class:active={index === teacher.inventoryAisleIndex} type="button" onclick={() => chooseAisle(index)}>
           <img class="aisle-icon" src={aisleImage(item.title)} alt="" />
-          <span class="aisle-name">{aisleTitle(item.title)}</span>
+          <span class="aisle-name">{aisleNameFor(item.title)}</span>
           <span class="aisle-count" title={t('prices.aisleCount', aisleCount)}><strong>{aisleCount.stocked}</strong>/{aisleCount.total}</span>
         </button>
       {/each}
@@ -119,7 +142,30 @@
       <div class="section-heading">
         <div>
           <p class="eyebrow">{t('prices.summary', { number: teacher.inventoryAisleIndex + 1, ...count })}</p>
-          <h2>{aisleTitle(aisle.title)}</h2>
+          <!-- Enter or leaving the field keeps the new name; Escape keeps the old one. -->
+          {#if renaming}
+            <input
+              class="aisle-rename-input"
+              type="text"
+              maxlength={maxAisleNameLength}
+              value={aisleNameFor(aisle.title)}
+              placeholder={aisleTitle(aisle.title)}
+              aria-label={t('prices.aisleNameLabel')}
+              use:focusAndSelect
+              onkeydown={(event) => {
+                if (event.key === 'Enter') event.currentTarget.blur()
+                if (event.key === 'Escape') renaming = false
+              }}
+              onblur={(event) => renaming && renameAisle(event.currentTarget.value)}
+            />
+          {:else}
+            <h2 class="aisle-heading">
+              {aisleNameFor(aisle.title)}
+              <button class="aisle-rename-button" type="button" title={t('prices.renameAisle')} aria-label={t('prices.renameAisle')} onclick={() => (renaming = true)}>
+                <Icon name="pencil" />
+              </button>
+            </h2>
+          {/if}
         </div>
         <div class="stock-bulk-actions">
           <span class="shift-click-hint">{t('prices.shiftClickHint')}</span>

@@ -2,9 +2,9 @@
   import Icon from './Icon.svelte'
   import ShelfProduct from './ShelfProduct.svelte'
   import { chunkItems, shelfCapacity, type AisleConfig, type ShelfItem } from '$lib/catalog'
-  import { aisleTitle, t } from '$lib/i18n/index.svelte'
+  import { t } from '$lib/i18n/index.svelte'
   import { productById } from '$lib/products'
-  import { priceFor } from '$lib/shop.svelte'
+  import { aisleNameFor, priceFor } from '$lib/shop.svelte'
 
   let { aisle, aisleNumber, aisleNames, onNavigate, onSelect }: {
     aisle: AisleConfig
@@ -43,12 +43,12 @@
       <button class="nav-arrow" type="button" aria-label={t('shelf.previousAisle')} onclick={() => onNavigate(-1)}><span>&lsaquo;</span></button>
     {/if}
     <div class="aisle-title">
-      <h2>{t('shelf.aisleHeading', { number: aisleNumber, title: aisleTitle(aisle.title) })}</h2>
+      <h2>{t('shelf.aisleHeading', { number: aisleNumber, title: aisleNameFor(aisle.title) })}</h2>
       {#if aisleNames.length > 1}
         <Icon name="chevron-down" />
         <select aria-label={t('shelf.goToAisle')} value={aisleNumber - 1} onchange={(event) => onSelect(Number(event.currentTarget.value))}>
           {#each aisleNames as name, index}
-            <option value={index}>{t('shelf.aisleOption', { number: index + 1, title: aisleTitle(name) })}</option>
+            <option value={index}>{t('shelf.aisleOption', { number: index + 1, title: aisleNameFor(name) })}</option>
           {/each}
         </select>
       {/if}

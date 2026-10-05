@@ -1,6 +1,7 @@
 import { browser } from '$app/environment'
 import { aisles, catalogPrice, type AisleConfig, type AisleItem } from './catalog'
 import { isStoreBrand, nameBrandIdOf, storeBrandPrice } from './products'
+import { aisleTitle } from './i18n/index.svelte'
 import { cart, forgetCartOf, useCartOf } from './cart.svelte'
 import { catalogSize } from './sizes'
 import { stockedByDefault, storeColors, type Store, type StoreColor } from './store'
@@ -151,6 +152,11 @@ export function priceFor(item: AisleItem) {
   const nameBrandId = nameBrandIdOf(item.id)
   if (isStoreBrand(item.id) && nameBrandId in prices) return storeBrandPrice(nameBrandId, prices[nameBrandId])
   return item.price ?? catalogPrice(item.id)
+}
+
+/** What the open store calls an aisle: the teacher's name for it, or the catalog's in the reader's language. */
+export function aisleNameFor(englishTitle: string) {
+  return shop.store?.aisleNames[englishTitle] ?? aisleTitle(englishTitle)
 }
 
 /** Aisles with at least one stocked product, in catalog order. */

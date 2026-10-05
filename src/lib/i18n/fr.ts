@@ -223,6 +223,8 @@ const fr: LanguagePack = {
     'color.red': 'Rouge',
 
     'prices.aisleListTitle': 'Rayons',
+    'prices.renameAisle': 'Renommer le rayon',
+    'prices.aisleNameLabel': 'Nom du rayon',
     'prices.aisleCount': '{stocked} sur {total} en rayon',
     'prices.summary': 'Rayon {number} · {stocked} sur {total} en rayon',
     'prices.stockAll': 'Tout mettre en rayon',

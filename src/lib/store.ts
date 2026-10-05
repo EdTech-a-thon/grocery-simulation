@@ -1,3 +1,4 @@
+import { aisles } from './catalog'
 import { productById, isStoreBrand, nameBrandIdOf } from './products'
 import { isSizeUnit, type PackageSize } from './sizes'
 import { isPackagedProduct } from './unbranded'
@@ -47,6 +48,11 @@ export type Store = {
   stocked: Record<string, boolean>
   /** Package sizes the teacher changed. Everything else comes in its catalog size (sizes.ts). */
   sizes: Record<string, PackageSize>
+  /**
+   * Aisles the teacher renamed, by the aisle's English title. These are the
+   * teacher's own words, so they show as typed in every language.
+   */
+  aisleNames: Record<string, string>
   coupons: Coupon[]
 }
 
@@ -54,7 +60,7 @@ export type Store = {
 export type StoreSettings = Pick<Store, 'name' | 'color' | 'brandMode' | 'unitPricing' | 'couponsEnabled' | 'taxEnabled' | 'salesTax'>
 
 export function newStore(settings: StoreSettings): Store {
-  return { ...settings, prices: {}, stocked: {}, sizes: {}, coupons: [] }
+  return { ...settings, prices: {}, stocked: {}, sizes: {}, aisleNames: {}, coupons: [] }
 }
 
 /**
@@ -66,6 +72,9 @@ export function stockedByDefault(brandMode: BrandMode, productId: string) {
   if (!isPackagedProduct(nameBrandIdOf(productId))) return true
   return brandMode === 'both' || (brandMode === 'store') === isStoreBrand(productId)
 }
+
+/** Long enough for "Breakfast & Cereal", short enough to fit the aisle sign. */
+export const maxAisleNameLength = 30
 
 export function newCouponCode() {
   // Keep printed codes short and unambiguous for students to type.
@@ -114,6 +123,8 @@ export type PackedStore = {
   p?: Record<string, number>
   s?: Record<string, 0 | 1>
   z?: Record<string, [amount: number, unit: string]>
+  /** Renamed aisles, by English title. */
+  a?: Record<string, string>
   q?: PackedCoupon[]
 }
 
@@ -131,6 +142,7 @@ export function packStore(store: Store): PackedStore {
   if (Object.keys(store.sizes).length) {
     packed.z = Object.fromEntries(Object.entries(store.sizes).map(([id, size]) => [id, [size.amount, size.unit]]))
   }
+  if (Object.keys(store.aisleNames).length) packed.a = { ...store.aisleNames }
   if (store.coupons.length) {
     packed.q = store.coupons.map((coupon) => [
       coupon.code, coupon.discountType === 'dollars' ? 'd' : 'p', coupon.discountAmount, coupon.productId,
@@ -172,6 +184,14 @@ export function unpackStore(value: unknown): Store | null {
     }
   }
 
+  const aisleNames: Record<string, string> = {}
+  if (isRecord(value.a)) {
+    for (const [title, aisleName] of Object.entries(value.a)) {
+      const trimmed = typeof aisleName === 'string' ? aisleName.trim().slice(0, maxAisleNameLength) : ''
+      if (trimmed && aisles.some((aisle) => aisle.title === title)) aisleNames[title] = trimmed
+    }
+  }
+
   const coupons: Coupon[] = []
   if (Array.isArray(value.q)) {
     for (const entry of value.q) {
@@ -192,6 +212,7 @@ export function unpackStore(value: unknown): Store | null {
     prices,
     stocked,
     sizes,
+    aisleNames,
     coupons,
   }
 }

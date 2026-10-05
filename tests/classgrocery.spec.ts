@@ -27,6 +27,7 @@ type PackedStore = {
   p?: Record<string, number>
   s?: Record<string, 0 | 1>
   z?: Record<string, [number, string]>
+  a?: Record<string, string>
   q?: Array<[string, 'p' | 'd', number, string]>
 }
 
@@ -535,6 +536,36 @@ test('clicking anywhere on a product card puts it on or off the shelves', async 
   // Fruit has no CG twin, and is on the shelves from the start.
   await goToAisle(page, 'Produce')
   await expect(page.getByRole('button', { name: /^Add Apple for/ })).toBeVisible()
+})
+
+test('a teacher renames an aisle, and students see the new name', async ({ page }) => {
+  await openTeacherPage(page)
+  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+
+  // Escape leaves the name as it was.
+  await page.getByRole('button', { name: 'Rename aisle' }).click()
+  await page.getByLabel('Aisle name').fill('Something Else')
+  await page.getByLabel('Aisle name').press('Escape')
+  await expect(page.locator('.price-editor h2')).toHaveText('Dairy and Eggs')
+
+  await page.getByRole('button', { name: 'Rename aisle' }).click()
+  await page.getByLabel('Aisle name').fill('Milk & Cheese')
+  await page.getByLabel('Aisle name').press('Enter')
+  await expect(page.locator('.price-editor h2')).toHaveText('Milk & Cheese')
+  await expect(page.locator('.aisle-picker')).toContainText('Milk & Cheese')
+  expect((await readStore(page)).a).toEqual({ 'Dairy and Eggs': 'Milk & Cheese' })
+
+  const link = studentLinkFrom(page)
+  // A blank name puts the catalog's name back, and nothing is stored for it.
+  await page.getByRole('button', { name: 'Rename aisle' }).click()
+  await page.getByLabel('Aisle name').fill('')
+  await page.getByLabel('Aisle name').press('Enter')
+  await expect(page.locator('.price-editor h2')).toHaveText('Dairy and Eggs')
+  expect((await readStore(page)).a).toBeUndefined()
+
+  await openAsStudent(page, link)
+  await goToAisle(page, 'Milk & Cheese')
+  await expect(page.getByRole('button', { name: /Add Milk for/ })).toBeVisible()
 })
 
 test('shift-click puts a whole run of products on or off the shelves', async ({ page }) => {
