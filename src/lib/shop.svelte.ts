@@ -1,7 +1,7 @@
 import { browser } from '$app/environment'
 import { aisles, catalogPrice, type AisleConfig, type AisleItem } from './catalog'
 import { isStoreBrand, nameBrandIdOf, storeBrandPrice } from './products'
-import { cart } from './cart.svelte'
+import { cart, forgetCartOf, useCartOf } from './cart.svelte'
 import { catalogSize } from './sizes'
 import { stockedByDefault, storeColors, type Store, type StoreColor } from './store'
 
@@ -59,17 +59,20 @@ function saveStudentStores() {
   }
 }
 
-/** Opens a store and puts its rules on the cart. */
+/** Opens a store, with its own cart, and puts its rules on that cart. */
 export function openStore(store: Store) {
   shop.store = store
   shop.aisleIndex = 0
+  useCartOf(store.name)
   syncCartToStore(store)
 }
 
 /**
  * Makes a student's store the one the front page opens, and puts it on their
- * list of stores. A link already on the list keeps its place, so the list does
- * not reshuffle every time a student switches.
+ * list of stores. A store with the same name as one already on the list takes
+ * its place there, since it is almost always the teacher's updated link. A
+ * store already on the list keeps its place, so the list does not reshuffle
+ * every time a student switches.
  */
 export function rememberStudentStore(encoded: string, store: Store) {
   shop.studentStore = encoded
@@ -80,14 +83,16 @@ export function rememberStudentStore(encoded: string, store: Store) {
   }
 
   const entry = { encoded, name: store.name, color: store.color }
-  const index = shop.studentStores.findIndex((existing) => existing.encoded === encoded)
+  const index = shop.studentStores.findIndex((existing) => existing.encoded === encoded || existing.name === store.name)
   if (index === -1) shop.studentStores.unshift(entry)
   else shop.studentStores[index] = entry
   saveStudentStores()
 }
 
-/** Takes a store off a student's list, and stops the front page opening it. */
+/** Takes a store and its cart off a student's list, and stops the front page opening it. */
 export function removeStudentStore(encoded: string) {
+  const removed = shop.studentStores.find((entry) => entry.encoded === encoded)
+  if (removed) forgetCartOf(removed.name)
   shop.studentStores = shop.studentStores.filter((entry) => entry.encoded !== encoded)
   saveStudentStores()
   if (shop.studentStore === encoded) forgetStudentStore()

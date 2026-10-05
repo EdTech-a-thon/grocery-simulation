@@ -1,6 +1,6 @@
 <script lang="ts">
   import ReceiptBody from './ReceiptBody.svelte'
-  import { cart, cartTotals, clearCart, increaseCartLine, removeFromCart } from '$lib/cart.svelte'
+  import { applyCoupon, cart, cartTotals, clearCart, increaseCartLine, removeFromCart } from '$lib/cart.svelte'
   import { money } from '$lib/catalog'
   import { couponDiscountLabel, couponStatus } from '$lib/coupons'
   import { plural, productName, t } from '$lib/i18n/index.svelte'
@@ -33,7 +33,7 @@
     if (couponLimitReached) message = t('coupon.limitReached', { max: maxCoupons })
     else if (cart.appliedCoupons.some((item) => item.code === coupon.code)) message = t('coupon.alreadyApplied')
     else {
-      cart.appliedCoupons.push(coupon)
+      applyCoupon(coupon)
       message = t('coupon.applied', { code: coupon.code })
     }
   }

@@ -11,7 +11,6 @@
   import { t } from '$lib/i18n/index.svelte'
   import { products } from '$lib/products'
   import { decodeStore } from '$lib/sharing'
-  import { clearCart } from '$lib/cart.svelte'
   import { openStore, rememberStudentStore, shop } from '$lib/shop.svelte'
 
   type Screen = 'welcome' | 'entrance' | 'store'
@@ -33,12 +32,6 @@
     openStore(store)
     rememberStudentStore(encoded, store)
     screen = 'entrance'
-  }
-
-  /** Another store's prices and coupons do not belong in this one's cart. */
-  function switchTo(encoded: string) {
-    clearCart()
-    void enter(encoded)
   }
 </script>
 
@@ -132,5 +125,5 @@
 {#if screen !== 'welcome'}
   <div class="floating-language"><LanguagePicker /></div>
   <!-- Only a student who has opened more than one store link needs to choose between them. -->
-  {#if shop.studentStores.length > 1}<StoreSwitcher onSwitch={switchTo} />{/if}
+  {#if shop.studentStores.length > 1}<StoreSwitcher onSwitch={(encoded) => void enter(encoded)} />{/if}
 {/if}

@@ -309,9 +309,15 @@ test('a student with links to two stores can switch between them, and remove one
   // With only one store there is nothing to switch to.
   const switchButton = page.getByRole('button', { name: 'Switch store' })
   await expect(switchButton).toHaveCount(0)
+  await page.getByRole('button', { name: /^Add / }).first().click()
+  await expect(page.getByText('1 item in cart')).toBeVisible()
 
   await page.goto(await madeUpStudentLink(page, { v: 1, n: 'Corner Shop', c: 'blue' }))
   await expect(page.getByRole('heading', { name: 'Corner Shop' })).toBeVisible()
+  await page.getByRole('button', { name: 'Enter', exact: true }).click()
+  // Each store has its own cart.
+  await expect(page.getByText('0 items in cart')).toBeVisible()
+
   await switchButton.click()
   const list = page.locator('#store-switcher')
   await expect(list.getByRole('button', { name: 'Corner Shop', exact: true })).toHaveAttribute('aria-current', 'true')
@@ -320,9 +326,10 @@ test('a student with links to two stores can switch between them, and remove one
   await expect(list).toBeHidden()
   await expect(page.getByRole('heading', { name: store.name })).toBeVisible()
 
-  // The front page now opens the store they switched to.
+  // The front page now opens the store they switched to, with its cart as they left it.
   await page.reload()
-  await expect(page.getByRole('heading', { name: store.name })).toBeVisible()
+  await page.getByRole('button', { name: 'Enter', exact: true }).click()
+  await expect(page.getByText('1 item in cart')).toBeVisible()
 
   page.once('dialog', (dialog) => void dialog.accept())
   await switchButton.click()
@@ -331,6 +338,20 @@ test('a student with links to two stores can switch between them, and remove one
   await page.reload()
   await expect(page.getByRole('heading', { name: store.name })).toBeVisible()
 })
+test('a new link for a store with the same name replaces the old one on the list', async ({ page }) => {
+  await openAsStudent(page)
+  await page.goto(await madeUpStudentLink(page, { v: 1, n: 'Corner Shop', c: 'pink' }))
+  await expect(page.getByRole('heading', { name: 'Corner Shop' })).toBeVisible()
+
+  await page.goto(await madeUpStudentLink(page, { v: 1, n: 'Corner Shop', c: 'orange' }))
+  await expect(page.getByRole('heading', { name: 'Corner Shop' })).toBeVisible()
+  await page.getByRole('button', { name: 'Switch store' }).click()
+  const list = page.locator('#store-switcher')
+  await expect(list.getByRole('listitem')).toHaveCount(2)
+  await expect(list.locator('[data-color="orange"]')).toHaveCount(1)
+  await expect(list.locator('[data-color="pink"]')).toHaveCount(0)
+})
+
 
 test('a damaged link explains itself', async ({ page }) => {
   await page.goto('/shop#not-a-store')
