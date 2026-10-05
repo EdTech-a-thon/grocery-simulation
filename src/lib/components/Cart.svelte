@@ -101,8 +101,6 @@
           <button class="ghost" type="button" aria-label={t('product.addOne', { name: productName(line.id) })} onclick={() => increaseCartLine(line.key)}>+</button>
         </div>
       </div>
-    {:else}
-      <div class="empty-cart">{t('cart.empty')}</div>
     {/each}
   </div>
 
@@ -169,8 +167,10 @@
           <div class="receipt-row"><span>{t('receipt.taxAmount')}</span><strong>{money(receipt.salesTaxAmount)}</strong></div>{/if}
           <div class="receipt-rule"></div>
           <div class="receipt-final"><span>{t('receipt.finalTotal')}</span><strong>{money(receipt.finalTotal)}</strong></div>
-          <div class="receipt-rule"></div>
-          <div class="receipt-row coupon-total"><span>{t('receipt.savedToday')}</span><strong>{money(receipt.discount)}</strong></div>
+          {#if receipt.discount > 0}
+            <div class="receipt-rule"></div>
+            <div class="receipt-row coupon-total"><span>{t('receipt.savedToday')}</span><strong>{money(receipt.discount)}</strong></div>
+          {/if}
         </section>
       {/if}
     </div>

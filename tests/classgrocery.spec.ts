@@ -360,6 +360,22 @@ test('the receipt prints with its items, coupons and total saved', async ({ page
   await expect(page.locator('.receipt')).toBeVisible()
 })
 
+test('a receipt with no savings leaves out the amount saved', async ({ page }) => {
+  page.on('dialog', (dialog) => dialog.accept())
+
+  await openAsStudent(page)
+  await goToAisle(page, 'Produce')
+  await page.locator('.shelf-product-card', { hasText: 'Apple' }).first().getByRole('button', { name: /^Add Apple for/ }).click()
+  await page.getByRole('button', { name: 'Check out' }).click()
+
+  await expect(page.locator('.receipt .receipt-final')).toBeVisible()
+  await expect(page.getByText('Total Amount Saved Today')).toHaveCount(0)
+
+  await page.getByRole('button', { name: 'Print' }).click()
+  await expect(page.locator('.print-receipt .receipt-final')).toBeVisible()
+  await expect(page.getByText('Total Amount Saved Today')).toHaveCount(0)
+})
+
 // ------------------------------------------------------- name brands vs CG
 
 test('stocking CG products puts them beside the name brands, priced off this store', async ({ page }) => {

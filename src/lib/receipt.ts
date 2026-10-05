@@ -54,6 +54,6 @@ export function receiptText() {
   rows.push(`${t('receipt.subtotal')}: ${money(receipt.discountedPrice)}`)
   if (cart.salesTax) rows.push(`${t('receipt.salesTaxPercent', { percent: cart.salesTax })}: ${money(receipt.salesTaxAmount)}`)
   rows.push(`${t('receipt.finalTotal').toUpperCase()}: ${money(receipt.finalTotal)}`)
-  rows.push('', `${t('receipt.savedToday').toUpperCase()}: ${money(receipt.discount)}`)
+  if (receipt.discount > 0) rows.push('', `${t('receipt.savedToday').toUpperCase()}: ${money(receipt.discount)}`)
   return rows.join('\n')
 }

@@ -92,8 +92,6 @@ const es: LanguagePack = {
     'cart.count.other': '{count} productos en el carrito',
     'cart.each': '{price} cada uno',
     'cart.quantity': 'Cantidad',
-    'cart.empty':
-      'Haz clic en los productos de cualquier estante. Tu carrito se queda aquí mientras cambias de pasillo.',
     'cart.listTotal': 'Total de la lista de compras',
     'cart.savings': 'Ahorro con cupones',
     'cart.total': 'Total a pagar',

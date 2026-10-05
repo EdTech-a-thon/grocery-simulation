@@ -117,7 +117,6 @@ const en: LanguagePack = {
     'cart.count.other': '{count} items in cart',
     'cart.each': '{price} each',
     'cart.quantity': 'Quantity',
-    'cart.empty': 'Click products on any shelf. Your cart stays here while you switch aisles.',
     'cart.listTotal': 'Shopping list total',
     'cart.savings': 'Coupon savings',
     'cart.total': 'Total bill',

@@ -93,8 +93,6 @@ const fr: LanguagePack = {
     'cart.count.other': '{count} articles dans le panier',
     'cart.each': '{price} l’unité',
     'cart.quantity': 'Quantité',
-    'cart.empty':
-      'Clique sur les produits de n’importe quel rayon. Ton panier reste ici quand tu changes de rayon.',
     'cart.listTotal': 'Total de la liste de courses',
     'cart.savings': 'Économies grâce aux bons',
     'cart.total': 'Total à payer',
