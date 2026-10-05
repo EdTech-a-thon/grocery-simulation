@@ -11,6 +11,13 @@
 export type Currency = {
   /** The ISO 4217 code: 'EUR', 'JPY'... */
   code: string
+  /**
+   * Where the currency is spent, for writing its prices the way shops there do:
+   * 3,45 € in Germany, CHF 3.45 in Switzerland, 1 234,50 Kč in Prague. Where
+   * the local script is not Latin, it is that country's English, so students
+   * can read it: ¥550, not ￥550; E£3.45, not ٣٫٤٥ ج.م.
+   */
+  locale: string
   /** How much of this currency one US dollar buys. */
   perDollar: number
   /**
@@ -21,58 +28,58 @@ export type Currency = {
   step: number
   /**
    * The round number a teacher can snap every price to, for easier sums: about
-   * ten US cents' worth, as the nearest 1 or 5 — €0.10, ¥10, kr 10, ₩100.
+   * ten US cents' worth, as the nearest 1 or 5 — 0,10 €, ¥10, 10 kr, ₩100.
    */
   roundTo: number
 }
 
 export const currencies: Currency[] = [
-  { code: 'USD', perDollar: 1, step: 0.01, roundTo: 0.1 },
-  { code: 'AED', perDollar: 3.6725, step: 0.05, roundTo: 0.5 },
-  { code: 'ARS', perDollar: 1523.09, step: 10, roundTo: 100 },
-  { code: 'AUD', perDollar: 1.4393, step: 0.01, roundTo: 0.1 },
-  { code: 'BRL', perDollar: 5.2225, step: 0.01, roundTo: 0.5 },
-  { code: 'CAD', perDollar: 1.4248, step: 0.01, roundTo: 0.1 },
-  { code: 'CHF', perDollar: 0.8284, step: 0.05, roundTo: 0.1 },
-  { code: 'CLP', perDollar: 987.99, step: 10, roundTo: 100 },
-  { code: 'CNY', perDollar: 6.7104, step: 0.1, roundTo: 0.5 },
-  { code: 'COP', perDollar: 3308.76, step: 50, roundTo: 500 },
-  { code: 'CZK', perDollar: 21.733, step: 0.1, roundTo: 1 },
-  { code: 'DKK', perDollar: 6.6474, step: 0.05, roundTo: 0.5 },
-  { code: 'EGP', perDollar: 52.2475, step: 0.25, roundTo: 5 },
-  { code: 'EUR', perDollar: 0.8889, step: 0.01, roundTo: 0.1 },
-  { code: 'GBP', perDollar: 0.7557, step: 0.01, roundTo: 0.1 },
-  { code: 'GHS', perDollar: 11.6173, step: 0.1, roundTo: 1 },
-  { code: 'HKD', perDollar: 7.8476, step: 0.1, roundTo: 1 },
-  { code: 'HUF', perDollar: 327.67, step: 10, roundTo: 50 },
-  { code: 'IDR', perDollar: 17915.06, step: 100, roundTo: 1000 },
-  { code: 'ILS', perDollar: 3.0448, step: 0.1, roundTo: 0.5 },
-  { code: 'INR', perDollar: 96.4006, step: 1, roundTo: 10 },
-  { code: 'ISK', perDollar: 121.9, step: 1, roundTo: 10 },
-  { code: 'JMD', perDollar: 158.77, step: 1, roundTo: 10 },
-  { code: 'JPY', perDollar: 157.73, step: 1, roundTo: 10 },
-  { code: 'KES', perDollar: 129.58, step: 1, roundTo: 10 },
-  { code: 'KRW', perDollar: 1344.61, step: 10, roundTo: 100 },
-  { code: 'MAD', perDollar: 9.9195, step: 0.05, roundTo: 1 },
-  { code: 'MXN', perDollar: 18.194, step: 0.1, roundTo: 1 },
-  { code: 'MYR', perDollar: 4.0845, step: 0.05, roundTo: 0.5 },
-  { code: 'NGN', perDollar: 1331.28, step: 10, roundTo: 100 },
-  { code: 'NOK', perDollar: 9.6199, step: 0.1, roundTo: 1 },
-  { code: 'NZD', perDollar: 1.7813, step: 0.01, roundTo: 0.1 },
-  { code: 'PEN', perDollar: 3.4593, step: 0.1, roundTo: 0.5 },
-  { code: 'PHP', perDollar: 62.6327, step: 0.25, roundTo: 5 },
-  { code: 'PKR', perDollar: 277.49, step: 5, roundTo: 50 },
-  { code: 'PLN', perDollar: 3.8955, step: 0.01, roundTo: 0.5 },
-  { code: 'RON', perDollar: 4.7544, step: 0.01, roundTo: 0.5 },
-  { code: 'SAR', perDollar: 3.75, step: 0.05, roundTo: 0.5 },
-  { code: 'SEK', perDollar: 10.0418, step: 0.1, roundTo: 1 },
-  { code: 'SGD', perDollar: 1.2794, step: 0.05, roundTo: 0.1 },
-  { code: 'THB', perDollar: 33.5663, step: 1, roundTo: 5 },
-  { code: 'TRY', perDollar: 49.1619, step: 0.25, roundTo: 5 },
-  { code: 'TWD', perDollar: 31.8717, step: 1, roundTo: 5 },
-  { code: 'UAH', perDollar: 45.1182, step: 0.1, roundTo: 5 },
-  { code: 'VND', perDollar: 25949.12, step: 1000, roundTo: 5000 },
-  { code: 'ZAR', perDollar: 16.6586, step: 0.01, roundTo: 1 },
+  { code: 'USD', locale: 'en-US', perDollar: 1, step: 0.01, roundTo: 0.1 },
+  { code: 'AED', locale: 'en-AE', perDollar: 3.6725, step: 0.05, roundTo: 0.5 },
+  { code: 'ARS', locale: 'es-AR', perDollar: 1523.09, step: 10, roundTo: 100 },
+  { code: 'AUD', locale: 'en-AU', perDollar: 1.4393, step: 0.01, roundTo: 0.1 },
+  { code: 'BRL', locale: 'pt-BR', perDollar: 5.2225, step: 0.01, roundTo: 0.5 },
+  { code: 'CAD', locale: 'en-CA', perDollar: 1.4248, step: 0.01, roundTo: 0.1 },
+  { code: 'CHF', locale: 'de-CH', perDollar: 0.8284, step: 0.05, roundTo: 0.1 },
+  { code: 'CLP', locale: 'es-CL', perDollar: 987.99, step: 10, roundTo: 100 },
+  { code: 'CNY', locale: 'zh-CN', perDollar: 6.7104, step: 0.1, roundTo: 0.5 },
+  { code: 'COP', locale: 'es-CO', perDollar: 3308.76, step: 50, roundTo: 500 },
+  { code: 'CZK', locale: 'cs-CZ', perDollar: 21.733, step: 0.1, roundTo: 1 },
+  { code: 'DKK', locale: 'da-DK', perDollar: 6.6474, step: 0.05, roundTo: 0.5 },
+  { code: 'EGP', locale: 'en-EG', perDollar: 52.2475, step: 0.25, roundTo: 5 },
+  { code: 'EUR', locale: 'de-DE', perDollar: 0.8889, step: 0.01, roundTo: 0.1 },
+  { code: 'GBP', locale: 'en-GB', perDollar: 0.7557, step: 0.01, roundTo: 0.1 },
+  { code: 'GHS', locale: 'en-GH', perDollar: 11.6173, step: 0.1, roundTo: 1 },
+  { code: 'HKD', locale: 'zh-HK', perDollar: 7.8476, step: 0.1, roundTo: 1 },
+  { code: 'HUF', locale: 'hu-HU', perDollar: 327.67, step: 10, roundTo: 50 },
+  { code: 'IDR', locale: 'id-ID', perDollar: 17915.06, step: 100, roundTo: 1000 },
+  { code: 'ILS', locale: 'en-IL', perDollar: 3.0448, step: 0.1, roundTo: 0.5 },
+  { code: 'INR', locale: 'en-IN', perDollar: 96.4006, step: 1, roundTo: 10 },
+  { code: 'ISK', locale: 'is-IS', perDollar: 121.9, step: 1, roundTo: 10 },
+  { code: 'JMD', locale: 'en-JM', perDollar: 158.77, step: 1, roundTo: 10 },
+  { code: 'JPY', locale: 'en-JP', perDollar: 157.73, step: 1, roundTo: 10 },
+  { code: 'KES', locale: 'en-KE', perDollar: 129.58, step: 1, roundTo: 10 },
+  { code: 'KRW', locale: 'ko-KR', perDollar: 1344.61, step: 10, roundTo: 100 },
+  { code: 'MAD', locale: 'fr-MA', perDollar: 9.9195, step: 0.05, roundTo: 1 },
+  { code: 'MXN', locale: 'es-MX', perDollar: 18.194, step: 0.1, roundTo: 1 },
+  { code: 'MYR', locale: 'ms-MY', perDollar: 4.0845, step: 0.05, roundTo: 0.5 },
+  { code: 'NGN', locale: 'en-NG', perDollar: 1331.28, step: 10, roundTo: 100 },
+  { code: 'NOK', locale: 'nb-NO', perDollar: 9.6199, step: 0.1, roundTo: 1 },
+  { code: 'NZD', locale: 'en-NZ', perDollar: 1.7813, step: 0.01, roundTo: 0.1 },
+  { code: 'PEN', locale: 'es-PE', perDollar: 3.4593, step: 0.1, roundTo: 0.5 },
+  { code: 'PHP', locale: 'en-PH', perDollar: 62.6327, step: 0.25, roundTo: 5 },
+  { code: 'PKR', locale: 'en-PK', perDollar: 277.49, step: 5, roundTo: 50 },
+  { code: 'PLN', locale: 'pl-PL', perDollar: 3.8955, step: 0.01, roundTo: 0.5 },
+  { code: 'RON', locale: 'ro-RO', perDollar: 4.7544, step: 0.01, roundTo: 0.5 },
+  { code: 'SAR', locale: 'en-SA', perDollar: 3.75, step: 0.05, roundTo: 0.5 },
+  { code: 'SEK', locale: 'sv-SE', perDollar: 10.0418, step: 0.1, roundTo: 1 },
+  { code: 'SGD', locale: 'en-SG', perDollar: 1.2794, step: 0.05, roundTo: 0.1 },
+  { code: 'THB', locale: 'th-TH', perDollar: 33.5663, step: 1, roundTo: 5 },
+  { code: 'TRY', locale: 'tr-TR', perDollar: 49.1619, step: 0.25, roundTo: 5 },
+  { code: 'TWD', locale: 'zh-TW', perDollar: 31.8717, step: 1, roundTo: 5 },
+  { code: 'UAH', locale: 'uk-UA', perDollar: 45.1182, step: 0.1, roundTo: 5 },
+  { code: 'VND', locale: 'vi-VN', perDollar: 25949.12, step: 1000, roundTo: 5000 },
+  { code: 'ZAR', locale: 'en-ZA', perDollar: 16.6586, step: 0.01, roundTo: 1 },
 ]
 
 const currencyByCode: Record<string, Currency> = Object.fromEntries(currencies.map((currency) => [currency.code, currency]))
@@ -123,21 +130,31 @@ export function maxPrice(code: string) {
   return roundToStep(999 * currencyOf(code).perDollar, code)
 }
 
-// Numbers are always written the US way ($1,234.50, €3.00), whatever language
-// the page is in, so a mixed-language class sees the same figures on the same
-// shelf. The narrow symbol is the one a local shop prints: "kr", not "ISK".
+// Prices are written the way the currency's own country writes them, whatever
+// language the page is in, so a mixed-language class sees the same figures on
+// the same shelf. The narrow symbol is the one a local shop prints: "kr", not
+// "ISK". Every price on a shelf goes through here, so formatters are kept.
+const formatters = new Map<string, Intl.NumberFormat>()
+
 function formatter(code: string, decimals = decimalsOf(code)) {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: code,
-    currencyDisplay: 'narrowSymbol',
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  })
+  const key = `${code}:${decimals}`
+  let format = formatters.get(key)
+  if (!format) {
+    format = new Intl.NumberFormat(currencyOf(code).locale, {
+      style: 'currency',
+      currency: code,
+      currencyDisplay: 'narrowSymbol',
+      numberingSystem: 'latn',
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    })
+    formatters.set(key, format)
+  }
+  return format
 }
 
 /**
- * `wholeWithoutCents` writes a whole amount as "Kč 76" rather than "Kč 76.00",
+ * `wholeWithoutCents` writes a whole amount as "76 Kč" rather than "76,00 Kč",
  * for round numbers and for stores rounded to whole units.
  */
 export function formatMoney(value: number, code: string, wholeWithoutCents = false) {
@@ -147,6 +164,12 @@ export function formatMoney(value: number, code: string, wholeWithoutCents = fal
 /** The sign that goes beside a price box: '$', '€', '¥', 'kr'... */
 export function currencySymbol(code: string) {
   return formatter(code).formatToParts(0).find((part) => part.type === 'currency')?.value ?? code
+}
+
+/** Whether the sign comes after the number, as in 3,45 € or 425 kr. */
+export function symbolAfterNumber(code: string) {
+  const parts = formatter(code).formatToParts(1).map((part) => part.type)
+  return parts.indexOf('currency') > parts.indexOf('integer')
 }
 
 /** The currency's own name in the page's language: "euro", "yen japonés"... */

@@ -168,7 +168,7 @@ export function priceFor(item: AisleItem) {
 
 /**
  * Snaps a price to how the open store prices things. Once the teacher has
- * rounded the store, that is its currency's round number (¥10, €0.10).
+ * rounded the store, that is its currency's round number (¥10, 0,10 €).
  * Otherwise a CG price ends in 9, the way it reads in dollars, and any other
  * moves by the currency's usual step.
  */
@@ -179,8 +179,8 @@ export function snapPrice(productId: string, price: number) {
 }
 
 /**
- * An amount of money as the open store writes it: $3.49, €3.10, ¥550. A store
- * rounded to whole units drops the empty cents, so it reads Kč 76, not Kč 76.00.
+ * An amount of money as the open store writes it: $3.49, 3,10 €, ¥550. A store
+ * rounded to whole units drops the empty cents, so it reads 76 Kč, not 76,00 Kč.
  */
 export function money(value: number) {
   const currency = shop.store?.currency ?? 'USD'
