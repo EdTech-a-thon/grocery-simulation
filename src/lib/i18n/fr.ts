@@ -160,11 +160,11 @@ const fr: LanguagePack = {
     'teacher.inventoryTitle': 'Inventaire',
     'teacher.couponsTitle': 'Bons de réduction',
     'teacher.settingsTitle': 'Paramètres du magasin',
+    'teacher.settingsNav': 'Paramètres',
     'teacher.studentView': 'Vue élève',
     'teacher.exitStudentView': 'Quitter la vue élève',
 
     'store.copyLink': 'Copier le lien élèves',
-    'teacher.settingsNav': 'Paramètres',
     'store.copyNewLink': 'Copier le nouveau lien élèves',
     'store.copied': 'Copié',
     'store.copyPrompt': 'Copiez ce lien élèves :',

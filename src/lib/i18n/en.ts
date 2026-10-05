@@ -186,11 +186,11 @@ const en: LanguagePack = {
     'teacher.inventoryTitle': 'Inventory',
     'teacher.couponsTitle': 'Coupons',
     'teacher.settingsTitle': 'Store settings',
+    'teacher.settingsNav': 'Settings',
     'teacher.studentView': 'Student View',
     'teacher.exitStudentView': 'Exit student view',
 
     'store.copyLink': 'Copy student link',
-    'teacher.settingsNav': 'Settings',
     'store.copyNewLink': 'Copy new student link',
     'store.copied': 'Copied',
     'store.copyPrompt': 'Copy this student link:',

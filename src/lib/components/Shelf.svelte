@@ -14,14 +14,24 @@
     onSelect: (index: number) => void
   } = $props()
 
-  /** Each shelf unit holds twelve slots, padded with gaps when the aisle runs out. */
+  /** Where the three shelves are in groceryshelf.svg, as percentages of its
+   *  height: the top of the space above each shelf and the shelf's front edge,
+   *  which is where the products stand and the price tags hang. */
+  const shelfBoards = [
+    { top: 17.3, front: 35.4 },
+    { top: 37.6, front: 59.4 },
+    { top: 61.6, front: 81.2 },
+  ]
+  const perShelf = shelfCapacity / shelfBoards.length
+
+  /** Each shelf unit holds twelve slots, four to a shelf, padded with gaps when the aisle runs out. */
   const shelves = $derived(chunkItems(aisle.items, shelfCapacity).map((group) => {
     const slots: Array<ShelfItem | null> = group.map((item) => {
       const product = productById[item.id]
       return product ? { ...product, price: priceFor(item), aisleTitle: aisle.title, sale: item.sale } : null
     })
     while (slots.length < shelfCapacity) slots.push(null)
-    return slots
+    return chunkItems(slots, perShelf)
   }))
 </script>
 
@@ -48,18 +58,20 @@
     {/if}
   </div>
   <div class="shelf-row" style="--shelf-units:{shelves.length}">
-    {#each shelves as slots, index (index)}
+    {#each shelves as rows, index (index)}
       <section class="shelf-unit" aria-label={t('shelf.unit', { number: index + 1 })}>
         <div class="shelf-skin" style="background-image:url('/groceryshelf.svg')"></div>
-        <div class="shelf-grid">
-          {#each slots as item, slot (slot)}
-            {#if item}
-              <ShelfProduct {item} />
-            {:else}
-              <div class="shelf-slot shelf-slot-empty" aria-hidden="true"></div>
-            {/if}
-          {/each}
-        </div>
+        {#each rows as slots, row (row)}
+          <div class="shelf-board" style="top:{shelfBoards[row].top}%;height:{shelfBoards[row].front - shelfBoards[row].top}%">
+            {#each slots as item, slot (slot)}
+              {#if item}
+                <ShelfProduct {item} />
+              {:else}
+                <div class="shelf-slot shelf-slot-empty" aria-hidden="true"></div>
+              {/if}
+            {/each}
+          </div>
+        {/each}
       </section>
     {/each}
   </div>

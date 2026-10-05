@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { addToCart, keyInCart, quantityInCart, removeFromCart } from '$lib/cart.svelte'
+  import { addToCart, quantityInCart } from '$lib/cart.svelte'
   import { money, type ShelfItem } from '$lib/catalog'
   import { productName, t, unitPriceText } from '$lib/i18n/index.svelte'
   import { shop, sizeFor } from '$lib/shop.svelte'
@@ -26,6 +26,8 @@
   })
 </script>
 
+<!-- Clicking the product puts one in the cart; taking things out happens in
+     the cart, as it would at a real store. -->
 <div class="shelf-product-card">
   <button
     class="shelf-product"
@@ -35,29 +37,15 @@
   >
     <span class="shelf-product-image" style="background-image:url('{item.image}')"></span>
     <span class="shelf-product-name">{name}</span>
-    <span class="price-tag" class:price-tag-sale={item.sale}>
-      {money(item.price)}
-      {#if sizeText}<span class="price-tag-size">{sizeText}</span>{/if}
-      {#if unitText}<span class="price-tag-unit">{unitText}</span>{/if}
-    </span>
     {#if quantity}
-      <span class="shelf-quantity-badge" aria-label={t('product.inCart', { count: quantity })}>{quantity}</span>
+      {#key quantity}
+        <span class="shelf-quantity-badge" aria-label={t('product.inCart', { count: quantity })}>{quantity}</span>
+      {/key}
     {/if}
   </button>
-  <div class="shelf-quantity-controls">
-    {#if quantity}
-      <button
-        class="shelf-product-minus"
-        type="button"
-        aria-label={t('product.removeOne', { name })}
-        onclick={() => removeFromCart(keyInCart(item))}
-      >-</button>
-    {/if}
-    <button
-      class="shelf-product-plus"
-      type="button"
-      aria-label={t('product.addOne', { name })}
-      onclick={() => addToCart(item)}
-    >+</button>
-  </div>
+  <span class="price-tag" class:price-tag-sale={item.sale} aria-hidden="true">
+    {money(item.price)}
+    {#if sizeText}<span class="price-tag-size">{sizeText}</span>{/if}
+    {#if unitText}<span class="price-tag-unit">{unitText}</span>{/if}
+  </span>
 </div>

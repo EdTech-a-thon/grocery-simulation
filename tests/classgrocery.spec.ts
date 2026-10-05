@@ -341,7 +341,6 @@ test('a student with links to two stores can switch between them, and remove one
   await switchButton.click()
   const list = page.locator('#store-switcher')
   await expect(list.getByRole('button', { name: 'Corner Shop', exact: true })).toHaveAttribute('aria-current', 'true')
-
   await list.getByRole('button', { name: store.name, exact: true }).click()
   await expect(list).toBeHidden()
   await expect(page.getByRole('heading', { name: store.name })).toBeVisible()
@@ -358,6 +357,7 @@ test('a student with links to two stores can switch between them, and remove one
   await page.reload()
   await expect(page.getByRole('heading', { name: store.name })).toBeVisible()
 })
+
 test('a new link for a store with the same name replaces the old one on the list', async ({ page }) => {
   await openAsStudent(page)
   await page.goto(await madeUpStudentLink(page, { v: 1, n: 'Corner Shop', c: 'pink' }))
@@ -371,7 +371,6 @@ test('a new link for a store with the same name replaces the old one on the list
   await expect(list.locator('[data-color="orange"]')).toHaveCount(1)
   await expect(list.locator('[data-color="pink"]')).toHaveCount(0)
 })
-
 
 test('a damaged link explains itself', async ({ page }) => {
   await page.goto('/shop#not-a-store')
@@ -387,7 +386,7 @@ test('the receipt itemizes the cart and caps a dollar coupon at the item price',
   await openAsStudent(page)
   await goToAisle(page, 'Produce')
   await page.locator('.shelf-product-card', { hasText: 'Apple' }).first().getByRole('button', { name: /^Add Apple for/ }).click()
-  await page.locator('.shelf-product-card', { hasText: 'Apple' }).first().getByRole('button', { name: 'Add one more Apple' }).click()
+  await page.locator('.shelf-product-card', { hasText: 'Apple' }).first().getByRole('button', { name: /^Add Apple for/ }).click()
 
   await page.getByRole('button', { name: 'Check out' }).click()
   const receipt = page.locator('.receipt')
