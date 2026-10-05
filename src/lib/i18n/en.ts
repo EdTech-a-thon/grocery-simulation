@@ -51,6 +51,10 @@ const en: LanguagePack = {
       'Simulate a grocery store for your class. Teachers set prices and coupons. Students shop on a budget.',
     'landing.getStarted': 'Get started',
     'landing.backTo': 'Back to {name}',
+    'switcher.label': 'Switch store',
+    'switcher.title': 'Your stores',
+    'switcher.remove': 'Remove {name}',
+    'switcher.confirmRemove': 'Remove {name} from your stores? You will need the link from your teacher to open it again.',
 
     'landing.howTitle': 'How it works',
     'landing.step1.title': 'Build the store',

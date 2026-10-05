@@ -29,6 +29,10 @@ const es: LanguagePack = {
       'Simula un supermercado para tu clase. Los docentes ponen los precios y los cupones. Los estudiantes compran con un presupuesto.',
     'landing.getStarted': 'Comenzar',
     'landing.backTo': 'Volver a {name}',
+    'switcher.label': 'Cambiar de tienda',
+    'switcher.title': 'Tus tiendas',
+    'switcher.remove': 'Quitar {name}',
+    'switcher.confirmRemove': '¿Quitar {name} de tus tiendas? Necesitarás el enlace de tu maestro para abrirla otra vez.',
 
     'landing.howTitle': 'Cómo funciona',
     'landing.step1.title': 'Arma la tienda',

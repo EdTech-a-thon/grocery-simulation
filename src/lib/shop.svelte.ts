@@ -3,9 +3,17 @@ import { aisles, catalogPrice, type AisleConfig, type AisleItem } from './catalo
 import { isStoreBrand, nameBrandIdOf, storeBrandPrice } from './products'
 import { cart } from './cart.svelte'
 import { catalogSize } from './sizes'
-import { stockedByDefault, type Store } from './store'
+import { stockedByDefault, storeColors, type Store, type StoreColor } from './store'
 
 const studentStoreStorageKey = 'classgrocery-student-store'
+const studentStoresStorageKey = 'classgrocery-student-stores'
+
+/**
+ * A store link a student has opened in this browser. The name and colour are
+ * kept beside the link so the list of stores can be shown without unpacking
+ * every link in it.
+ */
+export type StudentStore = { encoded: string; name: string; color: StoreColor }
 
 /**
  * The store currently open — the one a teacher is editing, or the one a student
@@ -16,8 +24,10 @@ export const shop = $state({
   store: null as Store | null,
   /** Which shoppable aisle the shopper is standing in. Survives a print sheet. */
   aisleIndex: 0,
-  /** The last store link a student opened, so they come back to the same store. */
+  /** The store link a student has open, so they come back to the same store. */
   studentStore: browser ? readStudentStore() : '',
+  /** Every store link a student has opened here, newest first, so they can switch between them. */
+  studentStores: browser ? readStudentStores() : ([] as StudentStore[]),
 })
 
 function readStudentStore() {
@@ -28,6 +38,27 @@ function readStudentStore() {
   }
 }
 
+function readStudentStores(): StudentStore[] {
+  try {
+    const stored = JSON.parse(localStorage.getItem(studentStoresStorageKey) ?? '[]')
+    if (!Array.isArray(stored)) return []
+    return stored.filter(
+      (entry) =>
+        typeof entry?.encoded === 'string' && typeof entry.name === 'string' && storeColors.includes(entry.color),
+    )
+  } catch {
+    return []
+  }
+}
+
+function saveStudentStores() {
+  try {
+    localStorage.setItem(studentStoresStorageKey, JSON.stringify(shop.studentStores))
+  } catch {
+    // The list still works until the page closes.
+  }
+}
+
 /** Opens a store and puts its rules on the cart. */
 export function openStore(store: Store) {
   shop.store = store
@@ -35,16 +66,37 @@ export function openStore(store: Store) {
   syncCartToStore(store)
 }
 
-export function rememberStudentStore(encoded: string) {
+/**
+ * Makes a student's store the one the front page opens, and puts it on their
+ * list of stores. A link already on the list keeps its place, so the list does
+ * not reshuffle every time a student switches.
+ */
+export function rememberStudentStore(encoded: string, store: Store) {
   shop.studentStore = encoded
   try {
     localStorage.setItem(studentStoreStorageKey, encoded)
   } catch {
     // The store stays open for this visit; it just will not be remembered.
   }
+
+  const entry = { encoded, name: store.name, color: store.color }
+  const index = shop.studentStores.findIndex((existing) => existing.encoded === encoded)
+  if (index === -1) shop.studentStores.unshift(entry)
+  else shop.studentStores[index] = entry
+  saveStudentStores()
 }
 
-/** Stops this browser opening a student store from the front page. */
+/** Takes a store off a student's list, and stops the front page opening it. */
+export function removeStudentStore(encoded: string) {
+  shop.studentStores = shop.studentStores.filter((entry) => entry.encoded !== encoded)
+  saveStudentStores()
+  if (shop.studentStore === encoded) forgetStudentStore()
+}
+
+/**
+ * Stops this browser opening a student store from the front page. The list of
+ * stores is kept, so a student who wanders into the teacher pages loses nothing.
+ */
 export function forgetStudentStore() {
   shop.studentStore = ''
   try {

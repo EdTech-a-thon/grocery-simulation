@@ -18,7 +18,7 @@
       return
     }
     openStore(store)
-    rememberStudentStore(encoded)
+    rememberStudentStore(encoded, store)
     await goto('/', { replaceState: true })
   })
 </script>

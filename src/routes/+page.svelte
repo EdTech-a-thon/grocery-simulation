@@ -5,31 +5,40 @@
   import StoreEntrance from '$lib/components/StoreEntrance.svelte'
   import StoreFront from '$lib/components/StoreFront.svelte'
   import StoreScene from '$lib/components/StoreScene.svelte'
+  import StoreSwitcher from '$lib/components/StoreSwitcher.svelte'
   import SiteFooter from '$lib/components/SiteFooter.svelte'
   import { aisles } from '$lib/catalog'
   import { t } from '$lib/i18n/index.svelte'
   import { products } from '$lib/products'
   import { decodeStore } from '$lib/sharing'
-  import { openStore, shop } from '$lib/shop.svelte'
-  import type { Store } from '$lib/store'
+  import { clearCart } from '$lib/cart.svelte'
+  import { openStore, rememberStudentStore, shop } from '$lib/shop.svelte'
 
   type Screen = 'welcome' | 'entrance' | 'store'
 
   let screen = $state<Screen>('welcome')
-  /** The store this browser last opened from a teacher's link, if any. */
-  let lastStore = $state<Store | null>(null)
+  /** The newest store this browser has opened from a teacher's link, if any. */
+  const lastStore = $derived(shop.studentStores[0])
 
   // A student who arrived through a store link comes straight into that store,
   // and comes back to it on a later visit.
-  onMount(async () => {
-    if (!shop.studentStore) return
-    lastStore = await decodeStore(shop.studentStore)
-    if (lastStore) enter(lastStore)
+  onMount(() => {
+    if (shop.studentStore) void enter(shop.studentStore)
   })
 
-  function enter(store: Store) {
+  /** Walks up to a student's store, from its link, and makes it the one the front page opens. */
+  async function enter(encoded: string) {
+    const store = await decodeStore(encoded)
+    if (!store) return
     openStore(store)
+    rememberStudentStore(encoded, store)
     screen = 'entrance'
+  }
+
+  /** Another store's prices and coupons do not belong in this one's cart. */
+  function switchTo(encoded: string) {
+    clearCart()
+    void enter(encoded)
   }
 </script>
 
@@ -49,7 +58,7 @@
           </a>
           <!-- Only a student who has opened a store link before sees this. -->
           {#if lastStore}
-            <button class="landing-back-to-store" type="button" onclick={() => lastStore && enter(lastStore)}>
+            <button class="landing-back-to-store" type="button" onclick={() => lastStore && enter(lastStore.encoded)}>
               {t('landing.backTo', { name: lastStore.name })} <span aria-hidden="true">&rarr;</span>
             </button>
           {/if}
@@ -122,4 +131,6 @@
 <!-- Students have no top bar, so the language control floats just above the help button. -->
 {#if screen !== 'welcome'}
   <div class="floating-language"><LanguagePicker /></div>
+  <!-- Only a student who has opened more than one store link needs to choose between them. -->
+  {#if shop.studentStores.length > 1}<StoreSwitcher onSwitch={switchTo} />{/if}
 {/if}

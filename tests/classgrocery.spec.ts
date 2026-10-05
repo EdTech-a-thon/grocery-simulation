@@ -17,6 +17,7 @@ function studentUrl() {
  * packStore in src/lib/store.ts). This is what students would receive.
  */
 type PackedStore = {
+  v: 1
   n: string
   c?: string
   b?: string
@@ -83,6 +84,16 @@ async function visibleAisleTitles(page: Page) {
 /** The student link for the store a teacher page has open right now. */
 function studentLinkFrom(page: Page) {
   return page.url().replace('/teacher#', '/shop#')
+}
+
+/** The student link for a small store made up on the spot, as another teacher might share. */
+async function madeUpStudentLink(page: Page, packed: PackedStore) {
+  const encoded = await page.evaluate(async (packed) => {
+    const stream = new Blob([JSON.stringify(packed)]).stream().pipeThrough(new CompressionStream('deflate-raw'))
+    const bytes = new Uint8Array(await new Response(stream).arrayBuffer())
+    return btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+  }, packed)
+  return `/shop#${encoded}`
 }
 
 test.describe.configure({ mode: 'serial' })
@@ -291,6 +302,34 @@ test('a teacher who tried their own student link can get back to teaching', asyn
   await page.goto('/')
   await expect(page.getByRole('link', { name: 'Get started' })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Enter', exact: true })).toHaveCount(0)
+})
+
+test('a student with links to two stores can switch between them, and remove one', async ({ page }) => {
+  await openAsStudent(page)
+  // With only one store there is nothing to switch to.
+  const switchButton = page.getByRole('button', { name: 'Switch store' })
+  await expect(switchButton).toHaveCount(0)
+
+  await page.goto(await madeUpStudentLink(page, { v: 1, n: 'Corner Shop', c: 'blue' }))
+  await expect(page.getByRole('heading', { name: 'Corner Shop' })).toBeVisible()
+  await switchButton.click()
+  const list = page.locator('#store-switcher')
+  await expect(list.getByRole('button', { name: 'Corner Shop', exact: true })).toHaveAttribute('aria-current', 'true')
+
+  await list.getByRole('button', { name: store.name, exact: true }).click()
+  await expect(list).toBeHidden()
+  await expect(page.getByRole('heading', { name: store.name })).toBeVisible()
+
+  // The front page now opens the store they switched to.
+  await page.reload()
+  await expect(page.getByRole('heading', { name: store.name })).toBeVisible()
+
+  page.once('dialog', (dialog) => void dialog.accept())
+  await switchButton.click()
+  await list.getByRole('button', { name: 'Remove Corner Shop' }).click()
+  await expect(switchButton).toHaveCount(0)
+  await page.reload()
+  await expect(page.getByRole('heading', { name: store.name })).toBeVisible()
 })
 
 test('a damaged link explains itself', async ({ page }) => {

@@ -29,6 +29,10 @@ const fr: LanguagePack = {
       'Simulez un magasin d’alimentation pour votre classe. L’enseignant fixe les prix et les bons de réduction. Les élèves font leurs courses avec un budget.',
     'landing.getStarted': 'Commencer',
     'landing.backTo': 'Retour à {name}',
+    'switcher.label': 'Changer de magasin',
+    'switcher.title': 'Tes magasins',
+    'switcher.remove': 'Retirer {name}',
+    'switcher.confirmRemove': 'Retirer {name} de tes magasins ? Il te faudra le lien de ton enseignant pour l’ouvrir à nouveau.',
 
     'landing.howTitle': 'Comment ça marche',
     'landing.step1.title': 'Montez le magasin',
