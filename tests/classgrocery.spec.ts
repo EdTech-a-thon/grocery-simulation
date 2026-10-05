@@ -459,7 +459,7 @@ test('a teacher changes a package size, and students compare unit prices', async
   await student.close()
 
   // Sizes only: the class works the unit price out for itself.
-  await page.getByRole('button', { name: 'Store settings' }).click()
+  await page.getByRole('button', { name: 'Settings', exact: true }).click()
   await page.getByLabel('Price and size', { exact: true }).check()
   await expect.poll(async () => (await readStore(page)).u).toBe('size')
   const sizesOnly = await studentInDairy()
@@ -545,6 +545,13 @@ test('a new store is set up on its settings page', async ({ page }) => {
 
   await page.getByLabel('No sales tax').check()
   await expect.poll(async () => (await readStore(page)).t).toBeUndefined()
+
+  // The settings are also a page in the side panel, beside inventory and coupons.
+  const pages = page.locator('.store-sidebar-pages')
+  await pages.getByRole('button', { name: 'Inventory' }).click()
+  await pages.getByRole('button', { name: 'Settings' }).click()
+  await expect(pages.getByRole('button', { name: 'Settings' })).toHaveAttribute('aria-current', 'page')
+  await expect(page.getByLabel('Store name')).toHaveValue('Settings Store')
 })
 
 test('a coupon is edited in place, and students only see coupons when there are some', async ({ page }) => {

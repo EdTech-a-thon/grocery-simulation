@@ -7,9 +7,8 @@
 
   /**
    * The panel down the left of every page of an open store: the way back to
-   * the list, a little picture of the store (its gear opens the settings), the
-   * store's pages (settings among them, for anyone who misses the gear), and
-   * the class's two ways in.
+   * the list, a little picture of the store, the store's pages, and the
+   * class's two ways in.
    */
   let { page, onGo, onBack, onViewAsStudent }: {
     page: StorePage
@@ -42,15 +41,7 @@
 
 <aside class="store-sidebar" data-color={shop.store?.color}>
   <button class="store-sidebar-back" type="button" onclick={onBack}><Icon name="back" />{t('teacher.myStores')}</button>
-  <!-- The whole shopfront is the way into the store's settings; the gear says so. -->
-  <button
-    class="sidebar-storefront"
-    type="button"
-    title={t('teacher.settingsTitle')}
-    aria-label={`${t('teacher.settingsTitle')}: ${shop.store?.name ?? ''}`}
-    onclick={() => onGo('settings')}
-  >
-    <span class="sidebar-storefront-gear" aria-hidden="true"><Icon name="gear" /></span>
+  <div class="sidebar-storefront">
     <span class="sidebar-storefront-sign">{shop.store?.name ?? ''}</span>
     <span class="sidebar-storefront-awning" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
     <span class="sidebar-storefront-front" aria-hidden="true">
@@ -58,7 +49,7 @@
       <span class="sidebar-storefront-door"><span>{t('store.welcomeIn')}</span></span>
       <span class="sidebar-storefront-window"></span>
     </span>
-  </button>
+  </div>
 
   <nav class="store-sidebar-pages" aria-label={t('store.pagesLabel')}>
     {#each pages as item (item.page)}
