@@ -281,6 +281,18 @@ test('a student comes back to the same store on a later visit', async ({ page })
   await expect(page.locator('.shelf-stage')).toBeVisible()
 })
 
+test('a teacher who tried their own student link can get back to teaching', async ({ page }) => {
+  await openAsStudent(page)
+  await page.goto('/')
+  await page.getByRole('link', { name: 'For teachers' }).click()
+  await expect(page).toHaveURL(/\/teacher$/)
+
+  // The front page is the front page again, not the store.
+  await page.goto('/')
+  await expect(page.getByRole('link', { name: 'Get started' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Enter', exact: true })).toHaveCount(0)
+})
+
 test('a damaged link explains itself', async ({ page }) => {
   await page.goto('/shop#not-a-store')
   await expect(page.getByRole('heading', { name: 'That store link did not work' })).toBeVisible()

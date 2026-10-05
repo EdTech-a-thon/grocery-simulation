@@ -52,5 +52,8 @@
     </div>
   </div>
 
+  <!-- A teacher who tried their own link would otherwise be stuck out here. -->
+  <a class="entrance-teacher-link" href="/teacher">{t('landing.teachers.eyebrow')}</a>
+
   <button class="entrance-button" type="button" onclick={enter} disabled={entering}>{t('student.enter')}</button>
 </main>

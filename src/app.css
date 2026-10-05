@@ -2091,6 +2091,10 @@ p {
 /* A soft ring that pulses out of the button, so it is clearly the thing to press. */
 @keyframes entrance-beckon { 0% { outline: 0 solid rgba(255,255,255,.75); } 100% { outline: 22px solid rgba(255,255,255,0); } }
 
+.entrance-teacher-link { position: absolute; z-index: 3; top: 14px; right: 16px; border-radius: 999px; padding: .35em .9em; background: rgba(255,255,255,.85); color: #1e293b; font-size: .9rem; font-weight: 700; text-decoration: none; }
+.entrance-teacher-link:hover { background: #fff; text-decoration: underline; }
+.entering .entrance-teacher-link { opacity: 0; pointer-events: none; }
+
 /* Entering: doors open, then the camera walks in and the scene fades to the aisles. */
 .entering .entrance-button { opacity: 0; animation: none; pointer-events: none; }
 .entering .entrance-door-left { transform: rotateY(80deg); }

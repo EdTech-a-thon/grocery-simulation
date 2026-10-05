@@ -44,6 +44,16 @@ export function rememberStudentStore(encoded: string) {
   }
 }
 
+/** Stops this browser opening a student store from the front page. */
+export function forgetStudentStore() {
+  shop.studentStore = ''
+  try {
+    localStorage.removeItem(studentStoreStorageKey)
+  } catch {
+    // Nothing was remembered, or nothing can be.
+  }
+}
+
 export function forgetStore() {
   shop.store = null
 }

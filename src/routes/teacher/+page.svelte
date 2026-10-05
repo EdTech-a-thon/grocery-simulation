@@ -12,7 +12,7 @@
   import { t } from '$lib/i18n/index.svelte'
   import { saveStore, savedIdFor } from '$lib/savedStores.svelte'
   import { decodeStore, encodeStore } from '$lib/sharing'
-  import { forgetStore, openStore, shop } from '$lib/shop.svelte'
+  import { forgetStore, forgetStudentStore, openStore, shop } from '$lib/shop.svelte'
   import { newStore, type Store } from '$lib/store'
   import { teacher, type StorePage } from '$lib/teacher.svelte'
 
@@ -28,8 +28,11 @@
   let openedFromStudentLink = false
 
   // A teacher's own store link — a bookmark, or one pasted into the address
-  // bar — opens that store for editing, and puts it on their list.
+  // bar — opens that store for editing, and puts it on their list. Whoever
+  // comes here is a teacher, perhaps one who tried their own student link, so
+  // the front page stops opening straight into that store.
   onMount(async () => {
+    forgetStudentStore()
     await openFromAddress()
     loading = false
   })
