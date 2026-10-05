@@ -1,1 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)"><path d="M61 28h38v31l12 20v95c0 13-62 13-62 0V79l12-20z" fill="#8bc8e5" opacity=".9"/><path d="M58 97h44v53H58z" fill="#327fbe"/><text x="80" y="127" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">WATER</text><path d="M68 29h24" stroke="#e7f4f7" stroke-width="8"/></g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="195" rx="36" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M70 34h20v16C90 60 108 64 108 78V84q-3 2 0 4V92q-3 2 0 4V166q-3 2 0 4V174q-3 2 0 4V184a8 8 0 0 1-8 8H60a8 8 0 0 1-8-8V178q3-2 0-4V170q3-2 0-4V96q3-2 0-4V88q3-2 0-4V78C52 64 70 60 70 50z" fill="#e4eef3"/>
+    <path d="M84 34h6v16C90 60 108 64 108 78V84q-3 2 0 4V92q-3 2 0 4V166q-3 2 0 4V174q-3 2 0 4V184a8 8 0 0 1-8 8H96V78C96 66 84 60 84 50z" fill="#bed2db"/>
+    <path d="M63.5 62.5H96.5C101 66.5 106 71 106 78V184a6 6 0 0 1-6 6H60a6 6 0 0 1-6-6V78C54 71 59 66.5 63.5 62.5z" fill="#a9dcf3"/>
+    <path d="M90 62.5H96.5C101 66.5 106 71 106 78V184a6 6 0 0 1-6 6H94V78C94 71 92.5 66 90 62.5z" fill="#7fc2e4"/>
+    <path d="M54 86h52M54 94h52M54 168h52M54 176h52" fill="none" stroke="#7fc2e4" stroke-width="2.5"/>
+    <path d="M62 66q-5 4-5 12v104h4V78q0-8 4-12z" fill="#e6f6fd"/>
+    <path d="M73 38h3v12h-3z" fill="#f6fbfd"/>
+    <rect x="63" y="40" width="34" height="5" rx="2" fill="#bed2db"/>
+    <path d="M71 18h18a3 3 0 0 1 3 3v15H68V21a3 3 0 0 1 3-3z" fill="#2f7fd1"/>
+    <path d="M86 18h3a3 3 0 0 1 3 3v15h-6z" fill="#1f63ad"/>
+    <path d="M71 22h3v13h-3z" fill="#6aaee8"/>
+    <path d="M77 22v12M82 22v12M87 22v12" fill="none" stroke="#1f63ad" stroke-width="2" stroke-linecap="round"/>
+    <path d="M67 35h26v3a2 2 0 0 1-2 2H69a2 2 0 0 1-2-2z" fill="#1f63ad"/>
+  </g><g id="label">
+    <rect x="52" y="102" width="56" height="60" fill="#f7efe2"/>
+  </g><g id="brand-cg">
+    <rect x="52" y="102" width="56" height="60" fill="#ffffff"/>
+    <path d="M52 102h56v12H52z" fill="#15803d"/>
+    <path d="M52 114h56v2H52z" fill="#facc15"/>
+    <path d="M58 105h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="60" cy="108" r="1" fill="#15803d"/>
+    <path d="M56 152L67 128L74 138L80 132L92 124L104 152z" fill="#a9bdd2"/>
+    <path d="M92 124L104 152H94z" fill="#7f97b2"/>
+    <path d="M80 118C80 118 68 133 68 142a12 12 0 0 0 24 0C92 133 80 118 80 118z" fill="#38a9e8"/>
+    <path d="M80 118C80 118 92 133 92 142a12 12 0 0 1-12 12C87 148 88 136 80 118z" fill="#1d7fc4"/>
+    <path d="M58 156h44v3H58z" fill="#15803d"/>
+  </g></svg>

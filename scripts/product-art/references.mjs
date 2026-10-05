@@ -45,6 +45,17 @@ const mapping = {
   'plastic tub': ['plastic-tub'],
   'foam tray under film': ['foam-tray'],
   'egg carton': ['egg-carton'],
+
+  // The same formats in a different proportion. Named apart so the proportion
+  // check still holds the plain format to its reference, while a box of butter
+  // or a tall jar of pickles is told how to depart from it.
+  'wide cardboard box': ['cardboard-box', 'make it wider and lower — from square up to twice as wide as tall — keeping the side face and the flap seams'],
+  'tall glass jar': ['glass-jar', 'make the body narrower and taller, keeping the ribbed lid, the short neck and the shoulders'],
+  'squat glass jar': ['glass-jar', 'make the body a little wider and shorter, keeping the ribbed lid, the short neck and the shoulders'],
+  'wide printed bag': ['printed-bag', 'make it about as wide as it is tall, a flat squat pack, keeping the crimped fin seals'],
+  'single-serve cup': ['plastic-tub', 'make it taller than it is wide, a single-serve cup tapering to a narrow base, with the foil lid lip'],
+  'shallow tub': ['plastic-tub', 'make it wider and shallower, keeping the taper and the overhanging lid'],
+  'foam tray, top view': ['foam-tray', 'tilt it to show more of the open top face, so the tray is about as tall as it is wide'],
 }
 
 /** The reference for a format, or null when none has been drawn yet. */

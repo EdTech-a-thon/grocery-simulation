@@ -1,1 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220"><rect x="57" y="38" width="66" height="150" rx="18" fill="#0ea5e9"/><rect x="64" y="25" width="52" height="24" rx="8" fill="#e2e8f0"/><path d="M65 78h50v61H65z" fill="#fff"/><path d="M73 120c-3-17 17-22 17-34 19 14 22 25 16 34 20 3 13 23-1 20H76c-13 1-14-15-3-20z" fill="#f8fafc"/><text x="90" y="68" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="white">WHIP</text><text x="90" y="165" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#0369a1">CREAM</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="194" rx="36" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M54 184h52v6a4 4 0 0 1-4 4H58a4 4 0 0 1-4-4z" fill="#98a1ac"/>
+    <path d="M50 74h60v106a6 6 0 0 1-6 6H56a6 6 0 0 1-6-6z" fill="#c3cad3"/>
+    <path d="M94 74h16v106a6 6 0 0 1-6 6h-10z" fill="#98a1ac"/>
+    <path d="M55 78h6v102h-6z" fill="#e7ecf1"/>
+    <path d="M50 78q0-20 22-24h16q22 4 22 24z" fill="#c3cad3"/>
+    <path d="M88 54q22 4 22 24H94q0-16-8-24z" fill="#98a1ac"/>
+    <path d="M56 72q2-10 12-14" fill="none" stroke="#e7ecf1" stroke-width="4" stroke-linecap="round"/>
+    <path d="M48 74h64v6H48z" fill="#98a1ac"/>
+    <path d="M48 180h64" fill="none" stroke="#98a1ac" stroke-width="3"/>
+    <path d="M62 56v-9q0-5 5-5h26q5 0 5 5v9z" fill="#e9edf1"/>
+    <path d="M86 42h7q5 0 5 5v9H86z" fill="#c3cad3"/>
+    <path d="M62 54h36v3H62z" fill="#98a1ac"/>
+    <path d="M72 42l3-20h10l3 20z" fill="#e9edf1" transform="rotate(14 80 42)"/>
+    <path d="M80 22h5l3 20h-8z" fill="#c3cad3" transform="rotate(14 80 42)"/>
+    <path d="M73 22l2-6h10l2 6z" fill="#ffffff" transform="rotate(14 80 42)"/>
+    <path d="M80 16h5l2 6h-7z" fill="#c3cad3" transform="rotate(14 80 42)"/>
+    <path d="M76 26v12" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" transform="rotate(14 80 42)"/>
+  </g><g id="label">
+    <rect x="50" y="92" width="60" height="78" fill="#f7efe2"/>
+  </g><g id="brand">
+    <rect x="50" y="92" width="60" height="78" fill="#1f5fbf"/>
+    <path d="M50 152q15-8 30-2t30-4v24H50z" fill="#f2c230"/>
+    <path d="M63 138q-3 14 17 30q20-16 17-30q-17-6-34 0z" fill="#e0453a"/>
+    <path d="M80 168q20-16 17-30q-8-3-17-3z" fill="#a82a1c"/>
+    <path d="M68 146h2v3h-2zM76 154h2v3h-2zM86 146h2v3h-2zM80 160h2v3h-2zM72 140h2v3h-2z" fill="#f6d77a"/>
+    <path d="M58 137q6 7 12 2q4 5 10 3q6 2 10-3q6 5 12-2q-6-4-22-4t-22 4z" fill="#3f8f4a"/>
+    <path d="M62 136q-3-8 6-10q-3-8 8-10q-2-8 4-14q6 6 4 14q11 2 8 10q9 2 6 10q-9 4-18 4t-18-4z" fill="#fffaf0"/>
+    <path d="M80 102q6 6 4 14q11 2 8 10q9 2 6 10q-9 4-18 4q10-6 7-13q5-6-1-11q3-8-6-14z" fill="#e3d9c6"/>
+    <path d="M66 127q12 5 26-1M74 117q6 3 10-1" fill="none" stroke="#e3d9c6" stroke-width="2" stroke-linecap="round"/>
+  </g></svg>

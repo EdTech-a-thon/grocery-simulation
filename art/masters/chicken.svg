@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item">
+    <ellipse cx="80" cy="192" rx="62" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M28 152h104a10 10 0 0 1 10 9v2H18v-2a10 10 0 0 1 10-9z" fill="#4b5563"/>
+    <g transform="translate(92 130) rotate(28) scale(0.95)">
+      <path d="M-14 8C-17-8-12-20-4-27L-4-40L4-40L4-27C12-20 17-8 14 8C11 17-11 17-14 8Z" fill="#c98761"/>
+      <circle cx="-4.5" cy="-44" r="8.5" fill="#a87a58"/>
+      <circle cx="5.5" cy="-45" r="8.5" fill="#a87a58"/>
+      <circle cx="-4.5" cy="-44" r="6.5" fill="#efdcc4"/>
+      <circle cx="5.5" cy="-45" r="6.5" fill="#efdcc4"/>
+    </g>
+    <path d="M22 152C20 116 46 86 80 84C114 82 138 104 138 134C138 158 118 174 86 174L50 174C32 174 22 164 22 152Z" fill="#f2c9a8"/>
+    <path d="M115.1 92.1C129.4 100.9 138 116 138 134C138 158 118 174 86 174L50 174C44.6 174 39.9 173.1 36 171.5C66 170 104 162 122 140C130 128 126 108 115.1 92.1Z" fill="#d39370"/>
+    <ellipse cx="60" cy="105" rx="21" ry="9" transform="rotate(-22 60 105)" fill="#fbe5d2"/>
+    <path d="M24 148C28 138 38 133 48 137C45 147 39 157 29 162C26 158 24 153 24 148Z" fill="#d39370"/>
+    <path d="M28 146C32 140 38 138 44 140C41 147 37 152 30 155C28 152 27 149 28 146Z" fill="#e8b08c"/>
+    <g transform="translate(100 148) rotate(42) scale(0.92)">
+      <path d="M-24 12C-28-8-19-24-7-31L-6-46L6-46L7-31C19-24 28-8 24 12C20 27-20 27-24 12Z" fill="#b97a56"/>
+      <path d="M-21 10C-25-8-16-22-5-29L-4-43L4-43L5-29C16-22 25-8 21 10C17 23-17 23-21 10Z" fill="#f2c9a8"/>
+      <path d="M5-29C16-22 25-8 21 10C18 19 11 23 2 23C14 10 15-12 5-29Z" fill="#d39370"/>
+      <path d="M-12 4C-15-8-11-17-4-23" fill="none" stroke="#fbe5d2" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-5" cy="-50" r="9.5" fill="#a87a58"/>
+      <circle cx="6" cy="-51" r="9.5" fill="#a87a58"/>
+      <circle cx="-5" cy="-50" r="7.5" fill="#f7ead8"/>
+      <circle cx="6" cy="-51" r="7.5" fill="#e6d2b8"/>
+    </g>
+    <path d="M22 162h116l-3 16a8 8 0 0 1-8 7H33a8 8 0 0 1-8-7z" fill="#374151"/>
+    <path d="M114 162h24l-3 16a8 8 0 0 1-8 7h-13z" fill="#1f2937"/>
+    <path d="M20 162h120" fill="none" stroke="#6b7280" stroke-width="4" stroke-linecap="round"/>
+    <path d="M26 132C28 108 46 90 68 85" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

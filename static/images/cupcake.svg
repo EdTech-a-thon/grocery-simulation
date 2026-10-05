@@ -1,1 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220"><path d="M53 108h74l-10 68H63z" fill="#b45309"/><path d="M58 113h64M60 130h60M62 147h56" stroke="#fbbf24" stroke-width="5"/><path d="M52 110c-3-32 19-39 38-25 19-14 41-7 38 25z" fill="#f9a8d4"/><circle cx="90" cy="69" r="9" fill="#ef4444"/><text x="90" y="199" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="white">CUPCAKE</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="194" rx="42" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M38 140H122L111 189Q110.5 192 107 192H53Q49.5 192 49 189Z" fill="#5aa9e6"/>
+    <path d="M38 140H49L57 192H53Q49.5 192 49 189Z" fill="#8cc8f2"/>
+    <path d="M60 140H71L73 192H65ZM81 140H92L89 192H81Z" fill="#4791cc"/>
+    <path d="M102 140H122L111 189Q110.5 192 107 192H96Z" fill="#3a78b0"/>
+    <path d="M34 138C34 124 50 114 80 114C110 114 126 124 126 138C126 146 120 149 112 149H48C40 149 34 146 34 138Z" fill="#9a5c36"/>
+    <path d="M80 114C110 114 126 124 126 138C126 146 120 149 112 149H86C100 140 116 128 80 114Z" fill="#6b3b22"/>
+    <path d="M40 140Q42 134 48 132" fill="none" stroke="#c08356" stroke-width="3" stroke-linecap="round"/>
+    <rect x="37" y="106" width="86" height="26" rx="13" fill="#d8bf94"/>
+    <path d="M50 106A13 13 0 0 0 50 132Q52 127 64 127H102C113 126 114 106 102 106Z" fill="#f6ecd6"/>
+    <path d="M44 114Q48 110 58 110" fill="none" stroke="#fffaf0" stroke-width="4" stroke-linecap="round"/>
+    <rect x="45.5" y="84" width="69" height="25" rx="12.5" fill="#d8bf94"/>
+    <path d="M58 84A12.5 12.5 0 0 0 58 109Q60 104 72 104H94C105 103 106 84 94 84Z" fill="#f6ecd6"/>
+    <path d="M52 92Q56 88 65 88" fill="none" stroke="#fffaf0" stroke-width="4" stroke-linecap="round"/>
+    <rect x="52.5" y="63" width="55" height="24" rx="12" fill="#d8bf94"/>
+    <path d="M64.5 63A12 12 0 0 0 64.5 87Q66.5 82 78.5 82H87.5C98.5 81 99.5 63 87.5 63Z" fill="#f6ecd6"/>
+    <path d="M59 71Q62 67 70 67" fill="none" stroke="#fffaf0" stroke-width="4" stroke-linecap="round"/>
+    <path d="M64 66C64 54 72 46 84 44C82 50 94 56 96 66Z" fill="#f6ecd6"/>
+    <path d="M84 44C82 50 94 56 96 66H88C89 58 85 51 84 44Z" fill="#d8bf94"/>
+    <path d="M82 38Q84 26 94 20" fill="none" stroke="#6b4423" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="80" cy="46" r="11" fill="#d61f3a"/>
+    <path d="M88 39A11 11 0 0 1 74 56A12 12 0 0 0 88 39Z" fill="#a3142a"/>
+    <circle cx="76" cy="42" r="3" fill="#f2738a"/>
+  </g></svg>

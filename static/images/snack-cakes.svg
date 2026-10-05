@@ -1,1 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><rect x="27" y="46" width="106" height="130" rx="7" fill="#b34e69"/><path d="M27 46h106v29H27z" fill="#f0c642"/><text x="80" y="67" text-anchor="middle" font-family="Arial" font-size="15" font-weight="700" fill="#843547">SNACK CAKES</text><g><rect x="43" y="116" width="32" height="31" rx="7" fill="#6f3c31"/><rect x="85" y="116" width="32" height="31" rx="7" fill="#6f3c31"/><path d="M45 128h28m14 0h28" stroke="#f5e4c5" stroke-width="7"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="82" cy="190" rx="62" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M22 104H124V186H22a3 3 0 0 1-3-3V107a3 3 0 0 1 3-3z" fill="#f2b51d"/>
+    <path d="M124 104L142 93V172.5a3 3 0 0 1-1.5 2.6L124 186z" fill="#c48d10"/>
+    <path d="M22 104H124L142 93H39.5a3 3 0 0 0-2 .6L20 103.4Q20.5 104 22 104z" fill="#f8d063"/>
+    <path d="M29.2 98.5H132.8" fill="none" stroke="#dba318" stroke-width="1.5"/>
+    <path d="M19 109H124M124 110L142 99M19 181H124M124 180L142 169" fill="none" stroke="#9c700c" stroke-width="1.5"/>
+  </g><g id="label">
+    <rect x="25" y="112" width="93" height="66" rx="3" fill="#f7efe2"/>
+  </g><g id="brand">
+    <rect x="25" y="112" width="93" height="66" rx="3" fill="#f2b51d"/>
+    <ellipse cx="71" cy="142" rx="47" ry="28" fill="#fff4d6"/>
+    <path d="M25 163q23-7 46-2t47-5v19a3 3 0 0 1-3 3H28a3 3 0 0 1-3-3z" fill="#d93f5c"/>
+    <path d="M27 131V153A24 8 0 0 0 75 153V131z" fill="#7a4528"/>
+    <path d="M61.8 138.2V160.2A24 8 0 0 0 75 153V131z" fill="#5c321c"/>
+    <path d="M30 135V155" fill="none" stroke="#a0683a" stroke-width="3" stroke-linecap="round"/>
+    <path d="M26.5 131A24.5 8.5 0 0 1 75.5 131V134.5A24.5 8.5 0 0 1 26.5 134.5z" fill="#3a1d12"/>
+    <ellipse cx="51" cy="131" rx="24" ry="8" fill="#4a2618"/>
+    <path d="M31 130Q41.4 124 49 124.2" fill="none" stroke="#7a4a36" stroke-width="2" stroke-linecap="round"/>
+    <path d="M34 131.5L34.5 132.3L35.1 133L35.6 133.4L36.1 133.6L36.7 133.4L37.2 133L37.7 132.3L38.3 131.5L38.8 130.7L39.3 130L39.8 129.6L40.4 129.4L40.9 129.6L41.4 130L42 130.7L42.5 131.5L43 132.3L43.6 133L44.1 133.4L44.6 133.6L45.2 133.4L45.7 133L46.2 132.3L46.8 131.5L47.3 130.7L47.8 130L48.3 129.6L48.9 129.4L49.4 129.6L49.9 130L50.5 130.7L51 131.5L51.5 132.3L52.1 133L52.6 133.4L53.1 133.6L53.7 133.4L54.2 133L54.7 132.3L55.3 131.5L55.8 130.7L56.3 130L56.8 129.6L57.4 129.4L57.9 129.6L58.4 130L59 130.7L59.5 131.5L60 132.3L60.6 133L61.1 133.4L61.6 133.6L62.2 133.4L62.7 133L63.2 132.3L63.8 131.5L64.3 130.7L64.8 130L65.3 129.6L65.9 129.4L66.4 129.6L66.9 130L67.5 130.7L68 131.5" fill="none" stroke="#fbfaf6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M80 137A18 6.5 0 0 1 116 137z" fill="#4a2618"/>
+    <path d="M88 134.1L88.4 134.7L88.8 135.2L89.3 135.6L89.7 135.7L90.1 135.6L90.5 135.2L90.9 134.7L91.3 134.1L91.8 133.4L92.2 132.9L92.6 132.6L93 132.4L93.4 132.6L93.8 132.9L94.3 133.4L94.7 134.1L95.1 134.7L95.5 135.2L95.9 135.6L96.3 135.7L96.8 135.6L97.2 135.2L97.6 134.7L98 134.1L98.4 133.4L98.8 132.9L99.3 132.6L99.7 132.4L100.1 132.6L100.5 132.9L100.9 133.4L101.3 134.1L101.8 134.7L102.2 135.2L102.6 135.6L103 135.7L103.4 135.6L103.8 135.2L104.3 134.7L104.7 134.1L105.1 133.4L105.5 132.9L105.9 132.6L106.3 132.4L106.8 132.6L107.2 132.9L107.6 133.4L108 134.1" fill="none" stroke="#fbfaf6" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M80 137H116V155a2 2 0 0 1-2 2H82a2 2 0 0 1-2-2z" fill="#8a5232"/>
+    <path d="M109 137H116V155a2 2 0 0 1-2 2H109z" fill="#6e3d24"/>
+    <path d="M80 137H116V140.5H80z" fill="#3a1d12"/>
+    <ellipse cx="98" cy="148.8" rx="9" ry="5" fill="#fbfaf6"/>
+    <path d="M107 148.8A9 5 0 0 1 98 153.7Q103.4 149.8 107 148.8z" fill="#e3d6c2"/>
+  </g></svg>

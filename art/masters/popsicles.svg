@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item">
+    <ellipse cx="80" cy="193" rx="62" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M120 98L135.5 87Q138 85.5 138 88V176Q138 178 136.2 179.3L120 190z" fill="#c9c2b4"/>
+    <path d="M20 98L35.5 87Q37 86 39 86H136Q139 86 137 87.4L120 98z" fill="#ddd7cc"/>
+    <path d="M20 98H120V190H23Q20 190 20 187z" fill="#f4f1ec"/>
+    <path d="M20 185H120V190H23Q20 190 20 187z" fill="#d6d0c5"/>
+    <path d="M22 100h3v84h-3z" fill="#ffffff"/>
+    <path d="M20.8 99V188" fill="none" stroke="#d6d0c5" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M121.5 104.5L136.5 94" fill="none" stroke="#b5ad9e" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <g id="label">
+    <rect x="26" y="104" width="88" height="80" rx="3" fill="#f7efe2"/>
+  </g>
+  <g id="brand">
+    <rect x="26" y="104" width="88" height="80" rx="3" fill="#0f97ad"/>
+    <circle cx="70" cy="132" r="25" fill="#ffd36b"/>
+    <path d="M26 160Q46 150 68 158T114 154V181a3 3 0 0 1-3 3H29a3 3 0 0 1-3-3z" fill="#8fdbe6"/>
+    <path d="M104 107v14M97.9 110.5l12.2 7M97.9 117.5l12.2 -7" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+    <rect x="-2.5" y="-14" width="5" height="14" rx="2.5" transform="translate(48 179) rotate(-12) scale(1.12)" fill="#e6c891"/>
+    <path d="M-10 -36a10 10 0 0 1 20 0V-14a2 2 0 0 1-2 2H-8a2 2 0 0 1-2-2z" transform="translate(48 179) rotate(-12) scale(1.12)" fill="#d93a3a"/>
+    <path d="M3 -45.5A10 10 0 0 1 10 -36V-14a2 2 0 0 1-2 2H3z" transform="translate(48 179) rotate(-12) scale(1.12)" fill="#a82626"/>
+    <rect x="-7" y="-38" width="3.5" height="20" rx="1.75" transform="translate(48 179) rotate(-12) scale(1.12)" fill="#f28a84"/>
+    <rect x="-2.5" y="-14" width="5" height="14" rx="2.5" transform="translate(70 179) rotate(0) scale(1.12)" fill="#e6c891"/>
+    <path d="M-10 -36a10 10 0 0 1 20 0V-14a2 2 0 0 1-2 2H-8a2 2 0 0 1-2-2z" transform="translate(70 179) rotate(0) scale(1.12)" fill="#f08a24"/>
+    <path d="M3 -45.5A10 10 0 0 1 10 -36V-14a2 2 0 0 1-2 2H3z" transform="translate(70 179) rotate(0) scale(1.12)" fill="#c46510"/>
+    <rect x="-7" y="-38" width="3.5" height="20" rx="1.75" transform="translate(70 179) rotate(0) scale(1.12)" fill="#f9b86c"/>
+    <rect x="-2.5" y="-14" width="5" height="14" rx="2.5" transform="translate(92 179) rotate(12) scale(1.12)" fill="#e6c891"/>
+    <path d="M-10 -36a10 10 0 0 1 20 0V-14a2 2 0 0 1-2 2H-8a2 2 0 0 1-2-2z" transform="translate(92 179) rotate(12) scale(1.12)" fill="#8a4fc4"/>
+    <path d="M3 -45.5A10 10 0 0 1 10 -36V-14a2 2 0 0 1-2 2H3z" transform="translate(92 179) rotate(12) scale(1.12)" fill="#66339a"/>
+    <rect x="-7" y="-38" width="3.5" height="20" rx="1.75" transform="translate(92 179) rotate(12) scale(1.12)" fill="#b994e3"/>
+  </g>
+  <g id="brand-cg">
+    <rect x="26" y="104" width="88" height="80" rx="3" fill="#ffffff"/>
+    <path d="M29 104h82a3 3 0 0 1 3 3v11H26v-11a3 3 0 0 1 3-3z" fill="#15803d"/>
+    <path d="M26 118h88v2H26z" fill="#facc15"/>
+    <path d="M32 108h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="34" cy="111" r="1" fill="#15803d"/>
+    <path d="M106 106v10M101.7 108.5l8.6 5M101.7 113.5l8.6 -5" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+    <rect x="-2.5" y="-14" width="5" height="14" rx="2.5" transform="translate(48 175) rotate(-12) scale(1.08)" fill="#e6c891"/>
+    <path d="M-10 -36a10 10 0 0 1 20 0V-14a2 2 0 0 1-2 2H-8a2 2 0 0 1-2-2z" transform="translate(48 175) rotate(-12) scale(1.08)" fill="#d93a3a"/>
+    <path d="M3 -45.5A10 10 0 0 1 10 -36V-14a2 2 0 0 1-2 2H3z" transform="translate(48 175) rotate(-12) scale(1.08)" fill="#a82626"/>
+    <rect x="-2.5" y="-14" width="5" height="14" rx="2.5" transform="translate(70 175) rotate(0) scale(1.08)" fill="#e6c891"/>
+    <path d="M-10 -36a10 10 0 0 1 20 0V-14a2 2 0 0 1-2 2H-8a2 2 0 0 1-2-2z" transform="translate(70 175) rotate(0) scale(1.08)" fill="#f08a24"/>
+    <path d="M3 -45.5A10 10 0 0 1 10 -36V-14a2 2 0 0 1-2 2H3z" transform="translate(70 175) rotate(0) scale(1.08)" fill="#c46510"/>
+    <rect x="-2.5" y="-14" width="5" height="14" rx="2.5" transform="translate(92 175) rotate(12) scale(1.08)" fill="#e6c891"/>
+    <path d="M-10 -36a10 10 0 0 1 20 0V-14a2 2 0 0 1-2 2H-8a2 2 0 0 1-2-2z" transform="translate(92 175) rotate(12) scale(1.08)" fill="#8a4fc4"/>
+    <path d="M3 -45.5A10 10 0 0 1 10 -36V-14a2 2 0 0 1-2 2H3z" transform="translate(92 175) rotate(12) scale(1.08)" fill="#66339a"/>
+    <path d="M32 178h76v3H32z" fill="#15803d"/>
+  </g>
+</svg>

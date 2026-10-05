@@ -1,1 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)"><rect x="20" y="38" width="120" height="146" rx="8" fill="#316f77"/><text x="80" y="66" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">DELUXE</text><text x="80" y="85" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">PIZZA</text><circle cx="80" cy="135" r="38" fill="#e7b44a" stroke="#93532b" stroke-width="4"/><g fill="#b94335"><circle cx="66" cy="121" r="6"/><circle cx="99" cy="126" r="6"/><circle cx="78" cy="150" r="6"/></g><g fill="#4f9345"><circle cx="82" cy="116" r="5"/><circle cx="59" cy="142" r="5"/><circle cx="105" cy="149" r="5"/></g></g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="195" rx="62" ry="4.5" fill="#0f172a" opacity="0.08"/>
+    <path d="M21 64h118a3 3 0 0 1 3 3v123a3 3 0 0 1-3 3H21a3 3 0 0 1-3-3V67a3 3 0 0 1 3-3z" fill="#f4f1ec"/>
+    <path d="M124 64h15a3 3 0 0 1 3 3v123a3 3 0 0 1-3 3h-15z" fill="#9a948a"/>
+    <path d="M21 75h3v108h-3z" fill="#ffffff"/>
+    <path d="M19 71h104M19 187h104" fill="none" stroke="#d6d1c8" stroke-width="2"/>
+    <path d="M125 71h16M125 187h16" fill="none" stroke="#857f75" stroke-width="2"/>
+  </g><g id="label">
+    <rect x="24" y="75" width="96" height="110" rx="3" fill="#f7efe2"/>
+  </g><g id="brand-cg">
+    <rect x="24" y="75" width="96" height="110" rx="3" fill="#ffffff"/>
+    <path d="M27 75h90a3 3 0 0 1 3 3v11H24V78a3 3 0 0 1 3-3z" fill="#15803d"/>
+    <path d="M24 89h96v2H24z" fill="#facc15"/>
+    <path d="M30 79h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="32" cy="82" r="1" fill="#15803d"/>
+    <circle cx="73" cy="136" r="40" fill="#a8642a"/>
+    <circle cx="72" cy="135" r="39.2" fill="#d9974a"/>
+    <circle cx="72" cy="135" r="34.5" fill="#c8352a"/>
+    <circle cx="71.4" cy="134.4" r="32.5" fill="#f8d25a"/>
+    <path d="M72 104V166M45.2 119.5L98.8 150.5M45.2 150.5L98.8 119.5" fill="none" stroke="#c48a2a" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M51 125.8a6.8 6.8 0 1 0 13.6 0a6.8 6.8 0 1 0 -13.6 0zM75 120.8a6.8 6.8 0 1 0 13.6 0a6.8 6.8 0 1 0 -13.6 0zM83 142.8a6.8 6.8 0 1 0 13.6 0a6.8 6.8 0 1 0 -13.6 0zM49 146.8a6.8 6.8 0 1 0 13.6 0a6.8 6.8 0 1 0 -13.6 0zM66 155.8a6.8 6.8 0 1 0 13.6 0a6.8 6.8 0 1 0 -13.6 0zM65 135.8a6.8 6.8 0 1 0 13.6 0a6.8 6.8 0 1 0 -13.6 0z" fill="#8e2219"/>
+    <path d="M50.2 125a6.8 6.8 0 1 0 13.6 0a6.8 6.8 0 1 0 -13.6 0zM74.2 120a6.8 6.8 0 1 0 13.6 0a6.8 6.8 0 1 0 -13.6 0zM82.2 142a6.8 6.8 0 1 0 13.6 0a6.8 6.8 0 1 0 -13.6 0zM48.2 146a6.8 6.8 0 1 0 13.6 0a6.8 6.8 0 1 0 -13.6 0zM65.2 155a6.8 6.8 0 1 0 13.6 0a6.8 6.8 0 1 0 -13.6 0zM64.2 135a6.8 6.8 0 1 0 13.6 0a6.8 6.8 0 1 0 -13.6 0z" fill="#c8352b"/>
+    <path d="M63 114a5 5 0 0 0 10 0M88 131a5 5 0 0 0 10 0M73 144a5 5 0 0 0 10 0M44 134a5 5 0 0 0 10 0M80 157a5 5 0 0 0 10 0" fill="none" stroke="#3f9b3a" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M78.4 132a2.6 2.6 0 1 0 5.2 0a2.6 2.6 0 1 0 -5.2 0zM60.4 154a2.6 2.6 0 1 0 5.2 0a2.6 2.6 0 1 0 -5.2 0zM59.4 113a2.6 2.6 0 1 0 5.2 0a2.6 2.6 0 1 0 -5.2 0zM88.4 120a2.6 2.6 0 1 0 5.2 0a2.6 2.6 0 1 0 -5.2 0zM91.4 152a2.6 2.6 0 1 0 5.2 0a2.6 2.6 0 1 0 -5.2 0z" fill="none" stroke="#2b2533" stroke-width="2.7"/>
+    <path d="M30 179h84v3H30z" fill="#15803d"/>
+  </g></svg>

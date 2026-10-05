@@ -1,7 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)">
-  <path d="M20 49h120v124H20z" fill="#e3a438"/>
-  <path d="M27 57h106v108H27z" fill="#fcf0bd"/>
-  <text x="80" y="79" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#9e5627">SOFT FLOUR</text><text x="80" y="97" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#9e5627">TORTILLAS</text>
-  <g fill="#f5d990" stroke="#d1a44c" stroke-width="2"><circle cx="80" cy="131" r="33"/><circle cx="69" cy="141" r="28"/><circle cx="91" cy="143" r="27"/></g>
-  <g fill="#c59649"><circle cx="67" cy="123" r="2"/><circle cx="92" cy="130" r="2"/><circle cx="73" cy="151" r="2"/><circle cx="101" cy="151" r="2"/></g>
-</g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="195" rx="60" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M33.5 90.5H129.5Q135.5 90.5 136.5 96.5Q142.5 149.5 137.5 180.5Q135.5 193.5 123.5 193.5H39.5Q27.5 193.5 25.5 180.5Q20.5 149.5 26.5 96.5Q27.5 90.5 33.5 90.5z" fill="#8fa6b5"/>
+    <path d="M32 89H128Q134 89 135 95Q141 148 136 179Q134 192 122 192H38Q26 192 24 179Q19 148 25 95Q26 89 32 89z" fill="#e4eef3"/>
+    <path d="M120 89H128Q134 89 135 95Q141 148 136 179Q134 192 122 192H116Q127 192 128 179Q132 148 127 99Q126 90 120 89z" fill="#bed2db"/>
+    <ellipse cx="80" cy="150" rx="52" ry="38" fill="#ecd5a3"/>
+    <path d="M118 124A52 38 0 0 1 113 179.5Q122 151 118 124z" fill="#cfae74"/>
+    <path d="M37 133Q46 117 66 113" fill="none" stroke="#f8ead0" stroke-width="3" stroke-linecap="round"/>
+    <path d="M24 170V122Q25 110 30 106" fill="none" stroke="#f6fbfd" stroke-width="3" stroke-linecap="round"/>
+    <path d="M32 89H128Q134 89 134.5 95L135 97H25L25.5 95Q26 89 32 89z" fill="#cbdae2"/>
+    <path d="M31 90.5v5M37 90.5v5M43 90.5v5M49 90.5v5M55 90.5v5M61 90.5v5M67 90.5v5M73 90.5v5M79 90.5v5M85 90.5v5M91 90.5v5M97 90.5v5M103 90.5v5M109 90.5v5M115 90.5v5M121 90.5v5M127 90.5v5" fill="none" stroke="#a9bdc9" stroke-width="1.2"/>
+    <rect x="70" y="99" width="20" height="5" rx="2.5" fill="#8fa6b5"/>
+    <path d="M26 108.5H135" fill="none" stroke="#8fa6b5" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M26 111.5H135" fill="none" stroke="#f6fbfd" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M30 114q6 2 8 8M130 114q-6 2-8 8" fill="none" stroke="#a9bdc9" stroke-width="2" stroke-linecap="round"/>
+  </g><g id="label">
+    <rect x="30" y="118" width="100" height="64" rx="6" fill="#f7efe2"/>
+  </g><g id="brand-cg">
+    <rect x="30" y="118" width="100" height="64" rx="6" fill="#ffffff"/>
+    <path d="M36 118h88a6 6 0 0 1 6 6v7H30v-7a6 6 0 0 1 6 -6z" fill="#15803d"/>
+    <path d="M30 131h100v2H30z" fill="#facc15"/>
+    <path d="M36 121.5h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="38" cy="124.5" r="1" fill="#15803d"/>
+    <path d="M44 147A36 10.5 0 0 1 116 147V165A36 10.5 0 0 1 44 165z" fill="#e3c38a"/>
+    <path d="M45.2 150A36 10.5 0 0 0 117.2 150M42.8 153A36 10.5 0 0 0 114.8 153M45.2 156A36 10.5 0 0 0 117.2 156M42.8 159A36 10.5 0 0 0 114.8 159M45.2 162A36 10.5 0 0 0 117.2 162M42.8 165A36 10.5 0 0 0 114.8 165" fill="none" stroke="#93652c" stroke-width="1.5"/>
+    <path d="M44 147a36 10.5 0 1 0 72 0a36 10.5 0 1 0 -72 0z" fill="#f4e2b6"/>
+    <path d="M60 148a3.5 2 0 1 0 7 0a3.5 2 0 1 0 -7 0zM84 143a3 1.7 0 1 0 6 0a3 1.7 0 1 0 -6 0zM94 151a3.5 2 0 1 0 7 0a3.5 2 0 1 0 -7 0z" fill="#c9a066"/>
+    <path d="M36 176h88v3H36z" fill="#15803d"/>
+  </g></svg>

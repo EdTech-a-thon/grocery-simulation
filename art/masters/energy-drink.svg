@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item">
+    <ellipse cx="80" cy="193" rx="34" ry="4" fill="#0f172a" opacity="0.08"/>
+    <path d="M59 25h42l5 15v140l-5 7a21 4.5 0 0 1-42 0l-5-7V40z" fill="#c3cad3"/>
+    <path d="M95 25h6l5 15v140l-5 7q-2 2.5-6 3.5z" fill="#98a1ac"/>
+    <path d="M54 42h52v136H54z" fill="#273449"/>
+    <path d="M96 42h10v136H96z" fill="#1f2937"/>
+    <path d="M57 44h4v132h-4z" fill="#3b4a63"/>
+    <path d="M54 41h52M54 179h52" fill="none" stroke="#98a1ac" stroke-width="2"/>
+    <ellipse cx="80" cy="25" rx="21" ry="5" fill="#e7ecf1"/>
+    <ellipse cx="80" cy="25.5" rx="17" ry="3.5" fill="#aeb7c1"/>
+    <rect x="73" y="22.5" width="14" height="5" rx="2.5" fill="#e7ecf1"/>
+    <rect x="75.5" y="24" width="5" height="2" rx="1" fill="#98a1ac"/>
+  </g>
+  <g id="label">
+    <rect x="54" y="58" width="52" height="104" fill="#f7efe2"/>
+  </g>
+  <g id="brand">
+    <rect x="54" y="58" width="52" height="104" fill="#273449"/>
+    <path d="M96 58h10v104H96z" fill="#1f2937"/>
+    <path d="M54 136L106 98v26L54 162z" fill="#7c3aed"/>
+    <path d="M57 58h4v104h-4z" fill="#3b4a63"/>
+    <path d="M87 70L63 116H78L70 152L98 104H83L95 70z" fill="#fbbf24"/>
+    <path d="M83 104H98L70 152z" fill="#d97706"/>
+    <path d="M87 70L63 116H67L89 72z" fill="#fde68a"/>
+    <path d="M98 64l1.6 4.4 4.4 1.6-4.4 1.6-1.6 4.4-1.6-4.4-4.4-1.6 4.4-1.6z" fill="#ffffff"/>
+  </g>
+  <g id="brand-cg">
+    <rect x="54" y="58" width="52" height="104" fill="#ffffff"/>
+    <path d="M54 58h52v14H54z" fill="#15803d"/>
+    <path d="M54 72h52v2H54z" fill="#facc15"/>
+    <path d="M60 62h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="62" cy="65" r="1" fill="#15803d"/>
+    <path d="M88.3 78L59.5 121H77.5L67.9 154L101.5 109H83.5L97.9 78z" fill="#f59e0b"/>
+    <path d="M83.5 109H101.5L67.9 154z" fill="#c2410c"/>
+    <path d="M88.3 78L59.5 121H64.3L90.7 80z" fill="#fcd34d"/>
+    <path d="M95.6 80L82 108" fill="none" stroke="#c2410c" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M60 156h40v3H60z" fill="#15803d"/>
+  </g>
+</svg>

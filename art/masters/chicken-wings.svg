@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item">
+    <ellipse cx="80" cy="190" rx="60" ry="6" fill="#0f172a" opacity="0.08"/>
+    <g transform="translate(21 63) rotate(-3 60 42)">
+      <path d="M2 26C2 14 11 6 22 6C33 6 42 14 43 25C44 35 48 44 55 50C58 53 62 53 65 50L94 22C97 19 101 18 104 19L115 11C117 10 119 12 118 14L113 28C116 33 116 40 112 45L82 76C77 81 70 83 64 83C58 83 52 80 48 75C40 67 33 58 29 48C16 48 2 40 2 26Z" fill="#eaa98f"/>
+      <path d="M104 19L115 11C117 10 119 12 118 14L113 28C111 24 108 21 104 19Z" fill="#dc967c"/>
+      <path d="M113 28C116 33 116 40 112 45L82 76C77 81 70 83 64 83C58 83 52 80 48 75C40 67 33 58 29 48C32 50 35 52 38 56C44 65 55 72 70 73L78 71L108 41C110 37 112 33 113 28Z" fill="#cf8a71"/>
+      <ellipse cx="15" cy="18" rx="8" ry="5" transform="rotate(-35 15 18)" fill="#f6cbb8"/>
+      <path d="M73 50L93 30" fill="none" stroke="#f6cbb8" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="30" cy="21" r="2" fill="#d9957c"/>
+      <circle cx="34" cy="33" r="2" fill="#d9957c"/>
+      <circle cx="20" cy="35" r="2" fill="#d9957c"/>
+      <circle cx="87" cy="47" r="2" fill="#d9957c"/>
+      <circle cx="99" cy="35" r="2" fill="#d9957c"/>
+      <circle cx="74" cy="61" r="2" fill="#d9957c"/>
+      <circle cx="46" cy="57" r="2" fill="#d9957c"/>
+    </g>
+    <g transform="translate(141 106) rotate(-3) scale(-1 1)">
+      <path d="M2 26C2 14 11 6 22 6C33 6 42 14 43 25C44 35 48 44 55 50C58 53 62 53 65 50L94 22C97 19 101 18 104 19L115 11C117 10 119 12 118 14L113 28C116 33 116 40 112 45L82 76C77 81 70 83 64 83C58 83 52 80 48 75C40 67 33 58 29 48C16 48 2 40 2 26Z" fill="#f2b8a0"/>
+      <path d="M104 19L115 11C117 10 119 12 118 14L113 28C111 24 108 21 104 19Z" fill="#e7a58c"/>
+      <path d="M113 28C116 33 116 40 112 45L82 76C77 81 70 83 64 83C58 83 52 80 48 75C40 67 33 58 29 48C32 50 35 52 38 56C44 65 55 72 70 73L78 71L108 41C110 37 112 33 113 28Z" fill="#d89a82"/>
+      <ellipse cx="29" cy="16" rx="8" ry="5" transform="rotate(35 29 16)" fill="#fcdacb"/>
+      <path d="M73 50L93 30" fill="none" stroke="#fcdacb" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="30" cy="21" r="2" fill="#e3a28a"/>
+      <circle cx="34" cy="33" r="2" fill="#e3a28a"/>
+      <circle cx="20" cy="35" r="2" fill="#e3a28a"/>
+      <circle cx="87" cy="47" r="2" fill="#e3a28a"/>
+      <circle cx="99" cy="35" r="2" fill="#e3a28a"/>
+      <circle cx="74" cy="61" r="2" fill="#e3a28a"/>
+      <circle cx="46" cy="57" r="2" fill="#e3a28a"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item" transform="translate(80 192) scale(1.12) translate(-80 -192)">
+    <ellipse cx="80" cy="192" rx="56" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M49 90H111Q113 90 114.5 91.5L126.5 103.5Q128 105 128 107V173Q128 175 126.5 176.5L115.5 187.5Q114 189 112 189H48Q46 189 44.5 187.5L33.5 176.5Q32 175 32 173V107Q32 105 33.5 103.5L45.5 91.5Q47 90 49 90Z" fill="#dbe7e4"/>
+    <path d="M111 90Q113 90 114.5 91.5L126.5 103.5Q128 105 128 107V173Q128 175 126.5 176.5L115.5 187.5Q114.4 188.6 113 188.9Z" fill="#b3c6c2"/>
+    <path d="M51 95H109L123 109V171L111 184H49L37 171V109Z" fill="#a3192e"/>
+    <path d="M51 95H55V184H49L37 171V109Z" fill="#c4364c"/>
+    <path d="M105 95H109L123 109V171L111 184H105Z" fill="#7a1023"/>
+    <rect x="40" y="112" width="4" height="56" rx="2" fill="#f2f8f7"/>
+    <path d="M44 48H116Q123 48 123 56L125 74L128 94L124 99L120 94L116 99L112 94L108 99L104 94L100 99L96 94L92 99L88 94L84 99L80 94L76 99L72 94L68 99L64 94L60 99L56 94L52 99L48 94L44 99L40 94L36 99L32 94L35 74L37 56Q37 48 44 48Z" fill="#fbf4f1"/>
+    <path d="M113 48H116Q123 48 123 56L125 74L128 94L124 99L120 94L116 99L112 94Z" fill="#e3d3cf"/>
+    <path d="M41 50h7V94h-7zM57 48h7V94h-7zM73 48h7V94h-7zM89 48h7V94h-7zM105 48h7V94h-7z" fill="#ef9a9a"/>
+    <path d="M37 55H112.8L112.7 62H36.3ZM33.8 82H112.3L112.1 89H32.8Z" fill="#ef9a9a"/>
+    <path d="M112.8 55H123L123.7 62H112.7ZM112.3 82H126.2L127.3 89H112.1Z" fill="#d27576"/>
+    <path d="M41 55h7v7h-7zM57 55h7v7h-7zM73 55h7v7h-7zM89 55h7v7h-7zM105 55h7v7h-7zM41 82h7v7h-7zM57 82h7v7h-7zM73 82h7v7h-7zM89 82h7v7h-7zM105 82h7v7h-7z" fill="#c8333a"/>
+    <rect x="33" y="72" width="94" height="6" rx="3" fill="#c99a5b"/>
+    <path d="M110 72h14a3 3 0 0 1 0 6h-14z" fill="#a67a40"/>
+  </g>
+  <g id="label" transform="translate(80 192) scale(1.12) translate(-80 -192)">
+    <rect x="40" y="109" width="80" height="62" rx="4" fill="#f7efe2"/>
+  </g>
+  <g id="brand" transform="translate(80 192) scale(1.12) translate(-80 -192)">
+    <rect x="40" y="109" width="80" height="62" rx="4" fill="#6a2c91"/>
+    <circle cx="80" cy="140" r="26" fill="#f6c445"/>
+    <path d="M40 154q20-8 40-2t40-4v19a4 4 0 0 1-4 4H44a4 4 0 0 1-4-4z" fill="#a77fd6"/>
+    <path d="M80 126C90 121 103 123 103 136C103 150 91 160 82 165C71 160 57 150 57 136C57 123 70 121 80 126Z" fill="#e0342f"/>
+    <path d="M92 123C100 124 103 129 103 136C103 150 91 160 82 165C91 154 96 142 92 123Z" fill="#b52226"/>
+    <ellipse cx="66" cy="137" rx="4" ry="7" transform="rotate(20 66 137)" fill="#f07166"/>
+    <path d="M70.6 133a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM84.6 132a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM94.6 139a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM64.6 145a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM77.6 143a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM89.6 149a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM70.6 154a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM82.6 156a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0z" fill="#fbe89a"/>
+    <path d="M80 129L65 124Q69 119 75 121L71 114Q77 115 80 120Q83 115 89 114L85 121Q91 119 95 124Z" fill="#3f9a3a"/>
+    <path d="M80 129L80 120Q83 115 89 114L85 121Q91 119 95 124Z" fill="#2c7a2b"/>
+    <path d="M80 120Q80 115 83 112" fill="none" stroke="#2c7a2b" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g id="brand-cg" transform="translate(80 192) scale(1.12) translate(-80 -192)">
+    <rect x="40" y="109" width="80" height="62" rx="4" fill="#ffffff"/>
+    <path d="M44 109h72a4 4 0 0 1 4 4v8H40v-8a4 4 0 0 1 4-4z" fill="#15803d"/>
+    <path d="M40 121h80v2H40z" fill="#facc15"/>
+    <path d="M46 112h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="48" cy="115" r="1" fill="#15803d"/>
+    <g transform="translate(80 145) scale(.84) translate(-80 -142)">
+      <path d="M80 126C90 121 103 123 103 136C103 150 91 160 82 165C71 160 57 150 57 136C57 123 70 121 80 126Z" fill="#d93a33"/>
+      <path d="M92 123C100 124 103 129 103 136C103 150 91 160 82 165C91 154 96 142 92 123Z" fill="#b02428"/>
+      <path d="M70.6 133a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM84.6 132a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM94.6 139a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM64.6 145a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM77.6 143a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM89.6 149a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM70.6 154a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0zM82.6 156a1.4 2 0 1 0 2.8 0a1.4 2 0 1 0-2.8 0z" fill="#fbe89a"/>
+      <path d="M80 129L65 124Q69 119 75 121L71 114Q77 115 80 120Q83 115 89 114L85 121Q91 119 95 124Z" fill="#3f9a3a"/>
+    </g>
+    <path d="M46 165h68v3H46z" fill="#15803d"/>
+  </g>
+</svg>

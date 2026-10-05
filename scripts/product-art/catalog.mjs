@@ -36,6 +36,8 @@ export const forms = [
   'stand-up pouch', 'plastic tub', 'foam tray under film', 'bread bag', 'cardboard canister',
   'egg carton', 'wrapped block', 'multipack shrink-wrap', 'squeeze tube', 'shaker jar',
   'blister tray in a sleeve', 'aerosol can',
+  'wide cardboard box', 'tall glass jar', 'squat glass jar', 'wide printed bag', 'single-serve cup',
+  'shallow tub', 'foam tray, top view',
 ]
 
 /**

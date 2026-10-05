@@ -1,1 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><path d="M48 49h64v27l9 19v75H39V95l9-19z" fill="#e0aa45"/><path d="M43 105h74v43H43z" fill="#f8e7bd"/><text x="80" y="124" text-anchor="middle" font-family="Arial" font-size="14" font-weight="700" fill="#a34d35">APPLE</text><text x="80" y="140" text-anchor="middle" font-family="Arial" font-size="12" font-weight="700" fill="#a34d35">SAUCE</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="193" rx="54" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M41 56h78v10q11 3 11 20v96a8 8 0 0 1-8 8H38a8 8 0 0 1-8-8V86q0-17 11-20z" fill="#dbe7e4"/>
+    <path d="M108 56h11v10q11 3 11 20v96a8 8 0 0 1-8 8h-14z" fill="#b3c6c2"/>
+    <path d="M35 80q8-3 15-1t15 0 15 0 15 0 15 0 10-1v104a5 5 0 0 1-5 5H40a5 5 0 0 1-5-5z" fill="#e2c27a"/>
+    <path d="M108 79q6-1 12-1 5 0 5 2v102a5 5 0 0 1-5 5h-12z" fill="#c49a4f"/>
+    <path d="M39 83q8-3 15-1M62 83q6-2 12-1" fill="none" stroke="#f1dca0" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M48 90a1.4 1.4 0 1 0 0.1 0zM66 93a1.4 1.4 0 1 0 0.1 0zM86 89a1.4 1.4 0 1 0 0.1 0zM100 93a1.4 1.4 0 1 0 0.1 0zM52 174a1.4 1.4 0 1 0 0.1 0zM72 179a1.4 1.4 0 1 0 0.1 0zM92 173a1.4 1.4 0 1 0 0.1 0z" fill="#a8792f"/>
+    <path d="M46 67q-11 4-11 19v96h-4V86q0-15 15-19z" fill="#f2f8f7"/>
+    <path d="M41 28h78a6 6 0 0 1 6 6v20H35V34a6 6 0 0 1 6-6z" fill="#5f9e35"/>
+    <path d="M113 28h6a6 6 0 0 1 6 6v20h-12z" fill="#4a8028"/>
+    <path d="M41 32h6v20h-6z" fill="#8cc45e"/>
+    <path d="M38 38h84M38 45h84" fill="none" stroke="#4a8028" stroke-width="2"/>
+    <path d="M35 52h90v4a2 2 0 0 1-2 2H37a2 2 0 0 1-2-2z" fill="#3d6b20"/>
+  </g><g id="label">
+    <rect x="36" y="98" width="88" height="66" rx="5" fill="#f7efe2"/>
+  </g><g id="brand">
+    <rect x="36" y="98" width="88" height="66" rx="5" fill="#2456a6"/>
+    <path d="M124 138L124 153.4L80 131ZM96.8 164L80 131L113 164ZM74.8 164L80 131L85.2 164ZM47 164L80 131L63.2 164ZM80 131L36 153.4L36 138ZM36 108.6L80 131L36 124ZM63.2 98L80 131L47 98ZM85.2 98L80 131L74.8 98ZM113 98L80 131L96.8 98ZM124 108.6L124 124L80 131Z" fill="#3a72c4"/>
+    <g transform="translate(80 131) scale(.64) translate(-80.5 -129)">
+      <path d="M80 117C74 110 61 109 56 116C50 124 51 139 55 148C59 156 66 160 72 158C76 157 78 156 80 156C82 156 84 157 88 158C94 160 101 156 105 148C109 139 110 124 104 116C99 109 86 110 80 117Z" fill="#d62630"/>
+      <path d="M96 110C102 110 106 113 107 120C110 133 106 148 100 154C96 158 92 159 88 158C98 148 103 128 96 110Z" fill="#a0171f"/>
+      <path d="M66 114C72 122 88 122 94 114C88 118 72 118 66 114Z" fill="#8c1219"/>
+      <ellipse cx="63" cy="128" rx="5" ry="9" transform="rotate(25 63 128)" fill="#f2847c"/>
+      <path d="M80 118Q79 110 84 104" fill="none" stroke="#6b4423" stroke-width="4" stroke-linecap="round"/>
+      <path d="M84 109C89 100 99 97 106 99C102 107 93 111 84 109Z" fill="#5cbf68"/>
+      <path d="M84 109C92 107 100 103 106 99C102 107 93 111 84 109Z" fill="#3f8f4a"/>
+    </g>
+  </g></svg>

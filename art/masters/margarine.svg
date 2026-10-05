@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item">
+    <ellipse cx="80" cy="193" rx="60" ry="5.5" fill="#0f172a" opacity="0.08"/>
+    <path d="M23 138h114l-2.5 46a6 6 0 0 1-6 6H31.5a6 6 0 0 1-6-6z" fill="#f6ecc8"/>
+    <path d="M114 138h23l-2.5 46a6 6 0 0 1-6 6H114z" fill="#ddcfa3"/>
+    <path d="M28 142h6l1 44h-5z" fill="#fdf8e6"/>
+    <path d="M20 126h120v10a3 3 0 0 1-3 3H23a3 3 0 0 1-3-3z" fill="#ecb81a"/>
+    <path d="M116 126h24v10a3 3 0 0 1-3 3h-21z" fill="#c99510"/>
+    <rect x="25" y="128" width="7" height="8" rx="2.5" fill="#f8d85a"/>
+    <ellipse cx="80" cy="126" rx="60" ry="7" fill="#f7d038"/>
+    <ellipse cx="80" cy="126" rx="47" ry="4.5" fill="none" stroke="#e0ac12" stroke-width="2"/>
+    <path d="M36 126.5q15-4 32-5" fill="none" stroke="#fdeb9c" stroke-width="3" stroke-linecap="round"/>
+    <rect x="18" y="134" width="124" height="6" rx="3" fill="#d9a512"/>
+  </g>
+  <g id="label">
+    <rect x="31" y="143" width="98" height="44" rx="3" fill="#f7efe2"/>
+  </g>
+  <g id="brand">
+    <rect x="31" y="143" width="98" height="44" rx="3" fill="#1f5fbf"/>
+    <circle cx="113" cy="160" r="15" fill="#3f86dc"/>
+    <path d="M31 176q24-7 49-2t49-4v14a3 3 0 0 1-3 3H34a3 3 0 0 1-3-3z" fill="#f6c42a"/>
+    <g transform="translate(66 166) scale(.92 .85)">
+      <path d="M-24 19h48a3 3 0 0 0 3-3V-5c6-1 8-10 2-14c-6-6-52-6-58 0c-6 4-4 13 2 14V16a3 3 0 0 0 3 3z" fill="#a8652a"/>
+      <path transform="translate(0 .5) scale(.84)" d="M-24 19h48a3 3 0 0 0 3-3V-5c6-1 8-10 2-14c-6-6-52-6-58 0c-6 4-4 13 2 14V16a3 3 0 0 0 3 3z" fill="#e9be7a"/>
+      <path d="M-18-12h12" fill="none" stroke="#f7dfae" stroke-width="3" stroke-linecap="round"/>
+      <path d="M-16 6c-3-8 4-13 10-11c6-6 18-3 18 4c5 2 4 10-3 10c-6 4-16 3-19-1c-4 1-6 0-6-2z" fill="#fbe27a"/>
+      <g transform="rotate(-8)">
+        <rect x="-11" y="-8" width="23" height="17" rx="2.5" fill="#d99d0c"/>
+        <rect x="-12" y="-9" width="21" height="15" rx="2.5" fill="#f9d548"/>
+        <rect x="-9" y="-7" width="7" height="3" rx="1.5" fill="#fff3b0"/>
+      </g>
+    </g>
+    <g transform="translate(113 164) rotate(-30) scale(1.08)">
+      <rect x="-3.5" y="1" width="7" height="19" rx="3" fill="#9f1d1d"/>
+      <path d="M-4.5-15q4.5-5 9 0v17h-9z" fill="#e7ecf1"/>
+      <path d="M0-17.5q2.5 0 4.5 2.5v17h-4.5z" fill="#b4bec7"/>
+      <path d="M-5-13q5-4 10 0q1 5-5 6q-6 0-5-6z" fill="#f9d548"/>
+    </g>
+  </g>
+  <g id="brand-cg">
+    <rect x="31" y="143" width="98" height="44" rx="3" fill="#ffffff"/>
+    <path d="M34 143h92a3 3 0 0 1 3 3v6H31v-6a3 3 0 0 1 3-3z" fill="#15803d"/>
+    <path d="M31 152h98v2H31z" fill="#facc15"/>
+    <path d="M37 144.5h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="39" cy="147.5" r="1" fill="#15803d"/>
+    <g transform="translate(70 168) scale(.92 .62)">
+      <path d="M-24 19h48a3 3 0 0 0 3-3V-5c6-1 8-10 2-14c-6-6-52-6-58 0c-6 4-4 13 2 14V16a3 3 0 0 0 3 3z" fill="#b5773a"/>
+      <path transform="translate(0 .5) scale(.84)" d="M-24 19h48a3 3 0 0 0 3-3V-5c6-1 8-10 2-14c-6-6-52-6-58 0c-6 4-4 13 2 14V16a3 3 0 0 0 3 3z" fill="#f0cc88"/>
+    </g>
+    <g transform="translate(70 168) rotate(-6)">
+      <rect x="-10" y="-6" width="22" height="13" rx="2" fill="#d99d0c"/>
+      <rect x="-11" y="-7" width="20" height="11" rx="2" fill="#f9d548"/>
+    </g>
+    <g transform="translate(112 166) rotate(-35) scale(.8)">
+      <rect x="-3.5" y="1" width="7" height="18" rx="3" fill="#9f1d1d"/>
+      <path d="M-4.5-15q4.5-5 9 0v17h-9z" fill="#c3cad3"/>
+      <path d="M-5-13q5-4 10 0q1 5-5 6q-6 0-5-6z" fill="#f9d548"/>
+    </g>
+    <path d="M37 181h86v3H37z" fill="#15803d"/>
+  </g>
+</svg>

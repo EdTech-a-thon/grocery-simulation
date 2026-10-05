@@ -1,1 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)"><rect x="45" y="36" width="70" height="147" rx="11" fill="#28313c"/><ellipse cx="80" cy="37" rx="35" ry="9" fill="#cfd4d2"/><path d="M90 64L62 115h20l-11 42 32-57H82z" fill="#e4bd39"/><text x="80" y="170" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#fff">ENERGY</text></g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="193" rx="34" ry="4" fill="#0f172a" opacity="0.08"/>
+    <path d="M59 25h42l5 15v140l-5 7a21 4.5 0 0 1-42 0l-5-7V40z" fill="#c3cad3"/>
+    <path d="M95 25h6l5 15v140l-5 7q-2 2.5-6 3.5z" fill="#98a1ac"/>
+    <path d="M54 42h52v136H54z" fill="#273449"/>
+    <path d="M96 42h10v136H96z" fill="#1f2937"/>
+    <path d="M57 44h4v132h-4z" fill="#3b4a63"/>
+    <path d="M54 41h52M54 179h52" fill="none" stroke="#98a1ac" stroke-width="2"/>
+    <ellipse cx="80" cy="25" rx="21" ry="5" fill="#e7ecf1"/>
+    <ellipse cx="80" cy="25.5" rx="17" ry="3.5" fill="#aeb7c1"/>
+    <rect x="73" y="22.5" width="14" height="5" rx="2.5" fill="#e7ecf1"/>
+    <rect x="75.5" y="24" width="5" height="2" rx="1" fill="#98a1ac"/>
+  </g><g id="label">
+    <rect x="54" y="58" width="52" height="104" fill="#f7efe2"/>
+  </g><g id="brand-cg">
+    <rect x="54" y="58" width="52" height="104" fill="#ffffff"/>
+    <path d="M54 58h52v14H54z" fill="#15803d"/>
+    <path d="M54 72h52v2H54z" fill="#facc15"/>
+    <path d="M60 62h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="62" cy="65" r="1" fill="#15803d"/>
+    <path d="M88.3 78L59.5 121H77.5L67.9 154L101.5 109H83.5L97.9 78z" fill="#f59e0b"/>
+    <path d="M83.5 109H101.5L67.9 154z" fill="#c2410c"/>
+    <path d="M88.3 78L59.5 121H64.3L90.7 80z" fill="#fcd34d"/>
+    <path d="M95.6 80L82 108" fill="none" stroke="#c2410c" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M60 156h40v3H60z" fill="#15803d"/>
+  </g></svg>

@@ -1,1 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)"><rect x="19" y="48" width="122" height="124" rx="7" fill="#a93337"/><rect x="26" y="55" width="108" height="39" fill="#f0c451"/><text x="80" y="80" text-anchor="middle" font-family="Georgia" font-size="20" font-weight="700" fill="#87322b">LASAGNA</text><path d="M39 141c0-29 82-29 82 0v12H39z" fill="#f3c463"/><path d="M42 126h76" stroke="#c94b38" stroke-width="9"/><path d="M42 140h76" stroke="#fff0ae" stroke-width="8"/><text x="80" y="162" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#fff">FAMILY SIZE</text></g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="192" rx="61" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M122 116.5Q122 116 122.4 115.7L138.7 105.8Q140 105 140 106.5L140 176.5Q140 179 137.9 180.3L122.9 189.5Q122 190 122 189Z" fill="#b39a74"/>
+    <path d="M20.5 116Q20 116 20.4 115.7L36.3 106Q38 105 40 105L138.5 105Q140 105 138.7 105.8L122.4 115.7Q122 116 121.5 116Z" fill="#efe3ce"/>
+    <path d="M28.5 111.2H128.5" fill="none" stroke="#b39a74" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 116.5Q20 116 20.5 116L121.5 116Q122 116 122 116.5L122 187.5Q122 190 119.5 190L23 190Q20 190 20 187Z" fill="#d8c09a"/>
+    <path d="M20.5 116.5H122V118H20.5Z" fill="#efe3ce"/>
+    <path d="M122.6 117L139.4 106.5" fill="none" stroke="#efe3ce" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g><g id="label">
+    <path d="M23 122Q23 119 26 119L116 119Q119 119 119 122L119 184Q119 187 116 187L26 187Q23 187 23 184Z" fill="#f7efe2"/>
+  </g><g id="brand-cg">
+    <path d="M23 122Q23 119 26 119L116 119Q119 119 119 122L119 184Q119 187 116 187L26 187Q23 187 23 184Z" fill="#ffffff"/>
+    <path d="M26 119h90q3 0 3 3v11H23v-11q0-3 3-3z" fill="#15803d"/>
+    <path d="M23 133h96v2H23z" fill="#facc15"/>
+    <path d="M29 123h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="31" cy="126" r="1" fill="#15803d"/>
+    <path d="M99 148L113 136L113 166Q113 167.5 111.5 168L100 179Z" fill="#d9bd72"/>
+    <path d="M99 155L113 143L113 149.5L99 161.5ZM99 165.5L113 153.5L113 160L99 172Z" fill="#6b1d12"/>
+    <path d="M29 148.5Q29 148 29.5 148L98.5 148Q99 148 99 148.5L99 177.5Q99 179 97.5 179L31 179Q29 179 29 177Z" fill="#f8e6ae"/>
+    <path d="M29 155Q34.8 153.6 40.7 155Q46.5 156.4 52.3 155Q58.2 153.6 64 155Q69.8 156.4 75.7 155Q81.5 153.6 87.3 155Q93.2 156.4 99 155L99 161.5Q93.2 160.1 87.3 161.5Q81.5 162.9 75.7 161.5Q69.8 160.1 64 161.5Q58.2 162.9 52.3 161.5Q46.5 160.1 40.7 161.5Q34.8 162.9 29 161.5ZM29 165.5Q34.8 164.1 40.7 165.5Q46.5 166.9 52.3 165.5Q58.2 164.1 64 165.5Q69.8 166.9 75.7 165.5Q81.5 164.1 87.3 165.5Q93.2 166.9 99 165.5L99 172Q93.2 170.6 87.3 172Q81.5 173.4 75.7 172Q69.8 170.6 64 172Q58.2 173.4 52.3 172Q46.5 170.6 40.7 172Q34.8 173.4 29 172Z" fill="#93271a"/>
+    <path d="M29 148L29.8 148L43 136L113 136L99 148L99 151.5Q94 154.5 90 151.5Q83 150 77 152Q73 158 69 152Q59 150 53 152Q47 155 29 151.5Z" fill="#d99a3a"/>
+    <path d="M74.5 142.6a4.2 2.3 0 1 0 8.4 0a4.2 2.3 0 1 0 -8.4 0zM42.1 140.6a2.6 1.4 0 1 0 5.2 0a2.6 1.4 0 1 0 -5.2 0zM97.8 139.6a2.6 1.4 0 1 0 5.2 0a2.6 1.4 0 1 0 -5.2 0z" fill="#b8321e"/>
+    <path d="M41.9 144.4a1.8 1 0 1 0 3.6 0a1.8 1 0 1 0 -3.6 0zM62 145a2 1.1 0 1 0 4 0a2 1.1 0 1 0 -4 0zM85.5 145a1.6 0.9 0 1 0 3.2 0a1.6 0.9 0 1 0 -3.2 0zM73.7 138.4a1.5 0.8 0 1 0 3 0a1.5 0.8 0 1 0 -3 0z" fill="#9c5a1c"/>
+    <path d="M48 143c2-6 9-7 13-2-4 4-10 5-13 2zM57 142c3-6 10-6 13-1-4 4-10 4-13 1z" fill="#3f8f4a"/>
+    <path d="M29 181h84v3H29z" fill="#15803d"/>
+  </g></svg>

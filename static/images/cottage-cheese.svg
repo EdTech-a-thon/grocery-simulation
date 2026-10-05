@@ -1,1 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220"><path d="M45 84h90l-10 91H55z" fill="#22c55e"/><ellipse cx="90" cy="84" rx="45" ry="18" fill="#f8fafc"/><ellipse cx="90" cy="82" rx="38" ry="12" fill="#e2e8f0"/><text x="90" y="121" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="white">COTTAGE</text><text x="90" y="139" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="white">CHEESE</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="191" rx="54" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M24 100H136L128 180Q127 186 121 186H39Q33 186 32 180Z" fill="#e6e9ec"/>
+    <path d="M112 100H136L128 180Q127 186 121 186H106Z" fill="#b6bec8"/>
+    <path d="M28 104h7l7.6 76h-7z" fill="#f8fafc"/>
+    <path d="M38 176h84" fill="none" stroke="#b6bec8" stroke-width="2" stroke-linecap="round"/>
+    <path d="M20 88h120v10a4 4 0 0 1-4 4H24a4 4 0 0 1-4-4z" fill="#2c62b8"/>
+    <path d="M112 88h28v10a4 4 0 0 1-4 4h-24z" fill="#1f4a91"/>
+    <ellipse cx="80" cy="88" rx="60" ry="8" fill="#3a74cc"/>
+    <ellipse cx="80" cy="88" rx="47" ry="5" fill="none" stroke="#2c62b8" stroke-width="2"/>
+    <ellipse cx="58" cy="85.5" rx="20" ry="2.5" fill="#7ea6e3"/>
+  </g><g id="label">
+    <rect x="36" y="112" width="88" height="54" rx="4" fill="#f7efe2"/>
+  </g><g id="brand">
+    <rect x="36" y="112" width="88" height="54" rx="4" fill="#c8322b"/>
+    <path d="M36 154L124 134V162a4 4 0 0 1-4 4H40a4 4 0 0 1-4-4z" fill="#f6c445"/>
+    <path d="M47.2 151.2L47.2 148.3A5.9 5.9 0 0 1 49.1 138.9A4 4 0 0 1 53.1 132.2A8 8 0 0 1 62.5 124.4A4.7 4.7 0 0 1 71.1 120.9A8.8 8.8 0 0 1 83.6 119.5A5.9 5.9 0 0 1 94.2 121.4A6.2 6.2 0 0 1 103.5 125.9A4.7 4.7 0 0 1 110.5 132.2A5.2 5.2 0 0 1 114.7 139.4A5 5 0 0 1 116.4 148.3L116.4 151.2Z" fill="#e8dcc0"/>
+    <path d="M45.4 149.4L45.4 146.5A5.9 5.9 0 0 1 47.3 137.1A4 4 0 0 1 51.3 130.4A8 8 0 0 1 60.7 122.6A4.7 4.7 0 0 1 69.3 119.1A8.8 8.8 0 0 1 81.8 117.7A5.9 5.9 0 0 1 92.4 119.6A6.2 6.2 0 0 1 101.7 124.1A4.7 4.7 0 0 1 108.7 130.4A5.2 5.2 0 0 1 112.9 137.6A5 5 0 0 1 114.6 146.5L114.6 149.4Z" fill="#fbf7ee"/>
+    <path d="M92.4 119.6A6.2 6.2 0 0 1 101.7 124.1A4.7 4.7 0 0 1 108.7 130.4A5.2 5.2 0 0 1 112.9 137.6A5 5 0 0 1 114.6 146.5L114.6 149.4L94.3 149.4Q104.9 135 92.4 119.6Z" fill="#e8dcc0"/>
+    <path d="M67.4 134A6.7 5.4 0 0 1 57.4 137.7M85.6 129.3A7.7 6.1 0 0 1 74.2 133.6M101 133.9A5.8 4.6 0 0 1 92.5 137.1M56.9 143.3A4.8 3.8 0 0 1 49.8 146M78 141.7A6.7 5.4 0 0 1 68 145.4M93.4 142.4A4.8 3.8 0 0 1 86.2 145M109.7 143.5A5.8 4.6 0 0 1 101.1 146.7" fill="none" stroke="#e8dcc0" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M58.2 131.4Q57.1 131.2 56.9 130.5Q56.8 129.8 57.8 129.4Q58.9 129 59.6 129.6Q60.3 130.2 59.8 130.9Q59.3 131.6 58.2 131.4ZM76.9 126.1Q75.9 126.8 74.7 126.4Q73.4 125.9 73.5 125Q73.6 124.1 75 124Q76.3 123.9 77.1 124.6Q77.9 125.4 76.9 126.1ZM70.6 137.7Q71 138.5 70 139Q69 139.4 68 138.9Q67 138.5 67.5 137.7Q67.9 137 69.1 137Q70.2 137 70.6 137.7Z" fill="#ffffff"/>
+    <path d="M42 146h76q-2 17-26 17H68q-24 0-26-17z" fill="#2c62b8"/>
+    <path d="M98 146h20q-2 17-26 17h-5q13-5 11-17z" fill="#1f4a91"/>
+    <path d="M49 150q3 8 12 10" fill="none" stroke="#6a95d8" stroke-width="2.5" stroke-linecap="round"/>
+  </g></svg>

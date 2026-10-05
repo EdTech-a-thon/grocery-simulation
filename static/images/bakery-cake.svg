@@ -1,1 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220"><rect x="45" y="91" width="90" height="68" rx="7" fill="#f9a8d4"/><path d="M45 113h90v13H45z" fill="#fff"/><rect x="51" y="73" width="78" height="42" rx="7" fill="#f472b6"/><path d="M51 96h78v11H51z" fill="#fff"/><path d="M90 73V47" stroke="#facc15" stroke-width="5"/><path d="M90 44c-11 12 11 12 0 0z" fill="#ef4444"/><text x="90" y="190" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="white">CAKE</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="194" rx="60" ry="6" fill="#0f172a" opacity="0.08"/>
+    <ellipse cx="80" cy="174" rx="62" ry="20" fill="#d6d1c8"/>
+    <ellipse cx="80" cy="170" rx="62" ry="20" fill="#f4f1ec"/>
+    <path d="M53 110.5L49 109.5L45.5 108.5L41.5 107.5L38.5 106.5L35 105L32.5 103.5L30 102L28 100.5L26 99L25 97L24 95.5L23 93.5L23 92L23 168L23 169.5L24 171.5L25 173L26 175L28 176.5L30 178L32.5 179.5L35 181L38.5 182.5L41.5 183.5L45.5 184.5L49 185.5L53 186.5Z" fill="#f08bb4"/>
+    <path d="M137 92L137 94L136 95.5L135 97.5L133.5 99L131.5 101L129.5 102.5L126.5 104L123.5 105.5L123.5 181.5L126.5 180L129.5 178.5L131.5 177L133.5 175L135 173.5L136 171.5L137 170L137 168Z" fill="#cf6690"/>
+    <path d="M30.5 102.5L28.5 101L26.5 99.5L25 98L25 174L26.5 175.5L28.5 177L30.5 178.5Z" fill="#fbc4da"/>
+    <path d="M80 92L123.5 105.5L123.5 181.5L80 168Z" fill="#f08bb4"/>
+    <path d="M80 98L120 110.5L120 180.5L80 168Z" fill="#8b4a2b"/>
+    <path d="M80 119L120 131.5L120 136.5L80 124ZM80 142L120 154.5L120 159.5L80 147Z" fill="#fff6f0"/>
+    <path d="M80 92L53 110.5L53 186.5L80 168Z" fill="#cf6690"/>
+    <path d="M80 98L56.5 114.5L56.5 184.5L80 168Z" fill="#6d3720"/>
+    <path d="M80 119L56.5 135.5L56.5 140.5L80 124ZM80 142L56.5 158.5L56.5 163.5L80 147Z" fill="#ecd9c3"/>
+    <path d="M80 92L123.5 105.5L126.5 104L129.5 102.5L131.5 101L133.5 99.5L135 97.5L136 96L136.5 94L137 92L137 90.5L136 88.5L135 87L134 85L132 83.5L129.5 81.5L127 80L124 78.5L121 77.5L117.5 76L113.5 75L109.5 74L105 73L100.5 72.5L96 72L91 71.5L86.5 71L81.5 71L76.5 71L71.5 71L66.5 71.5L62 72L57.5 72.5L53 73.5L48.5 74.5L44.5 75.5L41 76.5L37.5 78L34.5 79.5L31.5 81L29 82.5L27 84L25.5 86L24.5 87.5L23.5 89.5L23 91L23 93L23.5 95L24.5 96.5L25.5 98.5L27.5 100L29.5 101.5L32 103L34.5 104.5L38 106L41 107.5L45 108.5L49 109.5L53 110.5Z" fill="#f9b3cf"/>
+    <path d="M42 107L42 119A3.5 3.5 0 0 0 49 119L49 107ZM33.5 104L33.5 122A3.5 3.5 0 0 0 40.5 122L40.5 104ZM26.5 100L26.5 111A3.5 3.5 0 0 0 33.5 111L33.5 100ZM23.5 97.5L23.5 112.5A3.5 3.5 0 0 0 30.5 112.5L30.5 97.5ZM131.5 96L131.5 109A3.5 3.5 0 0 0 138.5 109L138.5 96ZM126.5 100L126.5 109A3.5 3.5 0 0 0 133.5 109L133.5 100Z" fill="#fff6f0"/>
+    <path d="M52 109.5L48 108.5L44 107.5L40.5 106L37 105L34 103.5L31.5 102L29.5 100.5L27.5 99L26 97.5L25 95.5L24 94L24 92L24 90.5L25 88.5L26 87L27 85.5L29 83.5L31 82L34 80.5L36.5 79.5L40 78L43.5 77L47 76L51.5 75L55.5 74L60 73.5L64.5 73L69.5 72.5L74 72L79 72L84 72L88.5 72L93.5 72.5L98 73L102.5 73.5L107 74.5L111 75.5L115 76.5L118.5 77.5L122 79L125 80L127.5 81.5L130 83L132 84.5L133.5 86.5L135 88L135.5 89.5L136 91.5L136 93L135.5 95L134.5 96.5L133 98L131.5 100L129.5 101.5L127 103L124 104.5" fill="none" stroke="#fff6f0" stroke-width="5" stroke-linecap="round"/>
+    <path d="M31 86a5 4 0 1 0 10 0a5 4 0 1 0 -10 0ZM46 78.5a5 4 0 1 0 10 0a5 4 0 1 0 -10 0ZM70 75a5 4 0 1 0 10 0a5 4 0 1 0 -10 0ZM95.5 76.5a5 4 0 1 0 10 0a5 4 0 1 0 -10 0ZM114.5 83a5 4 0 1 0 10 0a5 4 0 1 0 -10 0Z" fill="#fff6f0"/>
+    <path d="M37 89a4 2 0 0 0 4-3M52 81.5a4 2 0 0 0 4-3M76 78a4 2 0 0 0 4-3M101.5 79.5a4 2 0 0 0 4-3M120.5 86a4 2 0 0 0 4-3" fill="none" stroke="#ecd9c3" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M56 93l4-2" fill="none" stroke="#4f8fe0" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M98 87l4-2" fill="none" stroke="#facc15" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M72 101l4-2" fill="none" stroke="#4f8fe0" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M88 81l4-2" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M108 97l4-2" fill="none" stroke="#4f8fe0" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M50 85l4-2" fill="none" stroke="#facc15" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="72" y="52" width="9" height="34" rx="2" fill="#4f8fe0"/>
+    <path d="M77 52h2a2 2 0 0 1 2 2v30a2 2 0 0 1-2 2h-2z" fill="#2f6dbd"/>
+    <path d="M72.5 59.5l8-4.5M72.5 68.5l8-4.5M72.5 77.5l8-4.5" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+    <path d="M76.5 52v-4" fill="none" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M76.5 28c5 6 7 10 7 13a7 7 0 0 1-14 0c0-3 2-7 7-13z" fill="#f59e0b"/>
+    <path d="M76.5 36c3 3 4 5 4 6.5a4 4 0 0 1-8 0c0-1.5 1-3.5 4-6.5z" fill="#fde68a"/>
+  </g></svg>

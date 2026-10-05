@@ -1,1 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><path d="M56 38h48v28l11 22v82H45V88l11-22z" fill="#70402a"/><path d="M59 39h42" stroke="#d1a547" stroke-width="8"/><path d="M49 108h62v40H49z" fill="#e1b64b"/><text x="80" y="127" text-anchor="middle" font-family="Arial" font-size="12" font-weight="700" fill="#65402d">TERIYAKI</text><text x="80" y="142" text-anchor="middle" font-family="Arial" font-size="10" font-weight="700" fill="#65402d">SAUCE</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="193" rx="40" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M70 56C70 92 46 120 46 158V184a8 8 0 0 0 8 8H106a8 8 0 0 0 8-8V158C114 120 90 92 90 56z" fill="#dbe7e4"/>
+    <path d="M88 56H90C90 92 114 120 114 158V184A8 8 0 0 1 112.93 188C112 186.5 111.5 185.5 111.5 184V158C111.5 120 88 92 88 56z" fill="#b3c6c2"/>
+    <path d="M74 70C74 98 50 124 50 158V183a6 6 0 0 0 6 6H104a6 6 0 0 0 6-6V158C110 124 86 98 86 70z" fill="#5a2c14"/>
+    <path d="M83 70h3C86 98 110 124 110 158V183a6 6 0 0 1-6 6H95V158C95 124 83 98 83 70z" fill="#3a1a0a"/>
+    <path d="M55 180V158C55 134 65 116 73 102" fill="none" stroke="#f2f8f7" stroke-width="4" stroke-linecap="round"/>
+    <path d="M74 58h3v10h-3z" fill="#f2f8f7"/>
+    <path d="M77 34v-3a3 3 0 0 1 6 0v3z" fill="#c8261c"/>
+    <path d="M81 34V28.17A3 3 0 0 1 83 31v3z" fill="#961a14"/>
+    <path d="M67 51C67 40 72 34 80 34C88 34 93 40 93 51z" fill="#c8261c"/>
+    <path d="M86.7 35.8C90.69 38.35 93 43.52 93 51H86.7z" fill="#961a14"/>
+    <path d="M71 48c0-5 2-9 5-11" fill="none" stroke="#e86a58" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M66 49h28a2 2 0 0 1 2 2v7H64v-7a2 2 0 0 1 2-2z" fill="#a51b14"/>
+    <path d="M88 49h6a2 2 0 0 1 2 2v7h-8z" fill="#7f140f"/>
+  </g><g id="label">
+    <rect x="55" y="126" width="50" height="58" rx="3" fill="#f7efe2"/>
+  </g><g id="brand">
+    <rect x="55" y="126" width="50" height="58" rx="3" fill="#f2b630"/>
+    <circle cx="80.5" cy="154" r="20" fill="#d7261e"/>
+    <path d="M55 172q25-8 50-2v11a3 3 0 0 1-3 3H58a3 3 0 0 1-3-3z" fill="#fdf3d6"/>
+    <path d="M57.5 183L102 128.5" fill="none" stroke="#fdf3d6" stroke-width="8" stroke-linecap="round"/>
+    <g fill="#fdf3d6" stroke="#fdf3d6" stroke-width="5" stroke-linejoin="round">
+      <path transform="translate(68.6 169.4) scale(0.92)" d="M-7-5C-6.5-7.5-4-8 0-8C4.5-8.2 7.5-7 7.6-3C8 2 7.5 7 2.5 7.5C-2.5 8.2-7.6 6.5-7.6 2C-7.8-1-7.3-3-7-5z"/>
+      <path transform="translate(79.6 155.9) scale(0.92)" d="M-7-5C-6.5-7.5-4-8 0-8C4.5-8.2 7.5-7 7.6-3C8 2 7.5 7 2.5 7.5C-2.5 8.2-7.6 6.5-7.6 2C-7.8-1-7.3-3-7-5z"/>
+      <path transform="translate(90.7 142.3) scale(0.92)" d="M-7-5C-6.5-7.5-4-8 0-8C4.5-8.2 7.5-7 7.6-3C8 2 7.5 7 2.5 7.5C-2.5 8.2-7.6 6.5-7.6 2C-7.8-1-7.3-3-7-5z"/>
+    </g>
+    <path d="M57.5 183L102 128.5" fill="none" stroke="#e2b874" stroke-width="5" stroke-linecap="round"/>
+    <path d="M59.4 184.6L103.4 130.4" fill="none" stroke="#b98d4f" stroke-width="1.5" stroke-linecap="round"/>
+    <g fill="#a3501c" stroke="#3a1806" stroke-width="1.1" stroke-linejoin="round">
+      <path transform="translate(68.6 169.4) scale(0.92)" d="M-7-5C-6.5-7.5-4-8 0-8C4.5-8.2 7.5-7 7.6-3C8 2 7.5 7 2.5 7.5C-2.5 8.2-7.6 6.5-7.6 2C-7.8-1-7.3-3-7-5z"/>
+      <path transform="translate(79.6 155.9) scale(0.92)" d="M-7-5C-6.5-7.5-4-8 0-8C4.5-8.2 7.5-7 7.6-3C8 2 7.5 7 2.5 7.5C-2.5 8.2-7.6 6.5-7.6 2C-7.8-1-7.3-3-7-5z"/>
+      <path transform="translate(90.7 142.3) scale(0.92)" d="M-7-5C-6.5-7.5-4-8 0-8C4.5-8.2 7.5-7 7.6-3C8 2 7.5 7 2.5 7.5C-2.5 8.2-7.6 6.5-7.6 2C-7.8-1-7.3-3-7-5z"/>
+    </g>
+    <g fill="#6a2d0d">
+      <path transform="translate(68.6 169.4) scale(0.92)" d="M2.5-8C6-7.6 7.6-6 7.6-3C8 2 7.5 7 2.5 7.5C5 3 5.2-3.5 2.5-8z"/>
+      <path transform="translate(79.6 155.9) scale(0.92)" d="M2.5-8C6-7.6 7.6-6 7.6-3C8 2 7.5 7 2.5 7.5C5 3 5.2-3.5 2.5-8z"/>
+      <path transform="translate(90.7 142.3) scale(0.92)" d="M2.5-8C6-7.6 7.6-6 7.6-3C8 2 7.5 7 2.5 7.5C5 3 5.2-3.5 2.5-8z"/>
+    </g>
+    <ellipse cx="65.6" cy="165.9" rx="2.0" ry="1.3" transform="rotate(-25 65.6 165.9)" fill="#f6b874"/>
+    <ellipse cx="76.6" cy="152.4" rx="2.0" ry="1.3" transform="rotate(-25 76.6 152.4)" fill="#f6b874"/>
+    <ellipse cx="87.7" cy="138.8" rx="2.0" ry="1.3" transform="rotate(-25 87.7 138.8)" fill="#f6b874"/>
+    <circle cx="96" cy="176" r="2.6" fill="#3f8f4a"/>
+    <circle cx="96" cy="176" r="1.1" fill="#a6d38a"/>
+    <circle cx="89.5" cy="179.5" r="2.2" fill="#3f8f4a"/>
+  </g></svg>

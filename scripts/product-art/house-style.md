@@ -236,6 +236,10 @@ Loose produce and fresh-cut meat and fish have no label and no shop brand. Emit
 - No `<defs>`, gradients, patterns, masks, clip paths, or filters.
 - No `width` or `height` on the root `<svg>` — the `viewBox` alone.
 - No comments, no metadata, no editor cruft.
+- **No real brand's trade dress.** Every name brand here is invented. A red cola
+  label with a white wave, a white bread bag with red, yellow and blue balloons,
+  a blue box with an orange noodle — anything that makes a grown-up think of one
+  real company — is a rejected drawing, however generic each part seems alone.
 
 ## Worked example 1 — a jar of pasta sauce (tall)
 

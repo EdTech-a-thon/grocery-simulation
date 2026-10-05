@@ -1,1 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)"><path d="M63 29h34v30l11 19v96c0 12-56 12-56 0V78l11-19z" fill="#f38d9e"/><path d="M57 100h46v47H57z" fill="#fff4f4"/><text x="80" y="122" text-anchor="middle" font-family="Arial" font-size="12" font-weight="700" fill="#d94c70">BERRY</text><circle cx="80" cy="136" r="8" fill="#d64462"/></g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="195" rx="30" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M71 46h18v6C89 62 103 64 103 78V184a8 8 0 0 1-8 8H65a8 8 0 0 1-8-8V78C57 64 71 62 71 52z" fill="#e4eef3"/>
+    <path d="M84 46h5v6C89 62 103 64 103 78V184a8 8 0 0 1-8 8H92V78C92 66 84 62 84 52z" fill="#bed2db"/>
+    <path d="M66 64H94C97.5 67.5 101 71 101 78V184a6 6 0 0 1-6 6H65a6 6 0 0 1-6-6V78C59 71 62.5 67.5 66 64z" fill="#e8507a"/>
+    <path d="M88 64H94C97.5 67.5 101 71 101 78V184a6 6 0 0 1-6 6H91V78C91 72 90 67.5 88 64z" fill="#c4385f"/>
+    <path d="M59 82h42M59 89h42M59 179h42" fill="none" stroke="#c4385f" stroke-width="2.5"/>
+    <path d="M65 70q-3 3-3 8v104h4V78q0-5 3-8z" fill="#f7a3bd"/>
+    <path d="M62 43h36a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H62a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2z" fill="#6f7a86"/>
+    <path d="M90 43h8a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-8z" fill="#525c67"/>
+    <path d="M68 29h24a2 2 0 0 1 2 2v12H66V31a2 2 0 0 1 2-2z" fill="#8a96a3"/>
+    <path d="M85 29h7a2 2 0 0 1 2 2v12h-9z" fill="#6b7682"/>
+    <path d="M68 32h3v10h-3z" fill="#b7c1cb"/>
+    <path d="M75 32v9M80 32v9M85 32v9" fill="none" stroke="#5e6974" stroke-width="2" stroke-linecap="round"/>
+    <path d="M74 21h12a2 2 0 0 1 2 2v6H72v-6a2 2 0 0 1 2-2z" fill="#8a96a3"/>
+    <path d="M83 21h3a2 2 0 0 1 2 2v6h-5z" fill="#6b7682"/>
+    <path d="M77 16h6a2 2 0 0 1 2 2v3h-10v-3a2 2 0 0 1 2-2z" fill="#7b8794"/>
+    <path d="M81 16h2a2 2 0 0 1 2 2v3h-4z" fill="#5e6974"/>
+    <path d="M72 28h16" fill="none" stroke="#5e6974" stroke-width="1.5"/>
+  </g><g id="label">
+    <path d="M59 96h42v74h-42z" fill="#f7efe2"/>
+  </g><g id="brand-cg">
+    <path d="M59 96h42v74h-42z" fill="#ffffff"/>
+    <path d="M59 96h42v14h-42z" fill="#15803d"/>
+    <path d="M59 110h42v2h-42z" fill="#facc15"/>
+    <path d="M65 100h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="67" cy="103" r="1" fill="#15803d"/>
+    <g transform="translate(84 147) scale(1.2) translate(-80 -149.5)">
+      <circle cx="80" cy="149.5" r="13.5" fill="#f2c014"/>
+      <circle cx="80" cy="149.5" r="11" fill="#fde68a"/>
+      <path d="M80 139v21M69.5 149.5h21M72.6 142.1l14.8 14.8M87.4 142.1l-14.8 14.8" fill="none" stroke="#f2c014" stroke-width="1.6" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(73 130) scale(1.2) translate(-80 -126)">
+      <path d="M80 115.1A4.2 4.2 0 0 1 86.4 117.2A4.2 4.2 0 0 1 90.4 122.6A4.2 4.2 0 0 1 90.4 129.4A4.2 4.2 0 0 1 86.4 134.8A4.2 4.2 0 0 1 80 136.9A4.2 4.2 0 0 1 73.6 134.8A4.2 4.2 0 0 1 69.6 129.4A4.2 4.2 0 0 1 69.6 122.6A4.2 4.2 0 0 1 73.6 117.2A4.2 4.2 0 0 1 80 115.1z" fill="#8a1c3c"/>
+      <path d="M80 116.5A3.6 3.6 0 0 1 85.6 118.3A3.6 3.6 0 0 1 89 123.1A3.6 3.6 0 0 1 89 128.9A3.6 3.6 0 0 1 85.6 133.7A3.6 3.6 0 0 1 80 135.5A3.6 3.6 0 0 1 74.4 133.7A3.6 3.6 0 0 1 71 128.9A3.6 3.6 0 0 1 71 123.1A3.6 3.6 0 0 1 74.4 118.3A3.6 3.6 0 0 1 80 116.5z" fill="#d42a5b"/>
+      <path d="M80 116.5A3.6 3.6 0 0 1 85.6 118.3A3.6 3.6 0 0 1 89 123.1A3.6 3.6 0 0 1 89 128.9A3.6 3.6 0 0 1 85.6 133.7A3.6 3.6 0 0 1 80 135.5Q82.9 126 80 116.5z" fill="#8a1c3c"/>
+      <path d="M73.8 123.2a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM78.5 120.8a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM73.3 128.4a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM77.6 126.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM81.8 124.6a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM78.5 131.2a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM82.3 129.3a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0z" fill="#8a1c3c"/>
+      <path d="M80 118.5l-5 -3 3.5 -0.5 1.5 -3 1.5 3 3.5 0.5z" fill="#3f8f4a"/>
+    </g>
+    <path d="M65 164h30v3h-30z" fill="#15803d"/>
+  </g></svg>
