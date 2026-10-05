@@ -240,6 +240,9 @@ const en: LanguagePack = {
     'settings.unitPricingUnit': 'Price, size and unit price',
     'settings.unitPricingSize': 'Price and size',
     'settings.unitPricingOff': 'Price only',
+    'settings.measure': 'Sizes are in',
+    'settings.measureUs': 'US units (oz, lb, gal)',
+    'settings.measureMetric': 'Metric units (g, kg, mL, L)',
 
     'color.green': 'Green',
     'color.blue': 'Blue',

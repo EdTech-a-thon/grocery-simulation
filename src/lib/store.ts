@@ -1,6 +1,6 @@
 import { aisles } from './catalog'
 import { productById, isStoreBrand, nameBrandIdOf } from './products'
-import { isSizeUnit, type PackageSize } from './sizes'
+import { isSizeUnit, type Measure, type PackageSize } from './sizes'
 import { isPackagedProduct } from './unbranded'
 
 // A store is nothing more than this object. There are no accounts and no
@@ -36,6 +36,8 @@ export type Store = {
   color: StoreColor
   brandMode: BrandMode
   unitPricing: UnitPricing
+  /** Whether shelf tags give sizes in US units or metric ones. */
+  measure: Measure
   couponsEnabled: boolean
   taxEnabled: boolean
   salesTax: number
@@ -57,7 +59,7 @@ export type Store = {
 }
 
 /** The settings a teacher fills in on the store form. */
-export type StoreSettings = Pick<Store, 'name' | 'color' | 'brandMode' | 'unitPricing' | 'couponsEnabled' | 'taxEnabled' | 'salesTax'>
+export type StoreSettings = Pick<Store, 'name' | 'color' | 'brandMode' | 'unitPricing' | 'measure' | 'couponsEnabled' | 'taxEnabled' | 'salesTax'>
 
 export function newStore(settings: StoreSettings): Store {
   return { ...settings, prices: {}, stocked: {}, sizes: {}, aisleNames: {}, coupons: [] }
@@ -116,6 +118,8 @@ export type PackedStore = {
   b?: 'store' | 'both'
   /** Omitted for unit prices on the shelf tags. */
   u?: 'size' | 'off'
+  /** Omitted for US units. */
+  m?: 'metric'
   /** The sales tax rate; present only when the store charges tax. */
   t?: number
   /** Present only when coupons are turned off. */
@@ -133,6 +137,7 @@ export function packStore(store: Store): PackedStore {
   if (store.color !== 'green') packed.c = store.color
   if (store.brandMode !== 'name') packed.b = store.brandMode
   if (store.unitPricing !== 'unit') packed.u = store.unitPricing
+  if (store.measure !== 'us') packed.m = store.measure
   if (store.taxEnabled) packed.t = store.salesTax
   if (!store.couponsEnabled) packed.x = 1
   if (Object.keys(store.prices).length) packed.p = { ...store.prices }
@@ -206,6 +211,7 @@ export function unpackStore(value: unknown): Store | null {
     color: storeColors.includes(value.c as StoreColor) ? (value.c as StoreColor) : 'green',
     brandMode: value.b === 'store' || value.b === 'both' ? value.b : 'name',
     unitPricing: value.u === 'size' || value.u === 'off' ? value.u : 'unit',
+    measure: value.m === 'metric' ? 'metric' : 'us',
     couponsEnabled: value.x !== 1,
     taxEnabled: salesTax !== null,
     salesTax: salesTax ?? 0,

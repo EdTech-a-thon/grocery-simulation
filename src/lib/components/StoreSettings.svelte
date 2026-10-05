@@ -6,8 +6,8 @@
   import { storeColors, type UnitPricing } from '$lib/store'
 
   /**
-   * How the store looks and charges: its name, colour, shelf tags and sales
-   * tax, with the store itself beside the form. Every change applies as it is made, so the
+   * How the store looks and charges: its name, colour, shelf tags, units and
+   * sales tax, with the store itself beside the form. Every change applies as it is made, so the
    * preview is always the store the class will see.
    */
   let { isNew = false }: { isNew?: boolean } = $props()
@@ -65,6 +65,12 @@
         {#each tagOptions as option (option.value)}
           <label><input type="radio" name="unit-pricing" value={option.value} bind:group={shop.store.unitPricing} /> {option.label}</label>
         {/each}
+      </fieldset>
+
+      <fieldset>
+        <legend>{t('settings.measure')}</legend>
+        <label><input type="radio" name="measure" value="us" bind:group={shop.store.measure} /> {t('settings.measureUs')}</label>
+        <label><input type="radio" name="measure" value="metric" bind:group={shop.store.measure} /> {t('settings.measureMetric')}</label>
       </fieldset>
 
       <fieldset>

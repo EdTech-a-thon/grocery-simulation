@@ -3,7 +3,7 @@ import { aisles, catalogPrice, type AisleConfig, type AisleItem } from './catalo
 import { isStoreBrand, nameBrandIdOf, storeBrandPrice } from './products'
 import { aisleTitle } from './i18n/index.svelte'
 import { cart, forgetCartOf, useCartOf } from './cart.svelte'
-import { catalogSize } from './sizes'
+import { catalogSize, inMeasure } from './sizes'
 import { stockedByDefault, storeColors, type Store, type StoreColor } from './store'
 
 const studentStoreStorageKey = 'classgrocery-student-store'
@@ -124,9 +124,15 @@ export function isStocked(productId: string) {
   return stockedByDefault(store?.brandMode ?? 'name', productId)
 }
 
-/** The store's own package size for a product, else the catalog's. */
+/** The store's own package size for a product, else the catalog's, in the store's units. */
 export function sizeFor(productId: string) {
-  return shop.store?.sizes[productId] ?? catalogSize(productId)
+  const own = shop.store?.sizes[productId]
+  return own ? inMeasure(own, shop.store?.measure ?? 'us') : usualSizeFor(productId)
+}
+
+/** The size a product comes in when the teacher has not changed it, in the store's units. */
+export function usualSizeFor(productId: string) {
+  return catalogSize(productId, shop.store?.measure ?? 'us')
 }
 
 /**

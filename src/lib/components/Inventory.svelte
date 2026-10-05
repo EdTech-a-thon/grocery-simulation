@@ -3,8 +3,8 @@
   import { aisleImage, aisles, type AisleItem } from '$lib/catalog'
   import { aisleTitle, productName, t, unitPriceText } from '$lib/i18n/index.svelte'
   import { isStoreBrand, priceEndingInNine, productById } from '$lib/products'
-  import { aisleNameFor, isStocked, priceFor, setStocked, shop, sizeFor } from '$lib/shop.svelte'
-  import { catalogSize, isSizeUnit, sizeUnits, type PackageSize } from '$lib/sizes'
+  import { aisleNameFor, isStocked, priceFor, setStocked, shop, sizeFor, usualSizeFor } from '$lib/shop.svelte'
+  import { isSizeUnit, unitsFor, type PackageSize } from '$lib/sizes'
   import { maxAisleNameLength } from '$lib/store'
   import { teacher } from '$lib/teacher.svelte'
 
@@ -25,6 +25,7 @@
   }
 
   const count = $derived(stockCount(aisle.items))
+  const units = $derived(unitsFor(shop.store?.measure ?? 'us'))
 
   function changePrice(productId: string, value: string) {
     const price = Number(value)
@@ -36,11 +37,12 @@
 
   /**
    * A blank or zero amount goes back to the catalog size, and so does a size
-   * that matches it, so only a teacher's real changes are stored.
+   * that matches it as the shelf shows it, so only a teacher's real changes
+   * are stored.
    */
   function changeSize(productId: string, amountText: string, unitText: string) {
     const amount = Math.round(Number(amountText) * 100) / 100
-    const usual = catalogSize(productId)
+    const usual = usualSizeFor(productId)
     let size: PackageSize | null = null
     if (amountText.trim() && amount > 0 && isSizeUnit(unitText)) size = { amount, unit: unitText }
     if (size && usual && size.amount === usual.amount && size.unit === usual.unit) size = null
@@ -218,16 +220,16 @@
                 aria-label={t('prices.sizeLabel', { name })}
                 onchange={(event) => {
                   // A cleared box refills with the usual size straight away.
-                  const shown = changeSize(item.id, event.currentTarget.value, size?.unit ?? 'oz')
+                  const shown = changeSize(item.id, event.currentTarget.value, size?.unit ?? units[0])
                   event.currentTarget.value = String(shown?.amount ?? '')
                 }}
               />
               <select
-                value={size?.unit ?? 'oz'}
+                value={size?.unit ?? units[0]}
                 aria-label={t('prices.sizeUnitLabel', { name })}
                 onchange={(event) => changeSize(item.id, String(size?.amount ?? 1), event.currentTarget.value)}
               >
-                {#each sizeUnits as unit (unit)}<option value={unit}>{unit}</option>{/each}
+                {#each units as unit (unit)}<option value={unit}>{unit}</option>{/each}
               </select>
             </span>
             {#if size}<span class="teacher-unit-price">{unitPriceText(priceFor(item), size)}</span>{/if}

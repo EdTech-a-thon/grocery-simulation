@@ -8,7 +8,7 @@ import en from './en'
 import es from './es'
 import fr from './fr'
 import { isStoreBrand, nameBrandIdOf, storeBrandPrefix } from '../products'
-import { formatUnitPrice, unitPrice, type PackageSize } from '../sizes'
+import { formatUnitPrice, unitPrice, unitPriceBasisOf, type PackageSize } from '../sizes'
 import type { LanguagePack } from './types'
 
 const languages: Record<string, LanguagePack> = { en, es, fr }
@@ -111,15 +111,18 @@ export function productNote(productId: string) {
 }
 
 /**
- * The unit price on a shelf tag: "$0.27/oz", or "$0.40 each" for things
- * counted rather than weighed. `spoken` gives the screen-reader wording,
- * "$0.27 per oz", which the tag has no room for on a phone. The unit itself is
- * not translated — like the dollars, it is the US measure the lesson is about.
+ * The unit price on a shelf tag: "$0.27/oz", "$0.94/100 g", or "$0.40 each"
+ * for things counted rather than weighed. `spoken` gives the screen-reader
+ * wording, "$0.27 per oz", which the tag has no room for on a phone. The unit
+ * itself is not translated: oz and g read the same in every language.
  */
 export function unitPriceText(price: number, size: PackageSize, spoken = false) {
   const value = formatUnitPrice(unitPrice(price, size))
   const key = size.unit === 'ct' ? 'product.unitPriceEach' : 'product.unitPrice'
-  return t(spoken ? `${key}Spoken` : key, { price: value, unit: size.unit })
+  const per = unitPriceBasisOf(size.unit)
+  if (spoken) return t(`${key}Spoken`, { price: value, unit: per })
+  // A tag too narrow for "$0.86/100 g" may break the line after the slash, and nowhere else.
+  return t(key, { price: value, unit: `\u200b${per}` }).replaceAll(' ', '\u00a0')
 }
 
 // Prose on the welcome, about and privacy pages has links and emphasis inside a

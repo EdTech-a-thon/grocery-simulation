@@ -16,12 +16,24 @@ import { isStoreBrand, nameBrandIdOf } from './unbranded'
 // storeBrandPrice() in products.ts sets each price from its package.
 //
 // A teacher can change any product's size for their own store; these are the
-// sizes a store starts with. The units are US customary, like the dollars, and
-// read the same in every language.
+// sizes a store starts with. They are written in US customary units. A store
+// set to metric stocks the nearest round metric package instead, 500 g rather
+// than 18 oz, at the same price (see metricPackage). Either way the units read
+// the same in every language.
 
-export const sizeUnits = ['oz', 'fl oz', 'lb', 'gal', 'ct'] as const
+export const usUnits = ['oz', 'fl oz', 'lb', 'gal'] as const
+export const metricUnits = ['g', 'kg', 'mL', 'L'] as const
+export const sizeUnits = [...usUnits, ...metricUnits, 'ct'] as const
 export type SizeUnit = (typeof sizeUnits)[number]
 export type PackageSize = { amount: number; unit: SizeUnit }
+
+/** Which units a store's shelf tags use. */
+export type Measure = 'us' | 'metric'
+
+/** The units a teacher can pick from: a metric store has no use for ounces. */
+export function unitsFor(measure: Measure): readonly SizeUnit[] {
+  return measure === 'metric' ? [...metricUnits, 'ct'] : sizeUnits
+}
 
 export function isSizeUnit(value: unknown): value is SizeUnit {
   return sizeUnits.includes(value as SizeUnit)
@@ -135,6 +147,20 @@ const storeBrandSizes: Record<string, string> = {
   'flour': '10 lb', 'powdered-sugar': '4 lb', 'baking-soda': '32 oz', 'marshmallows': '16 oz',
 }
 
+/**
+ * Metric packages chosen by hand, where the nearest round one would not do.
+ * Any product not listed comes in the package metricPackage() picks. Keys are
+ * product ids, so a CG Value package is listed under its own id.
+ */
+const metricSizes: Record<string, string> = {
+  // Two loaves that would both round to 500 g, so the smaller CG loaf stays smaller.
+  'bread': '600 g', 'bread-cg': '450 g',
+  // The roundest package would leave these bigger CG ones dearer per unit.
+  'almond-milk-cg': '3 L', 'canned-tuna-cg': '350 g',
+  // The usual cup.
+  'yogurt': '175 g',
+}
+
 /** '12.5 fl oz' -> { amount: 12.5, unit: 'fl oz' } */
 function parseSize(text: string): PackageSize {
   const [amount, ...unit] = text.split(' ')
@@ -152,20 +178,109 @@ export function storeBrandSizeRatio(nameBrandId: string) {
 }
 
 /** The size a store starts with for a product, before any teacher changes it. */
-export function catalogSize(productId: string): PackageSize | null {
+export function catalogSize(productId: string, measure: Measure = 'us'): PackageSize | null {
   const nameBrandId = nameBrandIdOf(productId)
   const text = (isStoreBrand(productId) && storeBrandSizes[nameBrandId]) || nameBrandSizes[nameBrandId]
-  return text ? parseSize(text) : null
+  if (!text) return null
+  if (measure === 'metric' && metricSizes[productId]) return parseSize(metricSizes[productId])
+  return inMeasure(parseSize(text), measure)
 }
 
-/** '18 oz', '1 gal', '12 ct' */
+/** How many grams or millilitres one of each US unit holds. */
+const metricPerUsUnit: Record<(typeof usUnits)[number], { amount: number; unit: 'g' | 'mL' }> = {
+  'oz': { amount: 28.3495, unit: 'g' },
+  'fl oz': { amount: 29.5735, unit: 'mL' },
+  'lb': { amount: 453.592, unit: 'g' },
+  'gal': { amount: 3785.41, unit: 'mL' },
+}
+
+/**
+ * How close a metric package must be to the US one for the price to stay the
+ * same: within 12%, it is roughly as much food for the money.
+ */
+export const metricTolerance = 0.12
+
+/**
+ * Round numbers a metric package is likely to hold, roundest first, as the
+ * leading digits of any amount: 500 g, 250 g and 1 kg before 400 g, and those
+ * before 150 g or 175 g.
+ */
+const roundness = [[1, 2.5, 5], [2, 3, 4, 7.5], [1.5, 6, 8], [1.25, 1.75, 2.25, 3.5, 4.5, 7, 9]]
+
+/**
+ * The package a metric store sells instead of a US one: the roundest amount
+ * within metricTolerance of it, the nearest if two are as round. 18 oz is 510
+ * g, so it comes as 500 g; 1 gal is 3.79 L, so 4 L.
+ */
+function metricPackage(exact: number) {
+  const decade = 10 ** Math.floor(Math.log10(exact))
+  for (const tier of roundness) {
+    const near = tier
+      .flatMap((digits) => [digits * decade / 10, digits * decade, digits * decade * 10])
+      .filter((amount) => Math.abs(amount - exact) <= exact * metricTolerance)
+      .sort((a, b) => Math.abs(a - exact) - Math.abs(b - exact))
+    if (near.length) return near[0]
+  }
+  return Math.round(exact)
+}
+
+/**
+ * A size in the store's units. In a metric store a US size becomes the round
+ * metric package nearest it, and a thousand grams or millilitres or more is
+ * written in kilograms or litres. Counts, and sizes already in the store's
+ * units, stay as they are. A US store shows a metric size as typed, the way a
+ * real one sells a 2 L bottle.
+ */
+export function inMeasure(size: PackageSize, measure: Measure): PackageSize {
+  if (measure === 'us' || !(size.unit in metricPerUsUnit)) return size
+  const per = metricPerUsUnit[size.unit as keyof typeof metricPerUsUnit]
+  const amount = metricPackage(size.amount * per.amount)
+  if (amount >= 1000) return { amount: amount / 1000, unit: per.unit === 'g' ? 'kg' : 'L' }
+  return { amount, unit: per.unit }
+}
+
+/** The exact metric amount of a US size, in grams or millilitres, to see how far rounding moved it. */
+export function exactMetricAmount(size: PackageSize) {
+  const per = metricPerUsUnit[size.unit as keyof typeof metricPerUsUnit]
+  return per ? size.amount * per.amount : null
+}
+
+/** A metric size in grams or millilitres, whatever unit it is written in. */
+export function baseMetricAmount(size: PackageSize) {
+  return size.unit === 'kg' || size.unit === 'L' ? size.amount * 1000 : size.amount
+}
+
+/** '18 oz', '1 gal', '12 ct', '510 g' */
 export function formatSize(size: PackageSize) {
   return `${Number(size.amount.toFixed(2))} ${size.unit}`
 }
 
-/** Price divided by amount: dollars per ounce, per pound, per item... */
+/**
+ * What a unit price is "per", and how many of those one unit holds. A gram of
+ * almost anything costs under a cent, so metric is priced per 100 g or 100 mL,
+ * as shelf tags in metric countries are; then a kilogram holds ten of them.
+ */
+const unitPriceBasis: Record<SizeUnit, { per: string; inOneUnit: number }> = {
+  'oz': { per: 'oz', inOneUnit: 1 },
+  'fl oz': { per: 'fl oz', inOneUnit: 1 },
+  'lb': { per: 'lb', inOneUnit: 1 },
+  'gal': { per: 'gal', inOneUnit: 1 },
+  'ct': { per: 'ct', inOneUnit: 1 },
+  'g': { per: '100 g', inOneUnit: 0.01 },
+  'kg': { per: '100 g', inOneUnit: 10 },
+  'mL': { per: '100 mL', inOneUnit: 0.01 },
+  'L': { per: '100 mL', inOneUnit: 10 },
+}
+
+/** The amount a unit price is for: 'oz', 'ct', '100 g'... */
+export function unitPriceBasisOf(unit: SizeUnit) {
+  return unitPriceBasis[unit].per
+}
+
+/** Price divided by amount: dollars per ounce, per item, per 100 grams... */
 export function unitPrice(price: number, size: PackageSize) {
-  return size.amount > 0 ? price / size.amount : 0
+  const amount = size.amount * unitPriceBasis[size.unit].inOneUnit
+  return amount > 0 ? price / amount : 0
 }
 
 /** A unit price in dollars and cents ($0.27), like every other price. */

@@ -661,6 +661,19 @@ p {
     font-size: 0.5rem;
     letter-spacing: -0.01em;
   }
+
+  /*
+   * "$0.86/100 g" is too long for the narrowest tags, so it wraps after the
+   * slash. The tag keeps its natural width until then, rather than the half
+   * card that hanging it from the middle would leave it.
+   */
+  .price-tag {
+    width: max-content;
+  }
+
+  .price-tag-unit {
+    white-space: normal;
+  }
 }
 
 .price-tag-unit {
