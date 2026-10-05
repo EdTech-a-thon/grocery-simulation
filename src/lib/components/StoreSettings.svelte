@@ -1,14 +1,15 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import StorePreview from '$lib/components/StorePreview.svelte'
-  import { t } from '$lib/i18n/index.svelte'
+  import { currencies, currencyName, currencyOf, formatMoney } from '$lib/currency'
+  import { current, t } from '$lib/i18n/index.svelte'
   import { shop, syncCartToStore } from '$lib/shop.svelte'
-  import { storeColors, type UnitPricing } from '$lib/store'
+  import { changeCurrency, roundPrices, storeColors, type UnitPricing } from '$lib/store'
 
   /**
-   * How the store looks and charges: its name, colour, shelf tags and sales
-   * tax, with the store itself beside the form. Every change applies as it is made, so the
-   * preview is always the store the class will see.
+   * How the store looks and charges: its name, colour, shelf tags, units,
+   * currency and sales tax, with the store itself beside the form. Every change
+   * applies as it is made, so the preview is always the store the class will see.
    */
   let { isNew = false }: { isNew?: boolean } = $props()
 
@@ -19,6 +20,13 @@
     { value: 'size', label: t('settings.unitPricingSize') },
     { value: 'off', label: t('settings.unitPricingOff') },
   ])
+
+  // Listed by name in the page's language, so a teacher finds "euro" under E.
+  const currencyOptions = $derived(
+    currencies
+      .map((currency) => ({ code: currency.code, label: `${currencyName(currency.code, current().locale)} (${currency.code})` }))
+      .sort((a, b) => a.label.localeCompare(b.label, current().locale)),
+  )
 
   // A store that was just created is called "New store" until the teacher
   // names it, so the name is ready to be typed over.
@@ -31,6 +39,16 @@
     const name = value.trim().slice(0, 60)
     if (shop.store && name) shop.store.name = name
   }
+
+  /** Converts the teacher's own prices and coupons, and empties a cart priced in the old money. */
+  function setCurrency(code: string) {
+    if (!shop.store) return
+    changeCurrency(shop.store, code)
+    syncCartToStore(shop.store)
+  }
+
+  /** The currency's round number as a price, for the rounding button: '¥10', '€0.10'. */
+  const roundNumber = $derived(shop.store ? formatMoney(currencyOf(shop.store.currency).roundTo, shop.store.currency, true) : '')
 
   /** The rate students practise with at checkout; turning tax off forgets it. */
   function setTax(enabled: boolean, rateText = String(shop.store?.salesTax ?? 0)) {
@@ -66,6 +84,30 @@
           <label><input type="radio" name="unit-pricing" value={option.value} bind:group={shop.store.unitPricing} /> {option.label}</label>
         {/each}
       </fieldset>
+
+      <fieldset>
+        <legend>{t('settings.measure')}</legend>
+        <label><input type="radio" name="measure" value="us" bind:group={shop.store.measure} /> {t('settings.measureUs')}</label>
+        <label><input type="radio" name="measure" value="metric" bind:group={shop.store.measure} /> {t('settings.measureMetric')}</label>
+      </fieldset>
+
+      <label>
+        {t('settings.currency')}
+        <select value={shop.store.currency} onchange={(event) => setCurrency(event.currentTarget.value)}>
+          {#each currencyOptions as option (option.code)}<option value={option.code}>{option.label}</option>{/each}
+        </select>
+        <span class="field-help">{t('settings.currencyHelp')}</span>
+      </label>
+      {#if shop.store.currency !== 'USD'}
+        <div class="currency-rounding">
+          {#if shop.store.rounded}
+            <span>{t('settings.roundedTo', { amount: roundNumber })}</span>
+            <button type="button" onclick={() => shop.store && (shop.store.rounded = false)}>{t('settings.undoRounding')}</button>
+          {:else}
+            <button type="button" onclick={() => shop.store && roundPrices(shop.store)}>{t('settings.roundTo', { amount: roundNumber })}</button>
+          {/if}
+        </div>
+      {/if}
 
       <fieldset>
         <legend>{t('settings.tax')}</legend>

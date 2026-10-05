@@ -1,12 +1,11 @@
 <script lang="ts">
   import ReceiptBody from './ReceiptBody.svelte'
   import { applyCoupon, cart, cartTotals, clearCart, increaseCartLine, removeFromCart } from '$lib/cart.svelte'
-  import { money } from '$lib/catalog'
   import { couponDiscountLabel, couponStatus } from '$lib/coupons'
   import { plural, productName, t } from '$lib/i18n/index.svelte'
   import { printReceipt } from '$lib/printing.svelte'
   import { buildReceipt, receiptText } from '$lib/receipt'
-  import { shop } from '$lib/shop.svelte'
+  import { money, shop } from '$lib/shop.svelte'
 
   const maxCoupons = 5
 

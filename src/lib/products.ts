@@ -1,3 +1,4 @@
+import { priceEndingInNine } from './currency'
 import { storeBrandSizeRatio } from './sizes'
 import { isPackagedProduct, nameBrandIdOf, storeBrandIdOf } from './unbranded'
 
@@ -410,24 +411,15 @@ export const storeBrandPrefix = 'CG'
 export const storeBrandDiscount = 0.85
 
 /**
- * The nearest price ending in 9 cents. Every CG Value price goes through this,
- * whether it was worked out from the name brand or typed in by a teacher, so
- * the line reads like shelf pricing instead of like arithmetic.
- */
-export function priceEndingInNine(price: number) {
-  const dimes = Math.max(0, Math.round((price - 0.09) / 0.1))
-  return (dimes * 10 + 9) / 100
-}
-
-/**
  * What a CG twin costs, worked out from the name brand beside it and snapped to
- * a price ending in 9 cents. A package the same size or bigger is 15% cheaper
- * per unit, so a bigger one can carry the higher sticker. A smaller package is
- * 15% cheaper on the sticker, which makes it dearer per unit.
+ * a price ending in 9 (cents, yen, tens of won — see priceEndingInNine()). A
+ * package the same size or bigger is 15% cheaper per unit, so a bigger one can
+ * carry the higher sticker. A smaller package is 15% cheaper on the sticker,
+ * which makes it dearer per unit.
  */
-export function storeBrandPrice(productId: string, nameBrandPrice: number) {
+export function storeBrandPrice(productId: string, nameBrandPrice: number, currency = 'USD') {
   const packageSize = Math.max(storeBrandSizeRatio(nameBrandIdOf(productId)), 1)
-  return priceEndingInNine(nameBrandPrice * packageSize * storeBrandDiscount)
+  return priceEndingInNine(nameBrandPrice * packageSize * storeBrandDiscount, currency)
 }
 
 function storeBrandOf(product: Product): Product {

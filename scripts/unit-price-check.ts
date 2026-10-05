@@ -6,11 +6,16 @@
 //   same      cheaper on the sticker and per unit
 //   bigger    dearer on the sticker, cheaper per unit
 //
+// Each pair is checked twice, in US units and in the round metric packages a
+// metric store stocks instead, which must also stay within metricTolerance of
+// the US size, since they sell at the same price.
+//
 //   bun run check:sizes
 
 import { aisles, catalogPrice } from '../src/lib/catalog'
 import { isStoreBrand, productById, storeBrandIdOf } from '../src/lib/products'
-import { catalogSize, formatSize, formatUnitPrice, unitPrice } from '../src/lib/sizes'
+import { formatMoney } from '../src/lib/currency'
+import { baseMetricAmount, catalogSize, exactMetricAmount, formatSize, metricTolerance, unitPrice, type Measure } from '../src/lib/sizes'
 
 type Kind = 'smaller' | 'same' | 'bigger'
 
@@ -23,6 +28,14 @@ for (const aisle of aisles) {
     if (seen.has(item.id)) continue
     seen.add(item.id)
     if (!catalogSize(item.id)) problems.push(`${item.id} has no size`)
+    for (const id of [item.id, storeBrandIdOf(item.id)]) {
+      const us = catalogSize(id)
+      const metric = catalogSize(id, 'metric')
+      const exact = us && exactMetricAmount(us)
+      if (!exact || !metric) continue
+      const off = baseMetricAmount(metric) / exact - 1
+      if (Math.abs(off) > metricTolerance) problems.push(`${id}: ${formatSize(metric)} is ${Math.round(off * 100)}% off ${formatSize(us)}`)
+    }
     if (isStoreBrand(item.id) || !productById[storeBrandIdOf(item.id)]) continue
 
     const twinId = storeBrandIdOf(item.id)
@@ -33,23 +46,28 @@ for (const aisle of aisles) {
 
     const kind: Kind =
       twin.size.amount < name.size.amount ? 'smaller' : twin.size.amount > name.size.amount ? 'bigger' : 'same'
+    const [nameMetric, twinMetric] = [catalogSize(item.id, 'metric')!, catalogSize(twinId, 'metric')!].map(baseMetricAmount)
+    const metricKind: Kind = twinMetric < nameMetric ? 'smaller' : twinMetric > nameMetric ? 'bigger' : 'same'
+    if (metricKind !== kind) problems.push(`${item.id}: a ${kind} CG twin is ${metricKind} in metric`)
     counts[kind] += 1
 
-    const twinUnitCheaper = unitPrice(twin.price, twin.size) < unitPrice(name.price, name.size)
     const twinStickerCheaper = twin.price < name.price
     const expected = { smaller: [true, false], same: [true, true], bigger: [false, true] }[kind]
     if (twinStickerCheaper !== expected[0]) problems.push(`${item.id}: a ${kind} CG twin should be ${expected[0] ? 'cheaper' : 'dearer'} on the sticker`)
-    if (twinUnitCheaper !== expected[1]) problems.push(`${item.id}: a ${kind} CG twin should be ${expected[1] ? 'cheaper' : 'dearer'} per unit`)
 
-    const nameShown = formatUnitPrice(unitPrice(name.price, name.size))
-    const twinShown = formatUnitPrice(unitPrice(twin.price, twin.size))
-    if (nameShown === twinShown) problems.push(`${item.id}: both tags read ${nameShown}`)
+    const line = (['us', 'metric'] as Measure[]).map((measure) => {
+      const nameSize = catalogSize(item.id, measure)!
+      const twinSize = catalogSize(twinId, measure)!
+      const twinUnitCheaper = unitPrice(twin.price, twinSize) < unitPrice(name.price, nameSize)
+      if (twinUnitCheaper !== expected[1]) problems.push(`${item.id}: a ${kind} CG twin should be ${expected[1] ? 'cheaper' : 'dearer'} per unit in ${measure} units`)
 
-    console.log(
-      `${kind.padEnd(8)} ${item.id.padEnd(24)}`
-      + `${formatSize(name.size).padStart(10)} $${name.price.toFixed(2).padStart(5)} ${nameShown.padStart(7)}   `
-      + `CG ${formatSize(twin.size).padStart(10)} $${twin.price.toFixed(2).padStart(5)} ${twinShown.padStart(7)}`,
-    )
+      const nameShown = formatMoney(unitPrice(name.price, nameSize), 'USD')
+      const twinShown = formatMoney(unitPrice(twin.price, twinSize), 'USD')
+      if (nameShown === twinShown) problems.push(`${item.id}: both tags read ${nameShown} in ${measure} units`)
+      return `${formatSize(nameSize).padStart(10)} $${name.price.toFixed(2).padStart(5)} ${nameShown.padStart(7)}   `
+        + `CG ${formatSize(twinSize).padStart(10)} $${twin.price.toFixed(2).padStart(5)} ${twinShown.padStart(7)}`
+    })
+    console.log(`${kind.padEnd(8)} ${item.id.padEnd(24)}${line.join('  |  ')}`)
   }
 }
 

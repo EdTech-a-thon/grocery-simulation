@@ -338,6 +338,12 @@ button {
 .section-heading { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
 .section-heading .eyebrow { color: #15803d; }
 .section-heading h2 { margin: 4px 0; }
+.aisle-heading { display: flex; align-items: center; gap: 6px; }
+.aisle-rename-button { display: inline-flex; width: 30px; height: 30px; flex: none; align-items: center; justify-content: center; border: 0; border-radius: 50%; padding: 0; background: transparent; color: #94a3b8; cursor: pointer; }
+.aisle-rename-button:hover, .aisle-rename-button:focus-visible { background: #f0f8f2; color: #15803d; }
+.aisle-rename-button .icon { width: 16px; height: 16px; }
+.aisle-rename-input { width: min(100%, 20em); margin: 2px 0; border: 2px solid #86efac; border-radius: var(--radius-md); padding: 3px 8px; color: inherit; font: inherit; font-size: 1.5em; font-weight: 700; }
+.aisle-rename-input:focus { border-color: #15803d; outline: none; }
 .helper-text { margin: 10px 0 22px; color: #64748b; font-size: .88rem; }
 
 .price-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(150px,1fr)); gap: 12px; }
@@ -654,6 +660,19 @@ p {
     margin-top: 1px;
     font-size: 0.5rem;
     letter-spacing: -0.01em;
+  }
+
+  /*
+   * "$0.86/100 g" is too long for the narrowest tags, so it wraps after the
+   * slash. The tag keeps its natural width until then, rather than the half
+   * card that hanging it from the middle would leave it.
+   */
+  .price-tag {
+    width: max-content;
+  }
+
+  .price-tag-unit {
+    white-space: normal;
   }
 }
 
@@ -1975,7 +1994,11 @@ p {
 .store-settings-page { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); align-items: start; max-width: 1100px; }
 .store-settings-form { display: grid; gap: 18px; }
 .store-settings-form > label { display: grid; gap: 7px; color: #475569; font-size: .82rem; font-weight: 800; }
-.store-settings-form > label input { width: 100%; border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 11px 12px; background: #fff; color: #172033; font: inherit; font-size: 1rem; font-weight: 800; }
+.store-settings-form > label input, .store-settings-form > label select { width: 100%; border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 11px 12px; background: #fff; color: #172033; font: inherit; font-size: 1rem; font-weight: 800; }
+.store-settings-form .field-help { color: #64748b; font-weight: 700; }
+.currency-rounding { margin-top: -8px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: #475569; font-size: .82rem; font-weight: 700; }
+.currency-rounding button { border: 1px solid #bbf7d0; border-radius: var(--radius-sm); padding: 5px 10px; background: #f0fdf4; color: #166534; font: inherit; font-weight: 800; cursor: pointer; }
+.currency-rounding button:hover { background: #dcfce7; }
 .store-settings-form fieldset label { flex: 1 0 100%; }
 .color-choices label.color-choice { flex: none; }
 .color-choice span[aria-hidden] { display: block; width: 32px; height: 32px; border-radius: 50%; background: var(--store-color); box-shadow: inset 0 0 0 2px rgba(0,0,0,.08); }

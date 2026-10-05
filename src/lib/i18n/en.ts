@@ -5,9 +5,9 @@ import type { LanguagePack } from './types'
  * the right-hand side translated — the keys never change.
  *
  * A few things are deliberately *not* translated, because they are names rather
- * than words: "Class Grocery", "CG Value", and the dollar amounts, which stay in
- * US dollars in every language so a class doing the same money lesson sees the
- * same prices.
+ * than words: "Class Grocery", "CG Value", and the prices, which are in the
+ * store's own currency in every language so a class doing the same money lesson
+ * sees the same prices.
  *
  * Two bits of markup are allowed inside a string, for the places where a
  * sentence has something emphasised or linked inside it. They only work where a
@@ -240,6 +240,14 @@ const en: LanguagePack = {
     'settings.unitPricingUnit': 'Price, size and unit price',
     'settings.unitPricingSize': 'Price and size',
     'settings.unitPricingOff': 'Price only',
+    'settings.measure': 'Sizes are in',
+    'settings.measureUs': 'US units (oz, lb, gal)',
+    'settings.measureMetric': 'Metric units (g, kg, mL, L)',
+    'settings.currency': 'Currency',
+    'settings.currencyHelp': 'Prices are converted from US dollars.',
+    'settings.roundTo': 'Round to {amount}',
+    'settings.roundedTo': 'Every price is rounded to {amount}.',
+    'settings.undoRounding': 'Undo',
 
     'color.green': 'Green',
     'color.blue': 'Blue',
@@ -251,6 +259,8 @@ const en: LanguagePack = {
 
     // ------------------------------------------------------ prices and stock
     'prices.aisleListTitle': 'Aisles',
+    'prices.renameAisle': 'Rename aisle',
+    'prices.aisleNameLabel': 'Aisle name',
     'prices.aisleCount': '{stocked} of {total} stocked',
     'prices.summary': 'Aisle {number} · {stocked} of {total} stocked',
     'prices.stockAll': 'Stock all',
@@ -269,7 +279,7 @@ const en: LanguagePack = {
     // ------------------------------------------------------ coupon studio
     'coupons.type': 'Discount type',
     'coupons.percentOption': 'Percent off',
-    'coupons.dollarsOption': 'Dollar amount off',
+    'coupons.dollarsOption': 'Money off',
     'coupons.appliesTo': 'Applies to',
     'coupons.entirePurchase': 'Entire purchase',
     'coupons.codeWord': 'Coupon code word',

@@ -1,5 +1,7 @@
+import { aisles } from './catalog'
+import { convert, currencyOf, isCurrencyCode, maxPrice, roundToRoundNumber } from './currency'
 import { productById, isStoreBrand, nameBrandIdOf } from './products'
-import { isSizeUnit, type PackageSize } from './sizes'
+import { isSizeUnit, type Measure, type PackageSize } from './sizes'
 import { isPackagedProduct } from './unbranded'
 
 // A store is nothing more than this object. There are no accounts and no
@@ -22,6 +24,7 @@ export type UnitPricing = 'unit' | 'size' | 'off'
 export type Coupon = {
   /** What a student types at the till. Unique within one store. */
   code: string
+  /** 'dollars' is any money off, in the store's currency; the name predates currencies. */
   discountType: 'percent' | 'dollars'
   discountAmount: number
   /** A product slug from products.ts, or the literal 'all' for a whole-purchase discount. */
@@ -35,10 +38,19 @@ export type Store = {
   color: StoreColor
   brandMode: BrandMode
   unitPricing: UnitPricing
+  /** Whether shelf tags give sizes in US units or metric ones. */
+  measure: Measure
+  /** The ISO code of the money every price in this store is in — see currency.ts. */
+  currency: string
+  /** Whether every price is snapped to the currency's round number (€0.10, ¥10...) — see roundPrices(). */
+  rounded: boolean
   couponsEnabled: boolean
   taxEnabled: boolean
   salesTax: number
-  /** Prices the teacher changed, by product id. Everything else sells at its catalog price. */
+  /**
+   * Prices the teacher changed, by product id, in the store's currency.
+   * Everything else sells at its catalog price, converted from US dollars.
+   */
   prices: Record<string, number>
   /**
    * Products the teacher put on or took off the shelves by hand. A product
@@ -47,14 +59,19 @@ export type Store = {
   stocked: Record<string, boolean>
   /** Package sizes the teacher changed. Everything else comes in its catalog size (sizes.ts). */
   sizes: Record<string, PackageSize>
+  /**
+   * Aisles the teacher renamed, by the aisle's English title. These are the
+   * teacher's own words, so they show as typed in every language.
+   */
+  aisleNames: Record<string, string>
   coupons: Coupon[]
 }
 
 /** The settings a teacher fills in on the store form. */
-export type StoreSettings = Pick<Store, 'name' | 'color' | 'brandMode' | 'unitPricing' | 'couponsEnabled' | 'taxEnabled' | 'salesTax'>
+export type StoreSettings = Pick<Store, 'name' | 'color' | 'brandMode' | 'unitPricing' | 'measure' | 'currency' | 'couponsEnabled' | 'taxEnabled' | 'salesTax'>
 
 export function newStore(settings: StoreSettings): Store {
-  return { ...settings, prices: {}, stocked: {}, sizes: {}, coupons: [] }
+  return { ...settings, rounded: false, prices: {}, stocked: {}, sizes: {}, aisleNames: {}, coupons: [] }
 }
 
 /**
@@ -67,9 +84,48 @@ export function stockedByDefault(brandMode: BrandMode, productId: string) {
   return brandMode === 'both' || (brandMode === 'store') === isStoreBrand(productId)
 }
 
+/** Long enough for "Breakfast & Cereal", short enough to fit the aisle sign. */
+export const maxAisleNameLength = 30
+
 export function newCouponCode() {
   // Keep printed codes short and unambiguous for students to type.
   return `CG-${crypto.randomUUID().replace(/[^0-9a-f]/g, '').slice(0, 6).toUpperCase()}`
+}
+
+/**
+ * Moves a store to another currency. The teacher's own prices and money-off
+ * coupons are converted at the fixed rates, so a store that was priced by hand
+ * keeps the same price differences instead of reading ¥3.49.
+ */
+export function changeCurrency(store: Store, currency: string) {
+  if (!isCurrencyCode(currency) || currency === store.currency) return
+  for (const [id, price] of Object.entries(store.prices)) store.prices[id] = convert(price, store.currency, currency)
+  for (const coupon of store.coupons) {
+    if (coupon.discountType === 'dollars') coupon.discountAmount = convert(coupon.discountAmount, store.currency, currency)
+  }
+  store.currency = currency
+  // The old round number means nothing in the new money, so the teacher is
+  // offered the new one instead.
+  store.rounded = false
+}
+
+/**
+ * Snaps every price to the currency's round number, for sums students can do
+ * in their heads: the teacher's own prices and money-off coupons now, and the
+ * catalog prices from here on (see priceFor() in shop.svelte.ts).
+ */
+export function roundPrices(store: Store) {
+  for (const [id, price] of Object.entries(store.prices)) store.prices[id] = roundToRoundNumber(price, store.currency)
+  for (const coupon of store.coupons) {
+    if (coupon.discountType === 'dollars') coupon.discountAmount = roundToRoundNumber(coupon.discountAmount, store.currency)
+  }
+  store.rounded = true
+}
+
+/** The amount a store's prices move by: its currency's step, or its round number once rounded. */
+export function priceStepOf(store: Store) {
+  const currency = currencyOf(store.currency)
+  return store.rounded ? currency.roundTo : currency.step
 }
 
 /** A percent-off coupon with a random amount, on the whole purchase or one of `productIds`. */
@@ -107,6 +163,12 @@ export type PackedStore = {
   b?: 'store' | 'both'
   /** Omitted for unit prices on the shelf tags. */
   u?: 'size' | 'off'
+  /** Omitted for US units. */
+  m?: 'metric'
+  /** The currency code. Omitted for US dollars. */
+  e?: string
+  /** Present only when prices are rounded to the currency's round number. */
+  r?: 1
   /** The sales tax rate; present only when the store charges tax. */
   t?: number
   /** Present only when coupons are turned off. */
@@ -114,6 +176,8 @@ export type PackedStore = {
   p?: Record<string, number>
   s?: Record<string, 0 | 1>
   z?: Record<string, [amount: number, unit: string]>
+  /** Renamed aisles, by English title. */
+  a?: Record<string, string>
   q?: PackedCoupon[]
 }
 
@@ -122,6 +186,9 @@ export function packStore(store: Store): PackedStore {
   if (store.color !== 'green') packed.c = store.color
   if (store.brandMode !== 'name') packed.b = store.brandMode
   if (store.unitPricing !== 'unit') packed.u = store.unitPricing
+  if (store.measure !== 'us') packed.m = store.measure
+  if (store.currency !== 'USD') packed.e = store.currency
+  if (store.rounded) packed.r = 1
   if (store.taxEnabled) packed.t = store.salesTax
   if (!store.couponsEnabled) packed.x = 1
   if (Object.keys(store.prices).length) packed.p = { ...store.prices }
@@ -131,6 +198,7 @@ export function packStore(store: Store): PackedStore {
   if (Object.keys(store.sizes).length) {
     packed.z = Object.fromEntries(Object.entries(store.sizes).map(([id, size]) => [id, [size.amount, size.unit]]))
   }
+  if (Object.keys(store.aisleNames).length) packed.a = { ...store.aisleNames }
   if (store.coupons.length) {
     packed.q = store.coupons.map((coupon) => [
       coupon.code, coupon.discountType === 'dollars' ? 'd' : 'p', coupon.discountAmount, coupon.productId,
@@ -148,6 +216,9 @@ export function unpackStore(value: unknown): Store | null {
   if (!isRecord(value) || value.v !== 1) return null
   const name = typeof value.n === 'string' ? value.n.trim().slice(0, 60) : ''
   if (!name) return null
+  const currency = isCurrencyCode(value.e) ? value.e : 'USD'
+  const isMoney = (amount: unknown): amount is number =>
+    typeof amount === 'number' && Number.isFinite(amount) && amount >= 0 && amount <= maxPrice(currency)
 
   const prices: Record<string, number> = {}
   if (isRecord(value.p)) {
@@ -172,10 +243,18 @@ export function unpackStore(value: unknown): Store | null {
     }
   }
 
+  const aisleNames: Record<string, string> = {}
+  if (isRecord(value.a)) {
+    for (const [title, aisleName] of Object.entries(value.a)) {
+      const trimmed = typeof aisleName === 'string' ? aisleName.trim().slice(0, maxAisleNameLength) : ''
+      if (trimmed && aisles.some((aisle) => aisle.title === title)) aisleNames[title] = trimmed
+    }
+  }
+
   const coupons: Coupon[] = []
   if (Array.isArray(value.q)) {
     for (const entry of value.q) {
-      const coupon = unpackCoupon(entry)
+      const coupon = unpackCoupon(entry, isMoney)
       if (coupon && !coupons.some((other) => other.code === coupon.code)) coupons.push(coupon)
     }
   }
@@ -186,17 +265,21 @@ export function unpackStore(value: unknown): Store | null {
     color: storeColors.includes(value.c as StoreColor) ? (value.c as StoreColor) : 'green',
     brandMode: value.b === 'store' || value.b === 'both' ? value.b : 'name',
     unitPricing: value.u === 'size' || value.u === 'off' ? value.u : 'unit',
+    measure: value.m === 'metric' ? 'metric' : 'us',
+    currency,
+    rounded: value.r === 1,
     couponsEnabled: value.x !== 1,
     taxEnabled: salesTax !== null,
     salesTax: salesTax ?? 0,
     prices,
     stocked,
     sizes,
+    aisleNames,
     coupons,
   }
 }
 
-function unpackCoupon(entry: unknown): Coupon | null {
+function unpackCoupon(entry: unknown, isMoney: (amount: unknown) => amount is number): Coupon | null {
   if (!Array.isArray(entry)) return null
   const [code, type, amount, productId] = entry
   if (typeof code !== 'string' || !/^[A-Z0-9 .$/+%-]{3,20}$/.test(code)) return null
@@ -208,8 +291,4 @@ function unpackCoupon(entry: unknown): Coupon | null {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
-}
-
-function isMoney(value: unknown): value is number {
-  return typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 999
 }

@@ -3,12 +3,12 @@
   import RichText from './RichText.svelte'
   import ReceiptBody from './ReceiptBody.svelte'
   import { cart } from '$lib/cart.svelte'
-  import { chunkItems, money } from '$lib/catalog'
+  import { chunkItems } from '$lib/catalog'
   import { couponCopies } from '$lib/coupons'
   import { current, t } from '$lib/i18n/index.svelte'
   import { closePrintSheet, printing } from '$lib/printing.svelte'
   import { buildReceipt } from '$lib/receipt'
-  import { shop } from '$lib/shop.svelte'
+  import { money, shop } from '$lib/shop.svelte'
 
   const job = $derived(printing.job)
   const receipt = $derived(buildReceipt())

@@ -64,6 +64,8 @@
       color: 'green',
       brandMode: 'name',
       unitPricing: 'unit',
+      measure: 'us',
+      currency: 'USD',
       couponsEnabled: true,
       taxEnabled: false,
       salesTax: 0,

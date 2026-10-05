@@ -93,10 +93,6 @@ export function catalogPrice(productId: string) {
   return aisleItemById.get(productId)?.price ?? productById[productId]?.price ?? 0
 }
 
-export function money(value: number) {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
-}
-
 export function chunkItems<T>(items: T[], size: number) {
   const chunks: T[][] = []
   for (let index = 0; index < items.length; index += size) chunks.push(items.slice(index, index + size))

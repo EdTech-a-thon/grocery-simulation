@@ -1,8 +1,10 @@
 import { browser } from '$app/environment'
 import { aisles, catalogPrice, type AisleConfig, type AisleItem } from './catalog'
+import { currencyOf, formatMoney, priceEndingInNine, roundToRoundNumber, roundToStep } from './currency'
 import { isStoreBrand, nameBrandIdOf, storeBrandPrice } from './products'
-import { cart, forgetCartOf, useCartOf } from './cart.svelte'
-import { catalogSize } from './sizes'
+import { aisleTitle } from './i18n/index.svelte'
+import { cart, forgetCartOf, priceCartIn, useCartOf } from './cart.svelte'
+import { catalogSize, inMeasure } from './sizes'
 import { stockedByDefault, storeColors, type Store, type StoreColor } from './store'
 
 const studentStoreStorageKey = 'classgrocery-student-store'
@@ -123,9 +125,15 @@ export function isStocked(productId: string) {
   return stockedByDefault(store?.brandMode ?? 'name', productId)
 }
 
-/** The store's own package size for a product, else the catalog's. */
+/** The store's own package size for a product, else the catalog's, in the store's units. */
 export function sizeFor(productId: string) {
-  return shop.store?.sizes[productId] ?? catalogSize(productId)
+  const own = shop.store?.sizes[productId]
+  return own ? inMeasure(own, shop.store?.measure ?? 'us') : usualSizeFor(productId)
+}
+
+/** The size a product comes in when the teacher has not changed it, in the store's units. */
+export function usualSizeFor(productId: string) {
+  return catalogSize(productId, shop.store?.measure ?? 'us')
 }
 
 /**
@@ -141,16 +149,47 @@ export function setStocked(productId: string, stocked: boolean) {
 }
 
 /**
- * The teacher's price, then the aisle's own price, then the catalog price. A
- * CG item nobody has priced follows the name brand beside it, so a teacher who
- * raises the price of milk sees the CG milk go up with it.
+ * The teacher's price, then the aisle's own price, then the catalog price, in
+ * the store's currency. A CG item nobody has priced follows the name brand
+ * beside it, so a teacher who raises the price of milk sees the CG milk go up
+ * with it.
  */
 export function priceFor(item: AisleItem) {
+  const currency = shop.store?.currency ?? 'USD'
   const prices = shop.store?.prices ?? {}
   if (item.id in prices) return prices[item.id]
   const nameBrandId = nameBrandIdOf(item.id)
-  if (isStoreBrand(item.id) && nameBrandId in prices) return storeBrandPrice(nameBrandId, prices[nameBrandId])
-  return item.price ?? catalogPrice(item.id)
+  if (isStoreBrand(item.id) && nameBrandId in prices) {
+    return snapPrice(item.id, storeBrandPrice(nameBrandId, prices[nameBrandId], currency))
+  }
+  // The catalog is in US dollars.
+  return snapPrice(item.id, (item.price ?? catalogPrice(item.id)) * currencyOf(currency).perDollar)
+}
+
+/**
+ * Snaps a price to how the open store prices things. Once the teacher has
+ * rounded the store, that is its currency's round number (¥10, €0.10).
+ * Otherwise a CG price ends in 9, the way it reads in dollars, and any other
+ * moves by the currency's usual step.
+ */
+export function snapPrice(productId: string, price: number) {
+  const currency = shop.store?.currency ?? 'USD'
+  if (shop.store?.rounded) return roundToRoundNumber(price, currency)
+  return isStoreBrand(productId) ? priceEndingInNine(price, currency) : roundToStep(price, currency)
+}
+
+/**
+ * An amount of money as the open store writes it: $3.49, €3.10, ¥550. A store
+ * rounded to whole units drops the empty cents, so it reads Kč 76, not Kč 76.00.
+ */
+export function money(value: number) {
+  const currency = shop.store?.currency ?? 'USD'
+  return formatMoney(value, currency, Boolean(shop.store?.rounded) && currencyOf(currency).roundTo >= 1)
+}
+
+/** What the open store calls an aisle: the teacher's name for it, or the catalog's in the reader's language. */
+export function aisleNameFor(englishTitle: string) {
+  return shop.store?.aisleNames[englishTitle] ?? aisleTitle(englishTitle)
 }
 
 /** Aisles with at least one stocked product, in catalog order. */
@@ -167,10 +206,11 @@ export function stockedProductIds() {
 }
 
 /**
- * Puts the store's own rules on the cart: the tax rate the class practices
- * with, and no coupons at all where the teacher turned them off.
+ * Puts the store's own rules on the cart: its currency, the tax rate the class
+ * practices with, and no coupons at all where the teacher turned them off.
  */
 export function syncCartToStore(store: Store) {
+  priceCartIn(store.currency)
   cart.salesTax = store.taxEnabled ? store.salesTax : 0
   if (!store.couponsEnabled) cart.appliedCoupons = []
 }

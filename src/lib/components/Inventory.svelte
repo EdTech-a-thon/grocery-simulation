@@ -2,9 +2,11 @@
   import Icon from '$lib/components/Icon.svelte'
   import { aisleImage, aisles, type AisleItem } from '$lib/catalog'
   import { aisleTitle, productName, t, unitPriceText } from '$lib/i18n/index.svelte'
-  import { isStoreBrand, priceEndingInNine, productById } from '$lib/products'
-  import { isStocked, priceFor, setStocked, shop, sizeFor } from '$lib/shop.svelte'
-  import { catalogSize, isSizeUnit, sizeUnits, type PackageSize } from '$lib/sizes'
+  import { currencySymbol, decimalsOf, maxPrice } from '$lib/currency'
+  import { isStoreBrand, productById } from '$lib/products'
+  import { aisleNameFor, isStocked, priceFor, setStocked, shop, sizeFor, snapPrice, usualSizeFor } from '$lib/shop.svelte'
+  import { isSizeUnit, unitsFor, type PackageSize } from '$lib/sizes'
+  import { maxAisleNameLength, priceStepOf } from '$lib/store'
   import { teacher } from '$lib/teacher.svelte'
 
   // Name brands and CG Value products are listed side by side, unless the
@@ -24,22 +26,26 @@
   }
 
   const count = $derived(stockCount(aisle.items))
+  const units = $derived(unitsFor(shop.store?.measure ?? 'us'))
+  const currency = $derived(shop.store?.currency ?? 'USD')
+  const priceStep = $derived(shop.store ? priceStepOf(shop.store) : 0.01)
 
   function changePrice(productId: string, value: string) {
     const price = Number(value)
     if (!shop.store || !Number.isFinite(price) || price < 0) return
-    // A CG Value price always ends in 9 cents, so whatever a teacher types is
-    // snapped to the nearest one.
-    shop.store.prices[productId] = isStoreBrand(productId) ? priceEndingInNine(price) : Math.round(price * 100) / 100
+    // Whatever a teacher types is snapped the way the store prices: a CG Value
+    // price to one ending in 9, or every price to the round number once rounded.
+    shop.store.prices[productId] = snapPrice(productId, price)
   }
 
   /**
    * A blank or zero amount goes back to the catalog size, and so does a size
-   * that matches it, so only a teacher's real changes are stored.
+   * that matches it as the shelf shows it, so only a teacher's real changes
+   * are stored.
    */
   function changeSize(productId: string, amountText: string, unitText: string) {
     const amount = Math.round(Number(amountText) * 100) / 100
-    const usual = catalogSize(productId)
+    const usual = usualSizeFor(productId)
     let size: PackageSize | null = null
     if (amountText.trim() && amount > 0 && isSizeUnit(unitText)) size = { amount, unit: unitText }
     if (size && usual && size.amount === usual.amount && size.unit === usual.unit) size = null
@@ -57,8 +63,30 @@
 
   /** A new aisle starts at its first products, wherever the last one was scrolled to. */
   function chooseAisle(index: number) {
+    renaming = false
     teacher.inventoryAisleIndex = index
     document.querySelector('.store-main')?.scrollTo({ top: 0 })
+  }
+
+  /** Whether the aisle's name in the heading is open for typing. */
+  let renaming = $state(false)
+
+  /**
+   * Gives the aisle the teacher's name for it. A blank name, or the catalog's
+   * own, puts the catalog name back, so only real renames are stored.
+   */
+  function renameAisle(value: string) {
+    renaming = false
+    if (!shop.store) return
+    const name = value.trim().slice(0, maxAisleNameLength)
+    if (name && name !== aisleTitle(aisle.title)) shop.store.aisleNames[aisle.title] = name
+    else delete shop.store.aisleNames[aisle.title]
+  }
+
+  /** The field takes the keyboard as soon as it opens, with the old name selected to type over. */
+  function focusAndSelect(input: HTMLInputElement) {
+    input.focus()
+    input.select()
   }
 
   /** The product last clicked on or off, where a shift-click's run starts. */
@@ -98,7 +126,7 @@
         {@const aisleCount = stockCount(item.items)}
         <button class:active={index === teacher.inventoryAisleIndex} type="button" onclick={() => chooseAisle(index)}>
           <img class="aisle-icon" src={aisleImage(item.title)} alt="" />
-          <span class="aisle-name">{aisleTitle(item.title)}</span>
+          <span class="aisle-name">{aisleNameFor(item.title)}</span>
           <span class="aisle-count" title={t('prices.aisleCount', aisleCount)}><strong>{aisleCount.stocked}</strong>/{aisleCount.total}</span>
         </button>
       {/each}
@@ -119,7 +147,30 @@
       <div class="section-heading">
         <div>
           <p class="eyebrow">{t('prices.summary', { number: teacher.inventoryAisleIndex + 1, ...count })}</p>
-          <h2>{aisleTitle(aisle.title)}</h2>
+          <!-- Enter or leaving the field keeps the new name; Escape keeps the old one. -->
+          {#if renaming}
+            <input
+              class="aisle-rename-input"
+              type="text"
+              maxlength={maxAisleNameLength}
+              value={aisleNameFor(aisle.title)}
+              placeholder={aisleTitle(aisle.title)}
+              aria-label={t('prices.aisleNameLabel')}
+              use:focusAndSelect
+              onkeydown={(event) => {
+                if (event.key === 'Enter') event.currentTarget.blur()
+                if (event.key === 'Escape') renaming = false
+              }}
+              onblur={(event) => renaming && renameAisle(event.currentTarget.value)}
+            />
+          {:else}
+            <h2 class="aisle-heading">
+              {aisleNameFor(aisle.title)}
+              <button class="aisle-rename-button" type="button" title={t('prices.renameAisle')} aria-label={t('prices.renameAisle')} onclick={() => (renaming = true)}>
+                <Icon name="pencil" />
+              </button>
+            </h2>
+          {/if}
         </div>
         <div class="stock-bulk-actions">
           <span class="shift-click-hint">{t('prices.shiftClickHint')}</span>
@@ -153,12 +204,12 @@
             <img src={product.image} alt="" />
             <span>{name}</span>
             <span class="teacher-money-input">
-              $<input
+              {currencySymbol(currency)}<input
                 type="number"
                 min="0"
-                max="999"
-                step="0.01"
-                value={priceFor(item).toFixed(2)}
+                max={maxPrice(currency)}
+                step={priceStep}
+                value={priceFor(item).toFixed(decimalsOf(currency))}
                 aria-label={t('prices.priceLabel', { name })}
                 onchange={(event) => changePrice(item.id, event.currentTarget.value)}
               />
@@ -172,16 +223,16 @@
                 aria-label={t('prices.sizeLabel', { name })}
                 onchange={(event) => {
                   // A cleared box refills with the usual size straight away.
-                  const shown = changeSize(item.id, event.currentTarget.value, size?.unit ?? 'oz')
+                  const shown = changeSize(item.id, event.currentTarget.value, size?.unit ?? units[0])
                   event.currentTarget.value = String(shown?.amount ?? '')
                 }}
               />
               <select
-                value={size?.unit ?? 'oz'}
+                value={size?.unit ?? units[0]}
                 aria-label={t('prices.sizeUnitLabel', { name })}
                 onchange={(event) => changeSize(item.id, String(size?.amount ?? 1), event.currentTarget.value)}
               >
-                {#each sizeUnits as unit (unit)}<option value={unit}>{unit}</option>{/each}
+                {#each units as unit (unit)}<option value={unit}>{unit}</option>{/each}
               </select>
             </span>
             {#if size}<span class="teacher-unit-price">{unitPriceText(priceFor(item), size)}</span>{/if}
