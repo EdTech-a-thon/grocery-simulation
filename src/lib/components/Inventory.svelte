@@ -2,7 +2,7 @@
   import Icon from '$lib/components/Icon.svelte'
   import { aisleImage, aisles, type AisleItem } from '$lib/catalog'
   import { aisleTitle, productName, t, unitPriceText } from '$lib/i18n/index.svelte'
-  import { currencySymbol, decimalsOf, maxPrice } from '$lib/currency'
+  import { currencySymbol, decimalsOf, maxPrice, symbolAfterNumber } from '$lib/currency'
   import { isStoreBrand, productById } from '$lib/products'
   import { aisleNameFor, isStocked, priceFor, setStocked, shop, sizeFor, snapPrice, usualSizeFor } from '$lib/shop.svelte'
   import { isSizeUnit, unitsFor, type PackageSize } from '$lib/sizes'
@@ -28,6 +28,9 @@
   const count = $derived(stockCount(aisle.items))
   const units = $derived(unitsFor(shop.store?.measure ?? 'us'))
   const currency = $derived(shop.store?.currency ?? 'USD')
+  // The sign sits where the country prints it: $3.49, but 3,49 €.
+  const symbol = $derived(currencySymbol(currency))
+  const symbolAfter = $derived(symbolAfterNumber(currency))
   const priceStep = $derived(shop.store ? priceStepOf(shop.store) : 0.01)
 
   function changePrice(productId: string, value: string) {
@@ -204,7 +207,7 @@
             <img src={product.image} alt="" />
             <span>{name}</span>
             <span class="teacher-money-input">
-              {currencySymbol(currency)}<input
+              {#if !symbolAfter}{symbol}{/if}<input
                 type="number"
                 min="0"
                 max={maxPrice(currency)}
@@ -212,7 +215,7 @@
                 value={priceFor(item).toFixed(decimalsOf(currency))}
                 aria-label={t('prices.priceLabel', { name })}
                 onchange={(event) => changePrice(item.id, event.currentTarget.value)}
-              />
+              />{#if symbolAfter}<span class="money-sign-after">{symbol}</span>{/if}
             </span>
             <span class="teacher-size-input">
               <input

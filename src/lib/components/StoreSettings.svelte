@@ -47,7 +47,7 @@
     syncCartToStore(shop.store)
   }
 
-  /** The currency's round number as a price, for the rounding button: '¥10', '€0.10'. */
+  /** The currency's round number as a price, for the rounding button: '¥10', '0,10 €'. */
   const roundNumber = $derived(shop.store ? formatMoney(currencyOf(shop.store.currency).roundTo, shop.store.currency, true) : '')
 
   /** The rate students practise with at checkout; turning tax off forgets it. */

@@ -42,7 +42,7 @@ export type Store = {
   measure: Measure
   /** The ISO code of the money every price in this store is in — see currency.ts. */
   currency: string
-  /** Whether every price is snapped to the currency's round number (€0.10, ¥10...) — see roundPrices(). */
+  /** Whether every price is snapped to the currency's round number (0,10 €, ¥10...) — see roundPrices(). */
   rounded: boolean
   couponsEnabled: boolean
   taxEnabled: boolean

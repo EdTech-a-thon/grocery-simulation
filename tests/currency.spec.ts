@@ -76,9 +76,13 @@ test('a store in another currency can round every price to its round number', as
   // A different currency has a different round number, so it asks again.
   await page.getByLabel('Currency').selectOption('EUR')
   await expect.poll(async () => (await readStore(page)).r).toBeUndefined()
-  await expect(page.getByRole('button', { name: 'Round to €0.10' })).toBeVisible()
+  // Euros are written the European way, with a decimal comma and the sign after.
+  const roundToTenCents = page.getByRole('button', { name: /^Round to 0,10\s€$/ })
+  await expect(roundToTenCents).toBeVisible()
+  // ¥320 is €1.80 at the fixed rates.
+  await expect(page.locator('.store-preview')).toContainText(/1,80\s€/)
 
-  await page.getByRole('button', { name: 'Round to €0.10' }).click()
+  await roundToTenCents.click()
   await page.getByRole('button', { name: 'Undo' }).click()
   await expect.poll(async () => (await readStore(page)).r).toBeUndefined()
 })
