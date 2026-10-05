@@ -1,5 +1,5 @@
 <script lang="ts">
-  // The footer every EdTech-a-thon project carries: who built it on the left of
+  // The footer every teacher.dev project carries: who built it on the left of
   // the row, and the pages a visitor goes looking for after that. The language
   // control lives at the top of every screen instead, where a reader who cannot
   // read the page yet will find it without scrolling.

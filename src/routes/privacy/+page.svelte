@@ -6,7 +6,7 @@
 
   const links = {
     cloudflare: 'https://www.cloudflare.com/privacypolicy/',
-    support: 'mailto:support@classgrocery.com?subject=classgrocery%20privacy',
+    support: 'mailto:support@teacher.dev?subject=classgrocery%20privacy',
   }
 </script>
 

@@ -36,6 +36,7 @@ const en: LanguagePack = {
     'footer.builtBy': 'Built by teacher.dev',
     'footer.about': 'about',
     'footer.privacy': 'privacy',
+    'footer.menu': 'teacher.dev: about and privacy',
     'page.back': 'Back to Class Grocery',
 
     'support.label': 'Help and support',
@@ -310,10 +311,10 @@ const en: LanguagePack = {
     'about.title': 'About',
     'about.lede':
       'A grocery store simulation built for teachers and their classes, free for anyone to use.',
-    'about.community.title': 'From the EdTech-a-thon',
+    'about.community.title': 'From teacher.dev',
     'about.community.body':
-      "Class Grocery is a project from the [EdTech-a-thon](edtechathon), a community of builders making free tools for classrooms. Learn more about who we are and what else we're building at [edtechathon.com](edtechathon).",
-    'about.community.photo': 'Participants of the 2026 EdTech-a-thon',
+      "Class Grocery is a project from [teacher.dev](teacherdev), a community of builders making free tools for classrooms. Learn more about who we are and what else we're building at [teacher.dev](teacherdev).",
+    'about.community.photo': 'The teacher.dev community in 2026',
     'about.community.caption': 'EdTech-a-thon 2026',
     'about.promise.title': 'Our promise',
     'about.promise.paywalls': 'Zero paywalls.',
@@ -322,7 +323,7 @@ const en: LanguagePack = {
     'about.feedback.title': 'Feedback & ideas',
     'about.feedback.body':
       "We'd love to hear from you. Tell us what's working, what's not, or pitch us an idea for a tool you wish existed. We're here to help.",
-    'about.feedback.button': 'Email support@classgrocery.com',
+    'about.feedback.button': 'Email support@teacher.dev',
 
     // ------------------------------------------------------ privacy page
     'privacy.title': 'Privacy',
@@ -334,7 +335,7 @@ const en: LanguagePack = {
     'privacy.storage':
       "Class Grocery keeps a few things in your browser's local storage: the stores on a teacher's list, the last store a student opened, what is in their cart, and the language you picked. That information never leaves your device.",
     'privacy.contact':
-      'Questions or concerns? Email [support@classgrocery.com](support).',
+      'Questions or concerns? Email [support@teacher.dev](support).',
   },
 
   aisles: {

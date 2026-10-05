@@ -15,6 +15,7 @@ const fr: LanguagePack = {
     'footer.builtBy': 'Créé par teacher.dev',
     'footer.about': 'à propos',
     'footer.privacy': 'confidentialité',
+    'footer.menu': 'teacher.dev : à propos et confidentialité',
     'page.back': 'Retour à Class Grocery',
 
     'support.label': 'Aide et assistance',
@@ -281,10 +282,10 @@ const fr: LanguagePack = {
     'about.title': 'À propos',
     'about.lede':
       'Une simulation de magasin d’alimentation conçue pour les enseignants et leurs classes, gratuite pour tout le monde.',
-    'about.community.title': 'De l’EdTech-a-thon',
+    'about.community.title': 'De teacher.dev',
     'about.community.body':
-      'Class Grocery est un projet de l’[EdTech-a-thon](edtechathon), une communauté de créateurs qui fabriquent des outils gratuits pour les classes. Découvrez qui nous sommes et ce que nous construisons sur [edtechathon.com](edtechathon).',
-    'about.community.photo': 'Participants de l’EdTech-a-thon 2026',
+      'Class Grocery est un projet de [teacher.dev](teacherdev), une communauté de créateurs qui fabriquent des outils gratuits pour les classes. Découvrez qui nous sommes et ce que nous construisons sur [teacher.dev](teacherdev).',
+    'about.community.photo': 'La communauté teacher.dev en 2026',
     'about.community.caption': 'EdTech-a-thon 2026',
     'about.promise.title': 'Notre promesse',
     'about.promise.paywalls': 'Zéro paiement obligatoire.',
@@ -293,7 +294,7 @@ const fr: LanguagePack = {
     'about.feedback.title': 'Retours et idées',
     'about.feedback.body':
       'Nous serions ravis de vous lire. Dites-nous ce qui fonctionne, ce qui ne fonctionne pas, ou proposez-nous l’idée d’un outil qui vous manque. Nous sommes là pour aider.',
-    'about.feedback.button': 'Écrire à support@classgrocery.com',
+    'about.feedback.button': 'Écrire à support@teacher.dev',
 
     'privacy.title': 'Confidentialité',
     'privacy.lede': 'Ce que nous collectons, ce que nous ne collectons pas, et pourquoi.',
@@ -304,7 +305,7 @@ const fr: LanguagePack = {
     'privacy.storage':
       'Class Grocery garde quelques informations dans le stockage local de votre navigateur : les magasins de la liste d’un enseignant, le dernier magasin ouvert par un élève, le contenu de son panier et la langue choisie. Ces informations ne quittent jamais votre appareil.',
     'privacy.contact':
-      'Des questions ou des inquiétudes ? Écrivez à [support@classgrocery.com](support).',
+      'Des questions ou des inquiétudes ? Écrivez à [support@teacher.dev](support).',
   },
 
   aisles: {

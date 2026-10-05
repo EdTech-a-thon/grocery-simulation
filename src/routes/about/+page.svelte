@@ -5,8 +5,8 @@
   import { t } from '$lib/i18n/index.svelte'
 
   // Where the names written into the translated sentences point. A translator
-  // moves `[words](edtechathon)` to wherever their sentence wants it.
-  const links = { edtechathon: 'https://edtechathon.com' }
+  // moves `[words](teacherdev)` to wherever their sentence wants it.
+  const links = { teacherdev: 'https://teacher.dev' }
 </script>
 
 <svelte:head>
@@ -21,13 +21,13 @@
 
     <section class="info-card">
       <div class="info-card-heading">
-        <img src="/edtechathon-logo.svg" alt="" width="40" height="40" />
+        <img src="/teacher-dev-logo.svg" alt="" width="40" height="40" />
         <h2>{t('about.community.title')}</h2>
       </div>
       <p><RichText key="about.community.body" {links} /></p>
 
       <figure class="info-photo">
-        <img src="/edtechathon-2026.jpg" alt={t('about.community.photo')} />
+        <img src="/teacher-dev-2026.jpg" alt={t('about.community.photo')} />
         <figcaption>{t('about.community.caption')}</figcaption>
       </figure>
     </section>
@@ -44,7 +44,7 @@
     <section class="info-card">
       <h2>{t('about.feedback.title')}</h2>
       <p>{t('about.feedback.body')}</p>
-      <a class="info-mail-button" href="mailto:support@classgrocery.com?subject=classgrocery%20feedback">
+      <a class="info-mail-button" href="mailto:support@teacher.dev?subject=classgrocery%20feedback">
         {t('about.feedback.button')}
       </a>
     </section>

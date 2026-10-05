@@ -246,16 +246,13 @@ button {
 .landing-cta span { margin-left: 8px; }
 .landing-cta:hover, .landing-cta:focus-visible { background: #166534; }
 
-/* The EdTech-a-thon footer, the same row on every project in the group: who
+/* The teacher.dev footer, the same row on every project in the group: who
    built it, then the pages that are not part of the app itself. */
 .site-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 18px; padding: 26px 20px 30px; border-top: 1px solid #dcf0e2; background: #fff; text-align: center; }
 .site-footer a { color: #5e7163; font-size: .88rem; font-weight: 700; text-decoration: none; }
 .site-footer a:hover { color: #15803d; }
 .built-by { display: inline-flex; align-items: center; gap: 8px; }
 .built-by img { display: block; }
-/* In a top bar it is a quiet credit, not one of the bar's buttons. */
-.app-header a.built-by, .page-header .built-by { margin-right: 4px; border: 0; padding: 0; background: transparent; color: #4b6354; font-size: .8rem; font-weight: 700; text-decoration: none; }
-.app-header a.built-by:hover, .page-header .built-by:hover { background: transparent; color: #14532d; text-decoration: underline; }
 
 /* About and privacy: a column of plain reading, so they borrow nothing from the
    store's chrome beyond its colours. */

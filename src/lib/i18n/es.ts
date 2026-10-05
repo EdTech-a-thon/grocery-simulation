@@ -15,6 +15,7 @@ const es: LanguagePack = {
     'footer.builtBy': 'Creado por teacher.dev',
     'footer.about': 'acerca de',
     'footer.privacy': 'privacidad',
+    'footer.menu': 'teacher.dev: acerca de y privacidad',
     'page.back': 'Volver a Class Grocery',
 
     'support.label': 'Ayuda y soporte',
@@ -279,10 +280,10 @@ const es: LanguagePack = {
     'about.title': 'Acerca de',
     'about.lede':
       'Una simulación de supermercado creada para docentes y sus clases, gratis para todo el mundo.',
-    'about.community.title': 'Del EdTech-a-thon',
+    'about.community.title': 'De teacher.dev',
     'about.community.body':
-      'Class Grocery es un proyecto del [EdTech-a-thon](edtechathon), una comunidad de creadores que hacen herramientas gratuitas para las aulas. Conoce quiénes somos y qué más estamos construyendo en [edtechathon.com](edtechathon).',
-    'about.community.photo': 'Participantes del EdTech-a-thon 2026',
+      'Class Grocery es un proyecto de [teacher.dev](teacherdev), una comunidad de creadores que hacen herramientas gratuitas para las aulas. Conoce quiénes somos y qué más estamos construyendo en [teacher.dev](teacherdev).',
+    'about.community.photo': 'La comunidad de teacher.dev en 2026',
     'about.community.caption': 'EdTech-a-thon 2026',
     'about.promise.title': 'Nuestra promesa',
     'about.promise.paywalls': 'Cero muros de pago.',
@@ -291,7 +292,7 @@ const es: LanguagePack = {
     'about.feedback.title': 'Comentarios e ideas',
     'about.feedback.body':
       'Nos encantaría saber de ti. Cuéntanos qué funciona, qué no, o proponnos una idea para una herramienta que te gustaría tener. Estamos para ayudar.',
-    'about.feedback.button': 'Escribir a support@classgrocery.com',
+    'about.feedback.button': 'Escribir a support@teacher.dev',
 
     'privacy.title': 'Privacidad',
     'privacy.lede': 'Qué recopilamos, qué no, y por qué.',
@@ -302,7 +303,7 @@ const es: LanguagePack = {
     'privacy.storage':
       'Class Grocery guarda algunas cosas en el almacenamiento local de tu navegador: las tiendas de la lista de un maestro, la última tienda que abrió un estudiante, lo que hay en su carrito y el idioma que elegiste. Esa información nunca sale de tu dispositivo.',
     'privacy.contact':
-      '¿Dudas o inquietudes? Escribe a [support@classgrocery.com](support).',
+      '¿Dudas o inquietudes? Escribe a [support@teacher.dev](support).',
   },
 
   aisles: {

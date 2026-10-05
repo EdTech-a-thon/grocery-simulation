@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
-  import BuiltBy from './BuiltBy.svelte'
+  import BrandMenu from './BrandMenu.svelte'
   import LanguagePicker from './LanguagePicker.svelte'
   import SupportButton from './SupportButton.svelte'
 
@@ -19,5 +19,5 @@
     </button>
   </div>
   {#if title}<h1>{title}</h1>{:else}<span></span>{/if}
-  <nav>{@render nav?.()}<BuiltBy size={20} /><LanguagePicker /><SupportButton inHeader /></nav>
+  <nav>{@render nav?.()}<BrandMenu /><LanguagePicker /><SupportButton inHeader /></nav>
 </header>
