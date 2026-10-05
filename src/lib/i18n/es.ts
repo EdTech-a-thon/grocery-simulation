@@ -158,6 +158,7 @@ const es: LanguagePack = {
     'teacher.exitStudentView': 'Salir de la vista de estudiante',
 
     'store.copyLink': 'Copiar enlace para estudiantes',
+    'teacher.settingsNav': 'Configuración',
     'store.copyNewLink': 'Copiar enlace nuevo para estudiantes',
     'store.copied': 'Copiado',
     'store.copyPrompt': 'Copia este enlace para estudiantes:',

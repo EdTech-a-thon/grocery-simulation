@@ -8,7 +8,8 @@
   /**
    * The panel down the left of every page of an open store: the way back to
    * the list, a little picture of the store (its gear opens the settings), the
-   * store's pages, and the class's two ways in.
+   * store's pages (settings among them, for anyone who misses the gear), and
+   * the class's two ways in.
    */
   let { page, onGo, onBack, onViewAsStudent }: {
     page: StorePage
@@ -20,6 +21,7 @@
   const pages: Array<{ page: StorePage; label: string }> = $derived([
     { page: 'inventory', label: t('teacher.inventoryTitle') },
     { page: 'coupons', label: t('teacher.couponsTitle') },
+    { page: 'settings', label: t('teacher.settingsNav') },
   ])
 
   // A student link is a snapshot, so a change made after copying it never
@@ -44,7 +46,6 @@
   <button
     class="sidebar-storefront"
     class:active={page === 'settings'}
-    aria-current={page === 'settings' ? 'page' : undefined}
     type="button"
     title={t('teacher.settingsTitle')}
     aria-label={`${t('teacher.settingsTitle')}: ${shop.store?.name ?? ''}`}

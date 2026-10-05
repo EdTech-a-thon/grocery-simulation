@@ -185,6 +185,7 @@ const en: LanguagePack = {
     'teacher.exitStudentView': 'Exit student view',
 
     'store.copyLink': 'Copy student link',
+    'teacher.settingsNav': 'Settings',
     'store.copyNewLink': 'Copy new student link',
     'store.copied': 'Copied',
     'store.copyPrompt': 'Copy this student link:',
