@@ -17,6 +17,8 @@ export const cart = $state({
   lines: [] as CartLine[],
   appliedCoupons: [] as Coupon[],
   salesTax: 0,
+  /** The currency the line prices are in. */
+  currency: 'USD',
   /** The line a shopper last took off a shelf, and a count that ticks each time, so the cart can show it. */
   lastAdded: { key: '', count: 0 },
 })
@@ -29,7 +31,7 @@ function cartKey(item: ShelfItem) {
 // Every store keeps its own cart, by store name, so a student who hops to
 // another store and back finds their cart as they left it. A teacher's
 // updated link keeps the store's name, so it keeps the cart too.
-type SavedCart = { lines: CartLine[]; coupons: Coupon[] }
+type SavedCart = { lines: CartLine[]; coupons: Coupon[]; currency?: string }
 const carts: Record<string, SavedCart> = browser ? loadCarts() : {}
 /** Whose cart is on screen: a store name, or null before any store opens. */
 let cartOwner: string | null = null
@@ -45,10 +47,11 @@ function loadCarts() {
     const stored = JSON.parse(localStorage.getItem(cartsStorageKey) ?? '{}')
     const loaded: Record<string, SavedCart> = {}
     for (const [name, saved] of Object.entries(stored ?? {})) {
-      const { lines, coupons } = (saved ?? {}) as Partial<SavedCart>
+      const { lines, coupons, currency } = (saved ?? {}) as Partial<SavedCart>
       loaded[name] = {
         lines: cleanLines(lines),
         coupons: Array.isArray(coupons) ? coupons.filter((coupon) => typeof coupon?.code === 'string') : [],
+        currency: typeof currency === 'string' ? currency : 'USD',
       }
     }
     return loaded
@@ -68,7 +71,7 @@ function loadOldCart() {
 function save() {
   if (cartOwner === null) return
   if (cart.lines.length || cart.appliedCoupons.length) {
-    carts[cartOwner] = $state.snapshot({ lines: cart.lines, coupons: cart.appliedCoupons })
+    carts[cartOwner] = $state.snapshot({ lines: cart.lines, coupons: cart.appliedCoupons, currency: cart.currency })
   } else delete carts[cartOwner]
   try {
     localStorage.setItem(cartsStorageKey, JSON.stringify(carts))
@@ -84,6 +87,7 @@ export function useCartOf(storeName: string) {
   const saved = carts[storeName]
   cart.lines = saved?.lines ?? unclaimedLines
   cart.appliedCoupons = saved?.coupons ?? []
+  cart.currency = saved?.currency ?? 'USD'
   if (!saved && unclaimedLines.length) save()
   if (unclaimedLines.length) {
     unclaimedLines = []
@@ -102,6 +106,18 @@ export function forgetCartOf(storeName: string) {
     cart.lines = []
     cart.appliedCoupons = []
   }
+  save()
+}
+
+/**
+ * A cart's prices are in the money they were picked up in, so a store that
+ * changes currency starts a fresh cart rather than show dollars as yen.
+ */
+export function priceCartIn(currency: string) {
+  if (cart.currency === currency) return
+  cart.currency = currency
+  cart.lines = []
+  cart.appliedCoupons = []
   save()
 }
 

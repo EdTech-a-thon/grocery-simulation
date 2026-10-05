@@ -282,8 +282,3 @@ export function unitPrice(price: number, size: PackageSize) {
   const amount = size.amount * unitPriceBasis[size.unit].inOneUnit
   return amount > 0 ? price / amount : 0
 }
-
-/** A unit price in dollars and cents ($0.27), like every other price. */
-export function formatUnitPrice(value: number) {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
-}

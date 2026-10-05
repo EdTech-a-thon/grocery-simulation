@@ -8,7 +8,8 @@ import en from './en'
 import es from './es'
 import fr from './fr'
 import { isStoreBrand, nameBrandIdOf, storeBrandPrefix } from '../products'
-import { formatUnitPrice, unitPrice, unitPriceBasisOf, type PackageSize } from '../sizes'
+import { money } from '../shop.svelte'
+import { unitPrice, unitPriceBasisOf, type PackageSize } from '../sizes'
 import type { LanguagePack } from './types'
 
 const languages: Record<string, LanguagePack> = { en, es, fr }
@@ -117,7 +118,7 @@ export function productNote(productId: string) {
  * itself is not translated: oz and g read the same in every language.
  */
 export function unitPriceText(price: number, size: PackageSize, spoken = false) {
-  const value = formatUnitPrice(unitPrice(price, size))
+  const value = money(unitPrice(price, size))
   const key = size.unit === 'ct' ? 'product.unitPriceEach' : 'product.unitPrice'
   const per = unitPriceBasisOf(size.unit)
   if (spoken) return t(`${key}Spoken`, { price: value, unit: per })

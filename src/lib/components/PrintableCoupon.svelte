@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { money } from '$lib/catalog'
   import { formatCouponItem } from '$lib/coupons'
   import { productName, t } from '$lib/i18n/index.svelte'
   import { productById } from '$lib/products'
-  import { shop } from '$lib/shop.svelte'
+  import { money, shop } from '$lib/shop.svelte'
   import type { Coupon } from '$lib/store'
 
   let { coupon }: { coupon: Coupon } = $props()

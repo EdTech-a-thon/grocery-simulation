@@ -1,6 +1,7 @@
 <script lang="ts">
   import { untrack } from 'svelte'
   import PrintableCoupon from '$lib/components/PrintableCoupon.svelte'
+  import { currencyOf, currencySymbol, decimalsOf, fromDollars, maxPrice } from '$lib/currency'
   import { productName, t } from '$lib/i18n/index.svelte'
   import { shop, stockedProductIds } from '$lib/shop.svelte'
   import { addCoupon, type Coupon } from '$lib/store'
@@ -20,6 +21,7 @@
   let problem = $state('')
 
   const inDollars = $derived(discountType === 'dollars')
+  const currency = $derived(shop.store?.currency ?? 'USD')
   const coupons = $derived(shop.store?.coupons ?? [])
 
   /** The coupon as the form stands, drawn exactly as it will print. */
@@ -31,10 +33,11 @@
     copies: 1,
   })
 
-  /** Percent and dollar discounts want different limits, steps and starting values. */
+  /** Percent and money-off discounts want different limits, steps and starting values. */
   function changeDiscountType(event: Event & { currentTarget: HTMLSelectElement }) {
     discountType = event.currentTarget.value === 'dollars' ? 'dollars' : 'percent'
-    discountAmount = discountType === 'dollars' ? '1.00' : '10'
+    // Money off starts at what a dollar is worth in the store's currency: $1, €0.89, ¥158.
+    discountAmount = discountType === 'dollars' ? fromDollars(1, currency).toFixed(decimalsOf(currency)) : '10'
   }
 
   function save(event: SubmitEvent) {
@@ -88,11 +91,11 @@
             data-discount-amount
             bind:value={discountAmount}
             type="number"
-            min={inDollars ? '0.01' : '1'}
-            max={inDollars ? '999' : '100'}
-            step={inDollars ? '0.01' : '1'}
+            min={inDollars ? currencyOf(currency).step : 1}
+            max={inDollars ? maxPrice(currency) : 100}
+            step={inDollars ? currencyOf(currency).step : 1}
           />
-          <span class="field-suffix">{inDollars ? '$' : '%'}</span>
+          <span class="field-suffix">{inDollars ? currencySymbol(currency) : '%'}</span>
         </label>
         <label>
           {t('coupons.appliesTo')}

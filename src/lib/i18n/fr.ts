@@ -216,6 +216,11 @@ const fr: LanguagePack = {
     'settings.measure': 'Les tailles sont en',
     'settings.measureUs': 'Unités américaines (oz, lb, gal)',
     'settings.measureMetric': 'Unités métriques (g, kg, mL, L)',
+    'settings.currency': 'Devise',
+    'settings.currencyHelp': 'Les prix sont convertis depuis le dollar américain.',
+    'settings.roundTo': 'Arrondir à {amount}',
+    'settings.roundedTo': 'Tous les prix sont arrondis à {amount}.',
+    'settings.undoRounding': 'Annuler',
 
     'color.green': 'Vert',
     'color.blue': 'Bleu',
@@ -226,7 +231,9 @@ const fr: LanguagePack = {
     'color.red': 'Rouge',
 
     'prices.aisleListTitle': 'Rayons',
+
     'prices.renameAisle': 'Renommer le rayon',
+
     'prices.aisleNameLabel': 'Nom du rayon',
     'prices.aisleCount': '{stocked} sur {total} en rayon',
     'prices.summary': 'Rayon {number} · {stocked} sur {total} en rayon',
@@ -245,7 +252,7 @@ const fr: LanguagePack = {
 
     'coupons.type': 'Type de réduction',
     'coupons.percentOption': 'Pourcentage de réduction',
-    'coupons.dollarsOption': 'Montant en dollars',
+    'coupons.dollarsOption': 'Montant fixe',
     'coupons.appliesTo': 'S’applique à',
     'coupons.entirePurchase': 'Tout l’achat',
     'coupons.codeWord': 'Mot du code',

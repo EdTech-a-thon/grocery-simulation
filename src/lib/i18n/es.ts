@@ -215,6 +215,11 @@ const es: LanguagePack = {
     'settings.measure': 'Los tamaños van en',
     'settings.measureUs': 'Unidades de EE. UU. (oz, lb, gal)',
     'settings.measureMetric': 'Unidades métricas (g, kg, mL, L)',
+    'settings.currency': 'Moneda',
+    'settings.currencyHelp': 'Los precios se convierten desde dólares estadounidenses.',
+    'settings.roundTo': 'Redondear a {amount}',
+    'settings.roundedTo': 'Todos los precios están redondeados a {amount}.',
+    'settings.undoRounding': 'Deshacer',
 
     'color.green': 'Verde',
     'color.blue': 'Azul',
@@ -225,7 +230,9 @@ const es: LanguagePack = {
     'color.red': 'Rojo',
 
     'prices.aisleListTitle': 'Pasillos',
+
     'prices.renameAisle': 'Cambiar nombre del pasillo',
+
     'prices.aisleNameLabel': 'Nombre del pasillo',
     'prices.aisleCount': '{stocked} de {total} en existencia',
     'prices.summary': 'Pasillo {number} · {stocked} de {total} en existencia',
@@ -244,7 +251,7 @@ const es: LanguagePack = {
 
     'coupons.type': 'Tipo de descuento',
     'coupons.percentOption': 'Porcentaje de descuento',
-    'coupons.dollarsOption': 'Cantidad en dólares',
+    'coupons.dollarsOption': 'Cantidad de dinero',
     'coupons.appliesTo': 'Se aplica a',
     'coupons.entirePurchase': 'Toda la compra',
     'coupons.codeWord': 'Palabra del código',

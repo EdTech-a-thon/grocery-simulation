@@ -1,5 +1,5 @@
 import { cart } from './cart.svelte'
-import { money } from './catalog'
+import { money } from './shop.svelte'
 import { productName, t } from './i18n/index.svelte'
 import type { Coupon } from './store'
 

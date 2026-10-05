@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { money } from '$lib/catalog'
   import { productName, t, unitPriceText } from '$lib/i18n/index.svelte'
   import { productById } from '$lib/products'
-  import { priceFor, sizeFor } from '$lib/shop.svelte'
+  import { money, priceFor, sizeFor } from '$lib/shop.svelte'
   import { formatSize } from '$lib/sizes'
   import type { Store } from '$lib/store'
 

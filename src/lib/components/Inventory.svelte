@@ -2,10 +2,11 @@
   import Icon from '$lib/components/Icon.svelte'
   import { aisleImage, aisles, type AisleItem } from '$lib/catalog'
   import { aisleTitle, productName, t, unitPriceText } from '$lib/i18n/index.svelte'
-  import { isStoreBrand, priceEndingInNine, productById } from '$lib/products'
-  import { aisleNameFor, isStocked, priceFor, setStocked, shop, sizeFor, usualSizeFor } from '$lib/shop.svelte'
+  import { currencySymbol, decimalsOf, maxPrice } from '$lib/currency'
+  import { isStoreBrand, productById } from '$lib/products'
+  import { aisleNameFor, isStocked, priceFor, setStocked, shop, sizeFor, snapPrice, usualSizeFor } from '$lib/shop.svelte'
   import { isSizeUnit, unitsFor, type PackageSize } from '$lib/sizes'
-  import { maxAisleNameLength } from '$lib/store'
+  import { maxAisleNameLength, priceStepOf } from '$lib/store'
   import { teacher } from '$lib/teacher.svelte'
 
   // Name brands and CG Value products are listed side by side, unless the
@@ -26,13 +27,15 @@
 
   const count = $derived(stockCount(aisle.items))
   const units = $derived(unitsFor(shop.store?.measure ?? 'us'))
+  const currency = $derived(shop.store?.currency ?? 'USD')
+  const priceStep = $derived(shop.store ? priceStepOf(shop.store) : 0.01)
 
   function changePrice(productId: string, value: string) {
     const price = Number(value)
     if (!shop.store || !Number.isFinite(price) || price < 0) return
-    // A CG Value price always ends in 9 cents, so whatever a teacher types is
-    // snapped to the nearest one.
-    shop.store.prices[productId] = isStoreBrand(productId) ? priceEndingInNine(price) : Math.round(price * 100) / 100
+    // Whatever a teacher types is snapped the way the store prices: a CG Value
+    // price to one ending in 9, or every price to the round number once rounded.
+    shop.store.prices[productId] = snapPrice(productId, price)
   }
 
   /**
@@ -201,12 +204,12 @@
             <img src={product.image} alt="" />
             <span>{name}</span>
             <span class="teacher-money-input">
-              $<input
+              {currencySymbol(currency)}<input
                 type="number"
                 min="0"
-                max="999"
-                step="0.01"
-                value={priceFor(item).toFixed(2)}
+                max={maxPrice(currency)}
+                step={priceStep}
+                value={priceFor(item).toFixed(decimalsOf(currency))}
                 aria-label={t('prices.priceLabel', { name })}
                 onchange={(event) => changePrice(item.id, event.currentTarget.value)}
               />

@@ -14,7 +14,8 @@
 
 import { aisles, catalogPrice } from '../src/lib/catalog'
 import { isStoreBrand, productById, storeBrandIdOf } from '../src/lib/products'
-import { baseMetricAmount, catalogSize, exactMetricAmount, formatSize, formatUnitPrice, metricTolerance, unitPrice, type Measure } from '../src/lib/sizes'
+import { formatMoney } from '../src/lib/currency'
+import { baseMetricAmount, catalogSize, exactMetricAmount, formatSize, metricTolerance, unitPrice, type Measure } from '../src/lib/sizes'
 
 type Kind = 'smaller' | 'same' | 'bigger'
 
@@ -60,8 +61,8 @@ for (const aisle of aisles) {
       const twinUnitCheaper = unitPrice(twin.price, twinSize) < unitPrice(name.price, nameSize)
       if (twinUnitCheaper !== expected[1]) problems.push(`${item.id}: a ${kind} CG twin should be ${expected[1] ? 'cheaper' : 'dearer'} per unit in ${measure} units`)
 
-      const nameShown = formatUnitPrice(unitPrice(name.price, nameSize))
-      const twinShown = formatUnitPrice(unitPrice(twin.price, twinSize))
+      const nameShown = formatMoney(unitPrice(name.price, nameSize), 'USD')
+      const twinShown = formatMoney(unitPrice(twin.price, twinSize), 'USD')
       if (nameShown === twinShown) problems.push(`${item.id}: both tags read ${nameShown} in ${measure} units`)
       return `${formatSize(nameSize).padStart(10)} $${name.price.toFixed(2).padStart(5)} ${nameShown.padStart(7)}   `
         + `CG ${formatSize(twinSize).padStart(10)} $${twin.price.toFixed(2).padStart(5)} ${twinShown.padStart(7)}`

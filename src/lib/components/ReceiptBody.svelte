@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { money } from '$lib/catalog'
   import { couponDiscountLabel } from '$lib/coupons'
   import { productName, t } from '$lib/i18n/index.svelte'
   import type { Receipt } from '$lib/receipt'
+  import { money } from '$lib/shop.svelte'
 
   let { receipt }: { receipt: Receipt } = $props()
 </script>

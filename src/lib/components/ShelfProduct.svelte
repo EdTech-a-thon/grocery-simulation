@@ -1,8 +1,8 @@
 <script lang="ts">
   import { addToCart, quantityInCart } from '$lib/cart.svelte'
-  import { money, type ShelfItem } from '$lib/catalog'
+  import type { ShelfItem } from '$lib/catalog'
   import { productName, t, unitPriceText } from '$lib/i18n/index.svelte'
-  import { shop, sizeFor } from '$lib/shop.svelte'
+  import { money, shop, sizeFor } from '$lib/shop.svelte'
   import { formatSize } from '$lib/sizes'
 
   let { item }: { item: ShelfItem } = $props()
