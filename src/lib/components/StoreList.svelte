@@ -86,7 +86,7 @@
     <div class="store-cards">
       {#each stores as entry (entry.id)}
         <!-- The whole card opens the store; its two buttons sit on top of it. -->
-        <article class="store-card" data-color={entry.store.color}>
+        <article class="store-card" class:menu-open={menuFor === entry.id} data-color={entry.store.color}>
           <button class="store-card-open" type="button" aria-label={t('stores.openLabel', { name: entry.store.name })} onclick={() => edit(entry)}></button>
           <h2>{entry.store.name}</h2>
           <p>{t('stores.savedOn', { date: savedOn(entry) })}</p>

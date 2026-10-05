@@ -233,6 +233,26 @@ test('a store saved in this browser is listed, kept up to date, duplicated and r
   await expect(page.locator('.store-card')).toHaveCount(1)
 })
 
+test('a store menu sits above the buttons of the card below it', async ({ page }) => {
+  await openTeacherPage(page)
+  await page.getByRole('button', { name: 'My stores' }).click()
+  for (const period of ['Period 2', 'Period 3']) {
+    page.once('dialog', (dialog) => dialog.accept(`${store.name} ${period}`))
+    await page.getByRole('button', { name: `More for ${store.name}`, exact: true }).click()
+    await page.getByRole('menuitem', { name: 'Duplicate' }).click()
+  }
+  await expect(page.locator('.store-card')).toHaveCount(3)
+
+  // Newest first, so Period 3 is top left and the original store sits right under it.
+  // The menu's right edge runs over that card's buttons, so click there.
+  page.once('dialog', (dialog) => dialog.accept())
+  await page.getByRole('button', { name: `More for ${store.name} Period 3` }).click()
+  const deleteItem = page.getByRole('menuitem', { name: 'Delete store' })
+  const box = (await deleteItem.boundingBox())!
+  await deleteItem.click({ position: { x: box.width - 10, y: 8 }, timeout: 3000 })
+  await expect(page.locator('.store-card')).toHaveCount(2)
+})
+
 test('an emptied aisle disappears from the student view', async ({ page }) => {
   await openTeacherPage(page)
   await page.getByRole('button', { name: 'Preview as student' }).click()

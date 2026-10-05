@@ -1629,6 +1629,8 @@ p {
 .store-card-menu .store-card-icon { border-color: transparent; background: transparent; }
 .store-card-menu .store-card-icon:hover, .store-card-menu .store-card-icon[aria-expanded="true"] { background: #f0f8f2; }
 .store-card-menu { position: relative; }
+/* Lift the card with an open menu above the cards after it, whose buttons would otherwise cover the menu. */
+.store-card.menu-open { z-index: 3; }
 .store-card-options { position: absolute; top: calc(100% + 4px); right: 0; z-index: 20; width: 170px; padding: 6px; border: 1px solid #d7e7da; border-radius: var(--radius-md); background: #fff; box-shadow: var(--shadow-lg); display: grid; gap: 2px; }
 .store-card-options button { border: 0; border-radius: var(--radius-sm); padding: 9px 12px; background: transparent; color: #172033; cursor: pointer; font: inherit; font-size: .88rem; font-weight: 700; text-align: left; }
 .store-card-options button:hover, .store-card-options button:focus-visible { background: #f0f8f2; }
