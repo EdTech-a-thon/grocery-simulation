@@ -177,15 +177,6 @@ button {
 .welcome-cart { position: absolute; z-index: 5; bottom: 22px; left: 49%; width: 116px; height: 71px; transform: rotate(-7deg); border: 7px solid #ffffff; border-top: 0; border-radius: 0 0 16px 16px; background: #22a052; }
 .welcome-cart::before { content: ''; position: absolute; width: 53px; height: 7px; top: -17px; left: -27px; border-radius: 8px; background: #ffffff; transform: rotate(28deg); }.welcome-cart span { position: absolute; bottom: -18px; width: 18px; height: 18px; border-radius: 50%; background: #14532d; }.welcome-cart span:first-child { left: 12px; }.welcome-cart span:nth-child(2) { right: 12px; }.welcome-cart img { position: absolute; width: 42px; height: 54px; object-fit: contain; bottom: 35px; }.welcome-cart img:nth-of-type(1) { left: 13px; }.welcome-cart img:nth-of-type(2) { right: 9px; }
 
-.student-dashboard-page { min-height: 100vh; padding: clamp(14px,3vw,40px); display: grid; place-items: center; background: #eaf8ee; }
-.student-dashboard-card { width: min(1180px,100%); min-height: min(700px,calc(100vh - 40px)); overflow: hidden; border-radius: var(--radius-xl); background: #fff; box-shadow: var(--shadow-lg); display: grid; grid-template-columns: minmax(0,1fr) minmax(420px,1.05fr); }
-.student-dashboard-copy { padding: clamp(38px,7vw,90px); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
-.student-dashboard-copy h1 { margin: 13px 0 17px; color: #14532d; font-size: clamp(2.5rem,5vw,5rem); line-height: .93; letter-spacing: -.06em; }
-.student-dashboard-copy > p:not(.welcome-kicker) { max-width: 32rem; color: #4b6354; font-size: 1.08rem; line-height: 1.6; }
-.student-class-badge { margin-top: 18px; padding: 7px 11px; border-radius: var(--radius-sm); background: #dcfce7; color: #166534 !important; font-size: .78rem !important; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
-.student-shop-button { margin-top: 29px; border: 0; border-radius: var(--radius-md); padding: 15px 22px; background: #15803d; color: #fff; cursor: pointer; font: inherit; font-weight: 900; box-shadow: var(--shadow-sm); }
-.student-shop-button span { margin-left: 8px; font-size: 1.2rem; }.student-shop-button:hover { background: #166534; transform: translateY(-1px); }
-.saved-cart-note { margin-top: 15px; color: #64748b !important; font-size: .86rem !important; }
 .student-store-scene { position: relative; min-height: 560px; overflow: hidden; background: linear-gradient(180deg,#a9ddf5 0 68%,#4baa63 68% 100%); }
 .welcome-card > .student-store-scene { min-height: 550px; }
 .student-sun { position:absolute;top:48px;right:62px;width:72px;height:72px;border:8px solid rgba(255,255,255,.55);border-radius:50%;background:#fef3a5; }.student-cloud { position:absolute;width:96px;height:23px;border-radius:99px;background:rgba(255,255,255,.86); }.student-cloud::before,.student-cloud::after { content:'';position:absolute;border-radius:50%;background:inherit; }.student-cloud::before { width:40px;height:40px;left:16px;bottom:0; }.student-cloud::after { width:28px;height:28px;right:14px;bottom:0; }.student-cloud-one { top:98px;left:42px; }.student-cloud-two { top:153px;right:30px;transform:scale(.63); }.student-ground { position:absolute;z-index:1;left:-10%;right:-10%;bottom:-80px;height:210px;border-radius:50% 50% 0 0;background:#399554; }
@@ -204,35 +195,28 @@ button {
 
 .landing-inner { width: min(1120px,100%); margin: 0 auto; }
 
-/* The hero: the shopfront illustration fills the band, and everything the
-   visitor has to read or type sits in a column down the middle of it. */
-.landing-hero { position: relative; min-height: min(830px,94vh); display: grid; align-content: center; justify-items: center; padding: clamp(32px,5vh,64px) 20px clamp(350px,42vh,400px); overflow: hidden; text-align: center; }
+/* The hero: the sky and grass fill the band, the words sit on the left and the
+   shopfront stands on the grass to the right. Phones stack the two instead. */
+.landing-hero { position: relative; min-height: min(600px,76vh); display: grid; align-content: center; padding: clamp(40px,6vh,72px) clamp(20px,5vw,64px) clamp(120px,18vh,160px); overflow: hidden; }
 .landing-hero .student-store-scene { position: absolute; inset: 0; min-height: 0; background: linear-gradient(180deg,#a9ddf5 0 78%,#4baa63 78% 100%); }
-/* The shopfront is drawn for a tall narrow column, so the hero recentres it and
-   holds it to a sensible width however wide the screen gets. The band's bottom
-   padding is what keeps the join box clear of the shop's sign. */
-.landing-hero .student-market-building { left: 50%; right: auto; width: min(350px,52vw); height: 210px; bottom: clamp(30px,5vh,64px); transform: translateX(-50%); }
+/* Lined up with the right edge of the words' 1120px column, however wide the
+   screen gets. */
+.landing-hero .student-market-building { left: auto; right: max(clamp(20px,5vw,64px), calc((100% - 1120px) / 2)); width: min(400px,38vw); height: 225px; bottom: clamp(40px,7vh,72px); }
 
-.landing-hero-content { position: relative; z-index: 6; width: min(640px,100%); display: grid; justify-items: center; }
-.landing-hero-kicker { color: #14532d; font-size: .8rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
-.landing-hero h1 { margin: 10px 0 0; color: #0f3f22; font-size: clamp(2.6rem,6.5vw,4.6rem); line-height: .98; letter-spacing: -.055em; }
-.landing-hero-intro { max-width: 30rem; margin-top: 16px; color: #1c5033; font-size: clamp(1rem,1.5vw,1.15rem); line-height: 1.55; }
+.landing-language { position: absolute; top: clamp(14px,3vh,24px); right: clamp(14px,3vw,28px); z-index: 7; color: #14532d; }
 
-/* The join box is the point of the page, so it is the one raised surface on it. */
-.join-panel { width: min(470px,100%); margin-top: 30px; padding: 20px; display: grid; gap: 9px; justify-items: stretch; border-radius: var(--radius-lg); background: #fff; text-align: left; box-shadow: var(--shadow-lg); }
-.join-panel-label { color: #14532d; font-size: .78rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
-.join-panel-row { display: flex; gap: 9px; }
-.join-panel-row input { flex: 1; min-width: 0; border: 1px solid #cfe9d6; border-radius: var(--radius-md); padding: 14px; background: #fff; color: #14532d; font: inherit; font-size: 1.15rem; font-weight: 800; letter-spacing: .08em; }
-.join-panel-row input:focus-visible { border-color: #15803d; outline: 2px solid #bbf7d0; }
-.join-panel-row button { flex: 0 0 auto; border: 0; border-radius: var(--radius-md); padding: 14px 20px; background: #15803d; color: #fff; cursor: pointer; font: inherit; font-weight: 900; }
-.join-panel-row button:hover:not(:disabled) { background: #166534; }
-.join-panel-row button:disabled { cursor: not-allowed; opacity: .55; }
-.join-panel small { color: #5e7163; line-height: 1.4; }
-.join-panel-error { border-radius: var(--radius-md); padding: 9px 11px; background: #fee2e2; color: #991b1b; font-size: .88rem; font-weight: 800; }
+.landing-hero-content { position: relative; z-index: 6; width: min(1120px,100%); margin: 0 auto; display: grid; justify-items: start; }
+.landing-hero h1 { margin: 0; color: #0f3f22; font-size: clamp(2.6rem,6.5vw,4.6rem); line-height: .98; letter-spacing: -.045em; display: flex; align-items: center; gap: .12em; }
+/* The tomato is the logo, so it leads the name. */
+.landing-hero h1 img { width: .82em; height: .82em; flex: none; }
+.landing-hero-intro { max-width: 28rem; margin-top: 18px; color: #1c5033; font-size: clamp(1rem,1.5vw,1.2rem); line-height: 1.55; }
 
-.landing-teacher-link { margin-top: 18px; border: 1px solid rgba(20,83,45,.3); border-radius: var(--radius-md); padding: 11px 16px; background: rgba(255,255,255,.7); color: #14532d; cursor: pointer; font: inherit; font-weight: 900; }
-.landing-teacher-link:hover { background: #fff; }
-.landing-teacher-link span { margin-left: 7px; }
+.landing-hero-actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+.landing-get-started { border-radius: var(--radius-md); padding: 14px 22px; background: #15803d; color: #fff; font-weight: 900; text-decoration: none; box-shadow: var(--shadow-sm); }
+.landing-get-started:hover { background: #166534; }
+.landing-back-to-store { border: 1px solid rgba(20,83,45,.3); border-radius: var(--radius-md); padding: 13px 18px; background: rgba(255,255,255,.7); color: #14532d; cursor: pointer; font: inherit; font-weight: 900; }
+.landing-back-to-store:hover { background: #fff; }
+.landing-get-started span, .landing-back-to-store span { margin-left: 7px; }
 
 /* The bands under the hero. They carry their own colour, so nothing between
    them needs a border or a shadow to be told apart. */
@@ -261,16 +245,14 @@ button {
 .landing-cta { margin-top: auto; align-self: flex-start; border: 0; border-radius: var(--radius-md); padding: 13px 19px; background: #15803d; color: #fff; cursor: pointer; font: inherit; font-weight: 900; box-shadow: var(--shadow-sm); }
 .landing-cta span { margin-left: 8px; }
 .landing-cta:hover, .landing-cta:focus-visible { background: #166534; }
-.landing-cta-student { border: 1px solid #bfe3ca; background: #fff; color: #14532d; }
-.landing-cta-student:hover, .landing-cta-student:focus-visible { background: #f0fdf4; }
 
-/* The EdTech-a-thon footer, the same row on every project in the group: who
+/* The teacher.dev footer, the same row on every project in the group: who
    built it, then the pages that are not part of the app itself. */
 .site-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 18px; padding: 26px 20px 30px; border-top: 1px solid #dcf0e2; background: #fff; text-align: center; }
 .site-footer a { color: #5e7163; font-size: .88rem; font-weight: 700; text-decoration: none; }
 .site-footer a:hover { color: #15803d; }
-.site-footer-brand { display: inline-flex; align-items: center; gap: 8px; }
-.site-footer-brand img { display: block; }
+.built-by { display: inline-flex; align-items: center; gap: 8px; }
+.built-by img { display: block; }
 
 /* About and privacy: a column of plain reading, so they borrow nothing from the
    store's chrome beyond its colours. */
@@ -308,9 +290,11 @@ button {
 @media (max-width: 860px) {
   /* The sky is too narrow for weather behind the words: the sun keeps a corner
      out of the way of the heading, and the clouds sit this one out. */
-  .landing-hero { min-height: auto; padding-bottom: 300px; }
+  .landing-hero { min-height: auto; padding-bottom: 300px; text-align: center; }
 
-  .landing-hero .student-market-building { width: min(300px,76vw); height: 180px; bottom: 26px; }
+  .landing-hero-content, .landing-hero-actions, .landing-hero h1 { justify-items: center; justify-content: center; }
+
+  .landing-hero .student-market-building { left: 50%; right: auto; height: 180px; bottom: 26px; transform: translateX(-50%); }
 
   .landing-hero .student-sun { top: 12px; right: 10px; width: 48px; height: 48px; border-width: 6px; }
 
@@ -322,97 +306,52 @@ button {
 
   .landing-role-student { padding-left: 0; padding-top: 32px; border-left: 0; border-top: 1px solid #d7ecdd; }
 
-  .join-panel-row { flex-direction: column; }
-
   .landing-hero .student-market-building { width: min(420px,80vw); }
 }
-
-.teacher-link-button { border: 0; border-radius: var(--radius-md); padding: 14px 18px; background: #e2e8f0; color: #334155; cursor: pointer; font-weight: 900; }
-.teacher-access-panel { display: grid; gap: 8px; justify-items: end; text-align: right; }
-.teacher-access-panel p { font-size: .92rem; color: #dcfce7; }
-.teacher-access-panel strong { color: #fff7c2; }
-.class-code-field { display: grid; gap: 5px; color: #dcfce7; font-size: .75rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
-.class-code-field input { width: 255px; border: 1px solid rgba(255,255,255,.35); border-radius: var(--radius-md); padding: 10px 11px; background: rgba(255,255,255,.12); color: #fff; font: inherit; font-size: .92rem; font-weight: 900; letter-spacing: .05em; }
-.teacher-access-code-field { display: grid; gap: 5px; color: #fff7c2; font-size: .75rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
-.teacher-access-code-field input { width: 255px; border: 1px solid rgba(255,247,194,.5); border-radius: var(--radius-md); padding: 10px 11px; background: rgba(255,247,194,.12); color: #fff7c2; font: inherit; font-size: .92rem; font-weight: 900; letter-spacing: .05em; }
-.class-code-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
-.join-code-copy { display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(255,247,194,.45); border-radius: var(--radius-md); padding: 4px 9px; background: rgba(255,247,194,.12); color: #fff7c2; cursor: pointer; font: inherit; font-size: .92rem; vertical-align: middle; }
-.join-code-copy:hover { background: rgba(255,247,194,.24); }
-.join-code-copy svg { width: 15px; height: 15px; }
 .teacher-secondary-button { border: 1px solid rgba(255,255,255,.35); border-radius: var(--radius-md); padding: 11px 14px; background: transparent; color: #fff; cursor: pointer; font-weight: 900; }
 .primary-button:disabled { cursor: not-allowed; opacity: .55; }
-.teacher-login-page { min-height: 100vh; padding: 20px; background: #eaf8ee; display: grid; place-items: center; color: #173b25; }
-.teacher-login-card { width: min(480px,100%); padding: clamp(28px,6vw,48px); border-radius: var(--radius-xl); background: #fff; display: grid; gap: 18px; box-shadow: var(--shadow-lg); }
-.teacher-login-card h1 { font-size: clamp(2rem,6vw,3.3rem); letter-spacing: -.04em; }
-.teacher-login-card > p:not(.welcome-kicker):not(.login-error) { color: #5e7163; line-height: 1.5; }
-.teacher-login-card label { display: grid; gap: 8px; color: #334155; font-size: .84rem; font-weight: 900; }
-.teacher-login-card input { width: 100%; border: 1px solid #cfe9d6; border-radius: var(--radius-md); padding: 14px; color: #14532d; font: inherit; font-size: 1.15rem; font-weight: 800; letter-spacing: .02em; }
-.teacher-login-card .primary-button, .teacher-login-card .teacher-link-button { width: 100%; }
-.login-error { border-radius: var(--radius-md); padding: 10px 12px; background: #fee2e2; color: #991b1b; font-size: .88rem; font-weight: 800; }
 
 /* Choosing a class identifier, asked for once on the way into the teacher area. */
-.identity-backdrop { min-height: 100vh; padding: 20px; background: #eaf8ee; display: grid; place-items: center; color: #173b25; }
-.identity-card { width: min(520px,100%); padding: clamp(28px,6vw,48px); border-radius: var(--radius-xl); background: #fff; display: grid; gap: 16px; box-shadow: var(--shadow-lg); }
-.identity-card h1 { font-size: clamp(1.7rem,5vw,2.6rem); letter-spacing: -.03em; }
-.identity-card > p:not(.welcome-kicker):not(.login-error):not(.identity-warning) { color: #5e7163; line-height: 1.5; }
-.identity-card label { display: grid; gap: 8px; color: #334155; font-size: .84rem; font-weight: 900; }
-.identity-card input { width: 100%; border: 1px solid #cfe9d6; border-radius: var(--radius-md); padding: 14px; color: #14532d; font: inherit; font-size: 1.3rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
-.identity-card .primary-button, .identity-card .teacher-link-button { width: 100%; }
-.identity-preview { border-radius: var(--radius-md); padding: 12px 14px; background: #f0fdf4; font-size: .92rem; }
-.identity-preview strong { color: #14532d; letter-spacing: .06em; }
-.identity-warning { color: #92400e; font-size: .84rem; font-weight: 800; }
 
 /* The finished code, shown under the class code box as the teacher types. */
-.join-code-preview { border-radius: var(--radius-md); padding: 10px 12px; background: #f0fdf4; color: #4b5f52; font-size: .88rem; }
-.join-code-preview strong { color: #14532d; letter-spacing: .08em; }
-.teacher-identity-note { font-size: .9rem; }
-.teacher-identity-note strong { letter-spacing: .08em; }
 
 .app-header { margin-bottom: 16px; padding: 13px 18px; border-radius: var(--radius-lg); background: rgba(7, 17, 31, 0.94); color: #f8fafc; display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center; }
 .app-header > div, .app-header nav { display: flex; align-items: center; gap: 8px; }
 .app-header nav { justify-content: flex-end; flex-wrap: wrap; gap: 14px; }
 /* Pages on the left, ways out of the site on the right of the hairline. */
-.app-header .header-pages, .app-header .header-exits { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.app-header .header-exits { padding-left: 14px; border-left: 1px solid rgba(255,255,255,.22); }
+
 .app-header nav button.active { border-color: transparent; background: #facc15; color: #713f12; }
 .app-header h1 { font-size: 1.05rem; text-align: center; }
 .app-header button, .app-header a { border: 1px solid rgba(255,255,255,.2); border-radius: var(--radius-md); padding: 8px 11px; background: rgba(255,255,255,.08); color: #fff; cursor: pointer; font-size: .8rem; font-weight: 800; text-decoration: none; }
 .brand-button { border: 0 !important; padding-left: 0 !important; background: transparent !important; color: #86efac !important; font-size: 1rem !important; display: inline-flex; align-items: center; gap: 7px; }
-.role-chip { border-radius: var(--radius-sm); padding: 5px 8px; background: #166534; color: #dcfce7; font-size: .68rem; font-weight: 900; text-transform: uppercase; }
 
 .teacher-shell { min-height: 100vh; padding: 16px; color: #172033; background: #f3f7f3; }
-.teacher-hero { max-width: 1400px; margin: 0 auto 16px; padding: clamp(24px,4vw,46px); border-radius: var(--radius-xl); background: linear-gradient(120deg,#14532d,#15803d 65%,#22c55e); color: #fff; display: flex; justify-content: space-between; gap: 24px; align-items: center; }
-.teacher-hero h2 { margin: 5px 0 9px; font-size: clamp(1.8rem,4vw,3.2rem); line-height: 1; }
-.teacher-hero p:last-child, .teacher-hero p.hero-lede { max-width: 620px; color: #dcfce7; line-height: 1.5; }
 .eyebrow { color: #86efac; font-size: .72rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
-.primary-button, .randomize-button { border: 0; border-radius: var(--radius-md); padding: 12px 17px; background: #facc15; color: #713f12; cursor: pointer; font-weight: 900; }
-.teacher-workspace, .coupon-workspace { max-width: 1400px; margin: auto; display: grid; grid-template-columns: 235px minmax(0,1fr); gap: 16px; }
-.aisle-picker, .price-editor, .coupon-form, .coupon-list { border: 1px solid #dbe7dc; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-sm); }
+.primary-button { border: 0; border-radius: var(--radius-md); padding: 12px 17px; background: #facc15; color: #713f12; cursor: pointer; font-weight: 900; }
+.teacher-workspace { max-width: 1400px; margin: auto; display: grid; grid-template-columns: 235px minmax(0,1fr); gap: 16px; }
+.aisle-picker, .price-editor { border: 1px solid #dbe7dc; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-sm); }
 .aisle-picker { padding: 15px; display: grid; gap: 5px; align-content: start; }
 .aisle-picker h3 { margin: 5px 8px 10px; }
 .aisle-picker button { border: 0; border-radius: var(--radius-md); padding: 9px 11px; background: transparent; color: #475569; cursor: pointer; font-size: .84rem; font-weight: 700; text-align: left; }
 .aisle-picker button.active { background: #dcfce7; color: #166534; }
-.price-editor, .coupon-list { padding: clamp(18px,3vw,32px); }
+.price-editor { padding: clamp(18px,3vw,32px); }
 .section-heading { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
-.section-heading .eyebrow, .coupon-form .eyebrow { color: #15803d; }
-.section-heading h2, .coupon-form h2 { margin: 4px 0; }
+.section-heading .eyebrow { color: #15803d; }
+.section-heading h2 { margin: 4px 0; }
 .helper-text { margin: 10px 0 22px; color: #64748b; font-size: .88rem; }
+
 .price-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(150px,1fr)); gap: 12px; }
 .price-edit-card { padding: 14px; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); display: grid; gap: 9px; justify-items: center; color: #334155; font-size: .82rem; font-weight: 800; text-align: center; }
 .price-edit-card img { width: 72px; height: 72px; object-fit: contain; }
 .teacher-money-input { width: 100%; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 7px 9px; background: #f0fdf4; color: #166534; display: flex; }
 .teacher-money-input input { width: 100%; border: 0; outline: 0; background: transparent; color: #14532d; font-weight: 900; text-align: right; }
+.teacher-size-input { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px; }
+.teacher-size-input input,
+.teacher-size-input select { min-width: 0; border: 1px solid #e2e8f0; border-radius: var(--radius-sm); padding: 5px 6px; background: #ffffff; color: #334155; font: inherit; font-size: .78rem; }
+.teacher-size-input input { text-align: right; }
+.teacher-unit-price { color: #64748b; font-size: .72rem; font-weight: 700; }
 .status-message { max-width: 1400px; margin: 0 auto 16px; border-radius: var(--radius-md); padding: 11px 15px; background: #fef3c7; color: #854d0e; font-weight: 700; }
-.coupon-workspace { grid-template-columns: minmax(280px,.4fr) minmax(0,.6fr); }
-.coupon-form { padding: 26px; display: grid; gap: 16px; align-content: start; }
-.coupon-form label { position: relative; display: grid; gap: 7px; color: #475569; font-size: .8rem; font-weight: 800; }
-.coupon-form input, .coupon-form select { width: 100%; border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 11px 12px; background: #fff; color: #172033; }
 .field-suffix { position: absolute; right: 13px; bottom: 12px; }
-.coupon-summary { margin-top: 12px; padding: 15px; border: 1px dashed #d4a813; border-radius: var(--radius-lg); background: #fffbeb; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.coupon-summary strong, .coupon-summary span { display: block; }
-.coupon-summary span { margin-top: 5px; color: #78716c; font-size: .78rem; }
-.coupon-summary button { border: 0; background: transparent; color: #b91c1c; cursor: pointer; font-weight: 800; }
-.coupon-summary [data-print-one-coupon] { color: #166534; }
 .modal-backdrop { position: fixed; inset: 0; z-index: 100; padding: 20px; background: rgba(15,23,42,.62); display: grid; place-items: center; }
 .print-coupon-modal { width: min(560px,100%); max-height: min(720px,calc(100vh - 40px)); overflow: auto; border-radius: var(--radius-xl); padding: clamp(20px,4vw,32px); background: #fff; box-shadow: 0 24px 70px rgba(15,23,42,.28); }
 .print-modal-heading { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; }
@@ -423,13 +362,10 @@ button {
 .coupon-copy-control { border: 1px solid #e2e8f0; border-radius: var(--radius-md); padding: 12px; color: #475569; display: grid; grid-template-columns: minmax(0,1fr) auto 72px; gap: 12px; align-items: center; font-size: .76rem; font-weight: 800; }
 .coupon-copy-control span, .coupon-copy-control small { display: block; }
 .coupon-copy-control small { margin-top: 3px; color: #78716c; }
+.coupon-copy-every { margin-bottom: 10px; border-color: #86efac; background: #f0fdf4; grid-template-columns: minmax(0,1fr) 72px; font-size: .86rem; color: #14532d; }
 .coupon-copy-control input { width: 72px; border: 1px solid #d4a813; border-radius: var(--radius-sm); padding: 8px; text-align: center; }
 .print-modal-actions { margin-top: 22px; display: flex; justify-content: flex-end; gap: 10px; }
 .print-modal-actions > button:not(.primary-button) { border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 11px 16px; background: #fff; color: #475569; cursor: pointer; font-weight: 800; }
-.random-coupon-box { margin-top: 8px; padding: 18px; border: 1px dashed #d4a813; border-radius: var(--radius-lg); background: #fffbeb; display: grid; gap: 13px; }
-.random-coupon-box h3 { margin: 3px 0 0; color: #713f12; }
-.empty-coupons { margin-top: 20px; border: 1px dashed #cbd5e1; border-radius: var(--radius-lg); padding: 40px 20px; color: #64748b; text-align: center; }
-
 
 .storefront-shell {
   position: relative;
@@ -444,26 +380,6 @@ button {
   gap: 16px;
 }
 
-.class-status {
-  padding: 9px 13px;
-  border-radius: var(--radius-md);
-  background: rgba(220, 252, 231, 0.14);
-  color: #dcfce7;
-  font-size: .82rem;
-}
-
-.class-status button {
-  margin-left: 8px;
-  border: 1px solid rgba(220, 252, 231, 0.4);
-  border-radius: var(--radius-sm);
-  padding: 5px 8px;
-  background: transparent;
-  color: #dcfce7;
-  cursor: pointer;
-  font-size: .75rem;
-  font-weight: 800;
-}
-
 .shelf-column {
   min-width: 0;
   display: grid;
@@ -472,7 +388,9 @@ button {
 
 .shelf-stage {
   position: relative;
+  min-width: 0;
   min-height: calc(100vh - 132px);
+  grid-template-columns: minmax(0, 1fr);
   padding: 24px;
   border-radius: var(--radius-xl);
   background:
@@ -485,14 +403,24 @@ button {
   align-content: start;
 }
 
+/* Previous arrow, the aisle's name (which opens the aisle list), next arrow,
+   all in the middle. The name sits in a slot of fixed width, so the arrows stay
+   put from aisle to aisle and can be clicked again and again without aiming.
+   A name too long for the slot is cut short with "…". */
 .shelf-topline {
-  display: flex;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 34rem) 44px;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  gap: 14px;
 }
+.aisle-title { grid-column: 2; position: relative; min-width: 0; border-radius: var(--radius-md); padding: 4px 12px; display: flex; justify-content: center; align-items: center; gap: 8px; }
+.aisle-title h2 { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.aisle-title .icon { flex: none; width: 1.5rem; height: 1.5rem; color: #15803d; }
+.aisle-title select { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 1rem; }
+.aisle-title:has(select):hover { background: rgba(255, 255, 255, .7); }
+.aisle-title:has(select:focus-visible) { outline: 3px solid #15803d; outline-offset: 2px; }
 
-.aisle-heading { min-width: 0; }
 
 h1,
 h2,
@@ -527,6 +455,7 @@ p {
   position: relative;
   flex: 0 0 clamp(320px, 36vw, 480px);
   aspect-ratio: 0.78;
+  container-type: size;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
@@ -540,28 +469,17 @@ p {
   background-repeat: no-repeat;
 }
 
-.shelf-grid {
-  position: relative;
+/* One of the three shelves drawn in the shelf picture. Shelf.svelte places it
+   from the top of the space above the shelf down to the shelf's front edge, so
+   the products stand on the shelf however the picture is stretched. */
+.shelf-board {
+  position: absolute;
   z-index: 1;
-  height: 100%;
+  left: 9%;
+  right: 9%;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-rows: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  padding: 18% 11% 11%;
-}
-
-.shelf-product-card::after {
-  content: '';
-  position: absolute;
-  left: 10%;
-  right: 10%;
-  bottom: 12%;
-  height: 10px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0.02));
-  filter: blur(2px);
-  pointer-events: none;
+  gap: 4px;
 }
 
 .shelf-product,
@@ -573,100 +491,61 @@ p {
 
 .shelf-product-card {
   position: relative;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* The whole product is the button: one click puts one in the cart. */
+.shelf-product {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-}
-
-.shelf-quantity-controls {
-  position: static;
-  display: flex;
-  gap: 3px;
-  justify-content: center;
-  margin-top: 0;
-}
-
-.shelf-product {
-  position: relative;
-  width: 100%;
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  gap: 6px;
-  padding: 0;
+  padding: 10% 0 0;
   background: transparent;
   cursor: pointer;
   overflow: visible;
   box-shadow: none;
+  transform-origin: bottom center;
   transition: transform 160ms ease;
 }
 
-.shelf-product-card .price-tag {
-  margin-top: 0;
-}
-
-.shelf-product-plus {
-  width: 28px;
-  height: 28px;
-  border: 0;
-  border-radius: 999px;
-  background: #facc15;
-  color: #713f12;
-  cursor: pointer;
-  font-size: 1.05rem;
-  font-weight: 1000;
-  line-height: 1;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16);
+/* The shelf above hangs its price tags over the top of this one, so the
+   products here start below them. */
+.shelf-board + .shelf-board .shelf-product {
+  padding-top: 28px;
 }
 
 .shelf-product:hover,
 .shelf-product:focus-visible {
-  transform: translateY(-2px);
+  transform: scale(1.06);
 }
 
-.shelf-product-card {
-  align-self: stretch;
+.shelf-product:active {
+  transform: scale(0.96);
 }
 
-.shelf-product-plus:hover,
-.shelf-product-plus:focus-visible {
-  background: #fde047;
-  transform: translateY(-1px);
-}
-
-.shelf-product-minus {
-  width: 28px;
-  height: 28px;
-  border: 0;
-  border-radius: 999px;
-  background: rgba(248, 250, 252, 0.96);
-  color: #334155;
-  cursor: pointer;
-  font-size: 1.05rem;
-  font-weight: 1000;
-  line-height: 1;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16);
-}
-
-.shelf-product-minus:hover,
-.shelf-product-minus:focus-visible {
-  background: #ffffff;
-  transform: translateY(-1px);
+/* The tag hangs on the front edge of the shelf, under its product. */
+.shelf-product-card .price-tag {
+  position: absolute;
+  z-index: 2;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 100%;
+  pointer-events: none;
 }
 
 .shelf-quantity-badge {
   position: absolute;
-  top: 7px;
-  left: 7px;
+  z-index: 2;
+  top: 4px;
+  right: 2px;
   min-width: 24px;
   height: 24px;
   padding: 0 6px;
@@ -679,6 +558,13 @@ p {
   font-weight: 1000;
   line-height: 1;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  animation: badge-pop 260ms ease-out;
+}
+
+@keyframes badge-pop {
+  0% { transform: scale(0.4); }
+  60% { transform: scale(1.25); }
+  100% { transform: scale(1); }
 }
 
 .shelf-product-image {
@@ -686,16 +572,21 @@ p {
   width: 100%;
   min-height: 0;
   background-size: contain;
-  background-position: center;
+  background-position: center bottom;
   background-repeat: no-repeat;
-  filter: drop-shadow(0 8px 6px rgba(15, 23, 42, 0.18));
+  filter: drop-shadow(0 2px 2px rgba(15, 23, 42, 0.35));
+}
+
+/* Shelf products sit on the shelf, not on the page below it. */
+.shelf-product .shelf-product-image {
+  margin-bottom: 1.6cqh;
 }
 
 .shelf-product-name {
   position: absolute;
   z-index: 3;
   left: 50%;
-  bottom: 36px;
+  bottom: 100%;
   width: max-content;
   max-width: 150px;
   padding: 5px 8px;
@@ -727,12 +618,51 @@ p {
   font-size: 0.76rem;
   font-weight: 800;
   line-height: 1;
+  text-align: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16);
 }
 
 .price-tag-sale {
   background: #dc2626;
   color: #ffffff;
+}
+
+/* Package size and unit price, in small print under the price like a real shelf tag. */
+.price-tag-size,
+.price-tag-unit {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* On a phone a shelf card is barely wider than its tag, so the tag shrinks to fit. */
+.shelf-product-card {
+  container-type: inline-size;
+}
+
+@container (max-width: 100px) {
+  .price-tag {
+    max-width: 100%;
+    padding: 3px 2px;
+    font-size: 0.66rem;
+  }
+
+  .price-tag-size,
+  .price-tag-unit {
+    margin-top: 1px;
+    font-size: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+}
+
+.price-tag-unit {
+  color: #475569;
+}
+
+.price-tag-sale .price-tag-unit {
+  color: inherit;
 }
 
 .shelf-slot-empty {
@@ -1130,6 +1060,7 @@ p {
 }
 
 .coupon-sheet {
+  position: relative;
   width: 8.5in;
   height: 11in;
   margin: auto;
@@ -1146,113 +1077,189 @@ p {
   break-after: auto;
 }
 
+/* Scissors on the cut line, so the sheet says what to do with it. */
+.coupon-sheet::before {
+  content: '✂';
+  position: absolute;
+  top: calc(0.25in - 0.55em);
+  left: 0.5in;
+  padding: 0 4px;
+  background: #ffffff;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Each cell is the piece a student cuts out. The dashed lines are drawn once
+   between neighbours rather than once per coupon, so they never double up. */
 .print-coupon {
+  --coupon-color: var(--store-color, #22c55e);
+  --coupon-ink: color-mix(in srgb, var(--coupon-color) 40%, #0f172a);
+  --coupon-tint: color-mix(in srgb, var(--coupon-color) 14%, #ffffff);
   min-height: 0;
-  padding: 0.14in;
-  border: 2px dashed #64748b;
+  padding: 0.11in;
+  border-right: 1.5px dashed #94a3b8;
+  border-bottom: 1.5px dashed #94a3b8;
   display: grid;
-  grid-template-columns: 0.78in minmax(0, 1fr);
-  gap: 0.14in;
-  align-items: center;
+}
+
+.print-coupon:nth-child(-n + 2) {
+  border-top: 1.5px dashed #94a3b8;
+}
+
+.print-coupon:nth-child(odd) {
+  border-left: 1.5px dashed #94a3b8;
+}
+
+.coupon-card {
+  min-height: 0;
+  border: 2px solid var(--coupon-color);
+  border-radius: 0.12in;
+  background: #ffffff;
+  color: #0f172a;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   overflow: hidden;
 }
 
-.coupon-burst {
-  width: 0.65in;
-  height: 0.65in;
-  border-radius: 50%;
-  background: #facc15;
-  color: #713f12;
-  display: grid;
-  place-content: center;
-  font-size: 1rem;
-  font-weight: 1000;
-  line-height: 0.8;
-  text-align: center;
-  transform: rotate(-7deg);
-}
-
-.coupon-burst small {
-  margin-top: 5px;
-  font-size: 0.55rem;
-}
-
-.coupon-product-image {
-  width: 0.52in;
-  height: 0.58in;
-  object-fit: contain;
-}
-
-.coupon-cart-icon {
-  width: 0.55in;
-  height: 0.55in;
-  border-radius: 50%;
-  background: #dcfce7;
-  color: #166534;
-  display: grid;
-  place-items: center;
-  font-size: 1.3rem;
-  font-weight: 1000;
-}
-
-.print-coupon-copy {
-  min-width: 0;
-  display: grid;
-  gap: 0.08in;
-}
-
-.coupon-offer {
-  display: grid;
-  grid-template-columns: 0.58in minmax(0, 1fr);
-  gap: 0.1in;
+.coupon-brand {
+  padding: 0.05in 0.14in;
+  background: var(--coupon-tint);
+  color: var(--coupon-ink);
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  gap: 0.1in;
+  font-size: 0.1in;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.coupon-offer p {
-  margin: 0;
-  color: #15803d;
-  font-size: 0.52rem;
-  font-weight: 1000;
+.coupon-brand > span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.coupon-tag {
+  flex: none;
+  border-radius: 999px;
+  padding: 0.02in 0.08in;
+  background: var(--coupon-ink);
+  color: #ffffff;
+  font-size: 0.085in;
   letter-spacing: 0.12em;
 }
 
-.print-coupon h2 {
-  margin: 2px 0;
-  color: #14532d;
-  font-size: 0.8rem;
-  line-height: 1.05;
-}
-
-.coupon-code-block {
-  border-top: 1px solid #bbf7d0;
-  padding-top: 0.06in;
+.coupon-body {
+  min-height: 0;
+  padding: 0.06in 0.14in;
   display: grid;
-  justify-content: center;
+  grid-template-columns: 1in minmax(0, 1fr);
+  gap: 0.14in;
   align-items: center;
 }
 
-.coupon-code-block > div {
-  min-width: 1.05in;
-  text-align: center;
+.coupon-art {
+  width: 1in;
+  height: 0.92in;
+  border-radius: 0.1in;
+  background: var(--coupon-tint);
+  display: grid;
+  place-items: center;
 }
 
-.coupon-code-block small {
+.coupon-art img {
+  width: 0.8in;
+  height: 0.76in;
+  object-fit: contain;
+}
+
+.coupon-art svg {
+  width: 60%;
+  height: 60%;
+  fill: none;
+  stroke: var(--coupon-ink);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.coupon-deal {
+  min-width: 0;
+}
+
+.coupon-amount {
+  margin: 0;
+  color: var(--coupon-ink);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.06in;
+  font-size: 0.46in;
+  font-weight: 1000;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.coupon-amount span {
+  font-size: 0.17in;
+  letter-spacing: 0.04em;
+}
+
+.coupon-item {
+  margin: 0.05in 0 0;
+  color: #1e293b;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  font-size: 0.15in;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.coupon-code-row {
+  margin: 0 0.14in;
+  border-top: 1.5px dashed color-mix(in srgb, var(--coupon-color) 45%, #ffffff);
+  padding: 0.06in 0 0.07in;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.12in;
+}
+
+.coupon-code {
+  min-width: 0;
+}
+
+.coupon-code small {
   display: block;
-  margin-bottom: 2px;
   color: #64748b;
-  font-size: 0.43rem;
+  font-size: 0.075in;
   font-weight: 900;
   letter-spacing: 0.12em;
 }
 
-.coupon-code-block strong {
+.coupon-code strong {
   display: block;
-  color: #172033;
-  font-family: monospace;
-  font-size: 0.9rem;
-  font-weight: 1000;
-  letter-spacing: 0.08em;
-  line-height: 1;
+  color: #0f172a;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 0.2in;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.coupon-barcode {
+  flex: none;
+  width: 1.05in;
+  height: 0.3in;
+  fill: #0f172a;
 }
 
 .ghost {
@@ -1291,14 +1298,6 @@ p {
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-.aisle-controls {
-  display: flex;
-  align-items: end;
-  gap: 10px;
-}
-
-.aisle-picker { display: grid; gap: 4px; color: rgba(255, 255, 255, 0.8); font-size: .7rem; font-weight: 800; }
-.aisle-picker select { max-width: 220px; border: 1px solid rgba(255, 255, 255, .35); border-radius: var(--radius-md); padding: 8px 32px 8px 10px; background: #fff; color: #14532d; font: inherit; cursor: pointer; }
 
 .nav-left {
   transform: translateX(0);
@@ -1340,20 +1339,10 @@ p {
     justify-content: center;
   }
 
-  .app-header .header-pages,
-  .app-header .header-exits {
-    justify-content: center;
-  }
+  /* The empty middle column on a page with no title. */
+  .app-header > span:empty { display: none; }
 
-  .app-header .header-exits {
-    padding: 10px 0 0;
-    border-left: 0;
-    border-top: 1px solid rgba(255,255,255,.22);
-    flex: 1 0 100%;
-  }
-
-  .teacher-workspace,
-  .coupon-workspace {
+  .teacher-workspace {
     grid-template-columns: 1fr;
   }
 
@@ -1372,16 +1361,9 @@ p {
 }
 
 @media (max-width: 700px) {
-  .student-dashboard-page { padding: 12px; }
-
-  .student-dashboard-card { min-height: calc(100vh - 24px); grid-template-columns: 1fr; grid-template-rows: auto minmax(390px,1fr); border-radius: var(--radius-xl); }
-
-  .student-dashboard-copy { padding: 42px 30px 32px; }
-
   .student-store-scene { min-height: 390px; }
 
   .student-market-building { left: 8%; right: 8%; bottom: 66px; transform: scale(.9); transform-origin: bottom center; }
-
 
   .welcome-page {
     padding: 12px;
@@ -1437,14 +1419,6 @@ p {
     padding: 18px;
   }
 
-  .shelf-topline {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .aisle-controls { align-items: center; }
-  .aisle-picker { flex: 1; }
-  .aisle-picker select { width: 100%; max-width: none; }
 
   .shelf-row {
     gap: 14px;
@@ -1477,27 +1451,11 @@ p {
     padding: 10px;
   }
 
-  .teacher-hero {
-    border-radius: var(--radius-lg);
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .teacher-access-panel { justify-items: start; text-align: left; }
-
-  .class-code-field input { width: min(100%, 300px); }
-
-  .class-code-actions { justify-content: flex-start; }
-
   .print-all-panel { width: 100%; justify-items: start; text-align: left; }
 
   .section-heading {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .randomize-button {
-    width: 100%;
   }
 
   .price-grid {
@@ -1516,50 +1474,11 @@ p {
 
 /* ---------------------------------------------------------------- stores */
 
-.store-workspace { max-width: 1400px; margin: auto; }
-.store-form, .store-list { border: 1px solid #dbe7dc; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-sm); }
-.store-form { padding: 26px; display: grid; gap: 16px; align-content: start; }
-.store-form label { display: grid; gap: 7px; color: #475569; font-size: .8rem; font-weight: 800; }
-.store-form input, .store-form select { width: 100%; border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 11px 12px; background: #fff; color: #172033; }
-.store-form .eyebrow { color: #15803d; }
-.store-form h2 { margin: 4px 0; color: #14532d; font-weight: 900; }
-.create-store-button { margin-top: 18px; }
+ .store-list { border: 1px solid #dbe7dc; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-sm); }
 .store-modal-overlay { position: fixed; inset: 0; z-index: 1000; padding: 20px; background: rgba(15,23,42,.62); display: grid; place-items: center; overflow-y: auto; }
 .store-modal { position: relative; width: min(720px,100%); max-height: calc(100vh - 40px); overflow-y: auto; color: #172033; }
 .store-modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border: 0; border-radius: 999px; background: #f1f5f9; color: #334155; cursor: pointer; font-size: 1.5rem; }
-.store-form-grid, .store-options-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
-.store-form-grid label:first-child { grid-column: 1 / -1; }
-.store-form fieldset { margin: 0; border: 1px solid #dbe7dc; border-radius: var(--radius-lg); padding: 15px; display: flex; flex-wrap: wrap; gap: 12px 18px; }
-.store-form legend { padding: 0 6px; color: #166534; font-size: .85rem; font-weight: 900; }
-.store-form fieldset label { display: flex; grid-auto-flow: column; align-items: center; justify-content: start; }
-.store-form fieldset input[type="radio"] { width: 16px; height: 16px; }
-.store-form fieldset .helper-text { flex: 1 0 100%; margin: 0; }
-.store-options-grid fieldset { align-content: start; }
-.store-options-grid fieldset label:last-child:has(input[type="number"]) { flex: 1 0 100%; display: grid; }
-.store-settings-workspace { max-width: 1400px; margin: 0 auto; padding: 0 clamp(14px,3vw,28px) 40px; }
-.store-settings-workspace .store-form { width: min(720px,100%); color: #172033; }
-.store-modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
-.store-modal-actions > button:not(.primary-button) { border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 10px 18px; background: #fff; color: #334155; cursor: pointer; font-weight: 800; }
 .store-list { padding: clamp(18px,3vw,32px); }
-.store-summary { margin-top: 12px; padding: 15px; border: 1px solid #e2e8f0; border-left: 3px solid var(--store-color, #22c55e); border-radius: var(--radius-lg); background: #f8fafc; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-.store-swatch { width: 30px; height: 30px; border-radius: var(--radius-sm); background: var(--store-color, #22c55e); flex: none; }
-.store-summary-copy { flex: 0 1 auto; min-width: 160px; }
-.store-name-button { display: block; border: 0; padding: 0; background: none; color: #172033; cursor: pointer; font: inherit; font-weight: 800; text-align: left; }
-.store-name-button:hover { color: var(--store-color, #16a34a); text-decoration: underline; }
-.store-summary-copy span { display: block; margin-top: 5px; color: #64748b; font-size: .78rem; }
-.store-summary-copy code { border-radius: var(--radius-xs); padding: 1px 6px; background: #dcfce7; color: #166534; font-weight: 800; }
-.store-summary-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-left: auto; }
-.store-summary-actions button { border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 7px 12px; background: #fff; color: #334155; cursor: pointer; font-size: .78rem; font-weight: 800; }
-.store-summary .store-open-button { padding: 9px 18px; font-size: .82rem; }
-.store-summary-actions .icon-button { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; }
-.store-summary-actions .icon-button svg { width: 16px; height: 16px; }
-.store-summary-actions [data-delete-store] { border-color: #fecaca; color: #b91c1c; }
-.store-summary-actions [data-delete-store]:hover { border-color: #f87171; background: #fef2f2; }
-.store-chip { border-radius: var(--radius-sm); padding: 5px 10px; background: var(--store-color, #22c55e); color: #06210f; font-size: .68rem; font-weight: 900; }
-
-@media (max-width: 620px) {
-  .store-form-grid, .store-options-grid { grid-template-columns: 1fr; }
-}
 
 /* Each store carries a color so a projected store is identifiable at a glance. */
 [data-color="green"], [data-store-color="green"] { --store-color: #22c55e; }
@@ -1567,7 +1486,16 @@ p {
 [data-color="purple"], [data-store-color="purple"] { --store-color: #a855f7; }
 [data-color="orange"], [data-store-color="orange"] { --store-color: #f97316; }
 [data-color="pink"], [data-store-color="pink"] { --store-color: #ec4899; }
-[data-color="red"], [data-store-color="red"] { --store-color: #ef4444; }
+[data-color="green"], [data-store-color="green"] { --store-color-dark: #15803d; }
+[data-color="blue"], [data-store-color="blue"] { --store-color-dark: #1d4ed8; }
+[data-color="purple"], [data-store-color="purple"] { --store-color-dark: #7e22ce; }
+[data-color="orange"], [data-store-color="orange"] { --store-color-dark: #c2410c; }
+[data-color="pink"], [data-store-color="pink"] { --store-color-dark: #be185d; }
+[data-color="red"], [data-store-color="red"] { --store-color: #ef4444; --store-color-dark: #b91c1c; }
+/* Yellow is too light for white lettering, so its signs and buttons are
+   written in brown. (Every other colour's button uses its darker shade, which
+   white text can be read on.) */
+[data-color="yellow"], [data-store-color="yellow"] { --store-color: #facc15; --store-color-dark: #a16207; --store-ink: #422006; --store-ink-shadow: none; --store-button: #facc15; }
 
 /* ------------------------------------------------------- product workspace
    The landing page is intentionally open and bright. The working screens use
@@ -1600,30 +1528,7 @@ p {
 .app-header button:hover,
 .app-header a:hover { background: #f0f8f2; }
 .brand-button { color: #14532d !important; font-size: 1.08rem !important; }
-.role-chip { background: #e7f6eb; color: #166534; }
-.app-header .header-exits { border-left-color: #d7e7da; }
 .app-header nav button.active { background: #dcfce7; color: #14532d; }
-
-.teacher-hero {
-  max-width: none;
-  margin: 0;
-  border-radius: 0;
-  padding: 28px max(20px, calc((100vw - 1400px) / 2));
-  background: #eaf8ee;
-  color: #14532d;
-}
-.teacher-hero h2 { font-size: clamp(1.65rem, 3vw, 2.45rem); }
-.teacher-hero .eyebrow { color: #15803d; }
-.teacher-hero p:last-child,
-.teacher-hero p.hero-lede { color: #4b6354; }
-.teacher-access-panel p { color: #4b6354; }
-.teacher-access-panel strong { color: #14532d; }
-.join-code-copy {
-  border-color: #b7d8c0;
-  background: #ffffff;
-  color: #14532d;
-}
-.join-code-copy:hover { background: #f4fbf6; }
 .teacher-secondary-button {
   border-color: #b7d8c0;
   border-radius: var(--radius-sm);
@@ -1631,36 +1536,7 @@ p {
   color: #14532d;
 }
 
-.store-tabs {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  border: 0;
-  border-bottom: 1px solid #d7e7da;
-  border-radius: 0;
-  padding: 0 max(20px, calc((100vw - 1400px) / 2));
-  background: #ffffff;
-  box-shadow: none;
-}
-.store-tab-list { gap: 24px; }
-.store-tab-list button {
-  margin-bottom: -1px;
-  border-bottom: 3px solid transparent;
-  border-radius: 0;
-  padding: 14px 2px 12px;
-}
-.store-tab-list button:hover { background: transparent; }
-.store-tab-list button.active {
-  border-bottom-color: #15803d;
-  background: transparent;
-  color: #14532d;
-  box-shadow: none;
-}
-.store-page-heading { margin: 0 auto; padding: 30px 20px 22px; }
-
-.teacher-workspace,
-.coupon-workspace,
-.store-workspace {
+.teacher-workspace {
   gap: 0;
   padding: 0 20px;
 }
@@ -1674,8 +1550,6 @@ p {
 }
 .teacher-workspace > .aisle-picker button { border-radius: var(--radius-sm); }
 .price-editor,
-.coupon-form,
-.coupon-list,
 .store-list {
   border: 0;
   border-radius: 0;
@@ -1692,35 +1566,55 @@ p {
 }
 .price-edit-card-hidden { background: #f3f6f4; }
 .teacher-money-input { border-radius: var(--radius-sm); }
-.coupon-workspace { grid-template-columns: minmax(280px, .38fr) minmax(0, .62fr); }
-.coupon-form { border-right: 1px solid #d7e7da; padding: 4px 32px 32px 0; }
-.coupon-list { padding: 4px 0 32px 32px; }
-.coupon-summary {
-  border: 0;
-  border-bottom: 1px solid #e4e9e5;
-  border-radius: 0;
-  background: #fffdf5;
-}
-.random-coupon-box { border-radius: var(--radius-sm); }
-.store-list { padding: 26px 0; }
-.store-summary {
-  margin-top: 0;
-  border: 0;
-  border-bottom: 1px solid #dfe8e1;
-  border-left: 3px solid var(--store-color, #22c55e);
-  border-radius: 0;
-  padding: 18px;
-  background: #ffffff;
-}
-.store-summary:first-of-type { border-top: 1px solid #dfe8e1; }
-.store-settings-workspace { padding-top: 8px; }
-.store-settings-workspace .store-form {
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  padding: 0;
-}
+/* The store list: one narrow column, so a short list never looks lost. */
+.store-list { width: min(880px,100%); margin: 0 auto; padding: 36px 20px; }
+.store-list > .status-message { margin: 0 0 20px; }
+.store-list-heading { margin-bottom: 22px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; }
+.store-list-heading h1 { color: #14532d; font-size: clamp(1.6rem,3vw,2.1rem); line-height: 1.1; }
+.store-list-heading p { max-width: 30rem; margin-top: 6px; color: #4b6354; line-height: 1.5; }
+.store-list-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.store-list-actions button { display: inline-flex; align-items: center; gap: 8px; }
+.store-list-actions svg { width: 17px; height: 17px; }
+
+/* Each store is a card in a two-across grid. The whole card opens the store;
+   the copy-link and ⋯ buttons sit on top of it in the corner. */
+.store-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.store-card { position: relative; min-height: 118px; border: 1px solid #dfe8e1; border-radius: var(--radius-lg); padding: 22px 104px 18px 20px; background: #fff; box-shadow: inset 0 5px 0 var(--store-color, #22c55e); transition: border-color .15s, box-shadow .15s; }
+.store-card:hover { border-color: #b7d8c0; box-shadow: inset 0 5px 0 var(--store-color, #22c55e), var(--shadow-sm); }
+.store-card h2 { color: #172033; font-size: 1.1rem; line-height: 1.25; overflow-wrap: anywhere; }
+.store-card p { margin-top: 6px; color: #64748b; font-size: .8rem; }
+.store-card-open { position: absolute; inset: 0; z-index: 1; border: 0; border-radius: inherit; background: transparent; cursor: pointer; }
+.store-card-open:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+.store-card-tools { position: absolute; top: 14px; right: 12px; z-index: 2; display: flex; gap: 4px; }
+.store-card-icon { width: 36px; height: 36px; border: 1px solid #d7e7da; border-radius: var(--radius-md); background: #fff; color: #31533b; cursor: pointer; display: grid; place-items: center; }
+.store-card-icon:hover { background: #f0f8f2; }
+/* The ⋯ button is a ghost: no outline until it is pointed at or open. */
+.store-card-menu .store-card-icon { border-color: transparent; background: transparent; }
+.store-card-menu .store-card-icon:hover, .store-card-menu .store-card-icon[aria-expanded="true"] { background: #f0f8f2; }
+.store-card-menu { position: relative; }
+/* Lift the card with an open menu above the cards after it, whose buttons would otherwise cover the menu. */
+.store-card.menu-open { z-index: 3; }
+.store-card-options { position: absolute; top: calc(100% + 4px); right: 0; z-index: 20; width: 170px; padding: 6px; border: 1px solid #d7e7da; border-radius: var(--radius-md); background: #fff; box-shadow: var(--shadow-lg); display: grid; gap: 2px; }
+.store-card-options button { border: 0; border-radius: var(--radius-sm); padding: 9px 12px; background: transparent; color: #172033; cursor: pointer; font: inherit; font-size: .88rem; font-weight: 700; text-align: left; }
+.store-card-options button:hover, .store-card-options button:focus-visible { background: #f0f8f2; }
+.store-card-options .store-card-delete { color: #b91c1c; }
+.store-card-options .store-card-delete:hover { background: #fef2f2; }
+.store-cards > .store-list-empty { grid-column: 1 / -1; }
+@media (max-width: 640px) { .store-cards { grid-template-columns: 1fr; } }
+.store-list-empty { width: 100%; border: 1px dashed #b7d8c0; border-radius: var(--radius-lg); padding: 44px 20px; background: #fff; color: #31533b; cursor: pointer; font: inherit; font-weight: 800; }
+.store-list-empty:hover { border-color: #15803d; background: #f0f8f2; }
+
+/* Import: paste a link, or pick a file someone downloaded from their list. */
+.import-modal { width: min(520px,100%); padding: 26px; border-radius: var(--radius-lg); background: #fff; }
+.import-modal h2 { margin-bottom: 18px; color: #14532d; }
+.import-link-form { display: flex; align-items: flex-end; gap: 10px; }
+.import-link-form label { flex: 1; display: grid; gap: 7px; color: #475569; font-size: .8rem; font-weight: 800; }
+.import-link-form input { width: 100%; border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 11px 12px; color: #172033; font: inherit; }
+.import-divider { margin: 18px 0; display: flex; align-items: center; gap: 12px; color: #64748b; font-size: .85rem; }
+.import-divider::before, .import-divider::after { content: ''; flex: 1; border-top: 1px solid #e2e8f0; }
+.import-file-button { display: block; border: 1px dashed #b7d8c0; border-radius: var(--radius-md); padding: 18px; color: #14532d; cursor: pointer; font-weight: 900; text-align: center; }
+.import-file-button:hover, .import-file-button:focus-within { border-color: #15803d; background: #f0f8f2; }
+.import-problem { margin-top: 14px; border-radius: var(--radius-md); padding: 10px 13px; background: #fef2f2; color: #b91c1c; font-weight: 700; }
 .status-message { margin-top: 14px; }
 
 /* Student store: bright and tactile without putting every area in a dark pod. */
@@ -1735,19 +1629,6 @@ p {
   padding: 24px max(20px, calc((100vw - 1400px) / 2)) 36px;
 }
 .shelf-column { gap: 10px; }
-.class-status {
-  border-bottom: 1px solid #d7e7da;
-  border-radius: 0;
-  padding: 9px 0 13px;
-  background: transparent;
-  color: #4b6354;
-}
-.class-status button {
-  border-color: #b7d8c0;
-  border-radius: var(--radius-sm);
-  background: #fff;
-  color: #166534;
-}
 .shelf-stage {
   min-height: calc(100vh - 125px);
   border: 1px solid #cae0d0;
@@ -1761,8 +1642,6 @@ p {
   font-size: clamp(1.35rem, 2.5vw, 2.6rem);
   white-space: nowrap;
 }
-.aisle-controls .aisle-picker { color: #4b6354; }
-.aisle-controls .aisle-picker select { border-color: #b7d8c0; border-radius: var(--radius-sm); }
 .nav-arrow {
   border: 1px solid #b7d8c0;
   border-radius: var(--radius-sm);
@@ -1826,22 +1705,8 @@ p {
 /* ------------------------------------------------------- stocking controls */
 
 /* The three distinct pages within an open store, directly below its green bar. */
-.store-tabs { width: fit-content; max-width: 100%; margin: 0 auto 18px; padding: 3px; border: 1px solid #cfe1d2; border-radius: var(--radius-md); background: #fff; box-shadow: var(--shadow-sm); }
-.store-tab-list { display: flex; align-items: stretch; }
-.store-tab-list button { border: 0; border-radius: calc(var(--radius-md) - 3px); padding: 7px 13px; background: transparent; color: #475569; cursor: pointer; font-size: .8rem; font-weight: 900; white-space: nowrap; }
-.store-tab-list button:hover { background: #f0fdf4; color: #166534; }
-.store-tab-list button.active { background: #dcfce7; color: #14532d; box-shadow: inset 0 0 0 1px #86efac; }
-.store-page-heading { max-width: 1400px; margin: 0 auto 16px; }
-.store-page-heading h2 { margin: 0 0 5px; color: #14532d; font-size: clamp(1.35rem,2.5vw,1.8rem); }
-.store-page-heading p { max-width: 760px; margin: 0; color: #64748b; font-size: .9rem; line-height: 1.5; }
-
-@media (max-width: 620px) {
-  .store-tab-list button { padding-inline: 8px; font-size: .72rem; }
-}
 
 /* The switch that brings the brand line this store does not sell back into the grid. */
-.brand-view-toggle { display: flex; align-items: center; gap: 7px; margin-right: 6px; color: #475569; font-size: .82rem; font-weight: 800; cursor: pointer; }
-.brand-view-toggle input { width: 15px; height: 15px; accent-color: #15803d; }
 
 /* Marks a card in the price grid as the CG store brand, which the muted
    artwork alone does not make obvious at thumbnail size. */
@@ -1849,8 +1714,6 @@ p {
 
 .stock-bulk-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .stock-bulk-actions button { border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 8px 13px; background: #fff; color: #334155; cursor: pointer; font-size: .78rem; font-weight: 800; }
-.stock-toggle { display: flex; align-items: center; justify-content: center; gap: 6px; color: #475569; font-size: .72rem; font-weight: 800; }
-.stock-toggle input { width: 15px; height: 15px; accent-color: #16a34a; }
 .price-edit-card-hidden { border-style: dashed; background: #f8fafc; opacity: .58; }
 .price-edit-card-hidden .teacher-money-input { background: #f1f5f9; border-color: #e2e8f0; }
 
@@ -1888,32 +1751,6 @@ p {
 /* These page tabs are deliberately last in the cascade: they replace the old
    pill-shaped menu with the same simple underline navigation as the landing
    page's section rhythm. */
-.store-tabs {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  border: 0;
-  border-bottom: 1px solid #d7e7da;
-  border-radius: 0;
-  padding: 0 max(20px, calc((100vw - 1400px) / 2));
-  background: #ffffff;
-  box-shadow: none;
-}
-.store-tab-list { gap: 24px; }
-.store-tab-list button {
-  margin-bottom: -1px;
-  border: 0;
-  border-bottom: 3px solid transparent;
-  border-radius: 0;
-  padding: 14px 2px 12px;
-}
-.store-tab-list button:hover { background: transparent; }
-.store-tab-list button.active {
-  border-bottom-color: #15803d;
-  background: transparent;
-  box-shadow: none;
-}
-.store-page-heading { margin: 0 auto; padding: 30px 20px 22px; }
 
 .student-view-header {
   margin: 0;
@@ -1923,7 +1760,7 @@ p {
 }
 
 @media (max-width: 1100px) {
-  .storefront { grid-template-columns: 1fr; }
+  .storefront { grid-template-columns: minmax(0, 1fr); }
   .cart-panel {
     position: static;
     height: auto;
@@ -1933,25 +1770,20 @@ p {
 }
 
 @media (max-width: 850px) {
-  .teacher-workspace,
-  .coupon-workspace { grid-template-columns: 1fr; }
+  .teacher-workspace { grid-template-columns: 1fr; }
   .teacher-workspace > .aisle-picker {
     display: flex;
     border-right: 0;
     border-bottom: 1px solid #d7e7da;
     padding: 0 0 14px;
   }
-  .price-editor,
-  .coupon-list { padding: 24px 0 32px; }
-  .coupon-form { border-right: 0; border-bottom: 1px solid #d7e7da; padding: 0 0 28px; }
+  .price-editor { padding: 24px 0 32px; }
 }
 
 @media (max-width: 700px) {
   .storefront { padding: 12px; }
   .shelf-stage { min-height: 52vh; padding: 16px; }
   .cart-panel { padding: 16px; }
-  .teacher-hero { padding-block: 24px; }
-  .store-tab-list { gap: 16px; overflow-x: auto; }
 }
 
 @media print {
@@ -1984,4 +1816,308 @@ p {
   .print-coupon {
     break-inside: avoid;
   }
+}
+
+.support-button { position: fixed; z-index: 99; left: 18px; bottom: 18px; width: 44px; height: 44px; border: 0; border-radius: 999px; background: #15803d; color: #fff; cursor: pointer; font-size: 1.35rem; font-weight: 900; line-height: 1; box-shadow: var(--shadow-lg); }
+.support-button:hover { background: #166534; }
+/* In a top bar it sits beside the language control, the same size. */
+.support-button.support-button-in-header { position: static; width: 36px; height: 36px; flex: none; padding: 0; border: 0; border-radius: 50%; background: #15803d; color: #fff; font-size: 1.05rem; box-shadow: none; }
+.support-button.support-button-in-header:hover { background: #166534; }
+.page-header-tools { display: flex; align-items: center; gap: 10px; }
+.support-modal { width: min(420px,100%); padding: clamp(20px,4vw,30px); border-radius: var(--radius-xl); background: #fff; color: #172033; box-shadow: 0 24px 70px rgba(15,23,42,.28); }
+.support-modal p { margin: 14px 0 0; color: #5e7163; line-height: 1.55; }
+.support-modal a { color: #15803d; font-weight: 800; }
+/* Students' language control, stacked on the floating help button in the same style. */
+.floating-language { position: fixed; z-index: 99; left: 18px; bottom: 72px; width: 44px; height: 44px; border-radius: 999px; background: #15803d; color: #fff; display: grid; place-items: center; box-shadow: var(--shadow-lg); }
+.floating-language:hover { background: #166534; }
+
+/* A student with several class stores switches between them from the opposite corner. */
+.store-switcher-button { position: fixed; z-index: 99; right: 18px; bottom: 18px; width: 44px; height: 44px; border: 0; border-radius: 999px; background: #15803d; color: #fff; display: grid; place-items: center; cursor: pointer; box-shadow: var(--shadow-lg); }
+.store-switcher-button:hover { background: #166534; }
+.store-switcher-button .icon { width: 22px; height: 22px; }
+.store-switcher { inset: auto 18px 72px auto; margin: 0; width: min(320px, calc(100vw - 36px)); padding: 16px; border: 0; border-radius: var(--radius-xl); background: #fff; color: #172033; box-shadow: 0 24px 70px rgba(15,23,42,.28); }
+.store-switcher h2 { margin: 0 0 10px; font-size: 1rem; }
+.store-switcher ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
+.store-switcher li { display: flex; gap: 6px; }
+.store-switcher-choose { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 2px solid #e2e8f0; border-radius: var(--radius-md); background: #fff; color: inherit; font: inherit; font-weight: 700; text-align: left; cursor: pointer; }
+.store-switcher-choose:hover { border-color: #94a3b8; }
+.store-switcher-open .store-switcher-choose { border-color: #15803d; background: #f0fdf4; }
+.store-switcher-open .store-switcher-choose .icon { color: #15803d; }
+.store-switcher-swatch { width: 14px; height: 14px; flex: none; border-radius: 50%; background: var(--store-color, #22c55e); }
+.store-switcher-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.store-switcher-remove { flex: none; width: 44px; border: 2px solid #e2e8f0; border-radius: var(--radius-md); background: #fff; color: #64748b; display: grid; place-items: center; cursor: pointer; }
+.store-switcher-remove:hover { border-color: #fca5a5; background: #fef2f2; color: #b91c1c; }
+
+@media print { .support-button, .floating-language, .store-switcher-button { display: none; } }
+
+/* ---------------------------------------------------------- an open store
+   The side panel down the left holds everything about the store: the way back,
+   its three pages, and the class's ways in at the bottom. The page itself fills
+   the rest. */
+
+.icon { width: 18px; height: 18px; flex: none; }
+
+/* The top bar and side panel hold still and only the page on the right
+   scrolls, so the panel always reaches the bottom of the window. */
+.teacher-shell.store-shell { height: 100vh; padding: 0; display: flex; flex-direction: column; }
+.store-layout { flex: 1; min-height: 0; display: grid; grid-template-columns: 248px minmax(0, 1fr); }
+
+.store-sidebar { min-height: 0; overflow-y: auto; padding: 18px 14px; border-right: 1px solid #d7e7da; background: #fff; display: flex; flex-direction: column; gap: 6px; }
+.store-sidebar button { width: 100%; border: 0; border-radius: var(--radius-md); padding: 10px 12px; background: transparent; color: #31533b; cursor: pointer; font: inherit; font-size: .9rem; font-weight: 800; text-align: left; display: flex; align-items: center; gap: 10px; }
+.store-sidebar button:hover { background: #f0f8f2; }
+.store-sidebar-back { color: #4b6354 !important; font-size: .82rem !important; }
+/* A little shopfront in the store's colour, with its name on the sign. */
+.store-sidebar .sidebar-storefront { position: relative; width: auto; margin: 10px 4px 16px; padding: 48px 10px 0; border-radius: var(--radius-lg); background: linear-gradient(180deg, #a9ddf5 0 86%, #4baa63 86%); display: grid; justify-items: center; gap: 0; }
+.sidebar-storefront-sign, .sidebar-storefront-window { display: block; }
+.sidebar-storefront-sign { position: relative; z-index: 1; max-width: 100%; margin-bottom: -8px; border: 4px solid #fff; border-radius: 10px; padding: 6px 12px; background: var(--store-color); color: var(--store-ink, #fff); font-size: .95rem; font-weight: 1000; line-height: 1.15; text-align: center; text-shadow: var(--store-ink-shadow, 0 1px 2px rgba(0,0,0,.25)); overflow-wrap: anywhere; }
+.sidebar-storefront-awning { width: 100%; height: 26px; display: flex; overflow: hidden; border-radius: 8px 8px 0 0; background: #fff; }
+.sidebar-storefront-awning i { flex: 1; background: var(--store-color); transform: skewX(-13deg); }
+.sidebar-storefront-awning i:nth-child(even) { background: #fff; }
+.sidebar-storefront-front { width: 100%; height: 96px; margin-bottom: 10px; padding: 12px 10px 0; background: #fff; display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 9px; align-items: end; box-shadow: 0 6px 0 rgba(20,83,45,.25); }
+.sidebar-storefront-window { align-self: start; height: 40px; border: 3px solid var(--store-color); border-radius: 5px; background: linear-gradient(135deg, #eef7ff, #d6ecfb); }
+.sidebar-storefront-door { height: 84px; border: 3px solid var(--store-color); border-bottom: 0; border-radius: 7px 7px 0 0; background: linear-gradient(90deg, #e6f4ea 0 47%, #fff 47% 53%, #e6f4ea 53%); display: grid; justify-items: center; align-content: start; padding-top: 9px; }
+.sidebar-storefront-door span { border-radius: 4px; padding: 3px 4px; background: #fff; color: #14532d; font-size: .5rem; font-weight: 1000; letter-spacing: .04em; line-height: 1.1; text-align: center; text-transform: uppercase; box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+.store-sidebar-pages { display: grid; gap: 2px; }
+.store-sidebar-pages button.active { background: #dcfce7; color: #14532d; }
+.store-sidebar-actions { margin-top: auto; padding-top: 14px; border-top: 1px solid #e4ece6; display: grid; gap: 6px; }
+/* The two ways in sit as a matching pair: an outlined button above a filled one. */
+.store-sidebar-actions button { justify-content: center; border: 1px solid transparent; }
+.store-sidebar .store-sidebar-actions .preview-button { border-color: #b7d8c0; background: #fff; }
+.store-sidebar .store-sidebar-actions .preview-button:hover { background: #f0f8f2; }
+.store-sidebar-actions .primary-button { background: #facc15; color: #713f12; }
+.store-sidebar-actions .primary-button:hover { background: #eab308; }
+/* After a change, the class's link is out of date until a new one is copied. */
+.store-sidebar-actions .primary-button.link-outdated { background: #ea580c; color: #fff; }
+
+.store-main { min-width: 0; overflow-y: auto; padding: 24px clamp(16px, 3vw, 32px) 48px; }
+
+/* Inventory: the aisle list and the cards, side by side. */
+.store-main .teacher-workspace { max-width: none; padding: 0; }
+/* The aisle list stays in view while the products scroll past it, and
+   scrolls by itself if there are more aisles than fit. */
+.store-main .teacher-workspace > .aisle-picker { position: sticky; top: 0; align-self: start; max-height: calc(100vh - 66px - 48px); overflow-y: auto; padding-top: 0; border-right: 0; }
+/* The dividing line belongs to the products, so it runs as far down as they do. */
+.store-main .price-editor { min-height: calc(100vh - 66px - 72px); padding-top: 0; border-left: 1px solid #d7e7da; }
+.store-main .aisle-picker button { display: flex; align-items: center; gap: 10px; }
+.aisle-icon { width: 28px; height: 28px; flex: none; object-fit: contain; }
+.aisle-name { flex: 1; }
+.aisle-count { flex: none; color: #94a3b8; font-size: .76rem; font-variant-numeric: tabular-nums; }
+.aisle-count strong { color: #15803d; font-size: .84rem; font-weight: 900; }
+.aisle-picker button.active .aisle-count { color: #4b8a60; }
+
+/* The CG Value switch at the foot of the aisle list, lit while CG products are listed. */
+.cg-controls { margin-top: 12px; padding-top: 14px; border-top: 1px solid #e4ece6; display: flex; align-items: center; gap: 8px; }
+.store-main .aisle-picker .cg-toggle { flex: 1; justify-content: center; align-items: center; gap: 6px; border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 8px 12px; background: #fff; color: #475569; font-weight: 800; }
+.store-main .aisle-picker .cg-toggle .icon { width: 15px; height: 15px; }
+.store-main .aisle-picker .cg-toggle[aria-pressed="true"] { border-color: #86c79a; background: #dcfce7; color: #14532d; }
+.cg-info-wrap { position: relative; display: inline-flex; }
+.store-main .aisle-picker .cg-info-icon { width: 34px; height: 34px; justify-content: center; align-items: center; padding: 0; border-radius: 50%; color: #15803d; }
+.store-main .aisle-picker .cg-info-icon:hover { background: #f0f8f2; }
+.cg-tooltip { display: none; position: absolute; right: 0; bottom: calc(100% + 8px); z-index: 30; width: 210px; border-radius: var(--radius-md); padding: 10px 12px; background: #14532d; color: #fff; font-size: .76rem; font-weight: 600; line-height: 1.45; box-shadow: var(--shadow-lg); }
+.cg-info-wrap:hover .cg-tooltip, .cg-info-wrap:focus-within .cg-tooltip { display: block; }
+.store-main .aisle-picker h3 { color: #4b6354; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+.price-edit-card { position: relative; cursor: pointer; user-select: none; }
+.price-edit-card input, .price-edit-card select { user-select: text; }
+.shift-click-hint { margin-right: 6px; color: #64748b; font-size: .78rem; font-weight: 600; }
+.price-edit-card:hover { background: #f7fbf8; }
+.price-edit-card-hidden:hover { opacity: .8; }
+.stock-checkbox { position: absolute; top: 10px; left: 10px; width: 18px; height: 18px; margin: 0; accent-color: #16a34a; cursor: pointer; }
+.price-edit-card input:not(.stock-checkbox), .price-edit-card select { cursor: auto; }
+/* The CG Value badge sits opposite the checkbox, and explains itself when clicked. */
+.price-edit-card .brand-tag { position: absolute; top: 9px; right: 9px; margin: 0; border: 0; border-radius: 999px; padding: 3px 8px 3px 5px; background: #dcfce7; color: #166534; cursor: pointer; font: inherit; font-size: .62rem; font-weight: 900; display: inline-flex; align-items: center; gap: 3px; }
+.price-edit-card .brand-tag:hover { background: #bbf7d0; }
+.price-edit-card .brand-tag .icon { width: 12px; height: 12px; }
+
+.cg-info { width: min(420px, calc(100vw - 32px)); border: 0; border-radius: var(--radius-lg); padding: 24px; background: #fff; color: #172033; box-shadow: 0 24px 70px rgba(15,23,42,.28); }
+.cg-info::backdrop { background: rgba(15,23,42,.35); }
+.cg-info h3 { color: #14532d; font-size: 1.1rem; }
+.cg-info p { margin: 10px 0 18px; color: #4b6354; line-height: 1.55; }
+
+.store-settings-form fieldset { margin: 0; border: 1px solid #dbe7dc; border-radius: var(--radius-lg); padding: 12px 16px 14px; background: #fff; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.store-settings-form legend { padding: 0 6px; color: #166534; font-size: .85rem; font-weight: 900; }
+.store-settings-form fieldset label { display: flex; align-items: center; gap: 7px; color: #334155; font-size: .88rem; font-weight: 700; cursor: pointer; }
+.store-settings-form input[type="radio"] { width: 16px; height: 16px; margin: 0; accent-color: #15803d; }
+.store-settings-form .tax-rate input { width: 90px; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); padding: 6px 8px; font: inherit; }
+/* Coupons: each one drawn at its printed size, with its own buttons below. */
+/* Add coupon opens a small menu under the button: by hand, or one at random. */
+.add-coupon-menu { position: relative; }
+.add-coupon-menu > .primary-button { display: inline-flex; align-items: center; gap: 8px; }
+.add-coupon-options { position: absolute; top: calc(100% + 6px); right: 0; z-index: 20; width: 260px; padding: 6px; border: 1px solid #d7e7da; border-radius: var(--radius-md); background: #fff; box-shadow: var(--shadow-lg); display: grid; gap: 2px; }
+.add-coupon-options button { border: 0; border-radius: var(--radius-sm); padding: 10px 12px; background: transparent; color: #172033; cursor: pointer; font: inherit; text-align: left; display: grid; gap: 2px; }
+.add-coupon-options button:hover, .add-coupon-options button:focus-visible { background: #f0f8f2; }
+.add-coupon-options strong { color: #14532d; font-size: .9rem; }
+.add-coupon-options span { color: #4b6354; font-size: .8rem; line-height: 1.35; }
+.store-list-heading h2 { color: #14532d; font-size: clamp(1.4rem,2.6vw,1.8rem); line-height: 1.1; }
+.coupon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(4in, 100%), 4in)); gap: 24px 28px; }
+.coupon-tile { display: grid; justify-items: start; gap: 10px; }
+.coupon-tile .print-coupon, .coupon-editor-preview .print-coupon { width: 4in; max-width: 100%; height: 2.1in; padding: 0; border: 0; filter: drop-shadow(0 6px 14px rgba(20,83,45,.12)); }
+.coupon-tile-actions { display: flex; align-items: center; gap: 8px; }
+.coupon-tile-actions button { border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 7px 12px; background: #fff; color: #334155; cursor: pointer; font-size: .8rem; font-weight: 800; }
+.coupon-tile-actions button:hover { background: #f8fafc; }
+.coupon-tile-actions .icon-button { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border-color: #fecaca; color: #b91c1c; }
+.coupon-tile-actions .icon-button .icon { width: 16px; height: 16px; }
+
+/* The add and edit window: fields on the left, the coupon as it will print on the right. */
+.coupon-editor { width: min(860px, 100%); padding: 26px; border-radius: var(--radius-lg); background: #fff; }
+.coupon-editor h2 { margin-bottom: 16px; color: #14532d; }
+.coupon-editor-manual { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 28px; align-items: start; }
+.coupon-editor-fields { display: grid; gap: 14px; }
+.coupon-editor label { position: relative; display: grid; gap: 7px; color: #475569; font-size: .8rem; font-weight: 800; }
+.coupon-editor input, .coupon-editor select { width: 100%; border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 11px 12px; background: #fff; color: #172033; font: inherit; }
+.coupon-editor .field-help { color: #64748b; font-weight: 700; }
+.coupon-editor .field-suffix { bottom: 12px; }
+.coupon-editor-preview { position: sticky; top: 0; }
+.coupon-editor-problem { grid-column: 1 / -1; border-radius: var(--radius-md); padding: 10px 13px; background: #fef2f2; color: #b91c1c; font-weight: 700; }
+.coupon-editor-actions { grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 10px; }
+.coupon-editor-actions > button:not(.primary-button) { border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 10px 18px; background: #fff; color: #334155; cursor: pointer; font-weight: 800; }
+
+/* Store settings: the form on the left, the store as students see it on the right. */
+.store-settings-page { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); align-items: start; max-width: 1100px; }
+.store-settings-form { display: grid; gap: 18px; }
+.store-settings-form > label { display: grid; gap: 7px; color: #475569; font-size: .82rem; font-weight: 800; }
+.store-settings-form > label input { width: 100%; border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 11px 12px; background: #fff; color: #172033; font: inherit; font-size: 1rem; font-weight: 800; }
+.store-settings-form fieldset label { flex: 1 0 100%; }
+.color-choices label.color-choice { flex: none; }
+.color-choice span[aria-hidden] { display: block; width: 32px; height: 32px; border-radius: 50%; background: var(--store-color); box-shadow: inset 0 0 0 2px rgba(0,0,0,.08); }
+.color-choice:has(input:checked) span[aria-hidden] { box-shadow: 0 0 0 3px #fff, 0 0 0 5px #14532d; }
+.color-choice:has(input:focus-visible) span[aria-hidden] { outline: 2px solid #2563eb; outline-offset: 5px; }
+
+.store-preview { position: sticky; top: 24px; margin: 0; border: 1px solid #d7e7da; border-radius: var(--radius-lg); overflow: hidden; background: #a9ddf5; }
+.store-preview figcaption { position: absolute; top: 10px; left: 12px; z-index: 1; border-radius: var(--radius-sm); padding: 3px 8px; background: rgba(255,255,255,.85); color: #31533b; font-size: .7rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.store-preview-front { padding: 46px 28px 0; display: grid; justify-items: center; }
+.store-preview-sign { position: relative; z-index: 1; max-width: 100%; margin-bottom: -10px; border: 5px solid #fff; border-radius: 12px; padding: 8px 18px; background: var(--store-color); color: var(--store-ink, #fff); font-size: clamp(1rem, 2vw, 1.35rem); font-weight: 1000; line-height: 1.1; text-align: center; text-shadow: var(--store-ink-shadow, 0 1px 2px rgba(0,0,0,.25)); box-shadow: 0 6px 0 rgba(0,0,0,.12); overflow-wrap: anywhere; }
+.store-preview-awning { width: 100%; height: 40px; display: flex; overflow: hidden; border-radius: 10px 10px 0 0; background: #fff; }
+.store-preview-awning i { flex: 1; background: var(--store-color); transform: skewX(-13deg); }
+.store-preview-awning i:nth-child(even) { background: #fff; }
+.store-preview-shelf { margin: 0; padding: 18px 16px 22px; list-style: none; background: #fff; border-bottom: 10px solid #c8a26b; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.store-preview-shelf li { display: grid; justify-items: center; align-content: start; gap: 6px; text-align: center; }
+.store-preview-shelf .shelf-product-image { width: 64px; height: 64px; }
+.store-preview-name { color: #334155; font-size: .78rem; font-weight: 800; }
+
+@media (max-width: 900px) {
+  /* The side panel becomes a bar across the top, the whole page scrolls as
+     one, and the previews drop under their forms. */
+  .teacher-shell.store-shell { height: auto; display: block; }
+  .store-layout { grid-template-columns: 1fr; }
+  .store-main { overflow: visible; }
+  .store-main .teacher-workspace > .aisle-picker { position: static; max-height: none; }
+  .store-main .price-editor { min-height: 0; border-left: 0; }
+  .cg-tooltip { right: auto; left: 0; }
+  .coupon-editor-manual { grid-template-columns: 1fr; }
+  .store-sidebar { position: static; height: auto; overflow: visible; border-right: 0; border-bottom: 1px solid #d7e7da; flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .store-sidebar button { width: auto; }
+  .store-sidebar .sidebar-storefront { flex: 1 0 100%; order: -1; max-width: 280px; margin: 0 auto 6px; }
+  .store-sidebar-pages { display: flex; flex-wrap: wrap; }
+  .store-sidebar-actions { flex: 1 0 100%; margin-top: 0; padding-top: 10px; display: flex; flex-wrap: wrap; }
+  .store-settings-page { grid-template-columns: 1fr; }
+  .store-preview { position: relative; top: 0; }
+}
+
+/* ------------------------------------------------------- store entrance
+   Where a student's link lands: their store, full screen, on a sunny day. The
+   sign and stripes are in the store's colour. Pressing Enter opens the doors
+   (--doors-open), then walks the camera in through them (--walk-in) while the
+   picture fades into the aisles' own background. */
+.entrance { position: relative; height: 100vh; height: 100dvh; min-height: 480px; overflow: hidden; background: #f4faf5; }
+.entrance-scene { position: absolute; inset: 0; background: linear-gradient(180deg, #6ec1ec, #bfe7fa 74%); }
+
+.entrance-sun { position: absolute; top: 7vh; left: 9vw; width: clamp(64px, 9vw, 120px); aspect-ratio: 1; border: 10px solid rgba(255,255,255,.5); border-radius: 50%; background: #fde68a; box-shadow: 0 0 60px 20px rgba(254,240,138,.55); }
+.entrance-cloud { position: absolute; width: 140px; height: 34px; border-radius: 99px; background: rgba(255,255,255,.92); animation: entrance-drift 40s linear infinite alternate; }
+.entrance-cloud::before, .entrance-cloud::after { content: ''; position: absolute; bottom: 0; border-radius: 50%; background: inherit; }
+.entrance-cloud::before { left: 24px; width: 60px; height: 60px; }
+.entrance-cloud::after { right: 22px; width: 42px; height: 42px; }
+.entrance-cloud-one { top: 12vh; left: 26vw; }
+.entrance-cloud-two { top: 8vh; right: 14vw; transform: scale(.8); animation-duration: 55s; animation-direction: alternate-reverse; }
+.entrance-cloud-three { top: 25vh; right: 4vw; transform: scale(.55); animation-duration: 34s; }
+@keyframes entrance-drift { to { translate: 6vw 0; } }
+
+/* The grass, with a pavement running along the front of the shop. */
+.entrance-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 26%; background: linear-gradient(180deg, #d6d3d1 0 14px, #a8a29e 14px 18px, #5dbb72 18px, #3f9c56); }
+
+.entrance-building { position: absolute; left: 50%; bottom: calc(26% - 4px); width: min(860px, 92vw); height: clamp(230px, 44vh, 420px); translate: -50% 0; border: 8px solid var(--store-color-dark); border-bottom: 0; border-radius: 22px 22px 0 0; padding: clamp(58px, 11%, 86px) 6% 0; background: #fff; display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 6%; align-items: end; box-shadow: 0 24px 50px rgba(15,60,30,.18); }
+/* A roof band behind the sign. */
+.entrance-building::before { content: ''; position: absolute; left: 6%; right: 6%; top: -40px; height: 48px; border-radius: 18px 18px 0 0; background: var(--store-color-dark); }
+
+.entrance-sign { position: absolute; z-index: 2; top: 0; left: 0; right: 0; width: fit-content; max-width: 86%; translate: 0 -78%; margin: 0 auto; border: 7px solid #fff; border-radius: 16px; padding: .28em .8em; background: var(--store-color); color: var(--store-ink, #fff); font-size: clamp(1.5rem, 4.4vw, 3.2rem); font-weight: 1000; letter-spacing: .01em; line-height: 1.05; text-align: center; text-shadow: var(--store-ink-shadow, 0 2px 3px rgba(0,0,0,.25)); box-shadow: 0 8px 0 rgba(0,0,0,.14); overflow-wrap: anywhere; }
+
+.entrance-awning { position: absolute; top: 0; left: -8px; right: -8px; height: clamp(34px, 9%, 52px); display: flex; overflow: hidden; border-radius: 12px 12px 0 0; border-bottom: 6px solid var(--store-color-dark); background: #fff; }
+.entrance-awning i { flex: 1; background: var(--store-color); transform: skewX(-13deg); }
+.entrance-awning i:nth-child(even) { background: #fff; }
+
+/* Shop windows with shelves of colourful groceries behind the glass. */
+.entrance-window { align-self: center; height: 62%; border: 7px solid var(--store-color-dark); border-radius: 10px; padding: 10% 8% 0; background: linear-gradient(135deg, #f0f9ff, #d4ecfa); display: grid; align-content: start; gap: 14%; overflow: hidden; }
+.entrance-window i { display: block; height: 18px; border-bottom: 5px solid #cbd5e1; background: repeating-linear-gradient(90deg, #f87171 0 14px, transparent 14px 18px, #fbbf24 18px 32px, transparent 32px 36px, #4ade80 36px 50px, transparent 50px 54px, #60a5fa 54px 68px, transparent 68px 72px); }
+
+/* The doorway: a lit shop floor behind two glass doors that swing inwards. */
+.entrance-doorway { position: relative; height: 82%; border: 8px solid var(--store-color-dark); border-bottom: 0; border-radius: 12px 12px 0 0; perspective: 900px; overflow: hidden; }
+.entrance-inside { position: absolute; inset: 0; padding: 14% 10% 0; background: linear-gradient(180deg, #fffdf5 0 64%, #e7e5e4 64%); display: grid; grid-template-columns: repeat(3, 1fr); gap: 12%; align-items: start; }
+.entrance-inside i { height: 56%; border-radius: 4px; background: repeating-linear-gradient(180deg, #fca5a5 0 10px, #fde68a 10px 20px, #94a3b8 20px 23px, #86efac 23px 33px, #93c5fd 33px 43px, #94a3b8 43px 46px); }
+.entrance-door { position: absolute; top: 0; bottom: 0; width: 50%; border: 6px solid var(--store-color-dark); background: linear-gradient(160deg, rgba(224,242,254,.96), rgba(186,230,253,.9)); transition: transform var(--doors-open) cubic-bezier(.3,.7,.4,1); }
+.entrance-door::after { content: ''; position: absolute; top: 42%; width: 6px; height: 22%; border-radius: 3px; background: var(--store-color-dark); }
+.entrance-door-left { left: 0; border-left: 0; transform-origin: left center; }
+.entrance-door-left::after { right: 10px; }
+.entrance-door-right { right: 0; border-right: 0; transform-origin: right center; }
+.entrance-door-right::after { left: 10px; }
+
+.entrance-button { position: absolute; z-index: 3; left: 50%; bottom: 13%; translate: -50% 50%; min-width: min(320px, 80vw); border: 6px solid #fff; border-radius: 999px; padding: .45em 1.6em; background: var(--store-button, var(--store-color-dark)); color: var(--store-ink, #fff); cursor: pointer; font: inherit; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 1000; letter-spacing: .02em; box-shadow: 0 8px 0 rgba(0,0,0,.22), 0 20px 40px rgba(0,0,0,.22); transition: transform .15s, box-shadow .15s, opacity .25s; animation: entrance-beckon 2.4s ease-in-out infinite; }
+.entrance-button:hover { transform: translateY(-3px); box-shadow: 0 11px 0 rgba(0,0,0,.22), 0 24px 44px rgba(0,0,0,.24); }
+.entrance-button:active { transform: translateY(4px); box-shadow: 0 4px 0 rgba(0,0,0,.22), 0 12px 24px rgba(0,0,0,.2); }
+.entrance-button:focus-visible { animation: none; outline: 5px solid #1e293b; outline-offset: 4px; }
+/* A soft ring that pulses out of the button, so it is clearly the thing to press. */
+@keyframes entrance-beckon { 0% { outline: 0 solid rgba(255,255,255,.75); } 100% { outline: 22px solid rgba(255,255,255,0); } }
+
+.entrance-teacher-link { position: absolute; z-index: 3; top: 14px; right: 16px; border-radius: 999px; padding: .35em .9em; background: rgba(255,255,255,.85); color: #1e293b; font-size: .9rem; font-weight: 700; text-decoration: none; }
+.entrance-teacher-link:hover { background: #fff; text-decoration: underline; }
+.entering .entrance-teacher-link { opacity: 0; pointer-events: none; }
+
+/* Entering: doors open, then the camera walks in and the scene fades to the aisles. */
+.entering .entrance-button { opacity: 0; animation: none; pointer-events: none; }
+.entering .entrance-door-left { transform: rotateY(80deg); }
+.entering .entrance-door-right { transform: rotateY(-80deg); }
+.entering .entrance-scene { transform: scale(var(--walk-in-scale, 12)); transition: transform var(--walk-in) cubic-bezier(.55,0,.75,.35) var(--doors-open); }
+.entrance::after { content: ''; position: absolute; inset: 0; z-index: 4; background: inherit; opacity: 0; pointer-events: none; }
+.entering::after { opacity: 1; transition: opacity calc(var(--walk-in) * .35) ease-in calc(var(--doors-open) + var(--walk-in) * .65); }
+
+/* The aisles fade in after the walk-in, so the hand-over has no hard cut. */
+.store-arrive { animation: store-arrive .35s ease-out; }
+@keyframes store-arrive { from { opacity: 0; } }
+
+@media (max-width: 700px) {
+  .entrance-building { width: 96vw; grid-template-columns: .8fr 1.3fr .8fr; gap: 5%; padding-left: 4%; padding-right: 4%; }
+  .entrance-window { border-width: 5px; }
+  .entrance-window i { height: 12px; border-bottom-width: 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entrance-cloud, .entrance-button, .store-arrive, .shelf-quantity-badge { animation: none; }
+}
+
+/* ------------------------------------------------------- student store fits one screen
+   On a laptop or a classroom board the aisle and the cart fit the window, with
+   no scrolling: the shelf units shrink to whatever height is left. */
+.store-thumbnail { margin: 0; border: 1px solid #d7e7da; border-left: 0; border-bottom: 0; padding: 16px 18px 0; background: linear-gradient(180deg, #a9ddf5 0 86%, #4baa63 86%); display: grid; justify-items: center; }
+.store-thumbnail .sidebar-storefront-front { height: 66px; }
+.store-thumbnail .sidebar-storefront-door { height: 56px; padding-top: 6px; }
+.store-thumbnail .sidebar-storefront-window { height: 30px; }
+
+@media (min-width: 1101px) {
+  .storefront-shell { height: 100vh; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+  .storefront-shell > .storefront { flex: 1; min-height: 0; padding-top: 20px; padding-bottom: 20px; }
+  .shelf-column { min-height: 0; }
+  .shelf-stage { height: 100%; min-height: 0; grid-template-rows: auto minmax(0, 1fr); }
+  .shelf-row { display: flex; justify-content: center; gap: 20px; min-height: 0; padding-bottom: 0; overflow: visible; container-type: size; }
+  /* All of an aisle's units side by side, as wide as the row allows, and then
+     stretched taller (up to a third again) to use the height that is left. The
+     products are placed in percentages of the shelf's own size so they stay on
+     the shelves drawn in the picture however it is stretched. */
+  .shelf-unit {
+    --unit-width: min(calc((100cqw - (var(--shelf-units) - 1) * 20px) / var(--shelf-units)), calc(100cqh * .78));
+    flex: 0 0 auto;
+    width: var(--unit-width);
+    height: min(100cqh, calc(var(--unit-width) / .58));
+    max-width: none;
+    aspect-ratio: auto;
+  }
+  .cart-column { min-height: 0; display: flex; flex-direction: column; }
+  .cart-column .cart-panel { position: static; flex: 1; height: auto; min-height: 0; }
 }

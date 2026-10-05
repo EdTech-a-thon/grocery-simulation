@@ -1,110 +1,121 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
-  import StoreSettingsModal from '$lib/components/StoreSettingsModal.svelte'
-  import {
-    deleteStore, duplicateStore, errorMessage, storeColors, teacherJoinPrefix,
-    type Store, type StoreColor,
-  } from '$lib/pocketbase'
-  import { copyJoinLink, joinLinkFor } from '$lib/sharing'
-  import { forgetStore, shop } from '$lib/shop.svelte'
-  import { refreshStores, teacher, withBusy, type StorePage } from '$lib/teacher.svelte'
+  import Icon from '$lib/components/Icon.svelte'
+  import ImportStoreModal from '$lib/components/ImportStoreModal.svelte'
+  import { current, t } from '$lib/i18n/index.svelte'
+  import { forgetSavedStore, saveStore, saved, type SavedStore } from '$lib/savedStores.svelte'
+  import { copyLink, downloadStoreFile, encodeStore, studentLink } from '$lib/sharing'
+  import type { Store } from '$lib/store'
+  import { teacher, type StorePage } from '$lib/teacher.svelte'
 
-  let { header, onOpenStore }: {
+  let { header, onOpenStore, onCreate }: {
     header: Snippet
-    onOpenStore: (store: Store, page?: StorePage) => Promise<void>
+    onOpenStore: (store: Store, savedId: string, page?: StorePage, fromStudentLink?: boolean) => void
+    onCreate: () => void
   } = $props()
 
-  // A store that already exists edits its settings on its own page; the modal is
-  // only for a store that does not exist yet, and so has no page to open.
-  let creating = $state(false)
+  let importing = $state(false)
+  /** The store whose ⋯ menu is open, if any. */
+  let menuFor = $state<string | null>(null)
+  /** The store whose link was just copied, while its button shows a tick. */
+  let copiedFor = $state<string | null>(null)
 
-  const prefix = teacherJoinPrefix()
+  /** Newest first: the store a teacher was just working on is the one they want. */
+  const stores = $derived([...saved.stores].sort((a, b) => b.savedAt.localeCompare(a.savedAt)))
 
-  function duplicate(store: Store) {
-    const copyName = window.prompt('Name for the copy', `${store.name} (copy)`)
-    if (!copyName) return
-    const copyColor = window.prompt(`Color for the copy (${storeColors.join(', ')})`, store.color)
-    if (!copyColor) return
-    const copyLabel = window.prompt(`Class code for the copy, after ${prefix}-`, '')
-    if (!copyLabel) return
-    void withBusy(async () => {
-      try {
-        const copy = await duplicateStore(store.id, copyName, copyColor as StoreColor, copyLabel)
-        await refreshStores()
-        teacher.message = `${copy.name} created with the same prices, stock and coupons. Students join with ${copy.joinCode}.`
-      } catch (error) {
-        teacher.message = errorMessage(error, 'That store could not be duplicated.')
-      }
-    })
+  /** Opens a copy, so nothing reaches the saved list until it is saved again. */
+  function edit(entry: SavedStore, page?: StorePage) {
+    onOpenStore($state.snapshot(entry.store) as Store, entry.id, page)
   }
 
-  async function share(store: Store) {
-    teacher.message = (await copyJoinLink(store))
-      ? `Join link for ${store.name} copied. Paste it wherever your class will see it.`
-      : `Join link for ${store.name}: ${joinLinkFor(store)}`
+  /** An imported store goes straight onto the list, so there is nothing to remember to save. */
+  function imported(store: Store, fromLink: boolean) {
+    importing = false
+    onOpenStore(store, saveStore(store), 'inventory', fromLink)
   }
 
-  function remove(store: Store) {
-    if (!window.confirm(`Delete ${store.name}? Its prices and coupons are deleted too. This cannot be undone.`)) return
-    void withBusy(async () => {
-      try {
-        await deleteStore(store.id)
-        if (shop.store?.id === store.id) forgetStore()
-        await refreshStores()
-        teacher.message = `${store.name} deleted.`
-      } catch (error) {
-        teacher.message = errorMessage(error, 'That store could not be deleted.')
-      }
-    })
+  function savedOn(entry: SavedStore) {
+    return new Date(entry.savedAt).toLocaleDateString(current().locale, { dateStyle: 'medium' })
+  }
+
+  async function share(entry: SavedStore) {
+    if (!(await copyLink(studentLink(await encodeStore(entry.store)), t('store.copyPrompt')))) return
+    copiedFor = entry.id
+    setTimeout(() => (copiedFor = copiedFor === entry.id ? null : copiedFor), 2000)
+  }
+
+  function duplicate(entry: SavedStore) {
+    const name = window.prompt(t('stores.copyNamePrompt'), t('stores.copyNameDefault', { name: entry.store.name }))?.trim()
+    if (!name) return
+    saveStore({ ...($state.snapshot(entry.store) as Store), name: name.slice(0, 60) })
+  }
+
+  /** Runs a ⋯ menu choice and closes the menu. */
+  function choose(action: () => void) {
+    menuFor = null
+    action()
+  }
+
+  /** A menu closes when the teacher clicks anywhere outside it. */
+  function closeMenuOutside(event: MouseEvent) {
+    if (menuFor && !(event.target as HTMLElement).closest('.store-card-menu')) menuFor = null
+  }
+
+  function remove(entry: SavedStore) {
+    if (!window.confirm(t('stores.deleteConfirm', { name: entry.store.name }))) return
+    forgetSavedStore(entry.id)
   }
 </script>
 
+<svelte:window onclick={closeMenuOutside} onkeydown={(event) => { if (event.key === 'Escape') menuFor = null }} />
+
 <main class="teacher-shell">
   {@render header()}
-  <section class="teacher-hero">
-    <div>
-      <p class="eyebrow">Teacher controls</p>
-      <h2>Set up a store for each class</h2>
-      <p>Every store keeps its own prices, its own stocked items and its own coupons. Duplicate one to reuse it with another class.</p>
-      <p class="teacher-identity-note">Your class codes all start with <strong>{prefix}</strong>.</p>
-      <button class="primary-button create-store-button" type="button" onclick={() => (creating = true)}>Create New Store</button>
-    </div>
-  </section>
-  {#if teacher.message}<p class="status-message">{teacher.message}</p>{/if}
-  <section class="store-workspace">
-    <section class="store-list">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Your stores</p>
-          <h2>{teacher.stores.length} store{teacher.stores.length === 1 ? '' : 's'}</h2>
-        </div>
+  <section class="store-list">
+    <div class="store-list-heading">
+      <div>
+        <h1>{t('stores.yours')}</h1>
+        <p>{t('stores.definition')}</p>
       </div>
-      {#each teacher.stores as store (store.id)}
-        <article class="store-summary" data-color={store.color}>
-          <span class="store-swatch" aria-hidden="true"></span>
-          <div class="store-summary-copy">
-            <button class="store-name-button" type="button" onclick={() => void withBusy(() => onOpenStore(store))}>{store.name}</button>
-            <span>Students join with <code>{store.joinCode}</code></span>
-          </div>
-          <button class="primary-button store-open-button" type="button" onclick={() => void withBusy(() => onOpenStore(store))}>Edit Store</button>
-          <div class="store-summary-actions">
-            <button type="button" onclick={() => void share(store)}>Copy join link</button>
-            <button type="button" onclick={() => duplicate(store)}>Duplicate</button>
-            <button type="button" onclick={() => void withBusy(() => onOpenStore(store, 'settings'))}>Settings</button>
-            <button class="icon-button" data-delete-store type="button" title="Delete store" aria-label="Delete {store.name}" onclick={() => remove(store)}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M3 6h18" /><path d="M8 6V4h8v2" /><path d="M6 6l1 14h10l1-14" /><path d="M10 11v5" /><path d="M14 11v5" />
-              </svg>
+      <div class="store-list-actions">
+        <button class="teacher-secondary-button" type="button" onclick={() => (importing = true)}>{t('stores.import')}<Icon name="import" /></button>
+        <button class="primary-button" type="button" onclick={onCreate}>{t('stores.create')}<Icon name="plus" /></button>
+      </div>
+    </div>
+    {#if teacher.problem}<p class="status-message" role="alert">{teacher.problem}</p>{/if}
+    <div class="store-cards">
+      {#each stores as entry (entry.id)}
+        <!-- The whole card opens the store; its two buttons sit on top of it. -->
+        <article class="store-card" class:menu-open={menuFor === entry.id} data-color={entry.store.color}>
+          <button class="store-card-open" type="button" aria-label={t('stores.openLabel', { name: entry.store.name })} onclick={() => edit(entry)}></button>
+          <h2>{entry.store.name}</h2>
+          <p>{t('stores.savedOn', { date: savedOn(entry) })}</p>
+          <div class="store-card-tools">
+            <div class="store-card-menu">
+              <button class="store-card-icon" type="button" aria-haspopup="menu" aria-expanded={menuFor === entry.id} aria-label={t('stores.moreLabel', { name: entry.store.name })} onclick={() => (menuFor = menuFor === entry.id ? null : entry.id)}>
+                <Icon name="more" />
+              </button>
+              {#if menuFor === entry.id}
+                <div class="store-card-options" role="menu">
+                  <button role="menuitem" type="button" onclick={() => choose(() => duplicate(entry))}>{t('stores.duplicate')}</button>
+                  <button role="menuitem" type="button" onclick={() => choose(() => downloadStoreFile(entry.store))}>{t('stores.download')}</button>
+                  <button role="menuitem" type="button" onclick={() => choose(() => edit(entry, 'settings'))}>{t('stores.settings')}</button>
+                  <button role="menuitem" class="store-card-delete" type="button" onclick={() => choose(() => remove(entry))}>{t('stores.delete')}</button>
+                </div>
+              {/if}
+            </div>
+            <button class="store-card-icon" type="button" title={t('stores.copyLink')} aria-label={t('stores.copyLinkLabel', { name: entry.store.name })} onclick={() => void share(entry)}>
+              <Icon name={copiedFor === entry.id ? 'check' : 'copy'} />
             </button>
           </div>
         </article>
       {:else}
-        <div class="empty-coupons">Create your first store to get started.</div>
+        <button class="store-list-empty" type="button" onclick={onCreate}>{t('stores.empty')}</button>
       {/each}
-    </section>
+    </div>
   </section>
 </main>
 
-{#if creating}
-  <StoreSettingsModal store={null} onClose={() => (creating = false)} onCreated={onOpenStore} />
+{#if importing}
+  <ImportStoreModal onClose={() => (importing = false)} onImported={imported} />
 {/if}

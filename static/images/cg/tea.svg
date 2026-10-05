@@ -1,1 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)"><rect x="32" y="53" width="96" height="113" rx="6" fill="#4d9b6f"/><text x="80" y="82" text-anchor="middle" font-family="Georgia" font-size="24" font-weight="700" fill="#fff">TEA</text><path d="M51 126c12-27 46-27 58 0" fill="none" stroke="#eff3b2" stroke-width="10"/><path d="M80 104c8-17 20-19 30-16" fill="none" stroke="#3d763e" stroke-width="7"/></g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="79" cy="194" rx="61" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M120 100l18-14v89a3 3 0 0 1-1.2 2.4L120 190z" fill="#b39a74"/>
+    <path d="M23 100l18-14h97l-18 14z" fill="#e6d3b1"/>
+    <path d="M20 103a3 3 0 0 1 3-3h97v90H23a3 3 0 0 1-3-3z" fill="#d8c09a"/>
+    <path d="M22 104h3v82h-3z" fill="#efe3ce"/>
+    <path d="M35 93h91" fill="none" stroke="#b39a74" stroke-width="2" stroke-linecap="round"/>
+    <path d="M121 109.2l16.5-12.8" fill="none" stroke="#98805e" stroke-width="2"/>
+  </g><g id="label">
+    <rect x="27" y="107" width="86" height="76" rx="3" fill="#f7efe2"/>
+  </g><g id="brand-cg">
+    <rect x="27" y="107" width="86" height="76" rx="3" fill="#ffffff"/>
+    <path d="M30 107h80a3 3 0 0 1 3 3v11H27v-11a3 3 0 0 1 3-3z" fill="#15803d"/>
+    <path d="M27 121h86v2H27z" fill="#facc15"/>
+    <path d="M33 111h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="35" cy="114" r="1" fill="#15803d"/>
+    <path d="M81 139q-4-4 0-8t0-8M91 141q-4-4 0-8t0-8" fill="none" stroke="#a9a39a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M92 153a8.5 9 0 0 1 0 18" fill="none" stroke="#167a72" stroke-width="5" stroke-linecap="round"/>
+    <path d="M48 145h44v20a10 10 0 0 1-10 10H58a10 10 0 0 1-10-10z" fill="#1f9e94"/>
+    <path d="M81 145h11v20a10 10 0 0 1-10 10h-1z" fill="#167a72"/>
+    
+    <ellipse cx="70" cy="145" rx="22" ry="5" fill="#9be0d8"/>
+    <ellipse cx="70" cy="145.6" rx="19" ry="3.6" fill="#c0742a"/>
+    <path d="M55 145.5L51.5 129l1.5-2h12l2.5 1.5L70 145.5z" fill="#efe3c8"/>
+    <path d="M66 145.5L62.8 127h2.2l2.5 1.5L70 145.5z" fill="#d4c29c"/>
+    <path d="M52.5 132h13.8" fill="none" stroke="#d4c29c" stroke-width="1.3"/>
+    <path d="M53 145q9 2.2 18 0v2.4q-9 2.2-18 0z" fill="#c0742a"/>
+    <path d="M59 127Q55 121 49 144Q46 151 41 156" fill="none" stroke="#7c6f5c" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M36 156h9a1.5 1.5 0 0 1 1.5 1.5v7a1.5 1.5 0 0 1-1.5 1.5h-9a1.5 1.5 0 0 1-1.5-1.5v-7a1.5 1.5 0 0 1 1.5-1.5z" fill="#facc15"/>
+    <path d="M42.5 156h2.5a1.5 1.5 0 0 1 1.5 1.5v7a1.5 1.5 0 0 1-1.5 1.5h-2.5z" fill="#d9a514"/>
+    <path d="M33 177h74v3H33z" fill="#15803d"/>
+  </g></svg>

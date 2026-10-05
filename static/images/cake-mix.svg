@@ -1,1 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><rect x="29" y="47" width="102" height="130" rx="7" fill="#a65462"/><text x="80" y="78" text-anchor="middle" font-family="Arial" font-size="17" font-weight="700" fill="#fff">CAKE MIX</text><path d="M43 142c0-31 74-31 74 0z" fill="#704337"/><path d="M48 128h64" stroke="#f0c9af" stroke-width="9"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="192" rx="54" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M108 42H113L128 34.6a2 2 0 0 1 3 1.8V178.3a3 3 0 0 1-1.5 2.6L113 190H108z" fill="#a39a8c"/>
+    <path d="M31 42L46 34.8a4 4 0 0 1 1.8-.8H129a2 2 0 0 1 1 3.7L113 42V46H31z" fill="#b3aa9a"/>
+    <rect x="29" y="42" width="84" height="148" rx="3" fill="#c2b7a4"/>
+    <rect x="31" y="44" width="80" height="144" rx="2" fill="#ebe4d6"/>
+    <path d="M32 51h3v131h-3z" fill="#f7f3ea"/>
+    <path d="M31 50h80M31 183h80" fill="none" stroke="#c2b7a4" stroke-width="2"/>
+  </g><g id="label">
+    <rect x="35" y="56" width="72" height="122" rx="3" fill="#f7efe2"/>
+  </g><g id="brand">
+    <rect x="35" y="56" width="72" height="122" rx="3" fill="#1d4fa3"/>
+    <circle cx="70" cy="110" r="33" fill="#f6c84c"/>
+    <path d="M35 160q18-8 36-3t36-4v22a3 3 0 0 1-3 3H38a3 3 0 0 1-3-3z" fill="#e2557f"/>
+    <ellipse cx="72" cy="149" rx="35" ry="19" fill="#d6d1c8"/>
+    <ellipse cx="72" cy="147" rx="35" ry="19" fill="#ffffff"/>
+    <path d="M94 127Q111 111 100 87V117Q111 141 94 157z" fill="#4a2a1a"/>
+    <path d="M40 118L94 127V157L40 148z" fill="#e6c27a"/>
+    <path d="M40 124L52 126V145L40 143z" fill="#f3dca0"/>
+    <path d="M40 118L94 127V132L40 123zM40 133L94 142V146L40 137z" fill="#4a2a1a"/>
+    <path d="M40 118L94 127Q111 111 100 87z" fill="#6b3d24"/>
+    <path d="M44 116L99 89L98 94z" fill="#8a5a3a"/>
+    <path d="M75 108c-2-4 2-7 5-6c1-4 7-4 8 0c4-1 6 3 5 6z" fill="#fff3e0"/>
+    <path d="M75 108q9 3 18 0c0 2-1 2-2 3h-14c-1-1-2-1-2-3z" fill="#e8d6b8"/>
+    <circle cx="84" cy="97" r="6.5" fill="#d62e3a"/>
+    <circle cx="82" cy="95" r="2" fill="#f28b92"/>
+    <path d="M85 91q1-6 7-8" fill="none" stroke="#3f8f4a" stroke-width="2" stroke-linecap="round"/>
+  </g></svg>

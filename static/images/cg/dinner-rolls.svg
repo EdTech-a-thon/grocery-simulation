@@ -1,7 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)">
-  <path d="M22 53h116v118H22z" fill="#b94c3e"/>
-  <path d="M29 61h102v101H29z" fill="#fff3d1"/>
-  <text x="80" y="82" text-anchor="middle" font-family="Georgia, serif" font-size="18" font-weight="700" fill="#a54035">DINNER</text><text x="80" y="101" text-anchor="middle" font-family="Georgia, serif" font-size="18" font-weight="700" fill="#a54035">ROLLS</text>
-  <g fill="#dba857" stroke="#b97d32" stroke-width="2"><circle cx="56" cy="123" r="16"/><circle cx="80" cy="119" r="16"/><circle cx="104" cy="123" r="16"/><circle cx="68" cy="145" r="16"/><circle cx="93" cy="145" r="16"/></g>
-  <g fill="#f6d486"><circle cx="52" cy="118" r="5"/><circle cx="76" cy="114" r="5"/><circle cx="100" cy="118" r="5"/><circle cx="64" cy="140" r="5"/><circle cx="89" cy="140" r="5"/></g>
-</g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="78" cy="194" rx="58" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M126 141C128 137 130 132 131 128Q134.5 128 135 131Q137 135 134.5 139Q137 143 134.5 147Q137 151 134.5 155Q137 159 135 161Q134.5 164 131 164C130 160 128 155 126 151z" fill="#8fa3b0" stroke="#8fa3b0" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M126 141C128 137 130 132 131 128Q134.5 128 135 131Q137 135 134.5 139Q137 143 134.5 147Q137 151 134.5 155Q137 159 135 161Q134.5 164 131 164C130 160 128 155 126 151z" fill="#e4eef3"/>
+    <path d="M126 146H134.5Q137 151 134.5 155Q137 159 135 161Q134.5 164 131 164C130 160 128 155 126 151z" fill="#bed2db"/>
+    <path d="M20 142V122C20 114 24 109.5 31.5 109.5C38 109.5 41.5 112 43 115C44.5 112 48 109.5 54.5 109.5C61 109.5 64.5 112 66 115C67.5 112 71 109.5 77.5 109.5C84 109.5 87.5 112 89 115C90.5 112 94 109.5 100.5 109.5C108 109.5 112 114 112 122V142z" fill="#8fa3b0" stroke="#8fa3b0" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M20 180V122C20 114 24 109.5 31.5 109.5C38 109.5 41.5 112 43 115C44.5 112 48 109.5 54.5 109.5C61 109.5 64.5 112 66 115C67.5 112 71 109.5 77.5 109.5C84 109.5 87.5 112 89 115C90.5 112 94 109.5 100.5 109.5C108 109.5 112 114 112 122C116 129 119 135 122 139V153C119 158 116 164 112 172V180Q112 190 102 190H30Q20 190 20 180z" fill="#e4eef3"/>
+    <path d="M100.5 109.5C108 109.5 112 114 112 122C116 129 119 135 122 139V153C119 158 116 164 112 172V180Q112 190 102 190H96Q103 150 100.5 109.5z" fill="#bed2db"/>
+    <path d="M111 128Q114 133 117.5 137.5M111 164Q114 159 117.5 154.5" fill="none" stroke="#8fa3b0" stroke-width="2" stroke-linecap="round"/>
+    <path d="M20.3 121.8C20.3 113.3 25.3 111 31.5 111C37.7 111 42.8 113.3 42.8 121.8Q42.8 129 38.8 129H24.2Q20.3 129 20.3 121.8z" fill="#e2b070"/>
+    <path d="M20.3 121.8C20.3 113.3 25.3 111 31.5 111C37.7 111 42.8 113.3 42.8 121.8Q31.5 125.8 20.3 121.8z" fill="#b8732e"/>
+    <path d="M25.3 119.5Q31.5 113.3 37.7 119.5" fill="none" stroke="#7a4416" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M43.3 121.8C43.3 113.3 48.3 111 54.5 111C60.7 111 65.8 113.3 65.8 121.8Q65.8 129 61.8 129H47.2Q43.3 129 43.3 121.8z" fill="#e2b070"/>
+    <path d="M43.3 121.8C43.3 113.3 48.3 111 54.5 111C60.7 111 65.8 113.3 65.8 121.8Q54.5 125.8 43.3 121.8z" fill="#b8732e"/>
+    <path d="M48.3 119.5Q54.5 113.3 60.7 119.5" fill="none" stroke="#7a4416" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M66.3 121.8C66.3 113.3 71.3 111 77.5 111C83.7 111 88.8 113.3 88.8 121.8Q88.8 129 84.8 129H70.2Q66.3 129 66.3 121.8z" fill="#e2b070"/>
+    <path d="M66.3 121.8C66.3 113.3 71.3 111 77.5 111C83.7 111 88.8 113.3 88.8 121.8Q77.5 125.8 66.3 121.8z" fill="#b8732e"/>
+    <path d="M71.3 119.5Q77.5 113.3 83.7 119.5" fill="none" stroke="#7a4416" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M89.3 121.8C89.3 113.3 94.3 111 100.5 111C106.7 111 111.8 113.3 111.8 121.8Q111.8 129 107.8 129H93.2Q89.3 129 89.3 121.8z" fill="#e2b070"/>
+    <path d="M89.3 121.8C89.3 113.3 94.3 111 100.5 111C106.7 111 111.8 113.3 111.8 121.8Q100.5 125.8 89.3 121.8z" fill="#b8732e"/>
+    <path d="M94.3 119.5Q100.5 113.3 106.7 119.5" fill="none" stroke="#7a4416" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M23.5 136Q22 120 27 112" fill="none" stroke="#f6fbfd" stroke-width="3" stroke-linecap="round"/>
+    <rect x="117" y="136" width="10" height="20" rx="2" fill="#d99a1e"/>
+    <rect x="119" y="138" width="2.5" height="16" rx="1.25" fill="#f5d27a"/>
+  </g><g id="label">
+    <rect x="26" y="128" width="80" height="58" rx="4" fill="#f7efe2"/>
+  </g><g id="brand-cg">
+    <rect x="26" y="128" width="80" height="58" rx="4" fill="#ffffff"/>
+    <path d="M30 128h72a4 4 0 0 1 4 4v8H26v-8a4 4 0 0 1 4-4z" fill="#15803d"/>
+    <path d="M26 140h80v2H26z" fill="#facc15"/>
+    <path d="M32 131h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="34" cy="134" r="1" fill="#15803d"/>
+    <path d="M37 159C37 149.5 43.3 147 51 147C58.7 147 65 149.5 65 159Q65 167 60.1 167H41.9Q37 167 37 159z" fill="#e2b070"/>
+    <path d="M37 159C37 149.5 43.3 147 51 147C58.7 147 65 149.5 65 159Q51 163.5 37 159z" fill="#b8732e"/>
+    <path d="M43.3 156.5Q51 149.5 58.7 156.5" fill="none" stroke="#7a4416" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M67 159C67 149.5 73.3 147 81 147C88.7 147 95 149.5 95 159Q95 167 90.1 167H71.9Q67 167 67 159z" fill="#e2b070"/>
+    <path d="M67 159C67 149.5 73.3 147 81 147C88.7 147 95 149.5 95 159Q81 163.5 67 159z" fill="#b8732e"/>
+    <path d="M73.3 156.5Q81 149.5 88.7 156.5" fill="none" stroke="#7a4416" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M49 168.4C49 157 56.6 154 66 154C75.3 154 83 157 83 168.4Q83 178 77 178H55Q49 178 49 168.4z" fill="#e2b070"/>
+    <path d="M49 168.4C49 157 56.6 154 66 154C75.3 154 83 157 83 168.4Q66 173.8 49 168.4z" fill="#b8732e"/>
+    <path d="M56.6 165.4Q66 157 75.3 165.4" fill="none" stroke="#7a4416" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M32 180h68v3H32z" fill="#15803d"/>
+  </g></svg>

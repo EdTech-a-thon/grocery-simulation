@@ -1,9 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220">
-  <rect x="29" y="33" width="122" height="154" rx="12" fill="#334155"/>
-  <rect x="36" y="40" width="108" height="140" rx="8" fill="#f8fafc"/>
-  <path d="M36 40h108v50H36z" fill="#7c3aed"/>
-  <text x="90" y="69" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="bold" fill="white">POWER</text>
-  <text x="90" y="85" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="white">PROTEIN</text>
-  <rect x="59" y="111" width="62" height="31" rx="4" fill="#78350f"/><path d="M59 121h62v9H59z" fill="#a16207"/>
-  <text x="90" y="165" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#4c1d95">PROTEIN BAR</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="183" rx="62" ry="5" fill="#0f172a" opacity="0.08"/>
+    <g transform="translate(0 24)">
+      <path d="M36 89H22L18 95L22 101L18 107L22 113L18 119L22 125L18 131L22 137L18 143L22 149L19 155H36z" fill="#b0b9c2"/>
+      <path d="M124 89H138L142 95L138 101L142 107L138 113L142 119L138 125L142 131L138 137L142 143L138 149L141 155H124z" fill="#949ea9"/>
+      <path d="M23 98h9M23 110h9M23 122h9M23 134h9M23 146h9M128 98h9M128 110h9M128 122h9M128 134h9M128 146h9" fill="none" stroke="#7a848f" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M34 90Q80 83 126 90V154Q80 161 34 154z" fill="#aab4be"/>
+      <path d="M34 144Q80 151 126 144V154Q80 161 34 154z" fill="#8c96a1"/>
+      <path d="M38 93Q80 87 122 93V97Q80 91 38 97z" fill="#d7dee4"/>
+      <path d="M34 90V154M126 90V154" fill="none" stroke="#6f7984" stroke-width="2" stroke-linecap="round"/>
+      <path d="M38 96q4 3 4 9M122 96q-4 3-4 9M38 150q4-3 4-9M122 150q-4-3-4-9" fill="none" stroke="#8c96a1" stroke-width="2" stroke-linecap="round"/>
+    </g>
+  </g><g id="label">
+    <g transform="translate(0 24)">
+      <path d="M48 95H112a4 4 0 0 1 4 4V145a4 4 0 0 1-4 4H48a4 4 0 0 1-4-4V99a4 4 0 0 1 4-4z" fill="#f7efe2"/>
+    </g>
+  </g><g id="brand">
+    <g transform="translate(0 24)">
+      <path d="M48 95H112a4 4 0 0 1 4 4V145a4 4 0 0 1-4 4H48a4 4 0 0 1-4-4V99a4 4 0 0 1 4-4z" fill="#5b2a91"/>
+      <path d="M93 149L104 95H112a4 4 0 0 1 4 4V145a4 4 0 0 1-4 4z" fill="#f6c344"/>
+      <path d="M93 149L104 95H107L96 149z" fill="#d9a21f"/>
+      <rect x="48" y="100" width="40" height="38" rx="3" fill="#3a2010"/>
+      <path d="M50 102h10.7v16h-10.7zM62.7 102h10.7v16h-10.7zM75.3 102h10.7v16h-10.7zM50 120h10.7v16h-10.7zM62.7 120h10.7v16h-10.7zM75.3 120h10.7v16h-10.7z" fill="#6b3f22"/>
+      <path d="M52 115V104H57.7M64.7 115V104H70.4M77.3 115V104H83M52 133V122H57.7M64.7 133V122H70.4M77.3 133V122H83" fill="none" stroke="#96613a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <g transform="translate(86 129) rotate(25) scale(1.15)">
+        <path d="M0-9.5C4-6 5.5-1 5.5 3C5.5 7 3 9 0 9C-3 9-5.5 7-5.5 3C-5.5-1-4-6 0-9.5z" fill="#c8915a"/>
+        <path d="M0-9.5C4-6 5.5-1 5.5 3C5.5 7 3 9 0 9C2.5 6 3 1 0-9.5z" fill="#9c6534"/>
+        <path d="M-2.5-3q-1 4 0 8" fill="none" stroke="#e8c093" stroke-width="2" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(70 140) rotate(-70) scale(1.15)">
+        <path d="M0-9.5C4-6 5.5-1 5.5 3C5.5 7 3 9 0 9C-3 9-5.5 7-5.5 3C-5.5-1-4-6 0-9.5z" fill="#c8915a"/>
+        <path d="M0-9.5C4-6 5.5-1 5.5 3C5.5 7 3 9 0 9C2.5 6 3 1 0-9.5z" fill="#9c6534"/>
+        <path d="M-2.5-3q-1 4 0 8" fill="none" stroke="#e8c093" stroke-width="2" stroke-linecap="round"/>
+      </g>
+    </g>
+  </g></svg>

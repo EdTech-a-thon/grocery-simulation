@@ -1,1 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g transform="translate(80 0) scale(0.84) translate(-80 0)"><rect x="29" y="47" width="102" height="128" rx="7" fill="#d9a54b"/><text x="80" y="77" text-anchor="middle" font-family="Arial" font-size="15" font-weight="700" fill="#70482b">HONEY GRAHAM</text><text x="80" y="96" text-anchor="middle" font-family="Arial" font-size="15" font-weight="700" fill="#70482b">CRACKERS</text><g fill="#e9c577" stroke="#b3823b" stroke-width="2"><rect x="46" y="113" width="29" height="38" rx="2"/><rect x="85" y="113" width="29" height="38" rx="2"/></g><g fill="#a87935"><circle cx="55" cy="123" r="2"/><circle cx="67" cy="137" r="2"/><circle cx="94" cy="123" r="2"/><circle cx="106" cy="137" r="2"/></g></g><g><rect x="0" y="184.8" width="160" height="35.2" fill="#15803d"/><text x="80" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="81" cy="196" rx="63" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M121 70L141 60V179Q141 182 139 183L121 192z" fill="#b9b4a8"/>
+    <path d="M21 70L41 60H141L121 70z" fill="#ffffff"/>
+    <path d="M21 70H121V192H24Q21 192 21 189z" fill="#f4f1ec"/>
+    <path d="M22.5 72h3v116h-3z" fill="#ffffff"/>
+    <path d="M33 65H128M122.5 76L140 66M122.5 185L140 175" fill="none" stroke="#a39e92" stroke-width="2" stroke-linecap="round"/>
+    <path d="M22 70H121L141 60M121 70V192M24 192H121L139 183" fill="none" stroke="#8f8a7e" stroke-width="1" stroke-linejoin="round"/>
+  </g><g id="label">
+    <rect x="27" y="78" width="88" height="108" rx="3" fill="#f7efe2"/>
+  </g><g id="brand-cg">
+    <rect x="27" y="78" width="88" height="108" rx="3" fill="#ffffff"/>
+    <path d="M30 78h82a3 3 0 0 1 3 3v11H27V81a3 3 0 0 1 3-3z" fill="#15803d"/>
+    <path d="M27 92h88v2H27z" fill="#facc15"/>
+    <path d="M33 82h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="35" cy="85" r="1" fill="#15803d"/>
+    <path d="M34 106Q33.5 103 36.5 103L72.5 101Q75.5 101 76 104L79 166Q79.5 169 76.5 169L40.5 171Q37.5 171 37 168z" fill="#7f4a1f"/>
+    <path d="M32 103Q31.5 100 34.5 100L70.5 98Q73.5 98 74 101L77 163Q77.5 166 74.5 166L38.5 168Q35.5 168 35 165z" fill="#9a6232"/>
+    <path d="M34.5 104.5Q34.5 102.5 36.5 102.5L69.5 100.5Q71.5 100.5 71.5 102.5L74.5 161.5Q74.5 163.5 72.5 163.5L39.5 165.5Q37.5 165.5 37.5 163.5z" fill="#c98f55"/>
+    <path d="M34.5 134L74.5 132" fill="none" stroke="#8a5a2e" stroke-width="2.5"/>
+    <path d="M43.5 122.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM52.5 122a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM61 121.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM43 110.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM52 110a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM60.5 109.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM45 144.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM53.5 144a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM62.5 143.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM45.5 156.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM54 156a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM63 155.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0z" fill="#9a6232"/>
+    <path d="M69.5 106.5Q69.5 103.5 72.5 103.5L108.5 104.5Q111.5 105 111.5 108L109.5 169.5Q109.5 172.5 106.5 172.5L70.5 171.5Q67.5 171 67.5 168z" fill="#7f4a1f"/>
+    <path d="M67.5 103.5Q67.5 100.5 70.5 100.5L106.5 101.5Q109.5 102 109.5 105L107.5 166.5Q107.5 169.5 104.5 169.5L68.5 168.5Q65.5 168 65.5 165z" fill="#9a6232"/>
+    <path d="M70 105Q70 103 72 103L105 104Q107 104 107 106L105 165Q105 167 103 167L70 166Q68 166 68 164z" fill="#c98f55"/>
+    <path d="M67.5 134.5L107.5 135.5" fill="none" stroke="#8a5a2e" stroke-width="2.5"/>
+    <path d="M77.5 123.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM86.5 124a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM95 124a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM78 111.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM87 112a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM95.5 112a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM77 146a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM85.5 146a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM94.5 146.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM76.5 158a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM85 158a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM94 158.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0z" fill="#9a6232"/>
+    <path d="M33 180h76v3H33z" fill="#15803d"/>
+  </g></svg>

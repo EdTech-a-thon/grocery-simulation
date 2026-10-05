@@ -1,4 +1,4 @@
-import type { Coupon } from './pocketbase'
+import type { Coupon } from './store'
 
 export type PrintJob = { kind: 'coupons'; coupons: Coupon[] } | { kind: 'receipt' }
 

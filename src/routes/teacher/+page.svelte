@@ -1,58 +1,100 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { goto } from '$app/navigation'
+  import { replaceState } from '$app/navigation'
   import AppHeader from '$lib/components/AppHeader.svelte'
-  import ClassIdentityModal from '$lib/components/ClassIdentityModal.svelte'
   import CouponStudio from '$lib/components/CouponStudio.svelte'
-  import PriceStudio from '$lib/components/PriceStudio.svelte'
+  import Inventory from '$lib/components/Inventory.svelte'
   import StoreFront from '$lib/components/StoreFront.svelte'
   import StoreList from '$lib/components/StoreList.svelte'
   import StoreSettings from '$lib/components/StoreSettings.svelte'
+  import StoreSidebar from '$lib/components/StoreSidebar.svelte'
   import StudentViewHeader from '$lib/components/StudentViewHeader.svelte'
-  import TeacherLogin from '$lib/components/TeacherLogin.svelte'
-  import { currentTeacher, pb, signOut, teacherJoinPrefix, type Store } from '$lib/pocketbase'
-  import { forgetStore, openStore, shop } from '$lib/shop.svelte'
-  import { refreshStores, teacher, type StorePage } from '$lib/teacher.svelte'
+  import { t } from '$lib/i18n/index.svelte'
+  import { saveStore, savedIdFor } from '$lib/savedStores.svelte'
+  import { decodeStore, encodeStore } from '$lib/sharing'
+  import { forgetStore, forgetStudentStore, openStore, shop } from '$lib/shop.svelte'
+  import { newStore, type Store } from '$lib/store'
+  import { teacher, type StorePage } from '$lib/teacher.svelte'
 
   /** The store list and the student's-eye view, plus a store's own three pages. */
   type Screen = 'stores' | 'student-view' | StorePage
 
-  let signedIn = $state(false)
-  let checkingSession = $state(true)
   let screen = $state<Screen>('stores')
-  // Store codes are built from the teacher's identifier, so nothing else on the
-  // teacher side can happen until they have one.
-  let needsIdentifier = $state(false)
+  let loading = $state(true)
+  /** True on the settings page of a store that was created a moment ago. */
+  let justCreated = $state(false)
+  // Set when a store is opened from a student link the class already has, so
+  // the first version written to the address counts as the one they were given.
+  let openedFromStudentLink = false
 
-  // A teacher who signed in earlier picks their stores back up on this machine.
+  // A teacher's own store link — a bookmark, or one pasted into the address
+  // bar — opens that store for editing, and puts it on their list. Whoever
+  // comes here is a teacher, perhaps one who tried their own student link, so
+  // the front page stops opening straight into that store.
   onMount(async () => {
-    if (currentTeacher()) {
-      try {
-        await pb.collection('teachers').authRefresh()
-        await enterTeacherArea()
-      } catch {
-        signOut()
-      }
-    }
-    checkingSession = false
+    forgetStudentStore()
+    await openFromAddress()
+    loading = false
   })
 
-  async function enterTeacherArea() {
-    needsIdentifier = !teacherJoinPrefix()
-    if (!needsIdentifier) await refreshStores()
-    teacher.message = ''
-    screen = 'stores'
-    signedIn = true
+  async function openFromAddress() {
+    if (!location.hash.slice(1) || location.hash.slice(1) === teacher.encoded) return
+    const store = await decodeStore(location.hash)
+    if (store) open(store, savedIdFor(store) ?? saveStore(store))
+    else {
+      show('stores')
+      teacher.problem = t('stores.badLink')
+    }
   }
 
-  async function open(store: Store, page: StorePage = 'prices') {
-    await openStore(store)
-    teacher.message = ''
+  function open(store: Store, savedId: string, page: StorePage = 'inventory', fromStudentLink = false) {
+    openStore(store)
+    teacher.savedId = savedId
+    teacher.sharedEncoded = ''
+    openedFromStudentLink = fromStudentLink
+    teacher.problem = ''
+    justCreated = false
     screen = page
   }
 
+  /** A new store starts out with a placeholder name, on the page where it is named. */
+  function create() {
+    const store = newStore({
+      name: t('stores.newName'),
+      color: 'green',
+      brandMode: 'name',
+      unitPricing: 'unit',
+      couponsEnabled: true,
+      taxEnabled: false,
+      salesTax: 0,
+    })
+    open(store, saveStore(store), 'settings')
+    justCreated = true
+  }
+
+  // Every change the teacher makes is written into the address bar, so the page
+  // can be bookmarked at any moment and reopens exactly as it was left. The
+  // copy on the teacher's list is saved again at the same time.
+  $effect(() => {
+    const store = shop.store
+    if (!store || screen === 'stores') return
+    const snapshot = $state.snapshot(store) as Store
+    const savedId = teacher.savedId
+    void encodeStore(snapshot).then((encoded) => {
+      if (shop.store !== store) return // another store was opened in the meantime
+      teacher.encoded = encoded
+      if (openedFromStudentLink) {
+        teacher.sharedEncoded = encoded
+        openedFromStudentLink = false
+      }
+      replaceState(`/teacher#${encoded}`, {})
+      if (savedId) saveStore(snapshot, savedId)
+    })
+  })
+
   function show(next: Screen) {
-    teacher.message = ''
+    teacher.problem = ''
+    if (next !== 'settings') justCreated = false
     screen = next
   }
 
@@ -61,57 +103,50 @@
     show('student-view')
   }
 
-  function leave() {
-    signOut()
+  function showStores() {
+    if (screen === 'stores') return
     forgetStore()
-    teacher.stores = []
-    teacher.message = ''
-    signedIn = false
-    void goto('/')
+    teacher.encoded = ''
+    teacher.sharedEncoded = ''
+    teacher.savedId = null
+    replaceState('/teacher', {})
+    show('stores')
   }
 </script>
 
-{#if checkingSession}
-  <main class="teacher-login-page"></main>
-{:else if !signedIn}
-  <TeacherLogin onSignedIn={enterTeacherArea} onBackHome={() => void goto('/')} />
-{:else if needsIdentifier}
-  <ClassIdentityModal onClaimed={enterTeacherArea} />
-{:else if screen === 'student-view'}
+<svelte:window onhashchange={() => void openFromAddress()} />
+
+{#if loading}
+  <main class="teacher-shell"></main>
+{:else if screen === 'student-view' && shop.store}
   <StoreFront asTeacher header={studentViewHeader} />
-{:else if screen === 'prices' && shop.store}
-  <PriceStudio header={pricesHeader} onGo={show} {onViewAsStudent} />
-{:else if screen === 'coupons' && shop.store}
-  <CouponStudio header={couponsHeader} onGo={show} {onViewAsStudent} />
-{:else if screen === 'settings' && shop.store}
-  <StoreSettings header={settingsHeader} onGo={show} {onViewAsStudent} />
+{:else if screen !== 'stores' && screen !== 'student-view' && shop.store}
+  <main class="teacher-shell store-shell">
+    {@render header()}
+    <div class="store-layout">
+      <StoreSidebar page={screen} onGo={show} onBack={showStores} {onViewAsStudent} />
+      <div class="store-main">
+        <!-- The side panel shows which page this is; the heading says it to a screen reader. -->
+        <h1 class="visually-hidden">{t(`teacher.${screen}Title`)}</h1>
+        {#if screen === 'inventory'}
+          <Inventory />
+        {:else if screen === 'coupons'}
+          <CouponStudio />
+        {:else}
+          <StoreSettings isNew={justCreated} />
+        {/if}
+      </div>
+    </div>
+  </main>
 {:else}
-  <StoreList header={storesHeader} onOpenStore={open} />
+  <StoreList {header} onOpenStore={open} onCreate={create} />
 {/if}
 
-{#snippet storesHeader()}{@render teacherHeader('My stores')}{/snippet}
-{#snippet pricesHeader()}{@render teacherHeader('Prices and stock')}{/snippet}
-{#snippet couponsHeader()}{@render teacherHeader('Coupons')}{/snippet}
-{#snippet settingsHeader()}{@render teacherHeader('Store settings')}{/snippet}
-
 {#snippet studentViewHeader()}
-  <StudentViewHeader onExit={() => show('prices')} />
+  <StudentViewHeader onExit={() => show('inventory')} />
 {/snippet}
 
-<!--
-  The dark header is only ever about getting around the site: the pages on the
-  left of the divider, leaving on the right. Anything that changes a store lives
-  in that store's green header instead.
--->
-{#snippet teacherHeader(title: string)}
-  <AppHeader {title} role="teacher" onHome={() => show('stores')}>
-    {#snippet nav()}
-      <span class="header-pages">
-        <button class:active={screen === 'stores'} type="button" onclick={() => show('stores')}>My stores</button>
-      </span>
-      <span class="header-exits">
-        <button type="button" onclick={leave}>Sign out</button>
-      </span>
-    {/snippet}
-  </AppHeader>
+<!-- Only the way home and the language: everything about a store is in its side panel. -->
+{#snippet header()}
+  <AppHeader onHome={showStores} />
 {/snippet}

@@ -1,10 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
-  <path d="M32 22h96l8 181H24z" fill="#337d55"/>
-  <path d="M32 22h96v34H32z" fill="#e5d65b"/>
-  <text x="80" y="44" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#285c3e">GOLDEN</text>
-  <text x="80" y="78" text-anchor="middle" font-family="Georgia, serif" font-size="25" font-weight="700" fill="#fff">RICE</text>
-  <ellipse cx="80" cy="137" rx="43" ry="28" fill="#e5d65b"/>
-  <ellipse cx="80" cy="132" rx="37" ry="18" fill="#fff7d7"/>
-  <g fill="#dfd4ae"><ellipse cx="61" cy="130" rx="4" ry="10" transform="rotate(-35 61 130)"/><ellipse cx="75" cy="126" rx="4" ry="10" transform="rotate(15 75 126)"/><ellipse cx="91" cy="132" rx="4" ry="10" transform="rotate(-16 91 132)"/><ellipse cx="102" cy="126" rx="4" ry="10" transform="rotate(35 102 126)"/></g>
-  <text x="80" y="183" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#fff">LONG GRAIN</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="195" rx="48" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M48 34H112C116 60 121 90 122 130C123 158 124 176 122 186Q121 192 114 192H46Q39 192 38 186C36 176 37 158 38 130C39 90 44 60 48 34z" fill="#e4eef3"/>
+    <path d="M104 34H112C116 60 121 90 122 130C123 158 124 176 122 186Q121 192 114 192H108C113 180 113 160 112 130C111 92 108 60 104 34z" fill="#bed2db"/>
+    <path d="M48 34H51C47 60 42 92 41 130C40 158 40 174 41 186Q42 192 46 192Q39 192 38 186C36 176 37 158 38 130C39 90 44 60 48 34z" fill="#c9dae2"/>
+    <path d="M47 62Q41 120 45 178L49 178Q45 120 51 62z" fill="#f6fbfd"/>
+    <path d="M39 184Q80 178 121 184L122 186Q121 192 114 192H46Q39 192 38 186z" fill="#bed2db"/>
+    <path d="M47 36V24L50 22.5L53 24L56 22.5L59 24L62 22.5L65 24L68 22.5L71 24L74 22.5L77 24L80 22.5L83 24L86 22.5L89 24L92 22.5L95 24L98 22.5L101 24L104 22.5L107 24L110 22.5L113 24V36z" fill="#d3e1e8"/>
+    <path d="M104 36V22.5L107 24L110 22.5L113 24V36z" fill="#b2c7d1"/>
+    <path d="M50 28H110M50 32H110" fill="none" stroke="#a9bfca" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M52 40q5 6 3 12M108 40q-5 6 -3 12" fill="none" stroke="#bed2db" stroke-width="2" stroke-linecap="round"/>
+    <rect x="49" y="145" width="62" height="40" rx="8" fill="#bed2db"/>
+    <rect x="51" y="147" width="58" height="36" rx="6.5" fill="#ece3cf"/>
+    <path d="M92 147H102.5a6.5 6.5 0 0 1 6.5 6.5v23a6.5 6.5 0 0 1 -6.5 6.5H86z" fill="#ddd1b8"/>
+    <path d="M53.5 153.1a2.7 1.25 20 1 0 5.1 1.8a2.7 1.25 20 1 0 -5.1 -1.8zM60.7 152.4a2.7 1.25 -30 1 0 4.7 -2.7a2.7 1.25 -30 1 0 -4.7 2.7zM67.3 155.5a2.7 1.25 10 1 0 5.3 0.9a2.7 1.25 10 1 0 -5.3 -0.9zM74.4 152.7a2.7 1.25 -15 1 0 5.2 -1.4a2.7 1.25 -15 1 0 -5.2 1.4zM81.8 155.5a2.7 1.25 35 1 0 4.4 3.1a2.7 1.25 35 1 0 -4.4 -3.1zM88.3 152a2.7 1.25 0 1 0 5.4 0a2.7 1.25 0 1 0 -5.4 0zM95.6 157.1a2.7 1.25 -25 1 0 4.9 -2.3a2.7 1.25 -25 1 0 -4.9 2.3zM101.4 151.3a2.7 1.25 15 1 0 5.2 1.4a2.7 1.25 15 1 0 -5.2 -1.4zM55.3 161.5a2.7 1.25 -10 1 0 5.3 -0.9a2.7 1.25 -10 1 0 -5.3 0.9zM62.6 163.9a2.7 1.25 25 1 0 4.9 2.3a2.7 1.25 25 1 0 -4.9 -2.3zM69.8 163.5a2.7 1.25 -35 1 0 4.4 -3.1a2.7 1.25 -35 1 0 -4.4 3.1zM76.3 166.8a2.7 1.25 5 1 0 5.4 0.5a2.7 1.25 5 1 0 -5.4 -0.5zM83.5 163.9a2.7 1.25 -20 1 0 5.1 -1.8a2.7 1.25 -20 1 0 -5.1 1.8zM90.7 165.7a2.7 1.25 30 1 0 4.7 2.7a2.7 1.25 30 1 0 -4.7 -2.7zM97.3 162.2a2.7 1.25 -5 1 0 5.4 -0.5a2.7 1.25 -5 1 0 -5.4 0.5zM103.5 165.1a2.7 1.25 20 1 0 5.1 1.8a2.7 1.25 20 1 0 -5.1 -1.8zM52.7 168.7a2.7 1.25 30 1 0 4.7 2.7a2.7 1.25 30 1 0 -4.7 -2.7zM59.4 173.7a2.7 1.25 -15 1 0 5.2 -1.4a2.7 1.25 -15 1 0 -5.2 1.4zM66.4 174.3a2.7 1.25 15 1 0 5.2 1.4a2.7 1.25 15 1 0 -5.2 -1.4zM73.7 173.4a2.7 1.25 -30 1 0 4.7 -2.7a2.7 1.25 -30 1 0 -4.7 2.7zM80.3 174.5a2.7 1.25 10 1 0 5.3 0.9a2.7 1.25 10 1 0 -5.3 -0.9zM87.3 174.5a2.7 1.25 -10 1 0 5.3 -0.9a2.7 1.25 -10 1 0 -5.3 0.9zM94.6 174.9a2.7 1.25 25 1 0 4.9 2.3a2.7 1.25 25 1 0 -4.9 -2.3zM101.5 173.9a2.7 1.25 -20 1 0 5.1 -1.8a2.7 1.25 -20 1 0 -5.1 1.8zM57.3 180a2.7 1.25 0 1 0 5.4 0a2.7 1.25 0 1 0 -5.4 0zM65.6 182.1a2.7 1.25 -25 1 0 4.9 -2.3a2.7 1.25 -25 1 0 -4.9 2.3zM85.5 180.1a2.7 1.25 20 1 0 5.1 1.8a2.7 1.25 20 1 0 -5.1 -1.8zM93.3 181.2a2.7 1.25 -5 1 0 5.4 -0.5a2.7 1.25 -5 1 0 -5.4 0.5z" fill="#fbf8f1"/>
+    <path d="M55 176L68 151M61 180L72 160" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+  </g><g id="label">
+    <path d="M53 52H107a5 5 0 0 1 5 5V135a5 5 0 0 1 -5 5H53a5 5 0 0 1 -5 -5V57a5 5 0 0 1 5 -5z" fill="#f7efe2"/>
+  </g><g id="brand">
+    <path d="M53 52H107a5 5 0 0 1 5 5V135a5 5 0 0 1 -5 5H53a5 5 0 0 1 -5 -5V57a5 5 0 0 1 5 -5z" fill="#f2a516"/>
+    <circle cx="80" cy="104" r="31" fill="#fcd462"/>
+    <rect x="52" y="56" width="56" height="16" rx="8" fill="#9f1d1d"/>
+    <path d="M60 66Q66 59 72 65T84 64T100 62" fill="none" stroke="#fdf3dc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M86 100L104 78M91 102L108 82" fill="none" stroke="#a0612b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M56 110C51 102 56 94 62 95C60 86 69 80 76 83C79 75 91 75 94 82C101 79 108 87 104 95C109 98 109 106 104 110z" fill="#fbf8f1"/>
+    <path d="M94 82C101 79 108 87 104 95C109 98 109 106 104 110H90C99 103 100 91 94 82z" fill="#ddd5c5"/>
+    <path d="M59 102Q60 95 66 94M72 88Q75 81 82 80" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    <path d="M63 105l3 -1.5M71 97l3 1M81 90l3 -1.5M79 103l3 1M93 99l3 -1.5M70 108l3 -1M88 107l3 1M98 104l3 1.5M88 88l3 1" fill="none" stroke="#c4b9a3" stroke-width="2" stroke-linecap="round"/>
+    <path d="M53 109C54 124 64 133 80 133C96 133 106 124 107 109z" fill="#2456a8"/>
+    <path d="M93 109H107C106 124 96 133 80 133C92 129 94 120 93 109z" fill="#173d7e"/>
+    <path d="M59 115Q62 124 69 128" fill="none" stroke="#5b8ad6" stroke-width="3" stroke-linecap="round"/>
+    <path d="M53 109A27 4.5 0 0 0 107 109A27 2.5 0 0 1 53 109z" fill="#173d7e"/>
+    <path d="M72 132H88V135a2 2 0 0 1 -2 2H74a2 2 0 0 1 -2 -2z" fill="#173d7e"/>
+  </g></svg>

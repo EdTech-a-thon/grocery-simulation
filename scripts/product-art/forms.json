@@ -1,0 +1,518 @@
+{
+  "alfredo-sauce": {
+    "form": "glass jar",
+    "motif": "fettuccine ribbons in white sauce"
+  },
+  "almond-milk": {
+    "form": "brick carton",
+    "motif": "three almonds and a milk splash"
+  },
+  "apple-juice": {
+    "form": "screw-top plastic bottle",
+    "motif": "a red apple and a juice splash"
+  },
+  "apple-sauce": {
+    "form": "tall glass jar",
+    "motif": "a red apple with a leaf"
+  },
+  "bacon": {
+    "form": "foam tray, top view",
+    "motif": "streaky bacon rashers"
+  },
+  "bagels": {
+    "form": "bread bag",
+    "motif": "a sesame bagel"
+  },
+  "baked-beans": {
+    "form": "tin can",
+    "motif": "a bowl of saucy orange baked beans"
+  },
+  "baking-powder": {
+    "form": "cardboard canister",
+    "motif": "a fluffy rising biscuit"
+  },
+  "baking-soda": {
+    "form": "wide cardboard box",
+    "motif": "white powder in a measuring spoon"
+  },
+  "bbq-sauce": {
+    "form": "squeeze bottle",
+    "motif": "a grilled rib with sauce and flame"
+  },
+  "beans": {
+    "form": "tin can",
+    "motif": "a pile of red kidney/pinto beans"
+  },
+  "boxed-mashed-potatoes": {
+    "form": "cardboard box",
+    "motif": "a mound of mashed potatoes with a melting butter pat"
+  },
+  "bread": {
+    "form": "bread bag",
+    "motif": "a slice of white bread"
+  },
+  "bread-crumbs": {
+    "form": "cardboard canister",
+    "motif": "a pile of golden crumbs"
+  },
+  "breakfast-bars": {
+    "form": "wide cardboard box",
+    "motif": "a cereal bar cut open showing red strawberry filling"
+  },
+  "breakfast-sandwich": {
+    "form": "wide cardboard box",
+    "motif": "an English-muffin sandwich with egg and cheese"
+  },
+  "brown-sugar": {
+    "form": "stand-up pouch",
+    "motif": "a mound of light brown sugar"
+  },
+  "brownie-mix": {
+    "form": "cardboard box",
+    "motif": "a stack of fudgy brownie squares"
+  },
+  "buffalo-sauce": {
+    "form": "glass bottle",
+    "motif": "a buffalo chicken wing"
+  },
+  "butter": {
+    "form": "wide cardboard box",
+    "motif": "a butter stick with a curl"
+  },
+  "cake-mix": {
+    "form": "cardboard box",
+    "motif": "a slice of chocolate layer cake"
+  },
+  "canned-fruit": {
+    "form": "tin can",
+    "motif": "peach slices and cherries (fruit cocktail)"
+  },
+  "canned-spaghettios": {
+    "form": "tin can",
+    "motif": "a bowl of orange pasta rings (O shapes)"
+  },
+  "canned-tuna": {
+    "form": "short flat tin",
+    "motif": "a blue tuna fish over chunks"
+  },
+  "canned-vegetables": {
+    "form": "tin can",
+    "motif": "peas, diced carrots, corn, green beans"
+  },
+  "cereal": {
+    "form": "cardboard box",
+    "motif": "a bowl of golden cereal rings with milk"
+  },
+  "cheddar-cheese-slices": {
+    "form": "flat resealable pack",
+    "motif": "an orange cheese slice with a corner peeled up"
+  },
+  "cheese-crackers": {
+    "form": "wide cardboard box",
+    "motif": "small square orange cheese crackers with a dot in the middle"
+  },
+  "cheese-sticks": {
+    "form": "stand-up pouch",
+    "motif": "three white string-cheese sticks fanned out"
+  },
+  "chicken-nuggets": {
+    "form": "printed bag",
+    "motif": "golden chicken nuggets"
+  },
+  "chili": {
+    "form": "tin can",
+    "motif": "a bowl of red chili with beans and a chilli pepper"
+  },
+  "chocolate-chips": {
+    "form": "stand-up pouch",
+    "motif": "a pile of brown chocolate chips"
+  },
+  "coffee": {
+    "form": "stand-up pouch",
+    "motif": "coffee beans and a steaming cup"
+  },
+  "cookies": {
+    "form": "wide printed bag",
+    "motif": "chocolate chip cookies"
+  },
+  "cottage-cheese": {
+    "form": "plastic tub",
+    "motif": "a bowl of white cottage-cheese curds"
+  },
+  "crackers": {
+    "form": "wide cardboard box",
+    "motif": "round golden buttery crackers with scalloped edges"
+  },
+  "cranberry-juice": {
+    "form": "screw-top plastic bottle",
+    "motif": "a cluster of cranberries with leaves"
+  },
+  "cream-cheese": {
+    "form": "wrapped block",
+    "motif": "a white block of cream cheese spread on a bagel"
+  },
+  "deli-meat": {
+    "form": "plastic tub",
+    "motif": "folded pink deli slices"
+  },
+  "deluxe-pizza": {
+    "form": "pizza box",
+    "motif": "a supreme pizza loaded with pepperoni, peppers, olives"
+  },
+  "dinner-rolls": {
+    "form": "bread bag",
+    "motif": "three soft round rolls joined together"
+  },
+  "drink-mix-powder": {
+    "form": "cardboard canister",
+    "motif": "a glass of red fruit drink with ice"
+  },
+  "eggs": {
+    "form": "egg carton",
+    "motif": "brown eggs"
+  },
+  "energy-drink": {
+    "form": "tall slim can",
+    "motif": "a lightning bolt"
+  },
+  "english-muffins": {
+    "form": "bread bag",
+    "motif": "a split English muffin with nooks and butter"
+  },
+  "flavored-water": {
+    "form": "screw-top plastic bottle",
+    "motif": "raspberries and a lemon slice"
+  },
+  "flour": {
+    "form": "paper sack",
+    "motif": "a wheat stalk and flour"
+  },
+  "frozen-dinner": {
+    "form": "blister tray in a sleeve",
+    "motif": "a compartment meal \u2014 meat, mashed potato, peas"
+  },
+  "frozen-dinner-rolls": {
+    "form": "printed bag",
+    "motif": "three golden rolls (frozen)"
+  },
+  "frozen-fries": {
+    "form": "printed bag",
+    "motif": "golden fries in a red carton"
+  },
+  "frozen-lasagna": {
+    "form": "cardboard tray box",
+    "motif": "a lasagna slice showing layers of pasta, red sauce and cheese"
+  },
+  "frozen-vegetables": {
+    "form": "printed bag",
+    "motif": "peas, carrot cubes, corn, green beans"
+  },
+  "graham-crackers": {
+    "form": "wide cardboard box",
+    "motif": "rectangular brown graham crackers with a centre score line and dots"
+  },
+  "granola": {
+    "form": "stand-up pouch",
+    "motif": "a bowl of golden granola clusters"
+  },
+  "ham": {
+    "form": "wrapped ham",
+    "motif": "a glazed ham slice"
+  },
+  "hamburger-buns": {
+    "form": "bread bag",
+    "motif": "a sesame hamburger bun"
+  },
+  "honey": {
+    "form": "honey bear squeeze bottle",
+    "motif": "a honey dipper / honeycomb hexagons"
+  },
+  "hot-dogs": {
+    "form": "vacuum pack",
+    "motif": "a hot dog in a bun with mustard"
+  },
+  "hot-sauce": {
+    "form": "glass bottle",
+    "motif": "a red chilli pepper with flame"
+  },
+  "hotdog-buns": {
+    "form": "bread bag",
+    "motif": "a long split hot dog bun"
+  },
+  "ice-cream": {
+    "form": "paper carton tub",
+    "motif": "scoops of vanilla ice cream in a cone or bowl"
+  },
+  "icing": {
+    "form": "plastic tub",
+    "motif": "a swirl of white frosting with sprinkles on a cupcake top"
+  },
+  "jello": {
+    "form": "small cardboard box",
+    "motif": "a red wobbly gelatin dome"
+  },
+  "jelly": {
+    "form": "glass jar",
+    "motif": "a red strawberry; deep red jelly visible through the glass"
+  },
+  "ketchup": {
+    "form": "squeeze bottle",
+    "motif": "a ripe tomato"
+  },
+  "lemonade": {
+    "form": "glass bottle",
+    "motif": "a halved lemon and lemon slices"
+  },
+  "macaroni-and-cheese": {
+    "form": "wide cardboard box",
+    "motif": "a bowl of orange macaroni elbows"
+  },
+  "margarine": {
+    "form": "shallow tub",
+    "motif": "yellow spread with a knife swirl on toast"
+  },
+  "marshmallows": {
+    "form": "printed bag",
+    "motif": "a pile of white puffy marshmallows"
+  },
+  "mayonnaise": {
+    "form": "plastic jar",
+    "motif": "a white dollop on a spoon or an egg"
+  },
+  "meatballs": {
+    "form": "printed bag",
+    "motif": "brown meatballs"
+  },
+  "milk": {
+    "form": "plastic jug",
+    "motif": "a glass of milk with a splash"
+  },
+  "mozzarella-cheese": {
+    "form": "stand-up pouch",
+    "motif": "a pile of shredded white mozzarella"
+  },
+  "mustard": {
+    "form": "squeeze bottle",
+    "motif": "a stripe/squiggle of yellow mustard on a hot dog"
+  },
+  "oatmeal": {
+    "form": "cardboard canister",
+    "motif": "a bowl of oatmeal with berries"
+  },
+  "oil": {
+    "form": "plastic bottle",
+    "motif": "a drop of golden oil + sunflower or olive"
+  },
+  "orangejuice": {
+    "form": "screw-top plastic bottle",
+    "motif": "a halved orange"
+  },
+  "pancake-mix": {
+    "form": "cardboard box",
+    "motif": "a stack of golden pancakes with butter"
+  },
+  "pasta": {
+    "form": "cardboard box with window",
+    "motif": "penne tubes"
+  },
+  "pasta-sauce": {
+    "form": "tall glass jar",
+    "motif": "a ripe tomato with a basil leaf"
+  },
+  "peanut-butter": {
+    "form": "plastic jar",
+    "motif": "two peanuts in the shell"
+  },
+  "pepperoni": {
+    "form": "stand-up pouch",
+    "motif": "red pepperoni slices"
+  },
+  "pickles": {
+    "form": "tall glass jar",
+    "motif": "a dill pickle spear"
+  },
+  "pie-filling": {
+    "form": "tin can",
+    "motif": "glossy red cherries spilling"
+  },
+  "pita-bread": {
+    "form": "flat printed bag",
+    "motif": "round pita pockets, one cut open"
+  },
+  "pizza-crust": {
+    "form": "shrink-wrapped crust",
+    "motif": "golden crust"
+  },
+  "pizza-rolls": {
+    "form": "printed bag",
+    "motif": "golden pizza rolls with pepperoni"
+  },
+  "popcorn": {
+    "form": "cardboard box",
+    "motif": "popcorn kernels"
+  },
+  "popsicles": {
+    "form": "wide cardboard box",
+    "motif": "three popsicles on sticks \u2014 red, orange, purple"
+  },
+  "potato-chips": {
+    "form": "printed bag",
+    "motif": "three rippled golden chips"
+  },
+  "powdered-sugar": {
+    "form": "printed bag",
+    "motif": "a white powder mound with a dusted donut"
+  },
+  "pretzels": {
+    "form": "printed bag",
+    "motif": "twisted brown pretzels with salt"
+  },
+  "protein-bars": {
+    "form": "foil wrapper",
+    "motif": "a chocolate bar with nuts"
+  },
+  "protein-shakes": {
+    "form": "screw-top plastic bottle",
+    "motif": "a chocolate shake in a glass with a splash"
+  },
+  "pudding-mix": {
+    "form": "small cardboard box",
+    "motif": "a cup of vanilla pudding with a spoon"
+  },
+  "raisins": {
+    "form": "small cardboard box",
+    "motif": "a pile of raisins and a bunch of grapes"
+  },
+  "ramen-noodles": {
+    "form": "wide printed bag",
+    "motif": "a bowl of wavy ramen noodles with an egg"
+  },
+  "ravioli": {
+    "form": "printed bag",
+    "motif": "square ravioli with crimped edges"
+  },
+  "refrigerated-biscuits": {
+    "form": "cardboard canister",
+    "motif": "two flaky golden biscuits"
+  },
+  "rice": {
+    "form": "printed bag",
+    "motif": "a bowl of fluffy white rice"
+  },
+  "salad-dressing": {
+    "form": "screw-top plastic bottle",
+    "motif": "a lettuce leaf + dressing drizzle"
+  },
+  "salsa": {
+    "form": "squat glass jar",
+    "motif": "chunky salsa \u2014 a halved tomato, a green chilli, onion bits"
+  },
+  "sausage-links": {
+    "form": "foam tray, top view",
+    "motif": "four plump pork sausages"
+  },
+  "sausage-patties": {
+    "form": "foam tray, top view",
+    "motif": "browned sausage patties"
+  },
+  "seeds": {
+    "form": "printed bag",
+    "motif": "sunflower seeds and a sunflower head"
+  },
+  "snack-cakes": {
+    "form": "wide cardboard box",
+    "motif": "a chocolate snack cake with a white squiggle on top"
+  },
+  "soda-2l-bottle": {
+    "form": "PET soda bottle",
+    "motif": "a fizzy splash with bubbles"
+  },
+  "soda-can": {
+    "form": "multipack shrink-wrap",
+    "motif": "bubbles and a fizz wave"
+  },
+  "soup": {
+    "form": "tin can",
+    "motif": "a steaming bowl of chicken noodle soup"
+  },
+  "sour-cream": {
+    "form": "plastic tub",
+    "motif": "a white dollop with chopped chives on a baked potato"
+  },
+  "soymilk": {
+    "form": "gable-top carton",
+    "motif": "green soybean pods beside a milk splash"
+  },
+  "sparkling-water": {
+    "form": "slim can",
+    "motif": "a lime slice with bubbles"
+  },
+  "spices": {
+    "form": "shaker jar",
+    "motif": "cinnamon sticks tied"
+  },
+  "sports-drink": {
+    "form": "screw-top plastic bottle",
+    "motif": "a lightning bolt splash"
+  },
+  "sugar": {
+    "form": "paper sack",
+    "motif": "white sugar cubes"
+  },
+  "syrup": {
+    "form": "plastic jug",
+    "motif": "a stack of pancakes with a pat of butter and syrup dripping"
+  },
+  "taco-shells": {
+    "form": "wide cardboard box",
+    "motif": "two crunchy U-shaped taco shells standing up"
+  },
+  "tea": {
+    "form": "wide cardboard box",
+    "motif": "a tea bag with its tag beside a steaming cup"
+  },
+  "teriyaki-sauce": {
+    "form": "glass bottle",
+    "motif": "glazed chicken skewer"
+  },
+  "thin-crust-pizza": {
+    "form": "flat pizza box",
+    "motif": "a cheese pizza with a slice pulled"
+  },
+  "tortilla-chips": {
+    "form": "printed bag",
+    "motif": "triangle tortilla chips and a dip bowl"
+  },
+  "tortillas": {
+    "form": "flat printed bag",
+    "motif": "a stack of flour tortillas with toasted spots"
+  },
+  "tree-nuts-peanuts": {
+    "form": "plastic jar",
+    "motif": "a cashew, an almond and a peanut"
+  },
+  "vanilla-extract": {
+    "form": "glass bottle",
+    "motif": "two vanilla beans and a cream vanilla flower"
+  },
+  "waffles": {
+    "form": "wide cardboard box",
+    "motif": "two golden grid waffles with butter"
+  },
+  "water": {
+    "form": "screw-top plastic bottle",
+    "motif": "a water droplet and a mountain"
+  },
+  "whipped-cream": {
+    "form": "aerosol can",
+    "motif": "a peak of whipped cream on a strawberry"
+  },
+  "yeast": {
+    "form": "strip of three foil packets",
+    "motif": "a rising bread loaf"
+  },
+  "yogurt": {
+    "form": "single-serve cup",
+    "motif": "pink yogurt swirl with strawberries"
+  }
+}

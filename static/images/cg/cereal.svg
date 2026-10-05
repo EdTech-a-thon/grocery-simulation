@@ -1,10 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220"><g transform="translate(90 0) scale(0.84) translate(-90 0)">
-  <rect x="26" y="12" width="128" height="196" rx="12" fill="#f97316"/>
-  <rect x="34" y="22" width="112" height="176" rx="8" fill="#fff7ed"/>
-  <path d="M34 42h112v49H34z" fill="#22c55e"/>
-  <text x="90" y="67" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="white">SUNNY</text>
-  <text x="90" y="91" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="bold" fill="#14532d">CRUNCH</text>
-  <circle cx="90" cy="140" r="34" fill="#facc15"/>
-  <circle cx="74" cy="136" r="8" fill="#fef3c7"/><circle cx="100" cy="128" r="8" fill="#fef3c7"/><circle cx="105" cy="153" r="8" fill="#fef3c7"/><circle cx="77" cy="158" r="8" fill="#fef3c7"/>
-  <text x="90" y="189" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#ea580c">CEREAL</text>
-</g><g><rect x="0" y="184.8" width="180" height="35.2" fill="#15803d"/><text x="90" y="210.144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="21.824" fill="#ffffff">CG Value</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="194" rx="54" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M32 42h82v147a3 3 0 0 1-3 3H35a3 3 0 0 1-3-3z" fill="#f4f1ec"/>
+    <path d="M114 42l14-11v144q0 2-1.5 3L114 189z" fill="#bcb4a7"/>
+    <path d="M32 42l14-11h82l-14 11z" fill="#e4e0d8"/>
+    <path d="M34 50h3v136h-3z" fill="#ffffff"/>
+    <path d="M42 36.5h76M33 48h80M33 185h80" fill="none" stroke="#cdc6ba" stroke-width="2" stroke-linecap="round"/>
+    <path d="M115 47l12-9.4" fill="none" stroke="#a39b8e" stroke-width="2" stroke-linecap="round"/>
+  </g><g id="label">
+    <rect x="34" y="51" width="78" height="131" rx="3" fill="#f7efe2"/>
+  </g><g id="brand-cg">
+    <rect x="34" y="51" width="78" height="131" rx="3" fill="#ffffff"/>
+    <path d="M37 51h72a3 3 0 0 1 3 3v11H34V54a3 3 0 0 1 3-3z" fill="#15803d"/>
+    <path d="M34 65h78v2H34z" fill="#facc15"/>
+    <path d="M40 55h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="42" cy="58" r="1" fill="#15803d"/>
+    <path d="M36 136C37 157 52.6 166 73 166C93.3 166 109 157 110 136z" fill="#2e6bc6"/>
+    <path d="M91.5 136H110C109 157 93.3 166 73 166C87.8 162 91.5 151 91.5 136z" fill="#1f4f99"/>
+    <path d="M60 165h26l-2 4h-22z" fill="#1f4f99"/>
+    <ellipse cx="73" cy="136" rx="37" ry="10" fill="#5a8fe0"/>
+    <ellipse cx="73" cy="136.5" rx="34" ry="8.5" fill="#fbf7ef"/>
+    <path d="M44.6 118.3a9.5 9.5 0 1 0 19 0a9.5 9.5 0 1 0 -19 0zM63.5 115.2a9.5 9.5 0 1 0 19 0a9.5 9.5 0 1 0 -19 0zM82.4 118.3a9.5 9.5 0 1 0 19 0a9.5 9.5 0 1 0 -19 0z" fill="#a86c1e"/>
+    <path d="M49.9 117.9a3.8 3.8 0 1 0 7.6 0a3.8 3.8 0 1 0 -7.6 0zM68.8 114.8a3.8 3.8 0 1 0 7.6 0a3.8 3.8 0 1 0 -7.6 0zM87.7 117.9a3.8 3.8 0 1 0 7.6 0a3.8 3.8 0 1 0 -7.6 0z" fill="#fbf0d8"/>
+    <path d="M36.2 130a9.5 9.5 0 1 0 19 0a9.5 9.5 0 1 0 -19 0zM54 128a9.5 9.5 0 1 0 19 0a9.5 9.5 0 1 0 -19 0zM73 129a9.5 9.5 0 1 0 19 0a9.5 9.5 0 1 0 -19 0zM90.8 131a9.5 9.5 0 1 0 19 0a9.5 9.5 0 1 0 -19 0zM54 105.8a9.5 9.5 0 1 0 19 0a9.5 9.5 0 1 0 -19 0zM73 104.7a9.5 9.5 0 1 0 19 0a9.5 9.5 0 1 0 -19 0z" fill="#c8862a"/>
+    <path d="M41.5 129.6a3.8 3.8 0 1 0 7.6 0a3.8 3.8 0 1 0 -7.6 0zM59.4 127.6a3.8 3.8 0 1 0 7.6 0a3.8 3.8 0 1 0 -7.6 0zM78.3 128.6a3.8 3.8 0 1 0 7.6 0a3.8 3.8 0 1 0 -7.6 0zM96.1 130.6a3.8 3.8 0 1 0 7.6 0a3.8 3.8 0 1 0 -7.6 0zM59.4 105.3a3.8 3.8 0 1 0 7.6 0a3.8 3.8 0 1 0 -7.6 0zM78.3 104.3a3.8 3.8 0 1 0 7.6 0a3.8 3.8 0 1 0 -7.6 0z" fill="#fbf0d8"/>
+    <path d="M40 176h66v3H40z" fill="#15803d"/>
+  </g></svg>

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item">
+    <ellipse cx="80" cy="197" rx="60" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M30 174H130V188L123.75 195L117.5 188L111.25 195L105 188L98.75 195L92.5 188L86.25 195L80 188L73.75 195L67.5 188L61.25 195L55 188L48.75 195L42.5 188L36.25 195L30 188z" fill="#c9d9e0"/>
+    <path d="M105 174H130V188L123.75 195L117.5 188L111.25 195L105 188z" fill="#a9bfc9"/>
+    <path d="M30 184H130" fill="none" stroke="#a9bfc9" stroke-width="2"/>
+    <path d="M32 70H128C136 90 141 104 141 124S136 158 128 176H32C24 158 19 144 19 124S24 90 32 70z" fill="#bed2db"/>
+    <path d="M32 70H124C131 90 135 104 135 124S131 156 124 172H35C26 156 21 144 21 124S25 90 32 70z" fill="#e4eef3"/>
+    <rect x="43" y="89" width="76" height="70" rx="3" fill="#b8620f"/>
+    <rect x="40" y="86" width="76" height="70" rx="3" fill="#cf7414"/>
+    <rect x="37" y="83" width="76" height="70" rx="3" fill="#e48a1a"/>
+    <rect x="34" y="80" width="76" height="70" rx="3" fill="#f5a524"/>
+    <path d="M37 83h3v64h-3z" fill="#fbcf6e"/>
+    <path d="M32.5 173Q80 164 127.5 173L128 176H32z" fill="#bed2db"/>
+    <path d="M27 95Q21 124 27 158" fill="none" stroke="#f6fbfd" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M30 68V54L36.25 47L42.5 54L48.75 47L55 54L61.25 47L67.5 54L73.75 47L80 54L86.25 47L92.5 54L98.75 47L105 54L111.25 47L117.5 54L123.75 47L130 54V68z" fill="#c9d9e0"/>
+    <path d="M105 68V54L111.25 47L117.5 54L123.75 47L130 54V68z" fill="#a9bfc9"/>
+    <path d="M30 58H130" fill="none" stroke="#a9bfc9" stroke-width="2"/>
+    <path d="M31 66h98v6H31z" fill="#2f74c9"/>
+    <path d="M111 66h18v6h-18z" fill="#23589c"/>
+    <path d="M33 67h40v2H33z" fill="#6fa3e3"/>
+  </g>
+  <g id="label">
+    <rect x="45" y="98" width="66" height="52" rx="3" fill="#f7efe2"/>
+  </g>
+  <g id="brand">
+    <rect x="45" y="98" width="66" height="52" rx="3" fill="#1b4797"/>
+    <path d="M45 142l66-24v29a3 3 0 0 1-3 3H48a3 3 0 0 1-3-3z" fill="#c02c27"/>
+    <g transform="translate(66 125) rotate(-20)">
+      <rect x="-16" y="-16" width="36" height="36" rx="3" fill="#c96f12"/>
+      <rect x="-18" y="-18" width="36" height="36" rx="3" fill="#e8961e"/>
+    </g>
+    <g transform="translate(76 122) rotate(-6)">
+      <rect x="-16" y="-16" width="36" height="36" rx="3" fill="#c96f12"/>
+      <rect x="-18" y="-18" width="36" height="36" rx="3" fill="#f0a024"/>
+    </g>
+    <g transform="translate(88 126) rotate(9)">
+      <path d="M-13 -16h18l15 15v18a3 3 0 0 1-3 3h-30a3 3 0 0 1-3-3v-30a3 3 0 0 1 3-3z" fill="#c96f12"/>
+      <path d="M-15 -18h18l15 15v18a3 3 0 0 1-3 3h-30a3 3 0 0 1-3-3v-30a3 3 0 0 1 3-3z" fill="#f5a524"/>
+      <path d="M-16 -15h3v27h-3z" fill="#fbcf6e"/>
+      <path d="M3 -18l15 15c-5 2-11.5 1-14-2s-.5-7.5 -1-13z" fill="#fde3a6"/>
+      <path d="M3 -18l15 15c-4 1-8.5 0-10.5-2z" fill="#f9c870"/>
+    </g>
+  </g>
+  <g id="brand-cg">
+    <rect x="45" y="98" width="66" height="52" rx="3" fill="#ffffff"/>
+    <path d="M48 98h60a3 3 0 0 1 3 3v7H45v-7a3 3 0 0 1 3-3z" fill="#15803d"/>
+    <path d="M45 108h66v2H45z" fill="#facc15"/>
+    <path d="M51 100h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="53" cy="103" r="1" fill="#15803d"/>
+    <g transform="translate(65 128) rotate(-18)">
+      <rect x="-12" y="-12" width="27" height="27" rx="3" fill="#d07a14"/>
+      <rect x="-13.5" y="-13.5" width="27" height="27" rx="3" fill="#f5a524"/>
+    </g>
+    <g transform="translate(76 126) rotate(-5)">
+      <rect x="-12" y="-12" width="27" height="27" rx="3" fill="#d07a14"/>
+      <rect x="-13.5" y="-13.5" width="27" height="27" rx="3" fill="#f5a524"/>
+    </g>
+    <g transform="translate(89 127) rotate(9)">
+      <path d="M-10 -12h13l11 11v13a3 3 0 0 1-3 3h-22a3 3 0 0 1-3-3v-21a3 3 0 0 1 3-3z" fill="#d07a14"/>
+      <path d="M-11.5 -13.5h14l11 11v13a3 3 0 0 1-3 3h-22a3 3 0 0 1-3-3v-21a3 3 0 0 1 3-3z" fill="#f5a524"/>
+      <path d="M2.5 -13.5l11 11c-4 1.5-8.5.5-10.5-1.5s-1-5.5-.5-9.5z" fill="#fbc95c"/>
+    </g>
+    <path d="M51 144h54v3H51z" fill="#15803d"/>
+  </g>
+</svg>

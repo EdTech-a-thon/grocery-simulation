@@ -1,87 +1,62 @@
-import { test, expect, type Page, type APIRequestContext } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
 
-// A fresh identifier per run, so repeated runs never collide on the site-wide
-// unique class identifier.
-const run = Date.now().toString(36).toUpperCase().slice(-6)
-const prefix = `T${run}`
-const otherPrefix = `O${run}`
-const teacher = { email: `teacher-${run}@school.test`, password: 'classgrocery1234', name: 'Ms. Rivera', prefix }
-const other = { email: `other-${run}@school.test`, password: 'classgrocery1234', name: 'Mr. Chen', prefix: otherPrefix }
-const store = { name: `Room ${run}`, label: 'P3', joinCode: `${prefix}-P3` }
-const copy = { name: `Room ${run} Copy`, label: 'P4', joinCode: `${prefix}-P4` }
+// There are no accounts: a store lives in its own link. The first test builds
+// one and keeps the teacher's address, and the rest open that address — or the
+// student link made from it — exactly as a bookmark or a shared link would.
 
-const pocketbaseUrl = process.env.VITE_POCKETBASE_URL || 'http://127.0.0.1:8090'
+const store = { name: 'Room 204 Market' }
+let teacherUrl = ''
 
-type PublicStore = {
-  store: {
-    name: string; color: string; joinLabel: string; joinCode: string
-    brandMode: string; couponsEnabled: boolean; taxEnabled: boolean; salesTax: number
-  }
-  items: Record<string, { price?: number; hidden?: boolean }>
-  coupons: Array<{ code: string; discountType: string; discountAmount: number; productId: string }>
-}
-
-/** Reads a store the way an anonymous student's browser does. */
-async function readStore(request: APIRequestContext, joinCode: string) {
-  const response = await request.get(`${pocketbaseUrl}/api/classgrocery/store/${joinCode}`)
-  expect(response.ok()).toBeTruthy()
-  return (await response.json()) as PublicStore
-}
-
-async function signUp(page: Page, who: typeof teacher) {
-  await page.goto('/teacher')
-  await page.getByRole('button', { name: 'Create a teacher account' }).click()
-  await page.getByLabel('Your name').fill(who.name)
-  await page.getByLabel('School email').fill(who.email)
-  await page.getByLabel('Password').fill(who.password)
-  await page.getByRole('button', { name: 'Create account' }).click()
-
-  // Signing up lands on the class identifier question, which has to be answered
-  // before any store can exist.
-  await expect(page.getByRole('heading', { name: 'Choose your class identifier' })).toBeVisible()
-  await page.getByLabel('Your identifier').fill(who.prefix)
-  await page.getByRole('button', { name: 'Save and continue' }).click()
-  await expect(page.getByRole('heading', { name: 'My stores' })).toBeVisible()
-}
-
-async function signIn(page: Page, who: typeof teacher) {
-  await page.goto('/teacher')
-  await page.getByLabel('School email').fill(who.email)
-  await page.getByLabel('Password').fill(who.password)
-  await page.getByRole('button', { name: 'Sign in', exact: true }).click()
-  await expect(page.getByRole('heading', { name: 'My stores' })).toBeVisible()
-}
-
-/** The one card for a store, matched on the whole name: "Room 7" is not "Room 7 Copy". */
-function storeCard(page: Page, name: string) {
-  return page.locator('.store-summary').filter({ has: page.getByText(name, { exact: true }) })
-}
-
-/** Signs in and opens the named store's price studio. */
-/** Brands on the shelves are a store setting, so switching lines goes through that page. */
-async function setBrandMode(page: Page, label: string) {
-  await page.getByRole('button', { name: 'Store settings' }).click()
-  await page.getByLabel(label).check()
-  await page.getByRole('button', { name: 'Save changes' }).click()
-  await expect(page.locator('.status-message')).toContainText('updated. Students join with')
-}
-
-async function openStore(page: Page, name = store.name) {
-  await signIn(page, teacher)
-  await storeCard(page, name).getByRole('button', { name: 'Edit Store' }).click()
-  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
+/** The link students are given: the same store, on the student route. */
+function studentUrl() {
+  return teacherUrl.replace('/teacher#', '/shop#')
 }
 
 /**
- * Joins the way a student does. However the code was typed, the badge shows the
- * tidy form of it, so `shown` is what the screen is expected to say.
+ * The store as it stands in the page's address, in its packed form (see
+ * packStore in src/lib/store.ts). This is what students would receive.
  */
-async function joinAsStudent(page: Page, typed: string, shown = typed) {
-  await page.goto('/')
-  await page.getByLabel('Store code').fill(typed)
-  await page.getByRole('button', { name: 'Join store' }).click()
-  await expect(page.getByText(`Store code: ${shown}`)).toBeVisible()
-  await page.getByRole('button', { name: 'Enter the store' }).click()
+type PackedStore = {
+  v: 1
+  n: string
+  c?: string
+  b?: string
+  u?: string
+  t?: number
+  x?: 1
+  p?: Record<string, number>
+  s?: Record<string, 0 | 1>
+  z?: Record<string, [number, string]>
+  q?: Array<[string, 'p' | 'd', number, string]>
+}
+
+async function readStore(page: Page): Promise<PackedStore> {
+  return page.evaluate(async () => {
+    const text = location.hash.slice(1)
+    const binary = atob(text.replace(/-/g, '+').replace(/_/g, '/'))
+    const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0))
+    const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'))
+    return JSON.parse(await new Response(stream).text())
+  })
+}
+
+async function openTeacherPage(page: Page) {
+  await page.goto(teacherUrl)
+  await expect(page.getByRole('heading', { name: 'Inventory' })).toBeVisible()
+}
+
+/** Puts products on the shelves by ticking their cards on the inventory page. */
+async function stock(page: Page, aisle: string, products: string[]) {
+  await page.getByRole('button', { name: 'Inventory' }).click()
+  await page.getByRole('button', { name: aisle }).click()
+  for (const product of products) await page.getByLabel(`Stock ${product} in this store`).check()
+}
+
+/** Opens the store the way a student does: by following the link. */
+async function openAsStudent(page: Page, link = studentUrl()) {
+  await page.goto(link)
+  await expect(page.getByRole('heading', { name: store.name })).toBeVisible()
+  await page.getByRole('button', { name: 'Enter', exact: true }).click()
   await expect(page.locator('.shelf-stage')).toBeVisible()
 }
 
@@ -106,79 +81,181 @@ async function visibleAisleTitles(page: Page) {
   return titles
 }
 
+/** The student link for the store a teacher page has open right now. */
+function studentLinkFrom(page: Page) {
+  return page.url().replace('/teacher#', '/shop#')
+}
+
+/** The student link for a small store made up on the spot, as another teacher might share. */
+async function madeUpStudentLink(page: Page, packed: PackedStore) {
+  const encoded = await page.evaluate(async (packed) => {
+    const stream = new Blob([JSON.stringify(packed)]).stream().pipeThrough(new CompressionStream('deflate-raw'))
+    const bytes = new Uint8Array(await new Response(stream).arrayBuffer())
+    return btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+  }, packed)
+  return `/shop#${encoded}`
+}
+
 test.describe.configure({ mode: 'serial' })
 
-test('a teacher signs up and creates a store', async ({ page }) => {
-  await signUp(page, teacher)
+test('a teacher builds a store without signing up for anything', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('link', { name: 'Get started' }).click()
+  await expect(page).toHaveURL(/\/teacher$/)
+  await expect(page.locator('.store-list')).toContainText('Create your first store to get started.')
 
-  await page.getByRole('button', { name: 'Create New Store' }).click()
+  await page.locator('.store-list-heading').getByRole('button', { name: 'Create' }).click()
   await page.getByLabel('Store name').fill(store.name)
-  await page.getByLabel('Store color').selectOption('green')
-  await page.getByLabel('Store code').fill(store.label)
-  await expect(page.locator('.join-code-preview')).toContainText(`Students will join with ${store.joinCode}`)
-  await page.getByRole('button', { name: 'Create store' }).click()
-
-  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
-  await expect(page.locator('.teacher-access-panel')).toContainText(`Students join with ${store.joinCode}`)
-})
-
-test('the teacher sets prices and chooses what the store stocks', async ({ page, request }) => {
-  await openStore(page)
+  await page.locator('.color-choice[data-color="blue"]').click()
+  await page.getByRole('button', { name: 'Inventory' }).click()
 
   await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await page.getByLabel('Price for Milk').fill('9.99')
   await page.getByLabel('Price for Milk').blur()
-  await expect(page.locator('.status-message')).toHaveText('Saved.')
-
   await page.getByLabel('Stock Cottage Cheese in this store').uncheck()
   await expect(page.locator('.price-edit-card', { has: page.getByLabel('Stock Cottage Cheese in this store') })).toHaveClass(/price-edit-card-hidden/)
 
   // Empty one whole aisle, which should drop out of the shopper's view entirely.
   await page.getByRole('button', { name: 'Seafood' }).click()
   await page.getByRole('button', { name: 'Stock none' }).click()
-  await expect(page.locator('.status-message')).toHaveText('Seafood taken off the shelves.')
+  // Nothing announces it: the aisle's count says so.
+  await expect(page.getByRole('button', { name: /^Seafood/ }).locator('.aisle-count')).toHaveText(/^0\//)
+  await expect(page.locator('.status-message')).toHaveCount(0)
 
-  const published = await readStore(request, store.joinCode)
-  expect(published.items.milk.price).toBe(9.99)
-  expect(published.items['cottage-cheese'].hidden).toBe(true)
-  expect(published.items.salmon.hidden).toBe(true)
-})
-
-test('the teacher creates coupons', async ({ page, request }) => {
-  await openStore(page)
   await page.getByRole('button', { name: 'Coupons' }).click()
-
+  await page.getByRole('button', { name: 'Add coupon' }).click()
+  await page.getByRole('menuitem', { name: /^Manual/ }).click()
   await page.getByLabel('Applies to').selectOption('milk')
   await page.locator('[data-discount-amount]').fill('10')
   await page.getByLabel('Coupon code word').fill('MILK DAY')
   await page.getByRole('button', { name: 'Create coupon' }).click()
-  await expect(page.locator('.print-sheet')).toHaveCount(0)
-  await page.getByRole('button', { name: 'Print', exact: true }).click()
-  await page.getByLabel('Copies to print').fill('4')
-  await page.getByRole('button', { name: 'Open print preview' }).click()
-  await expect(page.locator('.print-sheet')).toContainText('4 coupons, 10 per page')
-  await page.getByRole('button', { name: 'Back' }).click()
 
   // A dollars coupon worth far more than the item it applies to.
+  await page.getByRole('button', { name: 'Add coupon' }).click()
+  await page.getByRole('menuitem', { name: /^Manual/ }).click()
   await page.getByLabel('Discount type').selectOption('dollars')
   await page.locator('[data-discount-amount]').fill('50')
   await page.getByLabel('Applies to').selectOption('apple')
   await page.getByLabel('Coupon code word').fill('APPLE50')
   await page.getByRole('button', { name: 'Create coupon' }).click()
-
   await expect(page.getByText('2 ready to use')).toBeVisible()
 
-  const published = await readStore(request, store.joinCode)
-  expect(published.coupons).toHaveLength(2)
-  expect(published.coupons.some((coupon) => coupon.code === 'MILK DAY')).toBe(true)
-  expect(published.coupons.some((coupon) => coupon.discountType === 'dollars' && coupon.productId === 'apple')).toBe(true)
-  // Print counts are a teacher-only detail and must not reach students.
-  expect(published.coupons.every((coupon) => !('copies' in coupon))).toBe(true)
+  // Each coupon is shown as it prints.
+  await expect(page.locator('.coupon-tile .coupon-code strong')).toHaveText(['MILK DAY', 'APPLE50'])
+
+  // A code the store already has is refused, so two coupons never share one.
+  await page.getByRole('button', { name: 'Add coupon' }).click()
+  await page.getByRole('menuitem', { name: /^Manual/ }).click()
+  await page.getByLabel('Coupon code word').fill('apple50')
+  await page.getByRole('button', { name: 'Create coupon' }).click()
+  await expect(page.locator('.coupon-editor-problem')).toHaveText('This store already has a coupon with the code APPLE50.')
+  await page.getByRole('button', { name: 'Cancel' }).click()
+  await expect(page.getByText('2 ready to use')).toBeVisible()
+
+  // Every change is in the address, so the page is a bookmark of the store.
+  await expect.poll(() => readStore(page)).toMatchObject({
+    n: store.name,
+    c: 'blue',
+    p: { milk: 9.99 },
+    s: { 'cottage-cheese': 0, salmon: 0 },
+    q: [['MILK DAY', 'p', 10, 'milk'], ['APPLE50', 'd', 50, 'apple']],
+  })
+  teacherUrl = page.url()
+})
+
+test('the teacher page reopens from its address, like a bookmark', async ({ page }) => {
+  await openTeacherPage(page)
+  await expect(page.locator('.sidebar-storefront-sign')).toHaveText(store.name)
+  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  await expect(page.getByLabel('Price for Milk')).toHaveValue('9.99')
+})
+
+test('changing a store after copying its student link asks for a new link', async ({ page }) => {
+  await openTeacherPage(page)
+  const copy = page.locator('.store-sidebar-actions .primary-button')
+  await expect(copy).toHaveText('Copy student link')
+  await copy.click()
+  await expect(copy).toHaveText('Copied')
+
+  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  await page.getByLabel('Price for Milk').fill('3.50')
+  await page.getByLabel('Price for Milk').blur()
+  await expect(copy).toHaveText('Copy new student link')
+
+  // The side panel is on every page of the store, so the reminder is too.
+  await page.getByRole('button', { name: 'Coupons' }).click()
+  await expect(copy).toHaveText('Copy new student link')
+  await copy.click()
+  await expect(copy).toHaveText('Copy student link')
+})
+
+test('a bookmarked store goes onto the list, once', async ({ page }) => {
+  await openTeacherPage(page)
+  await page.getByRole('button', { name: 'My stores' }).click()
+  await expect(page.locator('.store-card')).toHaveCount(1)
+
+  await openTeacherPage(page)
+  await page.getByRole('button', { name: 'My stores' }).click()
+  await expect(page.locator('.store-card')).toHaveCount(1)
+  await expect(page).toHaveURL(/\/teacher$/)
+})
+
+test('a store saved in this browser is listed, kept up to date, duplicated and removed', async ({ page }) => {
+  await openTeacherPage(page)
+
+  // A store on the list saves itself again on every change.
+  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  await page.getByLabel('Price for Milk').fill('4.25')
+  await page.getByLabel('Price for Milk').blur()
+  await expect.poll(async () => (await readStore(page)).p?.milk).toBe(4.25)
+
+  await page.getByRole('button', { name: 'My stores' }).click()
+  await expect(page.locator('.store-card')).toHaveCount(1)
+
+  await page.reload()
+  const card = page.locator('.store-card').filter({ hasText: store.name })
+  await expect(card).toHaveCount(1)
+  // Anywhere on the card opens the store.
+  await card.click()
+  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  await expect(page.getByLabel('Price for Milk')).toHaveValue('4.25')
+  await page.getByRole('button', { name: 'My stores' }).click()
+
+  page.once('dialog', (dialog) => dialog.accept(`${store.name} Period 4`))
+  await card.getByRole('button', { name: `More for ${store.name}` }).click()
+  await page.getByRole('menuitem', { name: 'Duplicate' }).click()
+  await expect(page.locator('.store-card')).toHaveCount(2)
+  await expect(page.locator('.store-card').filter({ hasText: `${store.name} Period 4` })).toHaveCount(1)
+
+  page.once('dialog', (dialog) => dialog.accept())
+  await page.getByRole('button', { name: `More for ${store.name} Period 4` }).click()
+  await page.getByRole('menuitem', { name: 'Delete store' }).click()
+  await expect(page.locator('.store-card')).toHaveCount(1)
+})
+
+test('a store menu sits above the buttons of the card below it', async ({ page }) => {
+  await openTeacherPage(page)
+  await page.getByRole('button', { name: 'My stores' }).click()
+  for (const period of ['Period 2', 'Period 3']) {
+    page.once('dialog', (dialog) => dialog.accept(`${store.name} ${period}`))
+    await page.getByRole('button', { name: `More for ${store.name}`, exact: true }).click()
+    await page.getByRole('menuitem', { name: 'Duplicate' }).click()
+  }
+  await expect(page.locator('.store-card')).toHaveCount(3)
+
+  // Newest first, so Period 3 is top left and the original store sits right under it.
+  // The menu's right edge runs over that card's buttons, so click there.
+  page.once('dialog', (dialog) => dialog.accept())
+  await page.getByRole('button', { name: `More for ${store.name} Period 3` }).click()
+  const deleteItem = page.getByRole('menuitem', { name: 'Delete store' })
+  const box = (await deleteItem.boundingBox())!
+  await deleteItem.click({ position: { x: box.width - 10, y: 8 }, timeout: 3000 })
+  await expect(page.locator('.store-card')).toHaveCount(2)
 })
 
 test('an emptied aisle disappears from the student view', async ({ page }) => {
-  await openStore(page)
-  await page.getByRole('button', { name: 'View as Student' }).click()
+  await openTeacherPage(page)
+  await page.getByRole('button', { name: 'Preview as student' }).click()
 
   const titles = await visibleAisleTitles(page)
   expect(titles.some((title) => title.includes('Seafood'))).toBe(false)
@@ -186,8 +263,8 @@ test('an emptied aisle disappears from the student view', async ({ page }) => {
 })
 
 test('viewing as a student swaps the header for the Student View banner', async ({ page }) => {
-  await openStore(page)
-  await page.getByRole('button', { name: 'View as Student' }).click()
+  await openTeacherPage(page)
+  await page.getByRole('button', { name: 'Preview as student' }).click()
 
   const banner = page.locator('.student-view-header')
   await expect(banner).toBeVisible()
@@ -197,58 +274,119 @@ test('viewing as a student swaps the header for the Student View banner', async 
   await expect(page.locator('.shelf-stage')).toBeVisible()
 
   await banner.getByRole('button', { name: 'Exit student view' }).click()
-  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Inventory' })).toBeVisible()
   await expect(page.locator('.app-header')).toBeVisible()
   await expect(page.locator('.student-view-header')).toHaveCount(0)
 })
 
-test('a real student keeps the normal header, with no exit button', async ({ page }) => {
-  await joinAsStudent(page, store.joinCode)
-  await expect(page.locator('.app-header')).toBeVisible()
+test('a student opens the link and sees only what the store stocks', async ({ page }) => {
+  await openAsStudent(page)
+  // Students get no header at all: just the aisle, and the store's picture above the cart.
+  await expect(page.locator('.app-header')).toHaveCount(0)
   await expect(page.locator('.student-view-header')).toHaveCount(0)
-})
+  await expect(page.locator('.store-thumbnail')).toContainText(store.name)
+  // ...but they can still change the language, from the button above Help.
+  await expect(page.locator('.floating-language').getByLabel('Change language')).toBeAttached()
 
-test('a student joins the store and sees only what it stocks', async ({ page }) => {
-  await joinAsStudent(page, store.joinCode)
   await goToAisle(page, 'Dairy and Eggs')
-
   await expect(page.getByRole('button', { name: /Add Milk for \$9\.99/ })).toBeVisible()
   await expect(page.getByRole('button', { name: /^Add Cottage Cheese/ })).toHaveCount(0)
 })
 
-test('duplicating a store copies its stock and coupons but reissues the codes', async ({ page, request }) => {
-  const original = await readStore(request, store.joinCode)
-
-  await signIn(page, teacher)
-  const answers = [copy.name, 'blue', copy.label]
-  page.on('dialog', (dialog) => dialog.accept(answers.shift() ?? ''))
-  await storeCard(page, store.name).getByRole('button', { name: 'Duplicate' }).click()
-  await expect(page.locator('.status-message')).toContainText(`Students join with ${copy.joinCode}`)
-
-  const duplicated = await readStore(request, copy.joinCode)
-  expect(duplicated.store.color).toBe('blue')
-  expect(duplicated.items).toEqual(original.items)
-  expect(duplicated.coupons).toHaveLength(original.coupons.length)
-
-  // Same discounts, but codes printed for the old class must not work here.
-  const originalCodes = original.coupons.map((coupon) => coupon.code)
-  expect(duplicated.coupons.every((coupon) => !originalCodes.includes(coupon.code))).toBe(true)
-  expect(duplicated.coupons.map((coupon) => `${coupon.discountType}:${coupon.discountAmount}:${coupon.productId}`).sort())
-    .toEqual(original.coupons.map((coupon) => `${coupon.discountType}:${coupon.discountAmount}:${coupon.productId}`).sort())
-
-  // The original is untouched.
-  expect((await readStore(request, store.joinCode)).coupons.map((c) => c.code).sort()).toEqual(originalCodes.sort())
+test('the aisle name opens a list of aisles, and the store fits a laptop screen', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await openAsStudent(page)
+  const secondAisle = await page.getByLabel('Go to aisle').locator('option').nth(1).innerText()
+  await page.getByLabel('Go to aisle').selectOption({ index: 1 })
+  await expect(page.locator('.shelf-topline h2')).toHaveText(secondAisle)
+  const pageHeight = await page.evaluate(() => document.documentElement.scrollHeight)
+  expect(pageHeight).toBeLessThanOrEqual(720)
 })
 
-test('the receipt itemizes the cart and caps a dollar coupon at the item price', async ({ page, request }) => {
-  const published = await readStore(request, store.joinCode)
-  const dollarsCoupon = published.coupons.find((coupon) => coupon.discountType === 'dollars')!
+test('a student comes back to the same store on a later visit', async ({ page }) => {
+  await openAsStudent(page)
+  await page.goto('/')
+  await expect(page.getByRole('heading', { name: new RegExp(store.name) })).toBeVisible()
+
+  await page.getByRole('button', { name: 'Enter', exact: true }).click()
+  await expect(page.locator('.shelf-stage')).toBeVisible()
+})
+
+test('a teacher who tried their own student link can get back to teaching', async ({ page }) => {
+  await openAsStudent(page)
+  await page.goto('/')
+  await page.getByRole('link', { name: 'For teachers' }).click()
+  await expect(page).toHaveURL(/\/teacher$/)
+
+  // The front page is the front page again, not the store.
+  await page.goto('/')
+  await expect(page.getByRole('link', { name: 'Get started' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Enter', exact: true })).toHaveCount(0)
+})
+
+test('a student with links to two stores can switch between them, and remove one', async ({ page }) => {
+  await openAsStudent(page)
+  // With only one store there is nothing to switch to.
+  const switchButton = page.getByRole('button', { name: 'Switch store' })
+  await expect(switchButton).toHaveCount(0)
+  await page.getByRole('button', { name: /^Add / }).first().click()
+  await expect(page.getByText('1 item in cart')).toBeVisible()
+
+  await page.goto(await madeUpStudentLink(page, { v: 1, n: 'Corner Shop', c: 'blue' }))
+  await expect(page.getByRole('heading', { name: 'Corner Shop' })).toBeVisible()
+  await page.getByRole('button', { name: 'Enter', exact: true }).click()
+  // Each store has its own cart.
+  await expect(page.getByText('0 items in cart')).toBeVisible()
+
+  await switchButton.click()
+  const list = page.locator('#store-switcher')
+  await expect(list.getByRole('button', { name: 'Corner Shop', exact: true })).toHaveAttribute('aria-current', 'true')
+  await list.getByRole('button', { name: store.name, exact: true }).click()
+  await expect(list).toBeHidden()
+  await expect(page.getByRole('heading', { name: store.name })).toBeVisible()
+
+  // The front page now opens the store they switched to, with its cart as they left it.
+  await page.reload()
+  await page.getByRole('button', { name: 'Enter', exact: true }).click()
+  await expect(page.getByText('1 item in cart')).toBeVisible()
+
+  page.once('dialog', (dialog) => void dialog.accept())
+  await switchButton.click()
+  await list.getByRole('button', { name: 'Remove Corner Shop' }).click()
+  await expect(switchButton).toHaveCount(0)
+  await page.reload()
+  await expect(page.getByRole('heading', { name: store.name })).toBeVisible()
+})
+
+test('a new link for a store with the same name replaces the old one on the list', async ({ page }) => {
+  await openAsStudent(page)
+  await page.goto(await madeUpStudentLink(page, { v: 1, n: 'Corner Shop', c: 'pink' }))
+  await expect(page.getByRole('heading', { name: 'Corner Shop' })).toBeVisible()
+
+  await page.goto(await madeUpStudentLink(page, { v: 1, n: 'Corner Shop', c: 'orange' }))
+  await expect(page.getByRole('heading', { name: 'Corner Shop' })).toBeVisible()
+  await page.getByRole('button', { name: 'Switch store' }).click()
+  const list = page.locator('#store-switcher')
+  await expect(list.getByRole('listitem')).toHaveCount(2)
+  await expect(list.locator('[data-color="orange"]')).toHaveCount(1)
+  await expect(list.locator('[data-color="pink"]')).toHaveCount(0)
+})
+
+test('a damaged link explains itself', async ({ page }) => {
+  await page.goto('/shop#not-a-store')
+  await expect(page.getByRole('heading', { name: 'That store link did not work' })).toBeVisible()
+
+  await page.goto('/teacher#not-a-store')
+  await expect(page.locator('.status-message')).toHaveText('That store link did not work. It may have been cut short when it was copied.')
+})
+
+test('the receipt itemizes the cart and caps a dollar coupon at the item price', async ({ page }) => {
   page.on('dialog', (dialog) => dialog.accept())
 
-  await joinAsStudent(page, store.joinCode)
+  await openAsStudent(page)
   await goToAisle(page, 'Produce')
   await page.locator('.shelf-product-card', { hasText: 'Apple' }).first().getByRole('button', { name: /^Add Apple for/ }).click()
-  await page.locator('.shelf-product-card', { hasText: 'Apple' }).first().getByRole('button', { name: 'Add one more Apple' }).click()
+  await page.locator('.shelf-product-card', { hasText: 'Apple' }).first().getByRole('button', { name: /^Add Apple for/ }).click()
 
   await page.getByRole('button', { name: 'Check out' }).click()
   const receipt = page.locator('.receipt')
@@ -258,12 +396,12 @@ test('the receipt itemizes the cart and caps a dollar coupon at the item price',
 
   await page.getByRole('button', { name: 'Close' }).click()
   await page.getByRole('button', { name: 'Apply Coupon' }).click()
-  await page.getByLabel('Coupon code').fill(dollarsCoupon.code)
+  await page.getByLabel('Coupon code').fill('APPLE50')
   await page.getByRole('button', { name: 'Apply code', exact: true }).click()
 
   await page.getByRole('button', { name: 'Close' }).click()
   const discountedCartLine = page.locator('.cart-line').filter({ hasText: 'Apple' })
-  await expect(discountedCartLine.locator('.cart-line-coupon')).toContainText(dollarsCoupon.code)
+  await expect(discountedCartLine.locator('.cart-line-coupon')).toContainText('APPLE50')
   await expect(discountedCartLine.locator('.cart-line-coupon')).toContainText('-$1.78')
   await expect(discountedCartLine.locator('.cart-line-total strong')).toHaveText('$0.00')
   await expect(page.locator('.cart-savings strong')).toHaveText('-$1.78')
@@ -272,21 +410,19 @@ test('the receipt itemizes the cart and caps a dollar coupon at the item price',
 
   // $1.78 of apples, so a $50 coupon is capped at $1.78 and nothing goes negative.
   await expect(receipt.locator('.receipt-item-coupon')).toContainText(`-$1.78`)
-  await expect(receipt.locator('.receipt-item-coupon')).toContainText(dollarsCoupon.code)
+  await expect(receipt.locator('.receipt-item-coupon')).toContainText('APPLE50')
   await expect(receipt.locator('.receipt-final strong')).toHaveText('$0.00')
   await expect(receipt.locator('.coupon-total strong')).toHaveText('$1.78')
 })
 
-test('the receipt prints with its items, coupons and total saved', async ({ page, request }) => {
-  const published = await readStore(request, store.joinCode)
-  const dollarsCoupon = published.coupons.find((coupon) => coupon.discountType === 'dollars')!
+test('the receipt prints with its items, coupons and total saved', async ({ page }) => {
   page.on('dialog', (dialog) => dialog.accept())
 
-  await joinAsStudent(page, store.joinCode)
+  await openAsStudent(page)
   await goToAisle(page, 'Produce')
   await page.locator('.shelf-product-card', { hasText: 'Apple' }).first().getByRole('button', { name: /^Add Apple for/ }).click()
   await page.getByRole('button', { name: 'Apply Coupon' }).click()
-  await page.getByLabel('Coupon code').fill(dollarsCoupon.code)
+  await page.getByLabel('Coupon code').fill('APPLE50')
   await page.getByRole('button', { name: 'Apply code', exact: true }).click()
 
   await page.getByRole('button', { name: 'Close' }).click()
@@ -294,176 +430,198 @@ test('the receipt prints with its items, coupons and total saved', async ({ page
   await page.getByRole('button', { name: 'Print' }).click()
 
   const printed = page.locator('.print-receipt')
-  await expect(printed.getByText('CLASSGROCERY', { exact: true })).toBeVisible()
+  await expect(printed.getByText('CLASS GROCERY', { exact: true })).toBeVisible()
   await expect(printed.locator('.receipt-item-name', { hasText: 'Apple' })).toBeVisible()
-  await expect(printed.locator('.receipt-item-coupon')).toContainText(dollarsCoupon.code)
+  await expect(printed.locator('.receipt-item-coupon')).toContainText('APPLE50')
   await expect(printed.getByText('Total Amount Saved Today')).toBeVisible()
 
   await page.getByRole('button', { name: 'Back' }).click()
   await expect(page.locator('.receipt')).toBeVisible()
 })
 
-test('a student who leaves out the dash still lands in the right store', async ({ page, request }) => {
-  // The dash is decoration. Typing round it, or in lower case, must still work.
-  const plain = await readStore(request, store.joinCode.replace('-', ''))
-  expect(plain.store.name).toBe(store.name)
-  expect(plain.store.joinCode).toBe(store.joinCode)
+test('a receipt with no savings leaves out the amount saved', async ({ page }) => {
+  page.on('dialog', (dialog) => dialog.accept())
 
-  await joinAsStudent(page, store.joinCode.replace('-', '').toLowerCase(), store.joinCode)
-})
+  await openAsStudent(page)
+  await goToAisle(page, 'Produce')
+  await page.locator('.shelf-product-card', { hasText: 'Apple' }).first().getByRole('button', { name: /^Add Apple for/ }).click()
+  await page.getByRole('button', { name: 'Check out' }).click()
 
-test('a join link opens the store without the student typing anything', async ({ page }) => {
-  await page.goto(`/j/${store.joinCode.replace('-', '')}`)
+  await expect(page.locator('.receipt .receipt-final')).toBeVisible()
+  await expect(page.getByText('Total Amount Saved Today')).toHaveCount(0)
 
-  // The link lands on the normal student dashboard, already in the store.
-  await expect(page.getByText(`Store code: ${store.joinCode}`)).toBeVisible()
-  await page.getByRole('button', { name: 'Enter the store' }).click()
-  await expect(page.locator('.shelf-stage')).toBeVisible()
-})
-
-test('a link to a store that is not there explains itself', async ({ page }) => {
-  await page.goto('/j/NOSUCHSTORE')
-  await expect(page.getByRole('heading', { name: 'That store link did not work' })).toBeVisible()
-})
-
-test('a teacher cannot use one of their own class codes twice', async ({ page }) => {
-  await signIn(page, teacher)
-
-  await page.getByRole('button', { name: 'Create New Store' }).click()
-  await page.getByLabel('Store name').fill('Another Room')
-  await page.getByLabel('Store code').fill(store.label)
-  await page.getByRole('button', { name: 'Create store' }).click()
-
-  // The clash is with the teacher's own class, so it is named as one.
-  await expect(page.locator('.status-message'))
-    .toContainText(`You already have a class called ${store.label}`)
-})
-
-test("another teacher sees none of the first teacher's stores, and may reuse the same class code", async ({ page, request }) => {
-  await signUp(page, other)
-  await expect(page.locator('.store-list')).toContainText('0 stores')
-  await expect(page.locator('.store-list')).toContainText('Create your first store to get started.')
-  await expect(page.getByText(store.name)).toHaveCount(0)
-
-  // P3 is taken by the first teacher. Under the old site-wide rule that was a
-  // clash; now the identifier keeps the two apart.
-  await page.getByRole('button', { name: 'Create New Store' }).click()
-  await page.getByLabel('Store name').fill('Mr Chen P3')
-  await page.getByLabel('Store code').fill(store.label)
-  await page.getByRole('button', { name: 'Create store' }).click()
-  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
-
-  const mine = await readStore(request, `${other.prefix}-${store.label}`)
-  expect(mine.store.name).toBe('Mr Chen P3')
-  const theirs = await readStore(request, store.joinCode)
-  expect(theirs.store.name).toBe(store.name)
+  await page.getByRole('button', { name: 'Print' }).click()
+  await expect(page.locator('.print-receipt .receipt-final')).toBeVisible()
+  await expect(page.getByText('Total Amount Saved Today')).toHaveCount(0)
 })
 
 // ------------------------------------------------------- name brands vs CG
-//
-// These run last on purpose: they restock the whole store, so anything that
-// asserts on an emptied aisle has to have happened already.
 
-test('a teacher stocks both brands, and the CG line reaches the shelves', async ({ page, request }) => {
-  await openStore(page)
+test('stocking CG products puts them beside the name brands, priced off this store', async ({ page }) => {
+  await openTeacherPage(page)
+  await stock(page, 'Dairy and Eggs', ['CG Eggs', 'CG Milk'])
+  await expect.poll(async () => (await readStore(page)).s).toMatchObject({ 'eggs-cg': 1, 'milk-cg': 1 })
 
-  // Out of the box a store carries only the name brands.
-  const before = await readStore(request, store.joinCode)
-  expect(before.items['milk-cg']).toBeUndefined()
-
-  await setBrandMode(page, 'Both')
-
-  const after = await readStore(request, store.joinCode)
-  expect(after.items['eggs'].hidden).toBeFalsy()
-  expect(after.items['eggs-cg'].hidden).toBeFalsy()
-  // 15% under the catalog's $1.59 is $1.3515, snapped up to the nearest price
-  // ending in 9 cents.
-  expect(after.items['eggs-cg'].price).toBe(1.39)
-  // Milk was marked up to $9.99 earlier in this run, and the CG twin is priced
-  // off what this store charges rather than off the catalog.
-  expect(after.items['milk-cg'].price).toBe(8.49)
-})
-
-test('a student can compare a name brand with its CG twin', async ({ page }) => {
-  await joinAsStudent(page, store.joinCode)
+  await openAsStudent(page, studentLinkFrom(page))
   await goToAisle(page, 'Dairy and Eggs')
-
+  // CG eggs come by the 18, so 15% under the catalog's $1.59 a dozen is
+  // $2.03, snapped to the nearest price ending in 9 cents.
   await expect(page.getByRole('button', { name: /^Add Eggs for \$1\.59/ })).toBeVisible()
-  await expect(page.getByRole('button', { name: /^Add CG Eggs for \$1\.39/ })).toBeVisible()
+  await expect(page.getByRole('button', { name: /^Add CG Eggs for \$1\.99/ })).toBeVisible()
+  // Milk is $9.99 in this store, and its CG twin follows that price.
+  await expect(page.getByRole('button', { name: /^Add CG Milk for \$8\.49/ })).toBeVisible()
 })
 
-test('stocking the name brands puts the CG line away again', async ({ page, request }) => {
-  await openStore(page)
+// Every product has a package size, so a cheaper sticker is not always the
+// better buy. The teacher can change a size, and choose how much of the unit
+// price arithmetic the shelf tag does for the class.
+test('a teacher changes a package size, and students compare unit prices', async ({ page, browser }) => {
+  /** A student's own browser, opening the store's current link. */
+  async function studentInDairy() {
+    const student = await (await browser.newContext({ baseURL: test.info().project.use.baseURL })).newPage()
+    await openAsStudent(student, studentLinkFrom(page))
+    await goToAisle(student, 'Dairy and Eggs')
+    return student
+  }
 
-  await setBrandMode(page, 'Name brands')
+  await openTeacherPage(page)
+  await stock(page, 'Dairy and Eggs', ['CG Eggs'])
+  await expect(page.getByLabel('Package size for CG Eggs')).toHaveValue('18')
+  await page.getByLabel('Package size for CG Eggs').fill('6')
+  await page.getByLabel('Package size for CG Eggs').blur()
+  await expect.poll(() => readStore(page)).toMatchObject({ z: { 'eggs-cg': [6, 'ct'] } })
+  expect((await readStore(page)).u).toBeUndefined()
 
-  const published = await readStore(request, store.joinCode)
-  expect(published.items['eggs'].hidden).toBeFalsy()
-  expect(published.items['eggs-cg'].hidden).toBe(true)
-  // The price a teacher may have typed survives being put away.
-  expect(published.items['eggs-cg'].price).toBe(1.39)
+  // The teacher's six eggs keep the price of the usual eighteen: dearer per egg.
+  const student = await studentInDairy()
+  await expect(student.getByRole('button', { name: 'Add Eggs for $1.59, 12 ct, $0.13 each' })).toBeVisible()
+  await expect(student.getByRole('button', { name: 'Add CG Eggs for $1.99, 6 ct, $0.33 each' })).toBeVisible()
+  await student.close()
+
+  // Sizes only: the class works the unit price out for itself.
+  await page.getByRole('button', { name: 'Settings', exact: true }).click()
+  await page.getByLabel('Price and size', { exact: true }).check()
+  await expect.poll(async () => (await readStore(page)).u).toBe('size')
+  const sizesOnly = await studentInDairy()
+  await expect(sizesOnly.getByRole('button', { name: 'Add CG Eggs for $1.99, 6 ct', exact: true })).toBeVisible()
+  await expect(sizesOnly.locator('.price-tag-unit')).toHaveCount(0)
+  await sizesOnly.close()
+
+  // Clearing the size goes back to the usual eighteen.
+  await page.getByRole('button', { name: 'Inventory' }).click()
+  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  await page.getByLabel('Package size for CG Eggs').fill('')
+  await page.getByLabel('Package size for CG Eggs').blur()
+  await expect(page.getByLabel('Package size for CG Eggs')).toHaveValue('18')
+  await expect.poll(async () => (await readStore(page)).z).toBeUndefined()
 })
 
-test('stocking the CG store brands puts the name brands away', async ({ page, request }) => {
-  await openStore(page)
+test('clicking anywhere on a product card puts it on or off the shelves', async ({ page }) => {
+  await openTeacherPage(page)
+  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  const card = (name: string) => page.locator('.price-edit-card', { has: page.getByLabel(`Stock ${name} in this store`) })
 
-  await setBrandMode(page, 'CG Value store brand')
+  // The picture swaps a name brand for its CG twin; typing a price changes nothing.
+  await card('CG Eggs').locator('img').click()
+  await card('Eggs').locator('img').click()
+  await card('CG Eggs').getByLabel('Price for CG Eggs').click()
+  await expect(page.getByLabel('Stock CG Eggs in this store')).toBeChecked()
+  await expect(page.getByLabel('Stock Eggs in this store')).not.toBeChecked()
 
-  const published = await readStore(request, store.joinCode)
-  expect(published.items['eggs'].hidden).toBe(true)
-  expect(published.items['eggs-cg'].hidden).toBeFalsy()
+  await openAsStudent(page, studentLinkFrom(page))
+  await goToAisle(page, 'Dairy and Eggs')
+  await expect(page.getByRole('button', { name: /^Add CG Eggs for/ })).toBeVisible()
+  await expect(page.getByRole('button', { name: /^Add Eggs for/ })).toHaveCount(0)
+  // Fruit has no CG twin, and is on the shelves from the start.
+  await goToAisle(page, 'Produce')
+  await expect(page.getByRole('button', { name: /^Add Apple for/ })).toBeVisible()
 })
 
-// --------------------------------------------------- settings after the fact
+test('shift-click puts a whole run of products on or off the shelves', async ({ page }) => {
+  await openTeacherPage(page)
+  await page.getByRole('button', { name: /^Bakery/ }).click()
+  const stockBox = (name: string) => page.getByLabel(`Stock ${name} in this store`, { exact: true })
+  const card = (name: string) => page.locator('.price-edit-card', { has: stockBox(name) })
+  const names = await page.locator('.price-edit-card .stock-checkbox').evaluateAll((boxes) =>
+    boxes.map((box) => (box.getAttribute('aria-label') ?? '').replace(/^Stock (.*) in this store$/, '$1')),
+  )
+  const [first, , , fourth, fifth] = names
+
+  // Click the first card off, then shift-click the fourth: the whole run goes off with it.
+  await expect(stockBox(first)).toBeChecked()
+  const fifthBefore = await stockBox(fifth).isChecked()
+  await card(first).locator('img').click()
+  await card(fourth).locator('img').click({ modifiers: ['Shift'] })
+  for (const name of names.slice(0, 4)) await expect(stockBox(name)).toBeChecked({ checked: false })
+  // The run stops where the shift-click landed.
+  await expect(stockBox(fifth)).toBeChecked({ checked: fifthBefore })
+
+  // A shift-click on a checkbox works the same way, back from the fourth to the first.
+  await stockBox(first).click({ modifiers: ['Shift'] })
+  for (const name of names.slice(0, 4)) await expect(stockBox(name)).toBeChecked()
+})
+
+// -------------------------------------------------------- settings pages
 //
-// The create form and the Edit form are the same form: what a teacher chooses
-// when a store is built can be chosen again at any point afterwards.
+// A new store opens on its settings page, where it is named, coloured and
+// given a sales tax, and its coupons are added on the coupons page.
 
-test('a teacher changes a store settings after it is built', async ({ page, request }) => {
-  const settingsStore = { name: `Room ${run} Settings`, label: 'P5', joinCode: `${prefix}-P5` }
-  await signIn(page, teacher)
+test('a new store is set up on its settings page', async ({ page }) => {
+  await page.goto('/teacher')
+  await page.locator('.store-list-heading').getByRole('button', { name: 'Create' }).click()
 
-  await page.getByRole('button', { name: 'Create New Store' }).click()
-  const form = page.locator('.store-modal')
-  await form.getByLabel('Store name').fill(settingsStore.name)
-  await form.getByLabel('Store code').fill(settingsStore.label)
-  await form.getByLabel('CG Value store brand').check()
-  await form.getByLabel('Use sales tax').check()
-  await form.getByLabel('Default sales tax (%)').fill('8.25')
-  await form.getByLabel('No coupons').check()
-  await page.getByRole('button', { name: 'Create store' }).click()
-  await expect(page.getByRole('heading', { name: 'Prices and stock' })).toBeVisible()
+  // The placeholder name is selected, so typing replaces it.
+  await page.keyboard.type('Settings Store')
+  await page.locator('.color-choice[data-color="purple"]').click()
+  await page.getByLabel('Price only').check()
+  await expect(page.locator('.store-preview-sign')).toHaveText('Settings Store')
+  await expect(page.locator('.store-preview .price-tag-size')).toHaveCount(0)
+  await expect(page.locator('.sidebar-storefront-sign')).toHaveText('Settings Store')
 
-  // Coupons are off, so the teacher is not offered the coupon workshop at all.
-  await expect(page.getByRole('button', { name: 'Coupons' })).toHaveCount(0)
+  await page.getByLabel('Use sales tax').check()
+  await page.getByLabel('Default sales tax (%)').fill('8.25')
+  await page.getByLabel('Default sales tax (%)').blur()
+  await expect.poll(() => readStore(page)).toMatchObject({ n: 'Settings Store', c: 'purple', u: 'off', t: 8.25 })
 
-  const built = await readStore(request, settingsStore.joinCode)
-  expect(built.store.brandMode).toBe('store')
-  expect(built.store.taxEnabled).toBe(true)
-  expect(built.store.salesTax).toBe(8.25)
-  expect(built.store.couponsEnabled).toBe(false)
-  expect(built.items['eggs'].hidden).toBe(true)
-  expect(built.items['eggs-cg'].hidden).toBeFalsy()
+  await page.getByLabel('No sales tax').check()
+  await expect.poll(async () => (await readStore(page)).t).toBeUndefined()
 
-  // Every one of those choices is reopened and reversed, this time on the
-  // store's own settings page rather than in the create dialog.
-  await page.getByRole('button', { name: 'My stores' }).click()
-  await storeCard(page, settingsStore.name).getByRole('button', { name: 'Settings', exact: true }).click()
-  const settingsPage = page.locator('.store-settings-workspace')
-  await expect(settingsPage.getByRole('heading', { name: `Edit ${settingsStore.name}` })).toBeVisible()
-  await expect(settingsPage.getByLabel('Default sales tax (%)')).toHaveValue('8.25')
-  await settingsPage.getByLabel('Name brands').check()
-  await settingsPage.getByLabel('No sales tax').check()
-  await settingsPage.getByLabel('Allow coupons').check()
-  await page.getByRole('button', { name: 'Save changes' }).click()
-  await expect(page.locator('.status-message')).toContainText(`${settingsStore.name} updated.`)
+  // The settings are also a page in the side panel, beside inventory and coupons.
+  const pages = page.locator('.store-sidebar-pages')
+  await pages.getByRole('button', { name: 'Inventory' }).click()
+  await pages.getByRole('button', { name: 'Settings' }).click()
+  await expect(pages.getByRole('button', { name: 'Settings' })).toHaveAttribute('aria-current', 'page')
+  await expect(page.getByLabel('Store name')).toHaveValue('Settings Store')
+})
 
-  const changed = await readStore(request, settingsStore.joinCode)
-  expect(changed.store.brandMode).toBe('name')
-  expect(changed.store.taxEnabled).toBe(false)
-  expect(changed.store.salesTax).toBe(0)
-  expect(changed.store.couponsEnabled).toBe(true)
-  // Changing the brand line restocked the shelves to match.
-  expect(changed.items['eggs'].hidden).toBeFalsy()
-  expect(changed.items['eggs-cg'].hidden).toBe(true)
+test('a coupon is edited in place, and students only see coupons when there are some', async ({ page }) => {
+  await page.goto('/teacher')
+  await page.locator('.store-list-heading').getByRole('button', { name: 'Create' }).click()
+  await page.keyboard.type('Coupon Store')
+
+  // No coupons yet, so students have no coupon button to press.
+  await page.getByRole('button', { name: 'Preview as student' }).click()
+  await expect(page.locator('.coupon-action')).toHaveCount(0)
+  await page.getByRole('button', { name: 'Exit student view' }).click()
+
+  await page.getByRole('button', { name: 'Coupons' }).click()
+  await page.getByRole('button', { name: 'Add your first coupon to get started.' }).click()
+  await page.getByLabel('Coupon code word').fill('FIRST')
+  // The preview is the coupon as it will print.
+  await expect(page.locator('.coupon-editor-preview .coupon-code strong')).toHaveText('FIRST')
+  await page.getByRole('button', { name: 'Create coupon' }).click()
+
+  await page.locator('.coupon-tile').getByRole('button', { name: 'Edit' }).click()
+  await expect(page.getByLabel('Coupon code word')).toHaveValue('FIRST')
+  await page.getByLabel('Coupon code word').fill('SECOND')
+  await page.getByRole('button', { name: 'Save coupon' }).click()
+  await expect(page.locator('.coupon-tile .coupon-code strong')).toHaveText(['SECOND'])
+
+  await page.getByRole('button', { name: 'Preview as student' }).click()
+  await expect(page.locator('.coupon-action')).toBeVisible()
+  await page.getByRole('button', { name: 'Exit student view' }).click()
+
+  await page.getByRole('button', { name: 'Coupons' }).click()
+  await page.getByRole('button', { name: 'Delete coupon SECOND' }).click()
+  await expect(page.locator('.coupon-tile')).toHaveCount(0)
 })

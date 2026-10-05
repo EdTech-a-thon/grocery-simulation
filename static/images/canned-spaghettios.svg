@@ -1,1 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><rect x="38" y="47" width="84" height="122" rx="12" fill="#d75339"/><ellipse cx="80" cy="48" rx="42" ry="10" fill="#d8d9d2"/><text x="80" y="89" text-anchor="middle" font-family="Arial" font-size="15" font-weight="700" fill="#fff">SPAGHETTI-O</text><g fill="none" stroke="#f3c75c" stroke-width="6"><circle cx="60" cy="126" r="9"/><circle cx="80" cy="136" r="9"/><circle cx="100" cy="123" r="9"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="193" rx="44" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M42 40V182A38 8 0 0 0 118 182V40z" fill="#c3cad3"/>
+    <path d="M102 40h16v140h-16z" fill="#98a1ac"/>
+    <path d="M48 46h7v130h-7z" fill="#e7ecf1"/>
+    <path d="M40 176h80v6a40 8 0 0 1-80 0z" fill="#aeb7c1"/>
+    <path d="M104 176h16v6a40 8 0 0 1-16 6.4z" fill="#8d96a1"/>
+    <path d="M43.3 54a36.7 4 0 0 0 73.4 0M43.3 61a36.7 4 0 0 0 73.4 0M43.3 163a36.7 4 0 0 0 73.4 0M43.3 170a36.7 4 0 0 0 73.4 0" fill="none" stroke="#98a1ac" stroke-width="2.5"/>
+    <ellipse cx="80" cy="40" rx="40" ry="9" fill="#e7ecf1"/>
+    <ellipse cx="80" cy="41" rx="34" ry="6.5" fill="#98a1ac"/>
+    <ellipse cx="80" cy="42" rx="31" ry="5" fill="#c3cad3"/>
+    <ellipse cx="80" cy="42" rx="27" ry="4" fill="none" stroke="#aeb7c1" stroke-width="1.5"/>
+    <path d="M76 38h8l1.5 4h-11z" fill="#e7ecf1"/>
+    <ellipse cx="80" cy="44" rx="8" ry="3" fill="none" stroke="#7f8994" stroke-width="2.5"/>
+    <circle cx="80" cy="39" r="1.6" fill="#98a1ac"/>
+  </g><g id="label">
+    <rect x="42" y="70" width="76" height="88" fill="#f7efe2"/>
+  </g><g id="brand">
+    <rect x="42" y="70" width="76" height="88" fill="#1f55b8"/>
+    <path d="M102 70h16v52l-16 4.2z" fill="#18469a"/>
+    <circle cx="80" cy="108" r="30" fill="#2f6fd6"/>
+    <path d="M42 146L118 126V158H42z" fill="#e0382a"/>
+    <path d="M102 130.2L118 126V158H102z" fill="#b82b20"/>
+    <path d="M42 146L118 126" fill="none" stroke="#ffd34d" stroke-width="3"/>
+    <ellipse cx="80" cy="124" rx="35" ry="9" fill="#efd3ab"/>
+    <ellipse cx="80" cy="124.6" rx="32" ry="7.4" fill="#d9482b"/>
+    <path d="M49 124.6C51 112 62 102 80 102S109 112 111 124.6A31 6.4 0 0 1 49 124.6z" fill="#d9482b"/>
+    <path d="M90 102.7C103 107 109 116 111 124.6A31 6.4 0 0 1 96 130C100 122 99 112 90 102.7z" fill="#a8321c"/>
+    <path d="M53 123q3-6 9-8" fill="none" stroke="#f08a6a" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M55.3 120.7a8.2 8.2 0 1 0 16.4 0a8.2 8.2 0 1 0 -16.4 0M72.8 122.2a8.2 8.2 0 1 0 16.4 0a8.2 8.2 0 1 0 -16.4 0M90.3 120.7a8.2 8.2 0 1 0 16.4 0a8.2 8.2 0 1 0 -16.4 0M63.8 108.7a8.2 8.2 0 1 0 16.4 0a8.2 8.2 0 1 0 -16.4 0M81.8 108.7a8.2 8.2 0 1 0 16.4 0a8.2 8.2 0 1 0 -16.4 0" fill="none" stroke="#b9561a" stroke-width="4.6"/>
+    <path d="M54.3 119.5a8.2 8.2 0 1 0 16.4 0a8.2 8.2 0 1 0 -16.4 0M71.8 121a8.2 8.2 0 1 0 16.4 0a8.2 8.2 0 1 0 -16.4 0M89.3 119.5a8.2 8.2 0 1 0 16.4 0a8.2 8.2 0 1 0 -16.4 0M62.8 107.5a8.2 8.2 0 1 0 16.4 0a8.2 8.2 0 1 0 -16.4 0M80.8 107.5a8.2 8.2 0 1 0 16.4 0a8.2 8.2 0 1 0 -16.4 0" fill="none" stroke="#f7a93a" stroke-width="4.6"/>
+    <path d="M54.9 118q1.4-4.6 5.6-5.8M72.4 119.5q1.4-4.6 5.6-5.8M89.9 118q1.4-4.6 5.6-5.8M63.4 106q1.4-4.6 5.6-5.8M81.4 106q1.4-4.6 5.6-5.8" fill="none" stroke="#fdd795" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M69 148h22l2.5 5h-27z" fill="#c09163"/>
+    <path d="M45 124C45 140.1 59 150 80 150S115 140.1 115 124A35 9 0 0 1 45 124z" fill="#e0b98a"/>
+    <path d="M80 150C101 150 115 140.1 115 124A35 9 0 0 1 97.5 131.8C97.5 140.1 90.5 147 80 150z" fill="#c09163"/>
+    <path d="M50 131Q53 142.2 63 146" fill="none" stroke="#f6e2c4" stroke-width="3" stroke-linecap="round"/>
+  </g></svg>

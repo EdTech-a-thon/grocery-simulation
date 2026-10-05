@@ -1,10 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220">
-  <rect x="55" y="47" width="70" height="139" rx="12" fill="#e8792d"/>
-  <rect x="50" y="29" width="80" height="29" rx="8" fill="#35634a"/>
-  <rect x="59" y="64" width="62" height="107" rx="8" fill="#fff7ed"/>
-  <path d="M59 64h62v38H59z" fill="#15803d"/>
-  <text x="90" y="87" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="bold" fill="white">FRESH</text>
-  <path d="M74 121c7-22 26-22 33 0-8 11-24 11-33 0z" fill="#9a3412"/>
-  <path d="M77 119c6-9 19-9 26 0" fill="none" stroke="#fed7aa" stroke-width="4" stroke-linecap="round"/>
-  <text x="90" y="151" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#9a3412">SPICES</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="196" rx="50" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M37 66H123q4 0 4 4V184a10 10 0 0 1-10 10H43a10 10 0 0 1-10-10V70q0-4 4-4z" fill="#dbe7e4"/>
+    <path d="M112 66h11q4 0 4 4V184a10 10 0 0 1-10 10h-7z" fill="#b3c6c2"/>
+    <path d="M36 85Q58 81 80 84T124 84V183a8 8 0 0 1-8 8H44a8 8 0 0 1-8-8z" fill="#b5652b"/>
+    <path d="M110 83.5Q117 83 124 84V183a8 8 0 0 1-8 8h-6z" fill="#8c4a1e"/>
+    <path d="M39 89h5v93h-5z" fill="#f2f8f7"/>
+    <path d="M31 51H129V68a5 5 0 0 1-5 5H36a5 5 0 0 1-5-5z" fill="#b0261f"/>
+    <path d="M112 51h17V68a5 5 0 0 1-5 5h-12z" fill="#8c1c17"/>
+    <path d="M35 57h5v13h-5z" fill="#d1493f"/>
+    <ellipse cx="80" cy="51" rx="49" ry="14" fill="#d1493f"/>
+    <path d="M80 37A49 14 0 0 1 129 51A49 14 0 0 1 80 65z" fill="#c03a30"/>
+    <path d="M80 38v26" fill="none" stroke="#8c1c17" stroke-width="2"/>
+    <path d="M42 47a4 3 0 1 0 8 0a4 3 0 1 0-8 0zM54 44a4 3 0 1 0 8 0a4 3 0 1 0-8 0zM66 47a4 3 0 1 0 8 0a4 3 0 1 0-8 0zM46 56a4 3 0 1 0 8 0a4 3 0 1 0-8 0zM59 57a4 3 0 1 0 8 0a4 3 0 1 0-8 0z" fill="#3a0a08"/>
+    <path d="M99 48h20" fill="none" stroke="#8c1c17" stroke-width="3" stroke-linecap="round"/>
+  </g><g id="label">
+    <rect x="38" y="100" width="84" height="68" rx="4" fill="#f7efe2"/>
+  </g><g id="brand">
+    <rect x="38" y="100" width="84" height="68" rx="4" fill="#1e5a46"/>
+    <path d="M38 152L122 124V139L42 168a4 4 0 0 1-4-4z" fill="#e0a526"/>
+    <ellipse cx="80" cy="134" rx="40" ry="29" fill="#f7efe2"/>
+    <g transform="rotate(-18 80 134)">
+    <path d="M44 122H114V129H44zM42 130.5H112V137.5H42zM46 139H116V146H46z" fill="#a24f26"/>
+    <path d="M44 126.6H114V129H44zM42 135.1H112V137.5H42zM46 143.6H116V146H46z" fill="#753516"/>
+    <path d="M46 124.9H112M44 133.4H110M48 141.9H114" fill="none" stroke="#4f220c" stroke-width="0.9"/>
+    <path d="M47 123.1H111M45 131.6H109M49 140.1H113" fill="none" stroke="#d08a52" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M41.6 125.5a2.4 3.5 0 1 0 4.8 0a2.4 3.5 0 1 0 -4.8 0zM111.6 125.5a2.4 3.5 0 1 0 4.8 0a2.4 3.5 0 1 0 -4.8 0zM39.6 134a2.4 3.5 0 1 0 4.8 0a2.4 3.5 0 1 0 -4.8 0zM109.6 134a2.4 3.5 0 1 0 4.8 0a2.4 3.5 0 1 0 -4.8 0zM43.6 142.5a2.4 3.5 0 1 0 4.8 0a2.4 3.5 0 1 0 -4.8 0zM113.6 142.5a2.4 3.5 0 1 0 4.8 0a2.4 3.5 0 1 0 -4.8 0z" fill="#ecc690"/>
+    <path d="M45.4 123.3A1.9 2.5 0 1 0 44.5 127.6A1.1 1.4 0 1 0 44 125.2M115.4 123.3A1.9 2.5 0 1 0 114.5 127.6A1.1 1.4 0 1 0 114 125.2M43.4 131.8A1.9 2.5 0 1 0 42.5 136.1A1.1 1.4 0 1 0 42 133.7M113.4 131.8A1.9 2.5 0 1 0 112.5 136.1A1.1 1.4 0 1 0 112 133.7M47.4 140.3A1.9 2.5 0 1 0 46.5 144.6A1.1 1.4 0 1 0 46 142.2M117.4 140.3A1.9 2.5 0 1 0 116.5 144.6A1.1 1.4 0 1 0 116 142.2" fill="none" stroke="#6b2f12" stroke-width="0.9" stroke-linecap="round"/>
+    <rect x="74" y="120" width="5" height="28" rx="1.5" fill="#e7c55a"/>
+    <path d="M77.5 120h1.5v28h-1.5z" fill="#b38d22"/>
+    </g>
+  </g></svg>

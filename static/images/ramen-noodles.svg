@@ -1,10 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
-  <path d="M21 23h118l-10 177H31z" fill="#d72e26"/>
-  <path d="M24 23h112l-3 31H27z" fill="#f3b821"/>
-  <text x="80" y="46" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#452116">RAMEN</text>
-  <text x="80" y="79" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#fff">NOODLES</text>
-  <ellipse cx="80" cy="137" rx="46" ry="35" fill="#f7df75"/>
-  <path d="M45 134q9-17 18 0t18 0 18 0 18 0" fill="none" stroke="#e9ad36" stroke-width="8" stroke-linecap="round"/>
-  <path d="M48 151q9-17 18 0t18 0 18 0 18 0" fill="none" stroke="#e9ad36" stroke-width="8" stroke-linecap="round"/>
-  <text x="80" y="183" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#fff">CHICKEN FLAVOR</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="195" rx="61" ry="4.5" fill="#0f172a" opacity="0.08"/>
+    <path d="M30 79L20 79L22.5 83L20 87L22.5 91L20 94.5L22.5 98.5L20 102.5L22.5 106.5L20 110.5L22.5 114.5L20 118.5L22.5 122L20 126L22.5 130L20 134L22.5 138L20 142L22.5 146L20 149.5L22.5 153.5L20 157.5L22.5 161.5L20 165.5L22.5 169.5L20 173.5L22.5 177L20 181L22.5 185L20 189L30 189z" fill="#aab4be"/>
+    <path d="M130 79L140 79L137.5 83L140 87L137.5 91L140 94.5L137.5 98.5L140 102.5L137.5 106.5L140 110.5L137.5 114.5L140 118.5L137.5 122L140 126L137.5 130L140 134L137.5 138L140 142L137.5 146L140 149.5L137.5 153.5L140 157.5L137.5 161.5L140 165.5L137.5 169.5L140 173.5L137.5 177L140 181L137.5 185L140 189L130 189z" fill="#97a2ad"/>
+    <path d="M31 78H129a2 2 0 0 1 2 2V188a2 2 0 0 1 -2 2H31a2 2 0 0 1 -2 -2V80a2 2 0 0 1 2 -2z" fill="#aab4be"/>
+    <path d="M29 186H131V188a2 2 0 0 1 -2 2H31a2 2 0 0 1 -2 -2z" fill="#8c96a1"/>
+    <path d="M32 79H128v1.5H32z" fill="#d7dee4"/>
+    <path d="M26 82V186M23 82V186M134 82V186M137 82V186" fill="none" stroke="#7f8994" stroke-width="1.2" stroke-linecap="round"/>
+  </g><g id="label">
+    <path d="M34 80h92a3 3 0 0 1 3 3v101a3 3 0 0 1 -3 3h-92a3 3 0 0 1 -3 -3v-101a3 3 0 0 1 3 -3z" fill="#f7efe2"/>
+  </g><g id="brand">
+    <path d="M34 80h92a3 3 0 0 1 3 3v101a3 3 0 0 1 -3 3h-92a3 3 0 0 1 -3 -3v-101a3 3 0 0 1 3 -3z" fill="#d0352b"/>
+    <circle cx="78" cy="122" r="38" fill="#f6c22c"/>
+    <path d="M31 148L129 132V184a3 3 0 0 1 -3 3h-92a3 3 0 0 1 -3 -3z" fill="#a82420"/>
+    <path d="M42 141Q36.5 134 44 130Q41.5 122.5 50 121Q50.5 113.5 59 114.5Q62.5 107 70 111Q76 105 82 111Q89.5 107 93 114.5Q101.5 113.5 102 121Q110.5 122.5 108 130Q115.5 134 110 140z" fill="#f2cf6b"/>
+    <path d="M85 111C100 114.5 112.5 124.5 111 141H89C96 130 93.5 119 85 111z" fill="#d9a93f"/>
+    <path d="M44 138q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0M46.5 131q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0M78 123.5q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0M74 117q4 -5.5 7.5 0q4 -5.5 7.5 0q4 -5.5 7.5 0" fill="none" stroke="#c98f2c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="61.5" cy="121.5" rx="11.5" ry="8.5" fill="#fbf7ee"/>
+    <circle cx="61.5" cy="121.5" r="5.5" fill="#f08a1c"/>
+    <circle cx="60" cy="119.5" r="1.6" fill="#fcd28a"/>
+    <path d="M36.5 140H115.5C115.5 159.5 98 169.5 76 169.5S36.5 159.5 36.5 140z" fill="#f4f1ec"/>
+    <path d="M92.5 140H115.5C115.5 159.5 98 169.5 76 169.5C89 163 94.5 152.5 92.5 140z" fill="#d6d1c8"/>
+    <path d="M36.5 140H115.5v4H36.5z" fill="#1f2937"/>
+    <path d="M49.5 139q-3.5 4.5 0 9t0 9M59.5 139q3.5 4.5 0 9t0 9t0 5.5M100 139q3.5 4.5 0 9t0 6.5" fill="none" stroke="#f2cf6b" stroke-width="3.25" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M78 133.5L122 89.5M86 136.5L127.5 95" fill="none" stroke="#6b3e1e" stroke-width="4" stroke-linecap="round"/>
+    <path d="M105.5 104.5L121 89" fill="none" stroke="#a0673a" stroke-width="1.2" stroke-linecap="round"/>
+  </g></svg>

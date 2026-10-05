@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item">
+    <ellipse cx="80" cy="196" rx="60" ry="6" fill="#0f172a" opacity="0.08"/>
+    <g transform="translate(0 4)">
+    <path d="M64 112C78 106 110 112 110 146C110 168 90 180 64 180C38 180 18 168 18 146C18 112 50 106 64 112Z" fill="#e23c2a"/>
+    <path d="M90 110C104 116 110 128 110 146C110 166 94 180 70 180C92 172 102 160 102 144C102 130 98 118 90 110Z" fill="#b82e1f"/>
+    <ellipse cx="32" cy="134" rx="5" ry="11" transform="rotate(35 32 134)" fill="#f6806a"/>
+    <path d="M62 98L68 107L91 107L72 112L80 121L62 116L44 121L52 112L33 107L56 107Z" fill="#3f8f4a"/>
+    <path d="M62 111L68 107L91 107L72 112Z" fill="#2d6f36"/>
+    <path d="M62 111L72 112L80 121L62 116Z" fill="#2d6f36"/>
+    <path d="M59 111L59 101Q62 97 65 101L65 111Z" fill="#2d6f36"/>
+    <ellipse cx="62" cy="100" rx="3" ry="1.6" fill="#6fbf72"/>
+    </g>
+    <ellipse cx="113" cy="160" rx="29" ry="33" fill="#b82e1f"/>
+    <ellipse cx="106" cy="160" rx="36" ry="32" fill="#e8452c"/>
+    <ellipse cx="106" cy="160" rx="30" ry="26" fill="#f26a4c"/>
+    <ellipse cx="116" cy="168" rx="11" ry="8" transform="rotate(45 116 168)" fill="#f9a37c"/>
+    <ellipse cx="96" cy="168" rx="11" ry="8" transform="rotate(-45 96 168)" fill="#f9a37c"/>
+    <ellipse cx="96" cy="152" rx="11" ry="8" transform="rotate(225 96 152)" fill="#f9a37c"/>
+    <ellipse cx="116" cy="152" rx="11" ry="8" transform="rotate(135 116 152)" fill="#f9a37c"/>
+    <ellipse cx="118" cy="166" rx="2.5" ry="2" fill="#fbe3b0"/>
+    <ellipse cx="113" cy="171" rx="2.5" ry="2" fill="#fbe3b0"/>
+    <ellipse cx="99" cy="171" rx="2.5" ry="2" fill="#fbe3b0"/>
+    <ellipse cx="94" cy="166" rx="2.5" ry="2" fill="#fbe3b0"/>
+    <ellipse cx="94" cy="154" rx="2.5" ry="2" fill="#fbe3b0"/>
+    <ellipse cx="99" cy="149" rx="2.5" ry="2" fill="#fbe3b0"/>
+    <ellipse cx="113" cy="149" rx="2.5" ry="2" fill="#fbe3b0"/>
+    <ellipse cx="118" cy="154" rx="2.5" ry="2" fill="#fbe3b0"/>
+    <ellipse cx="106" cy="160" rx="7" ry="6" fill="#fbe3b0"/>
+  </g>
+</svg>

@@ -1,25 +1,23 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
-  import { shop } from '$lib/shop.svelte'
+  import BrandMenu from './BrandMenu.svelte'
+  import LanguagePicker from './LanguagePicker.svelte'
+  import SupportButton from './SupportButton.svelte'
 
-  let { title, role, onHome, nav }: {
-    title: string
-    role: 'teacher' | 'student' | 'class'
+  /** `title` is left out on a page that names itself in its own heading. */
+  let { title = '', onHome, nav }: {
+    title?: string
     onHome: () => void
-    nav: Snippet
+    nav?: Snippet
   } = $props()
 </script>
 
 <header class="app-header">
   <div>
     <button class="brand-button" type="button" onclick={onHome}>
-      <img src="/logo.svg" alt="" width="20" height="20" />ClassGrocery
+      <img src="/logo.svg" alt="" width="26" height="26" />Class Grocery
     </button>
-    <span class="role-chip">{role} view</span>
-    {#if shop.store}
-      <span class="store-chip" data-color={shop.store.color}>{shop.store.name}</span>
-    {/if}
   </div>
-  <h1>{title}</h1>
-  <nav>{@render nav()}</nav>
+  {#if title}<h1>{title}</h1>{:else}<span></span>{/if}
+  <nav>{@render nav?.()}<BrandMenu /><LanguagePicker /><SupportButton inHeader /></nav>
 </header>

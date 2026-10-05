@@ -1,1 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><rect x="29" y="48" width="102" height="127" rx="7" fill="#dc6a4b"/><path d="M29 48h102v27H29z" fill="#f1c448"/><text x="80" y="69" text-anchor="middle" font-family="Arial" font-size="15" font-weight="700" fill="#833b30">DRINK MIX</text><text x="80" y="100" text-anchor="middle" font-family="Arial" font-size="14" font-weight="700" fill="#fff">FRUIT</text><text x="80" y="118" text-anchor="middle" font-family="Arial" font-size="14" font-weight="700" fill="#fff">PUNCH</text><circle cx="80" cy="143" r="15" fill="#efbd3e"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="80" cy="194" rx="58" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M28 56V183A52 10 0 0 0 132 183V56z" fill="#f4f1ec"/>
+    <path d="M112 56h20v127A52 10 0 0 1 112 190.9z" fill="#d6d1c8"/>
+    <path d="M34 60h8v129.8A52 10 0 0 1 34 187.7z" fill="#ffffff"/>
+    <path d="M29.5 179A50.5 9.5 0 0 0 130.5 179" fill="none" stroke="#d6d1c8" stroke-width="2"/>
+    <path d="M25 40V58A55 11 0 0 0 135 58V40z" fill="#f2b632"/>
+    <path d="M117 40h18v18A55 11 0 0 1 117 66.1z" fill="#c98f1c"/>
+    <path d="M30 44h7v18h-7z" fill="#f8d06a"/>
+    <path d="M26 57A54 11 0 0 0 134 57" fill="none" stroke="#c98f1c" stroke-width="2"/>
+    <ellipse cx="80" cy="40" rx="55" ry="11" fill="#f8d06a"/>
+    <ellipse cx="80" cy="40.5" rx="46" ry="8" fill="#f2b632"/>
+  </g><g id="label">
+    <rect x="28" y="78" width="104" height="94" fill="#f7efe2"/>
+  </g><g id="brand">
+    <rect x="28" y="78" width="104" height="94" fill="#6a2c91"/>
+    <path d="M120 78h12v94h-12z" fill="#521f72"/>
+    <circle cx="76" cy="128" r="36" fill="#f6c445"/>
+    <path d="M28 156q26-8 52 0t52 0v16H28z" fill="#f2862e"/>
+    <path d="M58 100L62 160a4 4 0 0 0 4 4h20a4 4 0 0 0 4-4L94 100z" fill="#e4eef3"/>
+    <path d="M88 100h6L90 160a4 4 0 0 1-4 4h-1z" fill="#bed2db"/>
+    <ellipse cx="76" cy="100" rx="18" ry="4" fill="#f6fbfd"/>
+    <path d="M60 108L63.4 158a3 3 0 0 0 3 3h19.2a3 3 0 0 0 3-3L92 108z" fill="#d9323c"/>
+    <path d="M84 108h8L88.6 158a3 3 0 0 1-3 3H82z" fill="#a8202b"/>
+    <ellipse cx="76" cy="108" rx="16" ry="3.5" fill="#ef5a62"/>
+    <rect x="63" y="100" width="13" height="12" rx="3" transform="rotate(-10 69.5 106)" fill="#f6fbfd"/>
+    <rect x="77" y="102" width="12" height="11" rx="3" transform="rotate(12 83 107.5)" fill="#dbe9f0"/>
+    <path d="M65 118L67 152" fill="none" stroke="#f6fbfd" stroke-width="3" stroke-linecap="round"/>
+    <path d="M86 110L99 97" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <path d="M104 146C104 136 108 130 113 126M117 150C117 140 116 132 113 126" fill="none" stroke="#4f6b2a" stroke-width="2" stroke-linecap="round"/>
+    <path d="M97 150a7 7 0 1 0 14 0a7 7 0 1 0-14 0zM110 153a7 7 0 1 0 14 0a7 7 0 1 0-14 0z" fill="#c81d2c"/>
+    <path d="M106 143.5a7 7 0 0 1 0 13c3-4 3-9 0-13zM119 146.5a7 7 0 0 1 0 13c3-4 3-9 0-13z" fill="#8e1420"/>
+    <path d="M100 148a2 2 0 1 0 4 0a2 2 0 1 0-4 0zM113 151a2 2 0 1 0 4 0a2 2 0 1 0-4 0z" fill="#f06a70"/>
+  </g></svg>

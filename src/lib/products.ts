@@ -1,3 +1,9 @@
+import { storeBrandSizeRatio } from './sizes'
+import { isPackagedProduct, nameBrandIdOf, storeBrandIdOf } from './unbranded'
+
+// The store-brand ids live beside the list of products that have a twin.
+export { isStoreBrand, nameBrandIdOf, storeBrandIdOf, storeBrandSuffix } from './unbranded'
+
 export type Product = {
   id: string
   name: string
@@ -385,31 +391,23 @@ const nameBrands: Product[] = [
 
 // --------------------------------------------------- the CG store brand line
 //
-// Every name brand has a ClassGrocery twin: the same product, in the same
-// packaging, carrying the green CG band along the bottom and priced a little
-// lower. It is a separate product with its own id, so a store can carry one
+// Every name brand has a Class Grocery twin: the same product, in the same
+// packaging, carrying the green CG band along the bottom. A third of them come
+// in a smaller package, a third the same size, and a third bigger — see
+// sizes.ts — and the price follows the package. It is a separate product with its own id, so a store can carry one
 // brand, the other, or both side by side, and a receipt can tell them apart.
 //
-// The artwork is generated from the name-brand file by scripts/make-cg-images.mjs.
+// Both packages are cut from one layered drawing by scripts/ship-product-art.mjs.
 
-/** What marks a product id as belonging to the store-brand line. */
-export const storeBrandSuffix = '-cg'
+/**
+ * The store's own brand, written in front of the product's name. It is a brand
+ * name rather than a word, so it reads the same in every language — see
+ * productName() in $lib/i18n.
+ */
+export const storeBrandPrefix = 'CG'
 
-/** A CG item costs 15% less than the name brand beside it. */
+/** How much less a CG item costs than the name brand — see storeBrandPrice(). */
 export const storeBrandDiscount = 0.85
-
-export function isStoreBrand(productId: string) {
-  return productId.endsWith(storeBrandSuffix)
-}
-
-/** 'milk-cg' -> 'milk'. Returns the id unchanged for a name brand. */
-export function nameBrandIdOf(productId: string) {
-  return isStoreBrand(productId) ? productId.slice(0, -storeBrandSuffix.length) : productId
-}
-
-export function storeBrandIdOf(productId: string) {
-  return isStoreBrand(productId) ? productId : productId + storeBrandSuffix
-}
 
 /**
  * The nearest price ending in 9 cents. Every CG Value price goes through this,
@@ -421,21 +419,32 @@ export function priceEndingInNine(price: number) {
   return (dimes * 10 + 9) / 100
 }
 
-/** 15% off the name brand beside it, snapped to a price ending in 9 cents. */
-export function storeBrandPrice(nameBrandPrice: number) {
-  return priceEndingInNine(nameBrandPrice * storeBrandDiscount)
+/**
+ * What a CG twin costs, worked out from the name brand beside it and snapped to
+ * a price ending in 9 cents. A package the same size or bigger is 15% cheaper
+ * per unit, so a bigger one can carry the higher sticker. A smaller package is
+ * 15% cheaper on the sticker, which makes it dearer per unit.
+ */
+export function storeBrandPrice(productId: string, nameBrandPrice: number) {
+  const packageSize = Math.max(storeBrandSizeRatio(nameBrandIdOf(productId)), 1)
+  return priceEndingInNine(nameBrandPrice * packageSize * storeBrandDiscount)
 }
 
 function storeBrandOf(product: Product): Product {
   return {
     id: storeBrandIdOf(product.id),
-    name: `CG ${product.name}`,
-    price: storeBrandPrice(product.price),
+    name: `${storeBrandPrefix} ${product.name}`,
+    price: storeBrandPrice(product.id, product.price),
     image: `/images/cg/${product.id}.svg`,
     note: product.note,
   }
 }
 
-export const products: Product[] = [...nameBrands, ...nameBrands.map(storeBrandOf)]
+// Only packaged products have a store-brand twin. A store brand is printing, and
+// printing needs a package — see unbranded.ts for which products are sold loose.
+export const products: Product[] = [
+  ...nameBrands,
+  ...nameBrands.filter((product) => isPackagedProduct(product.id)).map(storeBrandOf),
+]
 
 export const productById = Object.fromEntries(products.map((product) => [product.id, product]))

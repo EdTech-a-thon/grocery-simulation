@@ -21,3 +21,6 @@ pb_backups/
 playwright-report/
 test-results/
 tsconfig.tsbuildinfo
+
+# Generated product-art review renders; the masters in art/masters are the source.
+art/review/

@@ -1,4 +1,5 @@
 import { productById, storeBrandIdOf, storeBrandPrice } from './products'
+import { isPackagedProduct } from './unbranded'
 import dryGoodsAisle from './aisles/dry-goods.json'
 import cannedAndSaucesAisle from './aisles/canned-and-sauces.json'
 import saucesAndCondimentsAisle from './aisles/sauces-and-condiments.json'
@@ -26,8 +27,8 @@ export type ShelfItem = {
   sale?: boolean
 }
 
-// The product catalog lives in the bundle, not the database. PocketBase only
-// records which of these a store stocks and what it charges for them.
+// The product catalog lives in the bundle. A store only records where it
+// differs from it: which products it stocks and what it charges for them.
 const catalogAisles = [
   dryGoodsAisle, cannedAndSaucesAisle, saucesAndCondimentsAisle, dairyAisle,
   frozenFoodsAisle, bakeryAisle, produceAisle, meatAisle, seafoodAisle,
@@ -39,21 +40,46 @@ function storeBrandTwin(item: AisleItem): AisleItem {
   const twin: AisleItem = { id: storeBrandIdOf(item.id) }
   // An aisle may set its own price (dairy does, for milk). When it has, the
   // twin is discounted from that rather than from the catalog price.
-  if (item.price !== undefined) twin.price = storeBrandPrice(item.price)
+  if (item.price !== undefined) twin.price = storeBrandPrice(item.id, item.price)
   if (item.sale) twin.sale = true
   return twin
 }
 
 /**
- * The shoppable aisles: every product immediately followed by its CG store
- * brand, so the two prices a shopper is choosing between are side by side.
- * Whether a store actually carries either is a separate question — see
- * isStocked() in shop.svelte.ts.
+ * The shoppable aisles: every packaged product immediately followed by its CG
+ * store brand, so the two prices a shopper is choosing between are side by side.
+ * Loose food — fruit, raw cuts, the shop's own bakery — has no own-label twin
+ * and appears once; pairing it with one put a choice on the shelf that no real
+ * shop offers. Whether a store actually carries either is a separate question —
+ * see isStocked() in shop.svelte.ts.
  */
 export const aisles: AisleConfig[] = catalogAisles.map((aisle) => ({
   ...aisle,
-  items: aisle.items.flatMap((item) => [item, storeBrandTwin(item)]),
+  items: aisle.items.flatMap((item) =>
+    isPackagedProduct(item.id) ? [item, storeBrandTwin(item)] : [item],
+  ),
 }))
+
+/** The product whose picture stands for each aisle, keyed by the aisle's English title. */
+const aisleIconProduct: Record<string, string> = {
+  'Dried Goods': 'rice',
+  'Canned Goods': 'soup',
+  'Sauces and Condiments': 'ketchup',
+  'Dairy and Eggs': 'milk',
+  'Frozen foods': 'popsicles',
+  Bakery: 'bread',
+  Produce: 'apple',
+  Meat: 'steak',
+  Seafood: 'shrimp',
+  Beverages: 'lemonade',
+  Snacks: 'popcorn',
+  'Baking Essentials': 'flour',
+}
+
+/** A picture for an aisle, drawn from one of its own products. */
+export function aisleImage(title: string) {
+  return productById[aisleIconProduct[title]]?.image ?? ''
+}
 
 /** How many products fit on one shelf unit (four across and three rows). */
 export const shelfCapacity = 12

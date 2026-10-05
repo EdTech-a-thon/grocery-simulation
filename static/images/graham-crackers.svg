@@ -1,1 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><rect x="29" y="47" width="102" height="128" rx="7" fill="#d9a54b"/><text x="80" y="77" text-anchor="middle" font-family="Arial" font-size="15" font-weight="700" fill="#70482b">HONEY GRAHAM</text><text x="80" y="96" text-anchor="middle" font-family="Arial" font-size="15" font-weight="700" fill="#70482b">CRACKERS</text><g fill="#e9c577" stroke="#b3823b" stroke-width="2"><rect x="46" y="113" width="29" height="38" rx="2"/><rect x="85" y="113" width="29" height="38" rx="2"/></g><g fill="#a87935"><circle cx="55" cy="123" r="2"/><circle cx="67" cy="137" r="2"/><circle cx="94" cy="123" r="2"/><circle cx="106" cy="137" r="2"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220"><g id="item">
+    <ellipse cx="81" cy="196" rx="63" ry="5" fill="#0f172a" opacity="0.08"/>
+    <path d="M121 70L141 60V179Q141 182 139 183L121 192z" fill="#b9b4a8"/>
+    <path d="M21 70L41 60H141L121 70z" fill="#ffffff"/>
+    <path d="M21 70H121V192H24Q21 192 21 189z" fill="#f4f1ec"/>
+    <path d="M22.5 72h3v116h-3z" fill="#ffffff"/>
+    <path d="M33 65H128M122.5 76L140 66M122.5 185L140 175" fill="none" stroke="#a39e92" stroke-width="2" stroke-linecap="round"/>
+    <path d="M22 70H121L141 60M121 70V192M24 192H121L139 183" fill="none" stroke="#8f8a7e" stroke-width="1" stroke-linejoin="round"/>
+  </g><g id="label">
+    <rect x="27" y="78" width="88" height="108" rx="3" fill="#f7efe2"/>
+  </g><g id="brand">
+    <rect x="27" y="78" width="88" height="108" rx="3" fill="#f2b51d"/>
+    <path d="M71 128L78.5 78L115 78L115 83.5zM71 128L115 120.5L115 150zM71 128L101 186L62 186zM71 128L27 172.5L27 135.5zM71 128L27 106L27 78L45 78z" fill="#f6c84e"/>
+    <path d="M27 164H115V183a3 3 0 0 1-3 3H30a3 3 0 0 1-3-3z" fill="#c8312b"/>
+    <path d="M34 101Q33.5 98 36.5 98L68.5 94.5Q71 94 71.5 97L78 161Q78.5 164 75.5 164L43.5 167.5Q41 168 40.5 165z" fill="#6e3f1a"/>
+    <path d="M32 98Q31.5 95 34.5 95L66.5 91.5Q69 91 69.5 94L76 158Q76.5 161 73.5 161L41.5 164.5Q39 165 38.5 162z" fill="#a8672f"/>
+    <path d="M34.5 99.5Q34 97.5 36 97L65 94Q67 94 67 96L73.5 156.5Q74 158.5 72 159L43 162Q41 162 41 160z" fill="#c98f55"/>
+    <path d="M36 130L72 126" fill="none" stroke="#8a5a2e" stroke-width="2.5"/>
+    <path d="M43.5 117.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM51.5 116.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM59 115.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM42 105a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM50 104.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM58 103.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM46 140.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM53.5 139.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM61.5 138.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM47 152.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM55 151.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM63 151a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0z" fill="#a8672f"/>
+    <path d="M73 102Q73 99 76 99L108 101Q111 101.5 110.5 104.5L106 168Q106 171 103 171L71 169Q68 168.5 68.5 165.5z" fill="#6e3f1a"/>
+    <path d="M71 99Q71 96 74 96L106 98Q109 98.5 108.5 101.5L104 165Q104 168 101 168L69 166Q66 165.5 66.5 162.5z" fill="#a8672f"/>
+    <path d="M73 100.5Q73.5 98.5 75.5 98.5L104 100.5Q106 100.5 106 102.5L102 163.5Q101.5 165.5 99.5 165.5L71 163.5Q69 163.5 69 161.5z" fill="#c98f55"/>
+    <path d="M69.5 130.5L105.5 133.5" fill="none" stroke="#8a5a2e" stroke-width="2.5"/>
+    <path d="M79 120a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM87 120.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM95 121a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM79.5 107.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM87.5 108.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM95.5 109a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM77 143a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM85 143.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM93 144a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM76.5 155a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM84.5 155.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0zM92.5 156.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0z" fill="#a8672f"/>
+  </g></svg>

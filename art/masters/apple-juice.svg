@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g id="item">
+    <ellipse cx="80" cy="195" rx="38" ry="4.5" fill="#0f172a" opacity="0.08"/>
+    <path d="M68 46H92C92 54 112 56 112 72V80C112 86 106 90 106 96C106 102 112 106 112 112V184a10 10 0 0 1-10 10H58a10 10 0 0 1-10-10V112C48 106 54 102 54 96C54 90 48 86 48 80V72C48 56 68 54 68 46Z" fill="#e39b2d"/>
+    <path d="M103.5 57.1C107.95 60.4 112 64.8 112 72V80C112 86 106 90 106 96C106 102 112 106 112 112V184a10 10 0 0 1-10 10H96a6 6 0 0 0 6-6V112C102 106 96 102 96 96C96 90 102 86 102 80V72C102 66 101 61 99 57.1Z" fill="#c07a1a"/>
+    <path d="M68 38h24v8C92 50.4 98.05 53 103.5 57.1H56.5C61.95 53 68 50.4 68 46z" fill="#e4eef3"/>
+    <path d="M86 38h6v8C92 50.4 98.05 53 103.5 57.1H91C88 54 86 50 86 46z" fill="#bed2db"/>
+    <path d="M56 61C52 64 51.5 68 51.5 72V82H55V72C55 68 56.5 65 59 62z" fill="#f6c768"/>
+    <rect x="51.5" y="114" width="3.5" height="66" rx="1.75" fill="#f6c768"/>
+    <path d="M55 86Q80 92 105 86M55 106Q80 100 105 106" fill="none" stroke="#c07a1a" stroke-width="2" stroke-linecap="round"/>
+    <rect x="63" y="34" width="34" height="4" rx="1.5" fill="#e4eef3"/>
+    <path d="M88 34h7.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5H88z" fill="#bed2db"/>
+    <path d="M69 18h22a3 3 0 0 1 3 3v13H66V21a3 3 0 0 1 3-3z" fill="#3a8a46"/>
+    <path d="M88 18h3a3 3 0 0 1 3 3v13h-6z" fill="#2b6a35"/>
+    <rect x="68.5" y="21" width="3" height="12" rx="1" fill="#63b06a"/>
+    <path d="M75 21v11M80 21v11M85 21v11" fill="none" stroke="#2b6a35" stroke-width="1.4"/>
+  </g>
+  <g id="label">
+    <rect x="50" y="118" width="60" height="58" rx="3" fill="#f7efe2"/>
+  </g>
+  <g id="brand">
+    <rect x="50" y="118" width="60" height="58" rx="3" fill="#1f5fae"/>
+    <circle cx="80" cy="142" r="22" fill="#3d7bd0"/>
+    <path d="M50 160C58 152 66 162 74 156C82 150 90 160 98 154C102 151 106 152 110 154V173a3 3 0 0 1-3 3H53a3 3 0 0 1-3-3Z" fill="#e39b2d"/>
+    <path d="M50 165C58 160 66 168 74 163C82 158 90 166 98 161C102 159 106 160 110 161V173a3 3 0 0 1-3 3H53a3 3 0 0 1-3-3Z" fill="#c07a1a"/>
+    <path d="M52 158C58 154 64 158 70 157M80 153C86 151 90 156 96 154" fill="none" stroke="#f6c768" stroke-width="2" stroke-linecap="round"/>
+    <path d="M80 132C74 127 63 128 63 141C63 152 70 160 76 160C78 160 79 159 80 159C81 159 82 160 84 160C90 160 97 152 97 141C97 128 86 127 80 132Z" fill="#d32f2f"/>
+    <path d="M86 130C93 131 97 135 97 141C97 152 90 160 84 160C82 160 81 159 80 159C89 153 93 142 86 130Z" fill="#a51f24"/>
+    <ellipse cx="70" cy="139" rx="3" ry="5" fill="#ef7a6c"/>
+    <path d="M80 132C80 128 81 125 83 123" fill="none" stroke="#6b3f1f" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M82 127C84 120 91 119 95 121C92 127 87 129 82 127Z" fill="#3f9a3a"/>
+    <path d="M82 127C87 125 91 123 95 121C92 127 87 129 82 127Z" fill="#2c7a2b"/>
+    <path d="M56.2 148a2 2 0 1 0 4 0a2 2 0 1 0-4 0zM100.8 146a2.2 2.2 0 1 0 4.4 0a2.2 2.2 0 1 0-4.4 0z" fill="#e39b2d"/>
+  </g>
+  <g id="brand-cg">
+    <rect x="50" y="118" width="60" height="58" rx="3" fill="#ffffff"/>
+    <path d="M53 118h54a3 3 0 0 1 3 3v9H50v-9a3 3 0 0 1 3-3z" fill="#15803d"/>
+    <path d="M50 130h60v2H50z" fill="#facc15"/>
+    <path d="M56 121h9l4 3-4 3h-9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" fill="#ffffff"/>
+    <circle cx="58" cy="124" r="1" fill="#15803d"/>
+    <path d="M58 165C64 160 72 163 80 161C88 159 96 160 102 165C96 169 64 169 58 165Z" fill="#e39b2d"/>
+    <path d="M80 165C88 163 96 163 102 165C96 169 84 169 80 165Z" fill="#c07a1a"/>
+    <path d="M80 140C74 135 63 136 63 149C63 159 70 166 76 166C78 166 79 165 80 165C81 165 82 166 84 166C90 166 97 159 97 149C97 136 86 135 80 140Z" fill="#d32f2f"/>
+    <path d="M86 138C93 139 97 143 97 149C97 159 90 166 84 166C82 166 81 165 80 165C89 160 93 150 86 138Z" fill="#a51f24"/>
+    <path d="M80 140C80 137 81 135 82.5 133.5" fill="none" stroke="#6b3f1f" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M82 136C84 130 90 129 94 131C91 136 86 138 82 136Z" fill="#3f9a3a"/>
+    <path d="M56 170h48v3H56z" fill="#15803d"/>
+  </g>
+</svg>

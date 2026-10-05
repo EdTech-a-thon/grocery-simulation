@@ -1,8 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 
-// Both servers must be running:
-//   ./pocketbase serve --hooksDir=pb_hooks --migrationsDir=pb_migrations
-//   bun run dev
+// The web app must already be running; point BASE_URL at it.
 export default defineConfig({
   testDir: './tests',
   timeout: 60_000,
@@ -12,6 +10,8 @@ export default defineConfig({
   use: {
     baseURL: process.env.BASE_URL || 'http://127.0.0.1:8000',
     trace: 'retain-on-failure',
+    // Copy buttons write to the clipboard, which a test browser blocks unless asked.
+    permissions: ['clipboard-read', 'clipboard-write'],
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
 })
