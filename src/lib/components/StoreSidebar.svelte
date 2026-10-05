@@ -45,7 +45,6 @@
   <!-- The whole shopfront is the way into the store's settings; the gear says so. -->
   <button
     class="sidebar-storefront"
-    class:active={page === 'settings'}
     type="button"
     title={t('teacher.settingsTitle')}
     aria-label={`${t('teacher.settingsTitle')}: ${shop.store?.name ?? ''}`}

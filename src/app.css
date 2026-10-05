@@ -1890,7 +1890,6 @@ p {
 /* A little shopfront in the store's colour, with its name on the sign. */
 .store-sidebar .sidebar-storefront { position: relative; width: auto; margin: 10px 4px 16px; padding: 48px 10px 0; border: 2px solid transparent; cursor: pointer; transition: border-color .15s, transform .15s; border-radius: var(--radius-lg); background: linear-gradient(180deg, #a9ddf5 0 86%, #4baa63 86%); display: grid; justify-items: center; gap: 0; }
 .store-sidebar .sidebar-storefront:hover { background: linear-gradient(180deg, #a9ddf5 0 86%, #4baa63 86%); border-color: #86c79a; transform: translateY(-1px); }
-.store-sidebar .sidebar-storefront.active { border-color: #15803d; }
 .sidebar-storefront-sign, .sidebar-storefront-window { display: block; }
 .sidebar-storefront-sign { position: relative; z-index: 1; max-width: 100%; margin-bottom: -8px; border: 4px solid #fff; border-radius: 10px; padding: 6px 12px; background: var(--store-color); color: var(--store-ink, #fff); font-size: .95rem; font-weight: 1000; line-height: 1.15; text-align: center; text-shadow: var(--store-ink-shadow, 0 1px 2px rgba(0,0,0,.25)); overflow-wrap: anywhere; }
 .sidebar-storefront-awning { width: 100%; height: 26px; display: flex; overflow: hidden; border-radius: 8px 8px 0 0; background: #fff; }
@@ -1901,7 +1900,7 @@ p {
 .sidebar-storefront-door { height: 84px; border: 3px solid var(--store-color); border-bottom: 0; border-radius: 7px 7px 0 0; background: linear-gradient(90deg, #e6f4ea 0 47%, #fff 47% 53%, #e6f4ea 53%); display: grid; justify-items: center; align-content: start; padding-top: 9px; }
 .sidebar-storefront-door span { border-radius: 4px; padding: 3px 4px; background: #fff; color: #14532d; font-size: .5rem; font-weight: 1000; letter-spacing: .04em; line-height: 1.1; text-align: center; text-transform: uppercase; box-shadow: 0 1px 3px rgba(0,0,0,.15); }
 .sidebar-storefront-gear { position: absolute; top: 8px; right: 8px; z-index: 2; width: 34px; height: 34px; border-radius: 50%; background: #fff; color: #31533b; display: grid; place-items: center; box-shadow: 0 1px 4px rgba(0,0,0,.15); }
-.sidebar-storefront:hover .sidebar-storefront-gear, .sidebar-storefront.active .sidebar-storefront-gear { background: #dcfce7; color: #14532d; }
+.sidebar-storefront:hover .sidebar-storefront-gear { background: #dcfce7; color: #14532d; }
 .store-sidebar-pages { display: grid; gap: 2px; }
 .store-sidebar-pages button.active { background: #dcfce7; color: #14532d; }
 .store-sidebar-actions { margin-top: auto; padding-top: 14px; border-top: 1px solid #e4ece6; display: grid; gap: 6px; }
