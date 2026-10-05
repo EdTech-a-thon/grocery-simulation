@@ -1,14 +1,19 @@
-import { isStoreBrand, nameBrandIdOf } from './products'
+import { isStoreBrand, nameBrandIdOf } from './unbranded'
 
 // How much is in each package, so a shopper can work out a unit price.
 //
 // Without a size, the cheaper sticker always looks like the better buy, and a
-// class learns to grab the lowest number on the shelf. A real store brand is
-// often cheaper *and* smaller: the box costs less, but each ounce costs more.
-// So a CG Value twin comes in the same size as the name brand unless it is
-// listed in `storeBrandSizes` below, where its package is smaller — cheaper on
-// the sticker, dearer per unit. That gives students both kinds of comparison
-// on the same shelf, and only arithmetic tells them which is which.
+// class learns to grab the lowest number on the shelf — or, with CG Value
+// beside every name brand, learns to grab CG every time. So the CG line comes
+// in three kinds of package, about a third each:
+//
+//   - smaller: cheaper on the sticker, dearer per unit
+//   - the same size: a little cheaper, both on the sticker and per unit
+//   - bigger: dearer on the sticker, cheaper per unit
+//
+// Only the unit price tells a shopper which deal is which, and the bigger
+// packages ask a second question: is the better deal worth the money now?
+// storeBrandPrice() in products.ts sets each price from its package.
 //
 // A teacher can change any product's size for their own store; these are the
 // sizes a store starts with. The units are US customary, like the dollars, and
@@ -95,12 +100,14 @@ const nameBrandSizes: Record<string, string> = {
 }
 
 /**
- * The CG Value packages that are smaller than the name brand's. Each one is
- * cheaper on the sticker but costs more per unit. A few are only just worse —
- * cheese sticks, waffles, coffee, cookies — so rounding too early gets them
- * wrong. Run `bun run check:sizes` after editing to see the list.
+ * The CG Value packages that differ from the name brand's, in the same unit.
+ * Anything not listed here is the same size. Run `bun run check:sizes` after
+ * editing to see every pair and how many of each kind there are.
  */
 const storeBrandSizes: Record<string, string> = {
+  // Smaller: cheaper on the sticker, dearer per unit. A few are only just worse
+  // — cheese sticks, waffles, coffee, cookies — so rounding too early gets them
+  // wrong.
   'cereal': '12 oz', 'oatmeal': '8 ct', 'breakfast-bars': '6 ct', 'rice': '1.5 lb',
   'boxed-mashed-potatoes': '8 oz', 'raisins': '12 oz', 'baked-beans': '16 oz', 'apple-sauce': '15 oz',
   'pasta-sauce': '16 oz', 'pickles': '16 oz', 'hot-sauce': '5 fl oz', 'ketchup': '20 oz',
@@ -112,12 +119,36 @@ const storeBrandSizes: Record<string, string> = {
   'soda-can': '8 ct', 'apple-juice': '46 fl oz', 'coffee': '10 oz', 'potato-chips': '6 oz',
   'crackers': '9 oz', 'cookies': '11 oz', 'cheese-crackers': '7 oz', 'sugar': '2 lb',
   'chocolate-chips': '9 oz', 'oil': '32 fl oz', 'vanilla-extract': '1 fl oz',
+
+  // Bigger: the family size, the club pack, the tub instead of the cup. Dearer
+  // on the sticker, cheaper per unit.
+  'granola': '18 oz', 'pancake-mix': '48 oz', 'pasta': '32 oz', 'tree-nuts-peanuts': '24 oz',
+  'beans': '29 oz', 'soup': '22.6 oz', 'canned-fruit': '29 oz',
+  'salad-dressing': '24 fl oz', 'bbq-sauce': '28 oz', 'mayonnaise': '48 fl oz', 'mustard': '20 oz',
+  'honey': '24 oz', 'eggs': '18 ct', 'sour-cream': '24 oz', 'cottage-cheese': '24 oz',
+  'almond-milk': '96 fl oz', 'mozzarella-cheese': '16 oz', 'yogurt': '32 oz', 'butter': '16 oz',
+  'breakfast-sandwich': '8 ct', 'frozen-fries': '48 oz', 'ice-cream': '64 fl oz', 'popsicles': '24 ct',
+  'english-muffins': '12 ct', 'hotdog-buns': '12 ct', 'hamburger-buns': '12 ct', 'bagels': '12 ct',
+  'bacon': '24 oz', 'sausage-links': '24 oz', 'hot-dogs': '16 ct', 'canned-tuna': '12 oz',
+  'orangejuice': '89 fl oz', 'water': '35 ct', 'lemonade': '89 fl oz', 'cranberry-juice': '64 fl oz',
+  'tea': '40 ct', 'tortilla-chips': '18 oz', 'pretzels': '24 oz', 'popcorn': '6 ct',
+  'flour': '10 lb', 'powdered-sugar': '4 lb', 'baking-soda': '32 oz', 'marshmallows': '16 oz',
 }
 
 /** '12.5 fl oz' -> { amount: 12.5, unit: 'fl oz' } */
 function parseSize(text: string): PackageSize {
   const [amount, ...unit] = text.split(' ')
   return { amount: Number(amount), unit: unit.join(' ') as SizeUnit }
+}
+
+/**
+ * How a CG package compares with the name brand's: 0.5 for half as much, 1 for
+ * the same, 2 for twice as much. A product with no twin, or no size, is 1.
+ */
+export function storeBrandSizeRatio(nameBrandId: string) {
+  const name = nameBrandSizes[nameBrandId]
+  const twin = storeBrandSizes[nameBrandId]
+  return name && twin ? parseSize(twin).amount / parseSize(name).amount : 1
 }
 
 /** The size a store starts with for a product, before any teacher changes it. */

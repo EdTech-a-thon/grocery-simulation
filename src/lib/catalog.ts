@@ -40,7 +40,7 @@ function storeBrandTwin(item: AisleItem): AisleItem {
   const twin: AisleItem = { id: storeBrandIdOf(item.id) }
   // An aisle may set its own price (dairy does, for milk). When it has, the
   // twin is discounted from that rather than from the catalog price.
-  if (item.price !== undefined) twin.price = storeBrandPrice(item.price)
+  if (item.price !== undefined) twin.price = storeBrandPrice(item.id, item.price)
   if (item.sale) twin.sale = true
   return twin
 }

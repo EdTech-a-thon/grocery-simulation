@@ -445,10 +445,10 @@ test('stocking CG products puts them beside the name brands, priced off this sto
 
   await openAsStudent(page, studentLinkFrom(page))
   await goToAisle(page, 'Dairy and Eggs')
-  // 15% under the catalog's $1.59 is $1.3515, snapped to the nearest price
-  // ending in 9 cents.
+  // CG eggs come by the 18, so 15% under the catalog's $1.59 a dozen is
+  // $2.03, snapped to the nearest price ending in 9 cents.
   await expect(page.getByRole('button', { name: /^Add Eggs for \$1\.59/ })).toBeVisible()
-  await expect(page.getByRole('button', { name: /^Add CG Eggs for \$1\.39/ })).toBeVisible()
+  await expect(page.getByRole('button', { name: /^Add CG Eggs for \$1\.99/ })).toBeVisible()
   // Milk is $9.99 in this store, and its CG twin follows that price.
   await expect(page.getByRole('button', { name: /^Add CG Milk for \$8\.49/ })).toBeVisible()
 })
@@ -467,16 +467,16 @@ test('a teacher changes a package size, and students compare unit prices', async
 
   await openTeacherPage(page)
   await stock(page, 'Dairy and Eggs', ['CG Eggs'])
-  await expect(page.getByLabel('Package size for CG Eggs')).toHaveValue('12')
+  await expect(page.getByLabel('Package size for CG Eggs')).toHaveValue('18')
   await page.getByLabel('Package size for CG Eggs').fill('6')
   await page.getByLabel('Package size for CG Eggs').blur()
   await expect.poll(() => readStore(page)).toMatchObject({ z: { 'eggs-cg': [6, 'ct'] } })
   expect((await readStore(page)).u).toBeUndefined()
 
-  // Half the eggs for $0.20 less: cheaper on the sticker, dearer per egg.
+  // The teacher's six eggs keep the price of the usual eighteen: dearer per egg.
   const student = await studentInDairy()
   await expect(student.getByRole('button', { name: 'Add Eggs for $1.59, 12 ct, $0.13 each' })).toBeVisible()
-  await expect(student.getByRole('button', { name: 'Add CG Eggs for $1.39, 6 ct, $0.23 each' })).toBeVisible()
+  await expect(student.getByRole('button', { name: 'Add CG Eggs for $1.99, 6 ct, $0.33 each' })).toBeVisible()
   await student.close()
 
   // Sizes only: the class works the unit price out for itself.
@@ -484,16 +484,16 @@ test('a teacher changes a package size, and students compare unit prices', async
   await page.getByLabel('Price and size', { exact: true }).check()
   await expect.poll(async () => (await readStore(page)).u).toBe('size')
   const sizesOnly = await studentInDairy()
-  await expect(sizesOnly.getByRole('button', { name: 'Add CG Eggs for $1.39, 6 ct', exact: true })).toBeVisible()
+  await expect(sizesOnly.getByRole('button', { name: 'Add CG Eggs for $1.99, 6 ct', exact: true })).toBeVisible()
   await expect(sizesOnly.locator('.price-tag-unit')).toHaveCount(0)
   await sizesOnly.close()
 
-  // Clearing the size goes back to the usual dozen.
+  // Clearing the size goes back to the usual eighteen.
   await page.getByRole('button', { name: 'Inventory' }).click()
   await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await page.getByLabel('Package size for CG Eggs').fill('')
   await page.getByLabel('Package size for CG Eggs').blur()
-  await expect(page.getByLabel('Package size for CG Eggs')).toHaveValue('12')
+  await expect(page.getByLabel('Package size for CG Eggs')).toHaveValue('18')
   await expect.poll(async () => (await readStore(page)).z).toBeUndefined()
 })
 

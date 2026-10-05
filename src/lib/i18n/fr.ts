@@ -229,7 +229,7 @@ const fr: LanguagePack = {
     'prices.cgTag': 'CG Value',
     'prices.cgInfoButton': 'Qu’est-ce que CG Value ?',
     'prices.cgInfoTitle': 'CG Value : la marque de Class Grocery',
-    'prices.cgInfoBody': 'CG veut dire Class Grocery. Comme la marque d’un supermarché, chaque produit CG Value est une version moins chère d’un produit de marque : les élèves comparent les deux et décident si la marque vaut son prix.',
+    'prices.cgInfoBody': 'CG veut dire Class Grocery. Comme la marque d’un supermarché, chaque produit CG Value est une version d’un produit de marque. Un tiers vient dans un emballage plus petit, un tiers de la même taille et un tiers plus grand : le prix le plus bas n’est donc pas toujours la meilleure affaire. Les élèves comparent le prix à l’unité et décident si la marque vaut son prix.',
     'prices.cgInfoClose': 'Compris',
     'prices.priceLabel': 'Prix de {name}',
     'prices.stockLabel': 'Mettre {name} en rayon dans ce magasin',

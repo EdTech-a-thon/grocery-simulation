@@ -149,7 +149,7 @@ export function priceFor(item: AisleItem) {
   const prices = shop.store?.prices ?? {}
   if (item.id in prices) return prices[item.id]
   const nameBrandId = nameBrandIdOf(item.id)
-  if (isStoreBrand(item.id) && nameBrandId in prices) return storeBrandPrice(prices[nameBrandId])
+  if (isStoreBrand(item.id) && nameBrandId in prices) return storeBrandPrice(nameBrandId, prices[nameBrandId])
   return item.price ?? catalogPrice(item.id)
 }
 

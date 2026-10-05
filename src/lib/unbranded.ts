@@ -45,3 +45,19 @@ export const unbranded = new Set([
 export function isPackagedProduct(id: string) {
   return !unbranded.has(id)
 }
+
+/** What marks a product id as belonging to the store-brand line. */
+export const storeBrandSuffix = '-cg'
+
+export function isStoreBrand(productId: string) {
+  return productId.endsWith(storeBrandSuffix)
+}
+
+/** 'milk-cg' -> 'milk'. Returns the id unchanged for a name brand. */
+export function nameBrandIdOf(productId: string) {
+  return isStoreBrand(productId) ? productId.slice(0, -storeBrandSuffix.length) : productId
+}
+
+export function storeBrandIdOf(productId: string) {
+  return isStoreBrand(productId) ? productId : productId + storeBrandSuffix
+}

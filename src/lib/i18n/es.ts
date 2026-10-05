@@ -228,7 +228,7 @@ const es: LanguagePack = {
     'prices.cgTag': 'CG Value',
     'prices.cgInfoButton': '¿Qué es CG Value?',
     'prices.cgInfoTitle': 'CG Value: la marca propia de Class Grocery',
-    'prices.cgInfoBody': 'CG significa Class Grocery. Como la marca propia de un supermercado, cada producto CG Value es una versión más barata de un producto de marca, para que los estudiantes comparen los dos y decidan si vale la pena pagar por la marca.',
+    'prices.cgInfoBody': 'CG significa Class Grocery. Como la marca propia de un supermercado, cada producto CG Value es una versión de un producto de marca. Un tercio viene en un envase más pequeño, un tercio del mismo tamaño y un tercio más grande, así que el precio más bajo no siempre es la mejor compra: los estudiantes comparan el precio por unidad y deciden si vale la pena pagar por la marca.',
     'prices.cgInfoClose': 'Entendido',
     'prices.priceLabel': 'Precio de {name}',
     'prices.stockLabel': 'Tener {name} en esta tienda',

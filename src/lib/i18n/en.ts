@@ -257,7 +257,7 @@ const en: LanguagePack = {
     'prices.cgTag': 'CG Value',
     'prices.cgInfoButton': 'What is CG Value?',
     'prices.cgInfoTitle': 'CG Value: the Class Grocery store brand',
-    'prices.cgInfoBody': 'CG stands for Class Grocery. Like a supermarket’s own brand, each CG Value product is a cheaper version of a name-brand product, so students can compare the two and decide whether the brand is worth paying for.',
+    'prices.cgInfoBody': 'CG stands for Class Grocery. Like a supermarket’s own brand, each CG Value product is a version of a name-brand product. A third come in a smaller package, a third the same size, and a third bigger, so the cheaper sticker is not always the better deal: students compare unit prices and decide whether the brand is worth paying for.',
     'prices.cgInfoClose': 'Got it',
     'prices.priceLabel': 'Price for {name}',
     'prices.stockLabel': 'Stock {name} in this store',
