@@ -7,7 +7,7 @@
 export type LanguagePack = {
   /** What this language calls itself, for the picker. */
   name: string
-  /** Text direction of the whole page: 'ltr' for all three languages today. */
+  /** Text direction of the whole page: 'ltr' for every language today. */
   dir: 'ltr' | 'rtl'
   /** The BCP 47 tag that goes on <html lang>, so screen readers read it right. */
   locale: string

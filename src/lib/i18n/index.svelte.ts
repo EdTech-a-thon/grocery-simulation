@@ -1,4 +1,4 @@
-// Everything the app needs to speak another language. To add a fourth language,
+// Everything the app needs to speak another language. To add another language,
 // copy en.ts, translate the right-hand side, and add it to `languages` below —
 // no component needs to change.
 //
@@ -7,12 +7,13 @@
 import en from './en'
 import es from './es'
 import fr from './fr'
+import de from './de'
 import { isStoreBrand, nameBrandIdOf, storeBrandPrefix } from '../products'
 import { money } from '../shop.svelte'
 import { unitPrice, unitPriceBasisOf, type PackageSize } from '../sizes'
 import type { LanguagePack } from './types'
 
-const languages: Record<string, LanguagePack> = { en, es, fr }
+const languages: Record<string, LanguagePack> = { en, es, fr, de }
 
 const STORAGE_KEY = 'classgrocery-language'
 
@@ -78,7 +79,7 @@ export function t(key: string, values: Record<string, string | number> = {}) {
 
 /**
  * The one-or-many form of a string, for the handful of sentences that count
- * something: `cart.count.one` and `cart.count.other`. All three languages agree
+ * something: `cart.count.one` and `cart.count.other`. All four languages agree
  * that one is one and everything else is plural, so this is as much rule as the
  * app needs — a language that splits plurals further would need more.
  */

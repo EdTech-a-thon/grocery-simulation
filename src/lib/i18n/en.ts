@@ -145,8 +145,8 @@ const en: LanguagePack = {
     'coupon.percentOff': '{amount}% off',
     'coupon.dollarsOff': '{amount} off',
     // What a coupon offers, said as one phrase. The two halves cannot simply be
-    // stuck together with a space in every language — Spanish and French both
-    // want a preposition between them — so the joining is part of the sentence.
+    // stuck together with a space in every language — Spanish, French and German
+    // all want a preposition between them — so the joining is part of the sentence.
     'coupon.offer': '{discount} {item}',
 
     // ------------------------------------------------------ receipt
