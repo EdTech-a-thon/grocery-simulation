@@ -519,6 +519,20 @@ test('a teacher changes a package size, and students compare unit prices', async
   await expect.poll(async () => (await readStore(page)).z).toBeUndefined()
 })
 
+// Some things are sold by the pack, and their tags say so.
+test('a teacher sells a product by the pack', async ({ page }) => {
+  await openTeacherPage(page)
+  await stock(page, 'Dairy and Eggs', ['CG Eggs'])
+  await page.getByLabel('Package size for CG Eggs').fill('2')
+  await page.getByLabel('Package size for CG Eggs').blur()
+  await page.getByLabel('Unit for CG Eggs').selectOption('pk')
+  await expect.poll(() => readStore(page)).toMatchObject({ z: { 'eggs-cg': [2, 'pk'] } })
+
+  await openAsStudent(page, studentLinkFrom(page))
+  await goToAisle(page, 'Dairy and Eggs')
+  await expect(page.getByRole('button', { name: 'Add CG Eggs for $1.99, 2 pk, $1.00 per pk' })).toBeVisible()
+})
+
 // A metric store stocks round metric packages at the same prices, 4 L of milk
 // for a gallon, and prices them per 100 g or 100 mL, as shelf tags in metric
 // countries do. Counted things stay counted.
@@ -535,7 +549,7 @@ test('a teacher switches the store to metric units', async ({ page, browser }) =
   await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await expect(page.getByLabel('Package size for Milk', { exact: true })).toHaveValue('4')
   await expect(page.getByLabel('Unit for Milk', { exact: true })).toHaveValue('L')
-  await expect(page.getByLabel('Unit for Milk', { exact: true }).locator('option')).toHaveText(['g', 'kg', 'mL', 'L', 'ct'])
+  await expect(page.getByLabel('Unit for Milk', { exact: true }).locator('option')).toHaveText(['g', 'kg', 'mL', 'L', 'ct', 'pk'])
   await page.getByLabel('Package size for Milk', { exact: true }).fill('3.5')
   await page.getByLabel('Package size for Milk', { exact: true }).blur()
   await expect.poll(() => readStore(page)).toMatchObject({ z: { milk: [3.5, 'L'] } })

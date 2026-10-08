@@ -114,9 +114,10 @@ export function productNote(productId: string) {
 
 /**
  * The unit price on a shelf tag: "$0.27/oz", "$0.94/100 g", or "$0.40 each"
- * for things counted rather than weighed. `spoken` gives the screen-reader
- * wording, "$0.27 per oz", which the tag has no room for on a phone. The unit
- * itself is not translated: oz and g read the same in every language.
+ * for things counted rather than weighed, or "$3.50/pk" for things sold by the
+ * pack. `spoken` gives the screen-reader wording, "$0.27 per oz", which the tag
+ * has no room for on a phone. The unit itself is not translated: oz and g read
+ * the same in every language.
  */
 export function unitPriceText(price: number, size: PackageSize, spoken = false) {
   const value = money(unitPrice(price, size))

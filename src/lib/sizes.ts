@@ -23,7 +23,9 @@ import { isStoreBrand, nameBrandIdOf } from './unbranded'
 
 export const usUnits = ['oz', 'fl oz', 'lb', 'gal'] as const
 export const metricUnits = ['g', 'kg', 'mL', 'L'] as const
-export const sizeUnits = [...usUnits, ...metricUnits, 'ct'] as const
+/** Units for things sold by the piece rather than weighed: a count, or a pack. */
+export const countUnits = ['ct', 'pk'] as const
+export const sizeUnits = [...usUnits, ...metricUnits, ...countUnits] as const
 export type SizeUnit = (typeof sizeUnits)[number]
 export type PackageSize = { amount: number; unit: SizeUnit }
 
@@ -32,7 +34,7 @@ export type Measure = 'us' | 'metric'
 
 /** The units a teacher can pick from: a metric store has no use for ounces. */
 export function unitsFor(measure: Measure): readonly SizeUnit[] {
-  return measure === 'metric' ? [...metricUnits, 'ct'] : sizeUnits
+  return measure === 'metric' ? [...metricUnits, ...countUnits] : sizeUnits
 }
 
 export function isSizeUnit(value: unknown): value is SizeUnit {
@@ -250,7 +252,7 @@ export function baseMetricAmount(size: PackageSize) {
   return size.unit === 'kg' || size.unit === 'L' ? size.amount * 1000 : size.amount
 }
 
-/** '18 oz', '1 gal', '12 ct', '510 g' */
+/** '18 oz', '1 gal', '12 ct', '2 pk', '510 g' */
 export function formatSize(size: PackageSize) {
   return `${Number(size.amount.toFixed(2))} ${size.unit}`
 }
@@ -266,6 +268,7 @@ const unitPriceBasis: Record<SizeUnit, { per: string; inOneUnit: number }> = {
   'lb': { per: 'lb', inOneUnit: 1 },
   'gal': { per: 'gal', inOneUnit: 1 },
   'ct': { per: 'ct', inOneUnit: 1 },
+  'pk': { per: 'pk', inOneUnit: 1 },
   'g': { per: '100 g', inOneUnit: 0.01 },
   'kg': { per: '100 g', inOneUnit: 10 },
   'mL': { per: '100 mL', inOneUnit: 0.01 },
