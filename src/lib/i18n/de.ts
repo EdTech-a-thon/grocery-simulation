@@ -161,6 +161,7 @@ const de: LanguagePack = {
     'teacher.couponsTitle': 'Gutscheine',
     'teacher.settingsTitle': 'Ladeneinstellungen',
     'teacher.settingsNav': 'Einstellungen',
+    'teacher.advancedTitle': 'Erweiterte Einstellungen',
     'teacher.studentView': 'Schüleransicht',
     'teacher.exitStudentView': 'Schüleransicht verlassen',
 
@@ -221,6 +222,9 @@ const de: LanguagePack = {
     'settings.roundTo': 'Auf {amount} runden',
     'settings.roundedTo': 'Alle Preise sind auf {amount} gerundet.',
     'settings.undoRounding': 'Rückgängig',
+    'settings.moneyStyle': 'Preisformat',
+    'settings.advanced': 'Erweiterte Einstellungen',
+    'settings.advancedHelp': 'Produkte umbenennen',
 
     'color.green': 'Grün',
     'color.blue': 'Blau',
@@ -229,6 +233,18 @@ const de: LanguagePack = {
     'color.yellow': 'Gelb',
     'color.pink': 'Rosa',
     'color.red': 'Rot',
+
+    'advanced.back': 'Zurück zu den Einstellungen',
+    'advanced.productNamesTitle': 'Produktnamen',
+    'advanced.productNamesHelp':
+      'Nennen Sie jedes Produkt so, wie Ihre Klasse es nennt. Die Schülerinnen und Schüler sehen Ihren Namen im Regal, im Einkaufswagen und auf dem Kassenbon, in jeder Sprache. Die CG-Version bekommt denselben Namen. Lassen Sie ein Feld leer, um den ursprünglichen Namen zu behalten.',
+    'advanced.search': 'Produkt suchen',
+    'advanced.newName': 'Neuer Name für {name}',
+    'advanced.reset': 'Rückgängig',
+    'advanced.resetName': 'Ursprünglichen Namen für {name} verwenden',
+    'advanced.renamedCount.one': '{count} Produkt umbenannt',
+    'advanced.renamedCount.other': '{count} Produkte umbenannt',
+    'advanced.noMatches': 'Keine passenden Produkte.',
 
     'prices.aisleListTitle': 'Gänge',
     'prices.renameAisle': 'Gang umbenennen',
