@@ -1,8 +1,8 @@
 <script lang="ts">
   import { couponDiscountLabel } from '$lib/coupons'
-  import { productName, t } from '$lib/i18n/index.svelte'
+  import { t } from '$lib/i18n/index.svelte'
   import type { Receipt } from '$lib/receipt'
-  import { money } from '$lib/shop.svelte'
+  import { money, productNameFor } from '$lib/shop.svelte'
 
   let { receipt }: { receipt: Receipt } = $props()
 </script>
@@ -11,7 +11,7 @@
   {#each receipt.lines as line (line.item.key)}
     <div class="receipt-item">
       <div class="receipt-row receipt-item-row">
-        <span class="receipt-item-name">{productName(line.item.id)}</span>
+        <span class="receipt-item-name">{productNameFor(line.item.id)}</span>
         <span class="receipt-item-count">{line.item.quantity} &times; {money(line.item.price)}</span>
         <strong>{money(line.lineTotal)}</strong>
       </div>

@@ -29,6 +29,7 @@ type PackedStore = {
   s?: Record<string, 0 | 1>
   z?: Record<string, [number, string]>
   a?: Record<string, string>
+  i?: Record<string, string>
   q?: Array<[string, 'p' | 'd', number, string]>
 }
 
@@ -518,6 +519,20 @@ test('a teacher changes a package size, and students compare unit prices', async
   await expect.poll(async () => (await readStore(page)).z).toBeUndefined()
 })
 
+// Some things are sold by the pack, and their tags say so.
+test('a teacher sells a product by the pack', async ({ page }) => {
+  await openTeacherPage(page)
+  await stock(page, 'Dairy and Eggs', ['CG Eggs'])
+  await page.getByLabel('Package size for CG Eggs').fill('2')
+  await page.getByLabel('Package size for CG Eggs').blur()
+  await page.getByLabel('Unit for CG Eggs').selectOption('pk')
+  await expect.poll(() => readStore(page)).toMatchObject({ z: { 'eggs-cg': [2, 'pk'] } })
+
+  await openAsStudent(page, studentLinkFrom(page))
+  await goToAisle(page, 'Dairy and Eggs')
+  await expect(page.getByRole('button', { name: 'Add CG Eggs for $1.99, 2 pk, $1.00 per pk' })).toBeVisible()
+})
+
 // A metric store stocks round metric packages at the same prices, 4 L of milk
 // for a gallon, and prices them per 100 g or 100 mL, as shelf tags in metric
 // countries do. Counted things stay counted.
@@ -534,7 +549,7 @@ test('a teacher switches the store to metric units', async ({ page, browser }) =
   await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
   await expect(page.getByLabel('Package size for Milk', { exact: true })).toHaveValue('4')
   await expect(page.getByLabel('Unit for Milk', { exact: true })).toHaveValue('L')
-  await expect(page.getByLabel('Unit for Milk', { exact: true }).locator('option')).toHaveText(['g', 'kg', 'mL', 'L', 'ct'])
+  await expect(page.getByLabel('Unit for Milk', { exact: true }).locator('option')).toHaveText(['g', 'kg', 'mL', 'L', 'ct', 'pk'])
   await page.getByLabel('Package size for Milk', { exact: true }).fill('3.5')
   await page.getByLabel('Package size for Milk', { exact: true }).blur()
   await expect.poll(() => readStore(page)).toMatchObject({ z: { milk: [3.5, 'L'] } })
@@ -602,6 +617,42 @@ test('a teacher renames an aisle, and students see the new name', async ({ page 
   await openAsStudent(page, link)
   await goToAisle(page, 'Milk & Cheese')
   await expect(page.getByRole('button', { name: /Add Milk for/ })).toBeVisible()
+})
+
+test('a teacher renames a product in advanced settings, and students see the new name', async ({ page }) => {
+  await openTeacherPage(page)
+  await stock(page, 'Dairy and Eggs', ['CG Eggs'])
+  await page.getByRole('button', { name: 'Settings' }).click()
+  await page.getByRole('button', { name: /^Advanced settings/ }).click()
+  await expect(page.getByRole('heading', { name: 'Product names' })).toBeVisible()
+
+  await page.getByPlaceholder('Find a product').fill('egg')
+  await page.getByLabel('New name for Eggs', { exact: true }).fill('Farm Eggs')
+  await page.getByLabel('New name for Eggs', { exact: true }).press('Enter')
+  await expect(page.getByText('1 product renamed')).toBeVisible()
+  await expect.poll(async () => (await readStore(page)).i).toEqual({ eggs: 'Farm Eggs' })
+
+  // The teacher's own lists use the new name too.
+  await page.getByRole('button', { name: 'Inventory' }).click()
+  await expect(page.getByLabel('Stock Farm Eggs in this store')).toBeChecked()
+  await expect(page.getByLabel('Stock CG Farm Eggs in this store')).toBeChecked()
+
+  // Students see it on the shelf, for the name brand and its CG twin alike.
+  const link = studentLinkFrom(page)
+  await openAsStudent(page, link)
+  await goToAisle(page, 'Dairy and Eggs')
+  await expect(page.getByRole('button', { name: /^Add Farm Eggs for/ })).toBeVisible()
+  await expect(page.getByRole('button', { name: /^Add CG Farm Eggs for/ })).toBeVisible()
+
+  // Undo puts the catalog's name back, and nothing is stored for it.
+  await page.goto(link.replace('/shop#', '/teacher#'))
+  await page.getByRole('button', { name: 'Settings' }).click()
+  await page.getByRole('button', { name: /^Advanced settings/ }).click()
+  await page.getByRole('button', { name: 'Use the original name for Eggs' }).click()
+  await expect(page.getByLabel('New name for Eggs', { exact: true })).toHaveValue('')
+  await expect.poll(async () => (await readStore(page)).i).toBeUndefined()
+  await page.getByRole('button', { name: 'Back to settings' }).click()
+  await expect(page.getByLabel('Store name')).toBeVisible()
 })
 
 test('shift-click puts a whole run of products on or off the shelves', async ({ page }) => {

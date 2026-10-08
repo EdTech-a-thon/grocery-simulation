@@ -133,14 +133,30 @@ export function maxPrice(code: string) {
 // Prices are written the way the currency's own country writes them, whatever
 // language the page is in, so a mixed-language class sees the same figures on
 // the same shelf. The narrow symbol is the one a local shop prints: "kr", not
-// "ISK". Every price on a shelf goes through here, so formatters are kept.
+// "ISK". A teacher whose class writes the money another way (5,43 $ in Quebec,
+// not $5.43) picks one of the money styles below instead. Every price on a
+// shelf goes through here, so formatters are kept.
 const formatters = new Map<string, Intl.NumberFormat>()
 
-function formatter(code: string, decimals = decimalsOf(code)) {
-  const key = `${code}:${decimals}`
+/**
+ * Where the money styles come from: one locale for each common way of writing
+ * an amount, so the teacher picks what the class writes rather than a country.
+ * Spanish and Polish are left out because they drop the thousands separator
+ * from 1234, which would look like a style of its own.
+ */
+export const moneyStyleLocales = ['en-US', 'de-DE', 'fr-FR', 'de-AT', 'de-CH', 'fr-CH', 'en-ZA']
+
+/** Whether a store may write its prices in this locale's style: the empty string is the currency's own. */
+export function isMoneyStyle(value: unknown): value is string {
+  return value === '' || moneyStyleLocales.includes(value as string)
+}
+
+function formatter(code: string, decimals = decimalsOf(code), style = '') {
+  const locale = style || currencyOf(code).locale
+  const key = `${code}:${decimals}:${locale}`
   let format = formatters.get(key)
   if (!format) {
-    format = new Intl.NumberFormat(currencyOf(code).locale, {
+    format = new Intl.NumberFormat(locale, {
       style: 'currency',
       currency: code,
       currencyDisplay: 'narrowSymbol',
@@ -155,21 +171,51 @@ function formatter(code: string, decimals = decimalsOf(code)) {
 
 /**
  * `wholeWithoutCents` writes a whole amount as "76 Kč" rather than "76,00 Kč",
- * for round numbers and for stores rounded to whole units.
+ * for round numbers and for stores rounded to whole units. `style` is the
+ * store's money style, a locale from moneyStyleLocales; left empty, the
+ * currency is written as its own country writes it.
  */
-export function formatMoney(value: number, code: string, wholeWithoutCents = false) {
-  return formatter(code, wholeWithoutCents && Number.isInteger(value) ? 0 : undefined).format(value)
+export function formatMoney(value: number, code: string, wholeWithoutCents = false, style = '') {
+  return formatter(code, wholeWithoutCents && Number.isInteger(value) ? 0 : undefined, style).format(value)
 }
 
 /** The sign that goes beside a price box: '$', '€', '¥', 'kr'... */
-export function currencySymbol(code: string) {
-  return formatter(code).formatToParts(0).find((part) => part.type === 'currency')?.value ?? code
+export function currencySymbol(code: string, style = '') {
+  return formatter(code, undefined, style).formatToParts(0).find((part) => part.type === 'currency')?.value ?? code
 }
 
 /** Whether the sign comes after the number, as in 3,45 € or 425 kr. */
-export function symbolAfterNumber(code: string) {
-  const parts = formatter(code).formatToParts(1).map((part) => part.type)
+export function symbolAfterNumber(code: string, style = '') {
+  const parts = formatter(code, undefined, style).formatToParts(1).map((part) => part.type)
   return parts.indexOf('currency') > parts.indexOf('integer')
+}
+
+/**
+ * The ways a teacher can have this currency written, each shown as 1234.50
+ * would read in it: the currency's own way first (style ''), then each other
+ * style that reads differently. Styles that come out the same are offered once.
+ */
+export function moneyStylesFor(code: string) {
+  const styles: Array<{ style: string; example: string }> = []
+  for (const style of ['', ...moneyStyleLocales]) {
+    const example = moneyStyleExample(code, style)
+    if (!styles.some((other) => other.example === example)) styles.push({ style, example })
+  }
+  return styles
+}
+
+/**
+ * The style moneyStylesFor() lists for a store's chosen one. A style picked
+ * for another currency can write this one the same way as an earlier style,
+ * and only that earlier one is listed.
+ */
+export function listedMoneyStyle(code: string, style: string) {
+  const example = moneyStyleExample(code, style)
+  return moneyStylesFor(code).find((option) => option.example === example)?.style ?? ''
+}
+
+function moneyStyleExample(code: string, style: string) {
+  return formatMoney(decimalsOf(code) ? 1234.5 : 1234, code, false, style)
 }
 
 /** The currency's own name in the page's language: "euro", "yen japonés"... */

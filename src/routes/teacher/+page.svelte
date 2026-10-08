@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { replaceState } from '$app/navigation'
+  import AdvancedSettings from '$lib/components/AdvancedSettings.svelte'
   import AppHeader from '$lib/components/AppHeader.svelte'
   import CouponStudio from '$lib/components/CouponStudio.svelte'
   import Inventory from '$lib/components/Inventory.svelte'
@@ -16,8 +17,11 @@
   import { newStore, type Store } from '$lib/store'
   import { teacher, type StorePage } from '$lib/teacher.svelte'
 
-  /** The store list and the student's-eye view, plus a store's own three pages. */
-  type Screen = 'stores' | 'student-view' | StorePage
+  /**
+   * The store list and the student's-eye view, plus a store's own three pages
+   * and the advanced settings, which open from its settings page.
+   */
+  type Screen = 'stores' | 'student-view' | StorePage | 'advanced'
 
   let screen = $state<Screen>('stores')
   let loading = $state(true)
@@ -126,7 +130,7 @@
   <main class="teacher-shell store-shell">
     {@render header()}
     <div class="store-layout">
-      <StoreSidebar page={screen} onGo={show} onBack={showStores} {onViewAsStudent} />
+      <StoreSidebar page={screen === 'advanced' ? 'settings' : screen} onGo={show} onBack={showStores} {onViewAsStudent} />
       <div class="store-main">
         <!-- The side panel shows which page this is; the heading says it to a screen reader. -->
         <h1 class="visually-hidden">{t(`teacher.${screen}Title`)}</h1>
@@ -134,8 +138,10 @@
           <Inventory />
         {:else if screen === 'coupons'}
           <CouponStudio />
+        {:else if screen === 'advanced'}
+          <AdvancedSettings onBack={() => show('settings')} />
         {:else}
-          <StoreSettings isNew={justCreated} />
+          <StoreSettings isNew={justCreated} onAdvanced={() => show('advanced')} />
         {/if}
       </div>
     </div>

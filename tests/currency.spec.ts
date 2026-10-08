@@ -4,7 +4,7 @@ import { test, expect, type Page } from '@playwright/test'
 // converted at fixed rates, and so are the prices a teacher typed in.
 
 /** The store as it stands in the page's address, in its packed form (see packStore). */
-async function readStore(page: Page): Promise<{ e?: string; r?: 1; p?: Record<string, number> }> {
+async function readStore(page: Page): Promise<{ e?: string; l?: string; r?: 1; p?: Record<string, number> }> {
   return page.evaluate(async () => {
     const text = location.hash.slice(1)
     const binary = atob(text.replace(/-/g, '+').replace(/_/g, '/'))
@@ -85,4 +85,35 @@ test('a store in another currency can round every price to its round number', as
   await roundToTenCents.click()
   await page.getByRole('button', { name: 'Undo' }).click()
   await expect.poll(async () => (await readStore(page)).r).toBeUndefined()
+})
+
+test('a teacher can write the store’s money the way the class does', async ({ page }) => {
+  await page.goto('/teacher')
+  await page.locator('.store-list-heading').getByRole('button', { name: 'Create' }).click()
+  await page.getByLabel('Store name').fill('Épicerie')
+  const pages = page.locator('.store-sidebar-pages')
+
+  await pages.getByRole('button', { name: 'Settings' }).click()
+  await page.getByLabel('Currency').selectOption('CAD')
+  const style = page.getByLabel('Price format')
+  await expect(style.locator('option:checked')).toHaveText('$1,234.50')
+
+  // A class in Quebec writes Canadian dollars with a decimal comma and the sign after.
+  await style.selectOption({ label: '1 234,50 $' })
+  await expect.poll(() => readStore(page)).toMatchObject({ e: 'CAD', l: 'fr-FR' })
+  await expect(page.locator('.store-preview .price-tag').first()).toContainText(/^\d+,\d\d\s\$/)
+
+  await pages.getByRole('button', { name: 'Inventory' }).click()
+  await page.getByRole('button', { name: 'Dairy and Eggs' }).click()
+  await expect(page.locator('.teacher-money-input').first()).toContainText('$')
+
+  // The style is the class's habit, so it stays with a new currency.
+  await pages.getByRole('button', { name: 'Settings' }).click()
+  await page.getByLabel('Currency').selectOption('USD')
+  await expect(page.locator('.store-preview .price-tag').first()).toContainText(/^\d+,\d\d\s\$/)
+
+  // Going back to the usual way leaves nothing in the link.
+  await style.selectOption({ index: 0 })
+  await expect.poll(async () => (await readStore(page)).l).toBeUndefined()
+  await expect(page.locator('.store-preview .price-tag').first()).toContainText(/^\$\d+\.\d\d/)
 })

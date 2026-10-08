@@ -1,5 +1,5 @@
 import { aisles } from './catalog'
-import { convert, currencyOf, isCurrencyCode, maxPrice, roundToRoundNumber } from './currency'
+import { convert, currencyOf, isCurrencyCode, isMoneyStyle, maxPrice, roundToRoundNumber } from './currency'
 import { productById, isStoreBrand, nameBrandIdOf } from './products'
 import { isSizeUnit, type Measure, type PackageSize } from './sizes'
 import { isPackagedProduct } from './unbranded'
@@ -42,6 +42,12 @@ export type Store = {
   measure: Measure
   /** The ISO code of the money every price in this store is in — see currency.ts. */
   currency: string
+  /**
+   * How the class writes money, as a locale from moneyStyleLocales: 'fr-FR'
+   * for 5,43 $. Empty for the way the currency's own country writes it. It
+   * stays when the currency changes, since it is the class's habit, not the money's.
+   */
+  moneyStyle: string
   /** Whether every price is snapped to the currency's round number (0,10 €, ¥10...) — see roundPrices(). */
   rounded: boolean
   couponsEnabled: boolean
@@ -64,6 +70,12 @@ export type Store = {
    * teacher's own words, so they show as typed in every language.
    */
   aisleNames: Record<string, string>
+  /**
+   * Products the teacher renamed, by the name brand's id. The CG twin takes the
+   * same name with the brand in front, and like aisle names these show as typed
+   * in every language.
+   */
+  productNames: Record<string, string>
   coupons: Coupon[]
 }
 
@@ -71,7 +83,7 @@ export type Store = {
 export type StoreSettings = Pick<Store, 'name' | 'color' | 'brandMode' | 'unitPricing' | 'measure' | 'currency' | 'couponsEnabled' | 'taxEnabled' | 'salesTax'>
 
 export function newStore(settings: StoreSettings): Store {
-  return { ...settings, rounded: false, prices: {}, stocked: {}, sizes: {}, aisleNames: {}, coupons: [] }
+  return { ...settings, moneyStyle: '', rounded: false, prices: {}, stocked: {}, sizes: {}, aisleNames: {}, productNames: {}, coupons: [] }
 }
 
 /**
@@ -86,6 +98,9 @@ export function stockedByDefault(brandMode: BrandMode, productId: string) {
 
 /** Long enough for "Breakfast & Cereal", short enough to fit the aisle sign. */
 export const maxAisleNameLength = 30
+
+/** Long enough for "Chocolate Chip Cookies", short enough for a shelf tag. */
+export const maxProductNameLength = 30
 
 export function newCouponCode() {
   // Keep printed codes short and unambiguous for students to type.
@@ -167,6 +182,8 @@ export type PackedStore = {
   m?: 'metric'
   /** The currency code. Omitted for US dollars. */
   e?: string
+  /** The money style's locale. Omitted for the currency's own way of writing it. */
+  l?: string
   /** Present only when prices are rounded to the currency's round number. */
   r?: 1
   /** The sales tax rate; present only when the store charges tax. */
@@ -178,6 +195,8 @@ export type PackedStore = {
   z?: Record<string, [amount: number, unit: string]>
   /** Renamed aisles, by English title. */
   a?: Record<string, string>
+  /** Renamed products, by name-brand id. */
+  i?: Record<string, string>
   q?: PackedCoupon[]
 }
 
@@ -188,6 +207,7 @@ export function packStore(store: Store): PackedStore {
   if (store.unitPricing !== 'unit') packed.u = store.unitPricing
   if (store.measure !== 'us') packed.m = store.measure
   if (store.currency !== 'USD') packed.e = store.currency
+  if (store.moneyStyle) packed.l = store.moneyStyle
   if (store.rounded) packed.r = 1
   if (store.taxEnabled) packed.t = store.salesTax
   if (!store.couponsEnabled) packed.x = 1
@@ -199,6 +219,7 @@ export function packStore(store: Store): PackedStore {
     packed.z = Object.fromEntries(Object.entries(store.sizes).map(([id, size]) => [id, [size.amount, size.unit]]))
   }
   if (Object.keys(store.aisleNames).length) packed.a = { ...store.aisleNames }
+  if (Object.keys(store.productNames).length) packed.i = { ...store.productNames }
   if (store.coupons.length) {
     packed.q = store.coupons.map((coupon) => [
       coupon.code, coupon.discountType === 'dollars' ? 'd' : 'p', coupon.discountAmount, coupon.productId,
@@ -251,6 +272,14 @@ export function unpackStore(value: unknown): Store | null {
     }
   }
 
+  const productNames: Record<string, string> = {}
+  if (isRecord(value.i)) {
+    for (const [id, productName] of Object.entries(value.i)) {
+      const trimmed = typeof productName === 'string' ? productName.trim().slice(0, maxProductNameLength) : ''
+      if (trimmed && productById[id] && !isStoreBrand(id)) productNames[id] = trimmed
+    }
+  }
+
   const coupons: Coupon[] = []
   if (Array.isArray(value.q)) {
     for (const entry of value.q) {
@@ -267,6 +296,7 @@ export function unpackStore(value: unknown): Store | null {
     unitPricing: value.u === 'size' || value.u === 'off' ? value.u : 'unit',
     measure: value.m === 'metric' ? 'metric' : 'us',
     currency,
+    moneyStyle: isMoneyStyle(value.l) ? value.l : '',
     rounded: value.r === 1,
     couponsEnabled: value.x !== 1,
     taxEnabled: salesTax !== null,
@@ -275,6 +305,7 @@ export function unpackStore(value: unknown): Store | null {
     stocked,
     sizes,
     aisleNames,
+    productNames,
     coupons,
   }
 }

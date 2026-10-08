@@ -2,8 +2,8 @@
   import { untrack } from 'svelte'
   import PrintableCoupon from '$lib/components/PrintableCoupon.svelte'
   import { currencyOf, currencySymbol, decimalsOf, fromDollars, maxPrice } from '$lib/currency'
-  import { productName, t } from '$lib/i18n/index.svelte'
-  import { shop, stockedProductIds } from '$lib/shop.svelte'
+  import { t } from '$lib/i18n/index.svelte'
+  import { productNameFor, shop, stockedProductIds } from '$lib/shop.svelte'
   import { addCoupon, type Coupon } from '$lib/store'
 
   /**
@@ -95,14 +95,14 @@
             max={inDollars ? maxPrice(currency) : 100}
             step={inDollars ? currencyOf(currency).step : 1}
           />
-          <span class="field-suffix">{inDollars ? currencySymbol(currency) : '%'}</span>
+          <span class="field-suffix">{inDollars ? currencySymbol(currency, shop.store?.moneyStyle) : '%'}</span>
         </label>
         <label>
           {t('coupons.appliesTo')}
           <select required bind:value={productId}>
             <option value="all">{t('coupons.entirePurchase')}</option>
             {#each stockedProductIds() as id (id)}
-              <option value={id}>{productName(id)}</option>
+              <option value={id}>{productNameFor(id)}</option>
             {/each}
           </select>
         </label>

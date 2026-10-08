@@ -1,7 +1,7 @@
 import { cart, type CartLine } from './cart.svelte'
-import { money } from './shop.svelte'
+import { money, productNameFor } from './shop.svelte'
 import { couponDiscountLabel, discountFor } from './coupons'
-import { productName, t } from './i18n/index.svelte'
+import { t } from './i18n/index.svelte'
 import type { Coupon } from './store'
 
 export type ReceiptCoupon = { coupon: Coupon; amount: number }
@@ -44,7 +44,7 @@ export function receiptText() {
   const receipt = buildReceipt()
   const rows = [t('receipt.textHeading'), '']
   for (const line of receipt.lines) {
-    rows.push(`${productName(line.item.id)}  ${line.item.quantity} x ${money(line.item.price)} = ${money(line.lineTotal)}`)
+    rows.push(`${productNameFor(line.item.id)}  ${line.item.quantity} x ${money(line.item.price)} = ${money(line.lineTotal)}`)
     for (const entry of line.coupons) rows.push(`   ${entry.coupon.code}  ${couponDiscountLabel(entry.coupon)}: -${money(entry.amount)}`)
   }
   for (const entry of receipt.purchaseCoupons) {
