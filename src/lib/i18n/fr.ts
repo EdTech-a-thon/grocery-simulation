@@ -222,6 +222,7 @@ const fr: LanguagePack = {
     'settings.roundTo': 'Arrondir à {amount}',
     'settings.roundedTo': 'Tous les prix sont arrondis à {amount}.',
     'settings.undoRounding': 'Annuler',
+    'settings.moneyStyle': 'Format des prix',
     'settings.advanced': 'Paramètres avancés',
     'settings.advancedHelp': 'Renommer les produits',
 

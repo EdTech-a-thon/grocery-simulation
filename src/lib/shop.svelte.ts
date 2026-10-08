@@ -179,12 +179,13 @@ export function snapPrice(productId: string, price: number) {
 }
 
 /**
- * An amount of money as the open store writes it: $3.49, 3,10 €, ¥550. A store
- * rounded to whole units drops the empty cents, so it reads 76 Kč, not 76,00 Kč.
+ * An amount of money as the open store writes it: $3.49, 3,10 €, ¥550, or in
+ * the money style the teacher chose. A store rounded to whole units drops the
+ * empty cents, so it reads 76 Kč, not 76,00 Kč.
  */
 export function money(value: number) {
   const currency = shop.store?.currency ?? 'USD'
-  return formatMoney(value, currency, Boolean(shop.store?.rounded) && currencyOf(currency).roundTo >= 1)
+  return formatMoney(value, currency, Boolean(shop.store?.rounded) && currencyOf(currency).roundTo >= 1, shop.store?.moneyStyle)
 }
 
 /** What the open store calls an aisle: the teacher's name for it, or the catalog's in the reader's language. */

@@ -28,9 +28,9 @@
   const count = $derived(stockCount(aisle.items))
   const units = $derived(unitsFor(shop.store?.measure ?? 'us'))
   const currency = $derived(shop.store?.currency ?? 'USD')
-  // The sign sits where the country prints it: $3.49, but 3,49 €.
-  const symbol = $derived(currencySymbol(currency))
-  const symbolAfter = $derived(symbolAfterNumber(currency))
+  // The sign sits where the store writes it: $3.49, but 3,49 €.
+  const symbol = $derived(currencySymbol(currency, shop.store?.moneyStyle))
+  const symbolAfter = $derived(symbolAfterNumber(currency, shop.store?.moneyStyle))
   const priceStep = $derived(shop.store ? priceStepOf(shop.store) : 0.01)
 
   function changePrice(productId: string, value: string) {

@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import Icon from '$lib/components/Icon.svelte'
   import StorePreview from '$lib/components/StorePreview.svelte'
-  import { currencies, currencyName, currencyOf, formatMoney } from '$lib/currency'
+  import { currencies, currencyName, currencyOf, formatMoney, listedMoneyStyle, moneyStylesFor } from '$lib/currency'
   import { current, t } from '$lib/i18n/index.svelte'
   import { shop, syncCartToStore } from '$lib/shop.svelte'
   import { changeCurrency, roundPrices, storeColors, type UnitPricing } from '$lib/store'
@@ -49,7 +49,13 @@
   }
 
   /** The currency's round number as a price, for the rounding button: '¥10', '0,10 €'. */
-  const roundNumber = $derived(shop.store ? formatMoney(currencyOf(shop.store.currency).roundTo, shop.store.currency, true) : '')
+  const roundNumber = $derived(
+    shop.store ? formatMoney(currencyOf(shop.store.currency).roundTo, shop.store.currency, true, shop.store.moneyStyle) : '',
+  )
+
+  // Each way of writing the store's money, shown as an amount written that way.
+  const moneyStyles = $derived(shop.store ? moneyStylesFor(shop.store.currency) : [])
+  const chosenMoneyStyle = $derived(shop.store ? listedMoneyStyle(shop.store.currency, shop.store.moneyStyle) : '')
 
   /** The rate students practise with at checkout; turning tax off forgets it. */
   function setTax(enabled: boolean, rateText = String(shop.store?.salesTax ?? 0)) {
@@ -109,6 +115,12 @@
           {/if}
         </div>
       {/if}
+      <label>
+        {t('settings.moneyStyle')}
+        <select value={chosenMoneyStyle} onchange={(event) => shop.store && (shop.store.moneyStyle = event.currentTarget.value)}>
+          {#each moneyStyles as option (option.style)}<option value={option.style}>{option.example}</option>{/each}
+        </select>
+      </label>
 
       <fieldset>
         <legend>{t('settings.tax')}</legend>

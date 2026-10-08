@@ -249,6 +249,7 @@ const en: LanguagePack = {
     'settings.roundTo': 'Round to {amount}',
     'settings.roundedTo': 'Every price is rounded to {amount}.',
     'settings.undoRounding': 'Undo',
+    'settings.moneyStyle': 'Price format',
     'settings.advanced': 'Advanced settings',
     'settings.advancedHelp': 'Rename products',
 

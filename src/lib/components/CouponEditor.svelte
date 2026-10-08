@@ -95,7 +95,7 @@
             max={inDollars ? maxPrice(currency) : 100}
             step={inDollars ? currencyOf(currency).step : 1}
           />
-          <span class="field-suffix">{inDollars ? currencySymbol(currency) : '%'}</span>
+          <span class="field-suffix">{inDollars ? currencySymbol(currency, shop.store?.moneyStyle) : '%'}</span>
         </label>
         <label>
           {t('coupons.appliesTo')}

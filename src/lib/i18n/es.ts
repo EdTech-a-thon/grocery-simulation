@@ -221,6 +221,7 @@ const es: LanguagePack = {
     'settings.roundTo': 'Redondear a {amount}',
     'settings.roundedTo': 'Todos los precios están redondeados a {amount}.',
     'settings.undoRounding': 'Deshacer',
+    'settings.moneyStyle': 'Formato de precios',
     'settings.advanced': 'Configuración avanzada',
     'settings.advancedHelp': 'Cambiar el nombre de los productos',
 

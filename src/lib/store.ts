@@ -1,5 +1,5 @@
 import { aisles } from './catalog'
-import { convert, currencyOf, isCurrencyCode, maxPrice, roundToRoundNumber } from './currency'
+import { convert, currencyOf, isCurrencyCode, isMoneyStyle, maxPrice, roundToRoundNumber } from './currency'
 import { productById, isStoreBrand, nameBrandIdOf } from './products'
 import { isSizeUnit, type Measure, type PackageSize } from './sizes'
 import { isPackagedProduct } from './unbranded'
@@ -42,6 +42,12 @@ export type Store = {
   measure: Measure
   /** The ISO code of the money every price in this store is in — see currency.ts. */
   currency: string
+  /**
+   * How the class writes money, as a locale from moneyStyleLocales: 'fr-FR'
+   * for 5,43 $. Empty for the way the currency's own country writes it. It
+   * stays when the currency changes, since it is the class's habit, not the money's.
+   */
+  moneyStyle: string
   /** Whether every price is snapped to the currency's round number (0,10 €, ¥10...) — see roundPrices(). */
   rounded: boolean
   couponsEnabled: boolean
@@ -77,7 +83,7 @@ export type Store = {
 export type StoreSettings = Pick<Store, 'name' | 'color' | 'brandMode' | 'unitPricing' | 'measure' | 'currency' | 'couponsEnabled' | 'taxEnabled' | 'salesTax'>
 
 export function newStore(settings: StoreSettings): Store {
-  return { ...settings, rounded: false, prices: {}, stocked: {}, sizes: {}, aisleNames: {}, productNames: {}, coupons: [] }
+  return { ...settings, moneyStyle: '', rounded: false, prices: {}, stocked: {}, sizes: {}, aisleNames: {}, productNames: {}, coupons: [] }
 }
 
 /**
@@ -176,6 +182,8 @@ export type PackedStore = {
   m?: 'metric'
   /** The currency code. Omitted for US dollars. */
   e?: string
+  /** The money style's locale. Omitted for the currency's own way of writing it. */
+  l?: string
   /** Present only when prices are rounded to the currency's round number. */
   r?: 1
   /** The sales tax rate; present only when the store charges tax. */
@@ -199,6 +207,7 @@ export function packStore(store: Store): PackedStore {
   if (store.unitPricing !== 'unit') packed.u = store.unitPricing
   if (store.measure !== 'us') packed.m = store.measure
   if (store.currency !== 'USD') packed.e = store.currency
+  if (store.moneyStyle) packed.l = store.moneyStyle
   if (store.rounded) packed.r = 1
   if (store.taxEnabled) packed.t = store.salesTax
   if (!store.couponsEnabled) packed.x = 1
@@ -287,6 +296,7 @@ export function unpackStore(value: unknown): Store | null {
     unitPricing: value.u === 'size' || value.u === 'off' ? value.u : 'unit',
     measure: value.m === 'metric' ? 'metric' : 'us',
     currency,
+    moneyStyle: isMoneyStyle(value.l) ? value.l : '',
     rounded: value.r === 1,
     couponsEnabled: value.x !== 1,
     taxEnabled: salesTax !== null,
