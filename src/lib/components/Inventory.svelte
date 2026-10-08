@@ -1,10 +1,10 @@
 <script lang="ts">
   import Icon from '$lib/components/Icon.svelte'
   import { aisleImage, aisles, type AisleItem } from '$lib/catalog'
-  import { aisleTitle, productName, t, unitPriceText } from '$lib/i18n/index.svelte'
+  import { aisleTitle, t, unitPriceText } from '$lib/i18n/index.svelte'
   import { currencySymbol, decimalsOf, maxPrice, symbolAfterNumber } from '$lib/currency'
   import { isStoreBrand, productById } from '$lib/products'
-  import { aisleNameFor, isStocked, priceFor, setStocked, shop, sizeFor, snapPrice, usualSizeFor } from '$lib/shop.svelte'
+  import { aisleNameFor, isStocked, priceFor, productNameFor, setStocked, shop, sizeFor, snapPrice, usualSizeFor } from '$lib/shop.svelte'
   import { isSizeUnit, unitsFor, type PackageSize } from '$lib/sizes'
   import { maxAisleNameLength, priceStepOf } from '$lib/store'
   import { teacher } from '$lib/teacher.svelte'
@@ -189,7 +189,7 @@
       <div class="price-grid">
         {#each visibleItems as item (item.id)}
           {@const product = productById[item.id]}
-          {@const name = productName(item.id)}
+          {@const name = productNameFor(item.id)}
           {@const size = sizeFor(item.id)}
           <!-- The checkbox is the keyboard's way to do what a click on the card does. -->
           <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->

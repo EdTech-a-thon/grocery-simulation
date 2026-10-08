@@ -1,15 +1,15 @@
 <script lang="ts">
   import { addToCart, quantityInCart } from '$lib/cart.svelte'
   import type { ShelfItem } from '$lib/catalog'
-  import { productName, t, unitPriceText } from '$lib/i18n/index.svelte'
-  import { money, shop, sizeFor } from '$lib/shop.svelte'
+  import { t, unitPriceText } from '$lib/i18n/index.svelte'
+  import { money, productNameFor, shop, sizeFor } from '$lib/shop.svelte'
   import { formatSize } from '$lib/sizes'
 
   let { item }: { item: ShelfItem } = $props()
   const quantity = $derived(quantityInCart(item))
   // The shelf label is looked up rather than read off the item, so the aisle
   // changes language without anything already in the cart having to move.
-  const name = $derived(productName(item.id))
+  const name = $derived(productNameFor(item.id))
 
   // The teacher decides how much of the arithmetic the tag does for the class.
   const unitPricing = $derived(shop.store?.unitPricing ?? 'unit')

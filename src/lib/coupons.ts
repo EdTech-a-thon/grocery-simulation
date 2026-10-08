@@ -1,10 +1,10 @@
 import { cart } from './cart.svelte'
-import { money } from './shop.svelte'
-import { productName, t } from './i18n/index.svelte'
+import { money, productNameFor } from './shop.svelte'
+import { t } from './i18n/index.svelte'
 import type { Coupon } from './store'
 
 export function formatCouponItem(coupon: Coupon) {
-  return coupon.productId === 'all' ? t('coupon.entirePurchase') : productName(coupon.productId)
+  return coupon.productId === 'all' ? t('coupon.entirePurchase') : productNameFor(coupon.productId)
 }
 
 export function couponCopies(coupon: Coupon) {
@@ -33,7 +33,7 @@ export function discountFor(coupon: Coupon, eligibleTotal: number) {
 /** Why this coupon cannot be used right now, or '' when it can. */
 export function couponStatus(coupon: Coupon) {
   if (coupon.productId !== 'all' && !cart.lines.some((line) => line.id === coupon.productId)) {
-    return t('coupon.needsItem', { name: productName(coupon.productId) || t('coupon.theItem') })
+    return t('coupon.needsItem', { name: productNameFor(coupon.productId) || t('coupon.theItem') })
   }
   return ''
 }

@@ -64,6 +64,12 @@ export type Store = {
    * teacher's own words, so they show as typed in every language.
    */
   aisleNames: Record<string, string>
+  /**
+   * Products the teacher renamed, by the name brand's id. The CG twin takes the
+   * same name with the brand in front, and like aisle names these show as typed
+   * in every language.
+   */
+  productNames: Record<string, string>
   coupons: Coupon[]
 }
 
@@ -71,7 +77,7 @@ export type Store = {
 export type StoreSettings = Pick<Store, 'name' | 'color' | 'brandMode' | 'unitPricing' | 'measure' | 'currency' | 'couponsEnabled' | 'taxEnabled' | 'salesTax'>
 
 export function newStore(settings: StoreSettings): Store {
-  return { ...settings, rounded: false, prices: {}, stocked: {}, sizes: {}, aisleNames: {}, coupons: [] }
+  return { ...settings, rounded: false, prices: {}, stocked: {}, sizes: {}, aisleNames: {}, productNames: {}, coupons: [] }
 }
 
 /**
@@ -86,6 +92,9 @@ export function stockedByDefault(brandMode: BrandMode, productId: string) {
 
 /** Long enough for "Breakfast & Cereal", short enough to fit the aisle sign. */
 export const maxAisleNameLength = 30
+
+/** Long enough for "Chocolate Chip Cookies", short enough for a shelf tag. */
+export const maxProductNameLength = 30
 
 export function newCouponCode() {
   // Keep printed codes short and unambiguous for students to type.
@@ -178,6 +187,8 @@ export type PackedStore = {
   z?: Record<string, [amount: number, unit: string]>
   /** Renamed aisles, by English title. */
   a?: Record<string, string>
+  /** Renamed products, by name-brand id. */
+  i?: Record<string, string>
   q?: PackedCoupon[]
 }
 
@@ -199,6 +210,7 @@ export function packStore(store: Store): PackedStore {
     packed.z = Object.fromEntries(Object.entries(store.sizes).map(([id, size]) => [id, [size.amount, size.unit]]))
   }
   if (Object.keys(store.aisleNames).length) packed.a = { ...store.aisleNames }
+  if (Object.keys(store.productNames).length) packed.i = { ...store.productNames }
   if (store.coupons.length) {
     packed.q = store.coupons.map((coupon) => [
       coupon.code, coupon.discountType === 'dollars' ? 'd' : 'p', coupon.discountAmount, coupon.productId,
@@ -251,6 +263,14 @@ export function unpackStore(value: unknown): Store | null {
     }
   }
 
+  const productNames: Record<string, string> = {}
+  if (isRecord(value.i)) {
+    for (const [id, productName] of Object.entries(value.i)) {
+      const trimmed = typeof productName === 'string' ? productName.trim().slice(0, maxProductNameLength) : ''
+      if (trimmed && productById[id] && !isStoreBrand(id)) productNames[id] = trimmed
+    }
+  }
+
   const coupons: Coupon[] = []
   if (Array.isArray(value.q)) {
     for (const entry of value.q) {
@@ -275,6 +295,7 @@ export function unpackStore(value: unknown): Store | null {
     stocked,
     sizes,
     aisleNames,
+    productNames,
     coupons,
   }
 }

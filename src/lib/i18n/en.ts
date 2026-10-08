@@ -187,6 +187,7 @@ const en: LanguagePack = {
     'teacher.couponsTitle': 'Coupons',
     'teacher.settingsTitle': 'Store settings',
     'teacher.settingsNav': 'Settings',
+    'teacher.advancedTitle': 'Advanced settings',
     'teacher.studentView': 'Student View',
     'teacher.exitStudentView': 'Exit student view',
 
@@ -248,6 +249,8 @@ const en: LanguagePack = {
     'settings.roundTo': 'Round to {amount}',
     'settings.roundedTo': 'Every price is rounded to {amount}.',
     'settings.undoRounding': 'Undo',
+    'settings.advanced': 'Advanced settings',
+    'settings.advancedHelp': 'Rename products',
 
     'color.green': 'Green',
     'color.blue': 'Blue',
@@ -256,6 +259,19 @@ const en: LanguagePack = {
     'color.yellow': 'Yellow',
     'color.pink': 'Pink',
     'color.red': 'Red',
+
+    // ------------------------------------------------------ advanced settings
+    'advanced.back': 'Back to settings',
+    'advanced.productNamesTitle': 'Product names',
+    'advanced.productNamesHelp':
+      'Call any product what your class calls it. Students see your name on the shelf, in the cart and on the receipt, in every language. The CG version gets the same name. Leave a box empty to keep the original name.',
+    'advanced.search': 'Find a product',
+    'advanced.newName': 'New name for {name}',
+    'advanced.reset': 'Undo',
+    'advanced.resetName': 'Use the original name for {name}',
+    'advanced.renamedCount.one': '{count} product renamed',
+    'advanced.renamedCount.other': '{count} products renamed',
+    'advanced.noMatches': 'No products match.',
 
     // ------------------------------------------------------ prices and stock
     'prices.aisleListTitle': 'Aisles',

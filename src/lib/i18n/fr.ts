@@ -161,6 +161,7 @@ const fr: LanguagePack = {
     'teacher.couponsTitle': 'Bons de réduction',
     'teacher.settingsTitle': 'Paramètres du magasin',
     'teacher.settingsNav': 'Paramètres',
+    'teacher.advancedTitle': 'Paramètres avancés',
     'teacher.studentView': 'Vue élève',
     'teacher.exitStudentView': 'Quitter la vue élève',
 
@@ -221,6 +222,8 @@ const fr: LanguagePack = {
     'settings.roundTo': 'Arrondir à {amount}',
     'settings.roundedTo': 'Tous les prix sont arrondis à {amount}.',
     'settings.undoRounding': 'Annuler',
+    'settings.advanced': 'Paramètres avancés',
+    'settings.advancedHelp': 'Renommer les produits',
 
     'color.green': 'Vert',
     'color.blue': 'Bleu',
@@ -229,6 +232,18 @@ const fr: LanguagePack = {
     'color.yellow': 'Jaune',
     'color.pink': 'Rose',
     'color.red': 'Rouge',
+
+    'advanced.back': 'Retour aux paramètres',
+    'advanced.productNamesTitle': 'Noms des produits',
+    'advanced.productNamesHelp':
+      'Appelez chaque produit comme votre classe l’appelle. Les élèves voient votre nom sur le rayon, dans le panier et sur le ticket, dans toutes les langues. La version CG prend le même nom. Laissez une case vide pour garder le nom d’origine.',
+    'advanced.search': 'Chercher un produit',
+    'advanced.newName': 'Nouveau nom pour {name}',
+    'advanced.reset': 'Annuler',
+    'advanced.resetName': 'Reprendre le nom d’origine de {name}',
+    'advanced.renamedCount.one': '{count} produit renommé',
+    'advanced.renamedCount.other': '{count} produits renommés',
+    'advanced.noMatches': 'Aucun produit ne correspond.',
 
     'prices.aisleListTitle': 'Rayons',
 

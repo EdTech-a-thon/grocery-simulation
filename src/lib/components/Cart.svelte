@@ -2,10 +2,10 @@
   import ReceiptBody from './ReceiptBody.svelte'
   import { applyCoupon, cart, cartTotals, clearCart, increaseCartLine, removeFromCart } from '$lib/cart.svelte'
   import { couponDiscountLabel, couponStatus } from '$lib/coupons'
-  import { plural, productName, t } from '$lib/i18n/index.svelte'
+  import { plural, t } from '$lib/i18n/index.svelte'
   import { printReceipt } from '$lib/printing.svelte'
   import { buildReceipt, receiptText } from '$lib/receipt'
-  import { money, shop } from '$lib/shop.svelte'
+  import { money, productNameFor, shop } from '$lib/shop.svelte'
 
   const maxCoupons = 5
 
@@ -84,7 +84,7 @@
       <div class="cart-line" data-key={line.key}>
         <span class="cart-item-image" style="background-image:url('{line.image}')"></span>
         <div class="cart-item-details">
-          <strong>{productName(line.id)}</strong>
+          <strong>{productNameFor(line.id)}</strong>
           <span>{t('cart.each', { price: money(line.price) })}</span>
           <span class:cart-line-discounted={lineSavings > 0} class="cart-line-total">
             {line.quantity} x {money(line.price)} =
@@ -95,9 +95,9 @@
           {/each}
         </div>
         <div class="cart-controls">
-          <button class="ghost" type="button" aria-label={t('product.removeOne', { name: productName(line.id) })} onclick={() => removeFromCart(line.key)}>-</button>
+          <button class="ghost" type="button" aria-label={t('product.removeOne', { name: productNameFor(line.id) })} onclick={() => removeFromCart(line.key)}>-</button>
           <span aria-label={t('cart.quantity')}>{line.quantity}</span>
-          <button class="ghost" type="button" aria-label={t('product.addOne', { name: productName(line.id) })} onclick={() => increaseCartLine(line.key)}>+</button>
+          <button class="ghost" type="button" aria-label={t('product.addOne', { name: productNameFor(line.id) })} onclick={() => increaseCartLine(line.key)}>+</button>
         </div>
       </div>
     {/each}

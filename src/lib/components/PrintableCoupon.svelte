@@ -1,8 +1,8 @@
 <script lang="ts">
   import { formatCouponItem } from '$lib/coupons'
-  import { productName, t } from '$lib/i18n/index.svelte'
+  import { t } from '$lib/i18n/index.svelte'
   import { productById } from '$lib/products'
-  import { money, shop } from '$lib/shop.svelte'
+  import { money, productNameFor, shop } from '$lib/shop.svelte'
   import type { Coupon } from '$lib/store'
 
   let { coupon }: { coupon: Coupon } = $props()
@@ -38,7 +38,7 @@
     <div class="coupon-body">
       <div class="coupon-art">
         {#if product}
-          <img src={product.image} alt={productName(coupon.productId)} />
+          <img src={product.image} alt={productNameFor(coupon.productId)} />
         {:else}
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M3 4h2.2l2.4 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.76L20.4 7H6.2" />

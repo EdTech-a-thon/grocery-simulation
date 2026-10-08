@@ -1,8 +1,8 @@
 import { browser } from '$app/environment'
 import { aisles, catalogPrice, type AisleConfig, type AisleItem } from './catalog'
 import { currencyOf, formatMoney, priceEndingInNine, roundToRoundNumber, roundToStep } from './currency'
-import { isStoreBrand, nameBrandIdOf, storeBrandPrice } from './products'
-import { aisleTitle } from './i18n/index.svelte'
+import { isStoreBrand, nameBrandIdOf, storeBrandPrefix, storeBrandPrice } from './products'
+import { aisleTitle, productName } from './i18n/index.svelte'
 import { cart, forgetCartOf, priceCartIn, useCartOf } from './cart.svelte'
 import { catalogSize, inMeasure } from './sizes'
 import { stockedByDefault, storeColors, type Store, type StoreColor } from './store'
@@ -190,6 +190,16 @@ export function money(value: number) {
 /** What the open store calls an aisle: the teacher's name for it, or the catalog's in the reader's language. */
 export function aisleNameFor(englishTitle: string) {
   return shop.store?.aisleNames[englishTitle] ?? aisleTitle(englishTitle)
+}
+
+/**
+ * What the open store calls a product: the teacher's name for it, or the
+ * catalog's in the reader's language. A renamed name brand renames its CG twin too.
+ */
+export function productNameFor(productId: string) {
+  const renamed = shop.store?.productNames[nameBrandIdOf(productId)]
+  if (!renamed) return productName(productId)
+  return isStoreBrand(productId) ? `${storeBrandPrefix} ${renamed}` : renamed
 }
 
 /** Aisles with at least one stocked product, in catalog order. */

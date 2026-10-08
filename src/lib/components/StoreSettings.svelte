@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import Icon from '$lib/components/Icon.svelte'
   import StorePreview from '$lib/components/StorePreview.svelte'
   import { currencies, currencyName, currencyOf, formatMoney } from '$lib/currency'
   import { current, t } from '$lib/i18n/index.svelte'
@@ -11,7 +12,7 @@
    * currency and sales tax, with the store itself beside the form. Every change
    * applies as it is made, so the preview is always the store the class will see.
    */
-  let { isNew = false }: { isNew?: boolean } = $props()
+  let { isNew = false, onAdvanced }: { isNew?: boolean; onAdvanced: () => void } = $props()
 
   let nameInput = $state<HTMLInputElement>()
 
@@ -120,6 +121,14 @@
           </label>
         {/if}
       </fieldset>
+
+      <button class="advanced-settings-link" type="button" onclick={onAdvanced}>
+        <span>
+          <strong>{t('settings.advanced')}</strong>
+          <span>{t('settings.advancedHelp')}</span>
+        </span>
+        <Icon name="chevron-right" />
+      </button>
     </form>
 
     <StorePreview store={shop.store} />
